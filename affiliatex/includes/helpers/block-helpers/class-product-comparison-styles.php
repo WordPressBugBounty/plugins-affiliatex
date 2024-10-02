@@ -172,10 +172,16 @@ class AffiliateX_Product_Comparison_Styles {
 				'margin-bottom'    => isset( $attr['buttonMargin']['desktop']['bottom'] ) ? $attr['buttonMargin']['desktop']['bottom'] : '0px',
 				'color'            => isset( $attr['buttonTextColor'] ) ? $attr['buttonTextColor'] : '#fff',
 				'background-color' => isset( $attr['buttonBgColor'] ) ? $attr['buttonBgColor'] : $global_btn_color,
+				'border-style'     => isset( $attr['buttonBorder']['style'] ) ? $attr['buttonBorder']['style'] : 'none',
+				'border-width'     => isset( $attr['buttonBorder']['width'] ) ? $attr['buttonBorder']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['buttonBorder']['color']['color'] ) ? $attr['buttonBorder']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['buttonShadow'] ) && $attr['buttonShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['buttonShadow'] ) : 'none',
+				'border-radius'    => isset( $attr['buttonRadius']['desktop']['top'] ) && isset( $attr['buttonRadius']['desktop']['right'] ) && isset( $attr['buttonRadius']['desktop']['bottom'] ) && isset( $attr['buttonRadius']['desktop']['left'] ) ? $attr['buttonRadius']['desktop']['top'] . ' ' . $attr['buttonRadius']['desktop']['right'] . ' ' . $attr['buttonRadius']['desktop']['bottom'] . ' ' . $attr['buttonRadius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-versus-table-wrap .affiliatex-button.affx-winner-button:hover' => array(
 				'color'            => isset( $attr['buttonTextHoverColor'] ) ? $attr['buttonTextHoverColor'] : '#fff',
 				'background-color' => isset( $attr['buttonBgHoverColor'] ) ? $attr['buttonBgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['buttonborderHoverColor'] ) ? $attr['buttonborderHoverColor'] : '#ffffff',
 			),
 			' .affx-versus-table-wrap .affx-price'        => array(
 				'font-family'     => isset( $attr['priceTypography']['family'] ) ? $attr['priceTypography']['family'] : $global_font_family,
@@ -225,6 +231,7 @@ class AffiliateX_Product_Comparison_Styles {
 	}
 
 	public static function get_mobileselectors( $attr ) {
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$mobile_selector = array(
 			' .affx-product-comparison-block-container'   => array(
@@ -294,6 +301,16 @@ class AffiliateX_Product_Comparison_Styles {
 				'margin-left'    => isset( $attr['buttonMargin']['mobile']['left'] ) ? $attr['buttonMargin']['mobile']['left'] : '0px',
 				'margin-right'   => isset( $attr['buttonMargin']['mobile']['right'] ) ? $attr['buttonMargin']['mobile']['right'] : '0px',
 				'margin-bottom'  => isset( $attr['buttonMargin']['mobile']['bottom'] ) ? $attr['buttonMargin']['mobile']['bottom'] : '0px',
+				'border-style'     => isset( $attr['buttonBorder']['style'] ) ? $attr['buttonBorder']['style'] : 'none',
+				'border-width'     => isset( $attr['buttonBorder']['width'] ) ? $attr['buttonBorder']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['buttonBorder']['color']['color'] ) ? $attr['buttonBorder']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['buttonShadow'] ) && $attr['buttonShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['buttonShadow'] ) : 'none',
+				'border-radius'    => isset( $attr['buttonRadius']['desktop']['top'] ) && isset( $attr['buttonRadius']['desktop']['right'] ) && isset( $attr['buttonRadius']['desktop']['bottom'] ) && isset( $attr['buttonRadius']['desktop']['left'] ) ? $attr['buttonRadius']['desktop']['top'] . ' ' . $attr['buttonRadius']['desktop']['right'] . ' ' . $attr['buttonRadius']['desktop']['bottom'] . ' ' . $attr['buttonRadius']['desktop']['left'] . ' ' : '0 0 0 0',
+			),
+			' .affx-versus-table-wrap .affiliatex-button.affx-winner-button:hover' => array(
+				'color'            => isset( $attr['buttonTextHoverColor'] ) ? $attr['buttonTextHoverColor'] : '#fff',
+				'background-color' => isset( $attr['buttonBgHoverColor'] ) ? $attr['buttonBgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['buttonborderHoverColor'] ) ? $attr['buttonborderHoverColor'] : '#ffffff',
 			),
 			' .affx-versus-table-wrap .affx-price'        => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['mobile'] ) ? $attr['priceTypography']['size']['mobile'] : '16px',
@@ -321,6 +338,7 @@ class AffiliateX_Product_Comparison_Styles {
 	}
 
 	public static function get_tabletselectors( $attr ) {
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$tablet_selector = array(
 			' .affx-product-comparison-block-container'   => array(
@@ -390,6 +408,16 @@ class AffiliateX_Product_Comparison_Styles {
 				'margin-left'    => isset( $attr['buttonMargin']['tablet']['left'] ) ? $attr['buttonMargin']['tablet']['left'] : '0px',
 				'margin-right'   => isset( $attr['buttonMargin']['tablet']['right'] ) ? $attr['buttonMargin']['tablet']['right'] : '0px',
 				'margin-bottom'  => isset( $attr['buttonMargin']['tablet']['bottom'] ) ? $attr['buttonMargin']['tablet']['bottom'] : '0px',
+				'border-style'     => isset( $attr['buttonBorder']['style'] ) ? $attr['buttonBorder']['style'] : 'none',
+				'border-width'     => isset( $attr['buttonBorder']['width'] ) ? $attr['buttonBorder']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['buttonBorder']['color']['color'] ) ? $attr['buttonBorder']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['buttonShadow'] ) && $attr['buttonShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['buttonShadow'] ) : 'none',
+				'border-radius'    => isset( $attr['buttonRadius']['desktop']['top'] ) && isset( $attr['buttonRadius']['desktop']['right'] ) && isset( $attr['buttonRadius']['desktop']['bottom'] ) && isset( $attr['buttonRadius']['desktop']['left'] ) ? $attr['buttonRadius']['desktop']['top'] . ' ' . $attr['buttonRadius']['desktop']['right'] . ' ' . $attr['buttonRadius']['desktop']['bottom'] . ' ' . $attr['buttonRadius']['desktop']['left'] . ' ' : '0 0 0 0',
+			),
+			' .affx-versus-table-wrap .affiliatex-button.affx-winner-button:hover' => array(
+				'color'            => isset( $attr['buttonTextHoverColor'] ) ? $attr['buttonTextHoverColor'] : '#fff',
+				'background-color' => isset( $attr['buttonBgHoverColor'] ) ? $attr['buttonBgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['buttonborderHoverColor'] ) ? $attr['buttonborderHoverColor'] : '#ffffff',
 			),
 			' .affx-versus-table-wrap .affx-price'        => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['tablet'] ) ? $attr['priceTypography']['size']['tablet'] : '16px',

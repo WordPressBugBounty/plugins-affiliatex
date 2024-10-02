@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AffiliateX_Pro\\Blocks\\' => array($baseDir . '/pro/includes/blocks'),
     'AffiliateX_Pro\\' => array($baseDir . '/pro/includes'),
+    'AffiliateX\\Notice\\' => array($baseDir . '/includes/notice'),
     'AffiliateX\\Blocks\\' => array($baseDir . '/includes/blocks'),
     'AffiliateX\\' => array($baseDir . '/includes'),
 );

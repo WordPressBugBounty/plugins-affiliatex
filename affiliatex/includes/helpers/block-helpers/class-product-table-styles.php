@@ -50,7 +50,7 @@ class AffiliateX_Product_Table_Styles {
 		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
 		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#2670FF';
 		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
-		
+
 		$bgType           = isset( $attr['bgType'] ) ? $attr['bgType'] : 'solid';
 		$bgGradient       = isset( $attr['bgColorGradient']['gradient'] ) ? $attr['bgColorGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$bgColor          = isset( $attr['bgColorSolid'] ) ? $attr['bgColorSolid'] : '#FFFFFF';
@@ -222,6 +222,11 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'     => isset( $attr['button1Padding']['desktop']['left'] ) ? $attr['button1Padding']['desktop']['left'] : '5px',
 				'padding-right'    => isset( $attr['button1Padding']['desktop']['right'] ) ? $attr['button1Padding']['desktop']['right'] : '5px',
 				'padding-bottom'   => isset( $attr['button1Padding']['desktop']['bottom'] ) ? $attr['button1Padding']['desktop']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary' => array(
 				'color'            => isset( $attr['button2TextColor'] ) ? $attr['button2TextColor'] : '#FFFFFF',
@@ -234,14 +239,21 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'     => isset( $attr['button2Padding']['desktop']['left'] ) ? $attr['button2Padding']['desktop']['left'] : '5px',
 				'padding-right'    => isset( $attr['button2Padding']['desktop']['right'] ) ? $attr['button2Padding']['desktop']['right'] : '5px',
 				'padding-bottom'   => isset( $attr['button2Padding']['desktop']['bottom'] ) ? $attr['button2Padding']['desktop']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
 				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'color'           => isset( $attr['priceColor'] ) ? $attr['priceColor'] : '#262B33',
@@ -283,6 +295,7 @@ class AffiliateX_Product_Table_Styles {
 	}
 
 	public static function get_mobileselectors( $attr ) {
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$mobile_selectors = array(
 			' .affx-pdt-table-wrapper'                => array(
@@ -366,6 +379,11 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button1Padding']['mobile']['left'] ) ? $attr['button1Padding']['mobile']['left'] : '5px',
 				'padding-right'  => isset( $attr['button1Padding']['mobile']['right'] ) ? $attr['button1Padding']['mobile']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button1Padding']['mobile']['bottom'] ) ? $attr['button1Padding']['mobile']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary' => array(
 				'margin-top'     => isset( $attr['button2Margin']['mobile']['top'] ) ? $attr['button2Margin']['mobile']['top'] : '5px',
@@ -376,6 +394,21 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button2Padding']['mobile']['left'] ) ? $attr['button2Padding']['mobile']['left'] : '5px',
 				'padding-right'  => isset( $attr['button2Padding']['mobile']['right'] ) ? $attr['button2Padding']['mobile']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button2Padding']['mobile']['bottom'] ) ? $attr['button2Padding']['mobile']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+			),
+			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
+				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
+				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
+			),
+			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
+				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
+				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['mobile'] ) ? $attr['priceTypography']['size']['mobile'] : '22px',
@@ -399,6 +432,7 @@ class AffiliateX_Product_Table_Styles {
 	}
 
 	public static function get_tabletselectors( $attr ) {
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$tablet_selectors = array(
 			' .affx-pdt-table-wrapper'                => array(
@@ -482,6 +516,11 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button1Padding']['tablet']['left'] ) ? $attr['button1Padding']['tablet']['left'] : '5px',
 				'padding-right'  => isset( $attr['button1Padding']['tablet']['right'] ) ? $attr['button1Padding']['tablet']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button1Padding']['tablet']['bottom'] ) ? $attr['button1Padding']['tablet']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary' => array(
 				'margin-top'     => isset( $attr['button2Margin']['tablet']['top'] ) ? $attr['button2Margin']['tablet']['top'] : '5px',
@@ -492,6 +531,21 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button2Padding']['tablet']['left'] ) ? $attr['button2Padding']['tablet']['left'] : '5px',
 				'padding-right'  => isset( $attr['button2Padding']['tablet']['right'] ) ? $attr['button2Padding']['tablet']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button2Padding']['tablet']['bottom'] ) ? $attr['button2Padding']['tablet']['bottom'] : '10px',
+				'border-style'     => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
+				'border-width'     => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
+				'border-color'     => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
+				'box-shadow'       => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
+				'border-radius'    => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+			),
+			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
+				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
+				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
+				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
+			),
+			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
+				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
+				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['tablet'] ) ? $attr['priceTypography']['size']['tablet'] : '22px',

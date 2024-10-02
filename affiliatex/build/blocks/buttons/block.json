@@ -203,7 +203,17 @@
       "type": "string",
       "default": "solid"
     },
+    "buttonHoverBGType": {
+      "type": "string",
+      "default": "solid"
+    },
     "buttonBgGradient": {
+      "type": "object",
+      "default": {
+        "gradient": "linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)"
+      }
+    },
+    "buttonBgHoverGradient": {
       "type": "object",
       "default": {
         "gradient": "linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)"

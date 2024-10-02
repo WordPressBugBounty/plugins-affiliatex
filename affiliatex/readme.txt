@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.6.2
 Requires PHP: 7.0
-Stable tag: 1.2.8.1
+Stable tag: 1.2.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -71,6 +71,8 @@ Do you have question, feedback? Let us know! 👉 [https://affiliatexblocks.com/
 
 * **[Product Image Button](https://affiliatexblocks.com/product-image/)** - Enhance product images with customizable buttons, driving more clicks and conversions.
 
+* **[Rating Box](https://affiliatexblocks.com/rating-box/)** -  It allows you to display a rating box with progress bars for each metric. Fully customizable to match your site's design.
+
 == FEATURES OF AFFILIATEX ==
 
 AffiliateX is an Amazon WordPress plugin built for affiliate marketers who want speed, high Click Through Rate (CTR) and conversion.
@@ -133,6 +135,10 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/).
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.2.9 - 30.09.2024 =
+* Feature: Review and Campaign Notices added
+* Feature: Rating Box block added
 
 = 1.2.8 - 16.09.2024 =
 * Feature: Premium Blocks previews added

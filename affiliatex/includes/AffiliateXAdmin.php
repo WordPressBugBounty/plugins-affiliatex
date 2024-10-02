@@ -92,18 +92,18 @@ class AffiliateXAdmin {
             ) );
             wp_enqueue_script( 'affiliatex-admin' );
             // Styles.
-            wp_enqueue_style( 'affiliatex-dashboard', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/build/dashboard.css' );
+            wp_enqueue_style( 'affiliatex-dashboard', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/dashboard.css' );
             // Styles.
-            wp_enqueue_style( 'affiliatex-options-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/build/admin.css' );
+            wp_enqueue_style( 'affiliatex-options-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css' );
             wp_enqueue_style(
                 'toastr',
-                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/assets/css/toastr.min.css',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/css/toastr.min.css',
                 array(),
                 '2.1.3',
                 'all'
             );
         }
-        wp_enqueue_style( 'affiliatex-admin-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/build/adminCSS.css' );
+        wp_enqueue_style( 'affiliatex-admin-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/adminCSS.css' );
     }
 
     /**
@@ -150,7 +150,7 @@ class AffiliateXAdmin {
             );
         }
         if ( !isset( $wp_customize ) ) {
-            wp_enqueue_style( 'affiliatex-gb-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/build/admin.css' );
+            wp_enqueue_style( 'affiliatex-gb-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css' );
         }
         if ( function_exists( 'gutenberg_get_block_categories' ) ) {
             $scripts = 'js/scripts-old.js';
@@ -160,7 +160,7 @@ class AffiliateXAdmin {
         if ( !isset( $wp_customize ) ) {
             wp_enqueue_script(
                 'affiliatex-disable-blocks',
-                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/assets/' . $scripts,
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/' . $scripts,
                 array('wp-edit-post'),
                 AFFILIATEX_VERSION,
                 false
@@ -170,7 +170,7 @@ class AffiliateXAdmin {
         // Styles.
         wp_enqueue_style(
             'all',
-            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/assets/dist/fontawesome/css/all.min.css',
+            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/dist/fontawesome/css/all.min.css',
             array(),
             '5.2.0'
         );

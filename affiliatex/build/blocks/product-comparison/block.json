@@ -146,6 +146,57 @@
       "type": "string",
       "default": "right"
     },
+    "buttonBorder": {
+      "type": "object",
+      "default": {
+        "width": "1",
+        "style": "none",
+        "color": {
+          "color": "#dddddd"
+        }
+      }
+    },
+    "buttonborderHoverColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "buttonRadius": {
+      "type": "object",
+      "default": {
+        "desktop": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "mobile": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "tablet": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        }
+      }
+    },
+    "buttonShadow": {
+      "type": "object",
+      "default": {
+        "enable": false,
+        "h_offset": 0,
+        "v_offset": 5,
+        "blur": 20,
+        "spread": 0,
+        "inset": false,
+        "color": {
+          "color": "rgba(210,213,218,0.2)"
+        }
+      }
+    },
     "buttonPadding": {
       "type": "object",
       "default": {

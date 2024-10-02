@@ -91,7 +91,8 @@ function affx_get_block_settings( $encode = false ) {
 			'topProducts'              => true,
 			'versus'                   => true,
 			'productTable'             => true,
-			'productComparison'        => true
+			'productComparison'        => true,
+			'ratingBox' 	   		   => true
 		)
 	);
 
@@ -217,10 +218,11 @@ function affx_get_disabled_blocks() {
 		'topProducts'              => 'affiliatex/top-products',
 		'versus'                   => 'affiliatex/versus',
 		'productTable'             => 'affiliatex/product-table',
-		'productComparison'        => 'affiliatex/product-comparison'
+		'productComparison'        => 'affiliatex/product-comparison',
+		'ratingBox'				   => 'affiliatex/rating-box'
 	);
 
-	$pro_blocks = array( 'singleProductProsAndCons', 'productImageButton', 'singleCoupon', 'couponGrid', 'productTabs', 'couponListing', 'topProducts', 'versus' );
+	$pro_blocks = array( 'singleProductProsAndCons', 'productImageButton', 'singleCoupon', 'couponGrid', 'productTabs', 'couponListing', 'topProducts', 'versus', 'ratingBox' );
 
 	$license_activated = affiliatex_fs()->is__premium_only();
 
@@ -263,7 +265,8 @@ function is_affiliatex_block() {
 		has_block( 'affiliatex/top-products' ) ||
 		has_block( 'affiliatex/versus' ) ||
 		has_block( 'affiliatex/product-table' ) ||
-		has_block( 'affiliatex/product-comparison' );
+		has_block( 'affiliatex/product-comparison' ) ||
+		has_block( 'affiliatex/rating-box' );
 
 	return apply_filters( 'is_affiliatex_block', $affx_block );
 }

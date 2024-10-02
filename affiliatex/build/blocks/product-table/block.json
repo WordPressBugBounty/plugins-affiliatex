@@ -113,6 +113,57 @@
       "type": "string",
       "default": "right"
     },
+    "button1Border": {
+      "type": "object",
+      "default": {
+        "width": "1",
+        "style": "none",
+        "color": {
+          "color": "#dddddd"
+        }
+      }
+    },
+    "button1borderHoverColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "button1Radius": {
+      "type": "object",
+      "default": {
+        "desktop": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "mobile": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "tablet": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        }
+      }
+    },
+    "button1Shadow": {
+      "type": "object",
+      "default": {
+        "enable": false,
+        "h_offset": 0,
+        "v_offset": 5,
+        "blur": 20,
+        "spread": 0,
+        "inset": false,
+        "color": {
+          "color": "rgba(210,213,218,0.2)"
+        }
+      }
+    },
     "edButton2": {
       "type": "boolean",
       "default": true
@@ -131,6 +182,57 @@
     "button2IconAlign": {
       "type": "string",
       "default": "right"
+    },
+    "button2Border": {
+      "type": "object",
+      "default": {
+        "width": "1",
+        "style": "none",
+        "color": {
+          "color": "#dddddd"
+        }
+      }
+    },
+    "button2borderHoverColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "button2Radius": {
+      "type": "object",
+      "default": {
+        "desktop": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "mobile": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "tablet": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        }
+      }
+    },
+    "button2Shadow": {
+      "type": "object",
+      "default": {
+        "enable": false,
+        "h_offset": 0,
+        "v_offset": 5,
+        "blur": 20,
+        "spread": 0,
+        "inset": false,
+        "color": {
+          "color": "rgba(210,213,218,0.2)"
+        }
+      }
     },
     "layoutStyle": {
       "type": "string",

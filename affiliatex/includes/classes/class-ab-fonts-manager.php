@@ -247,6 +247,10 @@ class AB_Fonts_Manager {
 					$_block_fonts = $this->get_block_fonts( $block );
 					if ( is_array( $_block_fonts ) ) {
 						foreach ( $_block_fonts as $_block_font ) {
+							if(!is_array($_block_font)){
+								continue;
+							}
+
 							$blocks_fonts = array_merge( $blocks_fonts, $_block_font );
 						}
 					}
@@ -673,7 +677,7 @@ class AB_Fonts_Manager {
 			empty( $saved_data['fonts'] )
 		) {
 			$response = wp_remote_get(
-				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/includes/google-fonts/google-fonts.json'
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'includes/google-fonts/google-fonts.json'
 			);
 
 			$body = wp_remote_retrieve_body( $response );

@@ -114,10 +114,11 @@ final class AffiliateX {
 	 * @return void
 	 */
 	public function includes() {
-		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/includes/helpers/class-affiliatex-helpers.php';
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-helpers.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-block-helpers.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-customization-helper.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/classes/class-ab-fonts-manager.php';
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/notice/NoticeHandler.php';
 	}
 
 	/**

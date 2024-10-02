@@ -42,7 +42,7 @@ class AffiliateXPublic {
 		if ( is_affiliatex_block() ) {
 			wp_enqueue_style(
 				'affiliatex-public', // Handle.
-				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/build/publicCSS.css'
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/publicCSS.css'
 			);
 			$m = new \AB_FONTS_MANAGER();
 			$m->load_dynamic_google_fonts();
@@ -52,7 +52,7 @@ class AffiliateXPublic {
 				// Styles.
 				wp_enqueue_style(
 					'all',
-					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . '/assets/dist/fontawesome/css/all.min.css',
+					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/dist/fontawesome/css/all.min.css',
 					array(),
 					'5.2.0'
 				);
