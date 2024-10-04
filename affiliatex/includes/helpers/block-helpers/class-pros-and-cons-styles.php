@@ -1,4 +1,7 @@
 <?php
+
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Pros and Cons Block Styles
  *

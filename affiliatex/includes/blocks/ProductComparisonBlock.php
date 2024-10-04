@@ -7,6 +7,7 @@
  */
 
 namespace AffiliateX\Blocks;
+use AffiliateX\Helpers\AffiliateX_Helpers;
 
 defined('ABSPATH') || exit;
 
@@ -79,7 +80,7 @@ class ProductComparisonBlock
 		$pcButtonIcon = isset($attributes['pcButtonIcon']) ? $attributes['pcButtonIcon'] : false;
 		$buttonIconAlign = isset($attributes['buttonIconAlign']) ? $attributes['buttonIconAlign'] : '';
 		$buttonIcon = isset($attributes['buttonIcon']) ? $attributes['buttonIcon'] : [];
-		$pcTitleTag = isset($attributes['pcTitleTag']) ? $attributes['pcTitleTag'] : 'h2';
+		$pcTitleTag = isset( $attributes['pcTitleTag'] ) ? AffiliateX_Helpers::validate_tag( $attributes['pcTitleTag'] ) : 'h2';
 		$pcTitleAlign = isset($attributes['pcTitleAlign']) ? $attributes['pcTitleAlign'] : 'center';
 
 		// Get block wrapper attributes

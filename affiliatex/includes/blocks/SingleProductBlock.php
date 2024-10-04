@@ -9,6 +9,8 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -78,10 +80,10 @@ class SingleProductBlock {
     $block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
     $productLayout = isset($attributes['productLayout']) ? $attributes['productLayout'] : '';
     $productTitle = isset($attributes['productTitle']) ? $attributes['productTitle'] : '';
-    $productTitleTag = isset($attributes['productTitleTag']) ? $attributes['productTitleTag'] : 'h2';
+	$productTitleTag = isset($attributes['productTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['productTitleTag'], 'h2') : 'h2';
     $productContent = isset($attributes['productContent']) ? $attributes['productContent'] : '';
     $productSubTitle = isset($attributes['productSubTitle']) ? $attributes['productSubTitle'] : '';
-    $productSubTitleTag = isset($attributes['productSubTitleTag']) ? $attributes['productSubTitleTag'] : 'h3';
+	$productSubTitleTag = isset($attributes['productSubTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['productSubTitleTag'], 'h3') : 'h3';
     $productContentType = isset($attributes['productContentType']) ? $attributes['productContentType'] : '';
     $ContentListType = isset($attributes['ContentListType']) ? $attributes['ContentListType'] : '';
     $productContentList = isset($attributes['productContentList']) ? $attributes['productContentList'] : [];

@@ -1,4 +1,7 @@
 <?php
+
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Button Block Styles
  *
@@ -46,7 +49,7 @@ class AffiliateX_Button_Styles {
 		$buttonBgHoverGradient = isset( $attr['buttonBgHoverGradient']['gradient'] ) ? $attr['buttonBgHoverGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$buttonBGColor    = isset( $attr['buttonBGColor'] ) ? $attr['buttonBGColor'] : $global_btn_color;
 		$buttonBGHoverColor    = isset( $attr['buttonBGHoverColor'] ) ? $attr['buttonBGHoverColor'] : $global_btn_hover_color;
-		
+
 		$variation        = isset( $attr['buttonTypography']['variation'] ) ? $attr['buttonTypography']['variation'] : 'n4';
 
 		$selectors = array(

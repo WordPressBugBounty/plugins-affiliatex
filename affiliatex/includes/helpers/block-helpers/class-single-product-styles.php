@@ -1,4 +1,7 @@
 <?php
+
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * 'Single Product', Block Styles
  *

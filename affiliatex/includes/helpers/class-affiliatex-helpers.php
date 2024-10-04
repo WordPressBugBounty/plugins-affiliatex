@@ -1,4 +1,6 @@
 <?php
+namespace AffiliateX\Helpers;
+
 /**
  * Affiliatex Helpers class
  *
@@ -95,17 +97,22 @@ class AffiliateX_Helpers {
 			return "none";
 		}
 	}
-	
+
 	public static function get_fontweight_variation( $variation ) {
 		$fontType   = $variation[1];
 		$fontWeight = $fontType * 100;
 		return $fontWeight;
 	}
-	
+
 	public static function get_font_style( $variation ) {
 		$variationType = $variation[0];
 		$font          = $variationType === 'n' ? 'normal' : ( $variationType === 'i' ? 'italic' : 'Default' );
 		return $font;
+	}
+
+	public static function validate_tag($tag, $default = 'h2') {
+		$allowed_tags = array('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p');
+		return in_array($tag, $allowed_tags, true) ? $tag : $default;
 	}
 
 }

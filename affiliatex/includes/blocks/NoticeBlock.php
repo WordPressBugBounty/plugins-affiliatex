@@ -7,6 +7,8 @@
 
 namespace AffiliateX\Blocks;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -45,7 +47,7 @@ class NoticeBlock {
 		$attributes = AffiliateX_Customization_Helper::apply_customizations($attributes);
 
 		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
-		$titleTag1 = isset($attributes['titleTag1']) ? $attributes['titleTag1'] : 'h2';
+		$titleTag1 = isset($attributes['titleTag1']) ? AffiliateX_Helpers::validate_tag($attributes['titleTag1']) : 'h2';
 		$layoutStyle = isset($attributes['layoutStyle']) ? $attributes['layoutStyle'] : 'layout-type-1';
 		$noticeTitle = isset($attributes['noticeTitle']) ? $attributes['noticeTitle'] : 'Notice';
 		$noticeTitleIcon = isset($attributes['noticeTitleIcon']['name']) ? $attributes['noticeTitleIcon']['name'] : '';

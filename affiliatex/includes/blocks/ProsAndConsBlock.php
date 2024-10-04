@@ -9,6 +9,7 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
 /**
  * Admin class
  *
@@ -49,7 +50,7 @@ class ProsAndConsBlock {
 		$consTitle = isset($attributes['consTitle']) ? wp_kses_post($attributes['consTitle']) : '';
 		$prosIcon = isset($attributes['prosIcon']) ? esc_attr($attributes['prosIcon']['name']) : '';
 		$consIcon = isset($attributes['consIcon']) ? esc_attr($attributes['consIcon']['name']) : '';
-		$titleTag1 = isset($attributes['titleTag1']) ? wp_kses_post($attributes['titleTag1']) : 'p';
+		$titleTag1 = isset($attributes['titleTag1']) ? AffiliateX_Helpers::validate_tag($attributes['titleTag1'], 'p') : 'p';
 		$layoutStyle = isset($attributes['layoutStyle']) ? esc_attr($attributes['layoutStyle']) : '';
 		$prosListItems = isset($attributes['prosListItems']) ? $attributes['prosListItems'] : array();
 		$consListItems = isset($attributes['consListItems']) ? $attributes['consListItems'] : array();

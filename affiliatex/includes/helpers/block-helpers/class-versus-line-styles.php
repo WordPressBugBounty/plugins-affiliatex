@@ -1,4 +1,7 @@
 <?php
+
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Versus Line Block Styles
  *
@@ -41,7 +44,7 @@ class AffiliateX_Versus_Line_Styles {
 		$customization_data     = affx_get_customization_settings();
 		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
 		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
-		
+
 		$bgType           = isset( $attr['bgType'] ) ? $attr['bgType'] : 'solid';
 		$bgGradient       = isset( $attr['bgColorGradient']['gradient'] ) ? $attr['bgColorGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$bgColor          = isset( $attr['bgColorSolid'] ) ? $attr['bgColorSolid'] : '#FFFFFF';

@@ -6,7 +6,7 @@ defined('ABSPATH') or exit;
 
 /**
  * This class is responsible to pull notices from remote URL and create instance of @CampaignNotice from pulled data
- * 
+ *
  * @package AffiliateX
  */
 class CampaignNoticeHandler{
@@ -19,7 +19,7 @@ class CampaignNoticeHandler{
     /**
      * Pull notices from JSON file from a remote URL
      * Then stores it in a transient for 24 hours
-     * 
+     *
      * @return void
      */
     public function pull_notices_from_server() : void
@@ -48,7 +48,7 @@ class CampaignNoticeHandler{
             error_log('Error fetching notices: Invalid JSON');
             return;
         }
-        
+
         $notices = $this->sanitize_notices($notices);
         set_transient('affiliatex_campaign_notices', $notices, DAY_IN_SECONDS);
     }
@@ -71,10 +71,10 @@ class CampaignNoticeHandler{
             $notice['props']['start'] = isset($notice['props']['start']) ? sanitize_text_field($notice['props']['start']) : '';
             $notice['props']['end'] = isset($notice['props']['end']) ? sanitize_text_field($notice['props']['end']) : '';
             $ntoice['props']['enabled'] = isset($notice['props']['enabled']) ? (bool)sanitize_text_field($notice['props']['enabled']) : false;
-            
+
             $notice['option_buttons'] = array_map(function($button){
                 $button['title'] = isset($button['title']) ? sanitize_text_field($button['title']) : '';
-                
+
                 if(isset($button['tag_name'])){
                     $button['tag_name'] = sanitize_text_field($button['tag_name']);
                 }
@@ -84,7 +84,7 @@ class CampaignNoticeHandler{
                 }
 
                 $attributes = $button['attributes'];
-                
+
                 $attributes = array_map(function($attribute){
                     return sanitize_text_field($attribute);
                 }, $attributes);
@@ -95,7 +95,7 @@ class CampaignNoticeHandler{
             }, $notice['option_buttons']);
 
             return $notice;
-            
+
         }, $notices);
 
         return $notices;
@@ -108,7 +108,7 @@ class CampaignNoticeHandler{
      */
     public function initiate_pulled_notices() : void
     {
-        $notices = get_transient('affiliatex_campaign_notices', []);
+        $notices = get_transient('affiliatex_campaign_notices') ? get_transient('affiliatex_campaign_notices') : [];
 
         foreach($notices as $notice){
             if(empty($notice['name']) || !isset($notice['props']['enabled']) || $notice['props']['enabled'] === false){

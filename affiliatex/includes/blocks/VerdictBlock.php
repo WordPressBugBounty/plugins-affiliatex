@@ -9,6 +9,8 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -54,7 +56,7 @@ class VerdictBlock {
 		$ratingContent = isset($attributes['ratingContent']) ? $attributes['ratingContent'] : '';
 		$edRatingsArrow = isset($attributes['edRatingsArrow']) ? $attributes['edRatingsArrow'] : false;
 		$edProsCons = isset($attributes['edProsCons']) ? $attributes['edProsCons'] : false;
-		$verdictTitleTag = isset($attributes['verdictTitleTag']) ? $attributes['verdictTitleTag'] : 'h2';
+		$verdictTitleTag = isset($attributes['verdictTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['verdictTitleTag'], 'h2') : 'h2';
 		$ratingAlignment = isset($attributes['ratingAlignment']) ? $attributes['ratingAlignment'] : 'left';
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(

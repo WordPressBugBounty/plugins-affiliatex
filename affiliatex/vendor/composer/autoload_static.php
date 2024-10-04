@@ -17,6 +17,7 @@ class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
             'AffiliateX_Pro\\Blocks\\' => 22,
             'AffiliateX_Pro\\' => 15,
             'AffiliateX\\Notice\\' => 18,
+            'AffiliateX\\Helpers\\' => 19,
             'AffiliateX\\Blocks\\' => 18,
             'AffiliateX\\' => 11,
         ),
@@ -34,6 +35,10 @@ class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
         'AffiliateX\\Notice\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes/notice',
+        ),
+        'AffiliateX\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/helpers',
         ),
         'AffiliateX\\Blocks\\' => 
         array (
