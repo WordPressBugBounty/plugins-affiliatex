@@ -70,7 +70,7 @@ class CampaignNoticeHandler{
 
             $notice['props']['start'] = isset($notice['props']['start']) ? sanitize_text_field($notice['props']['start']) : '';
             $notice['props']['end'] = isset($notice['props']['end']) ? sanitize_text_field($notice['props']['end']) : '';
-            $ntoice['props']['enabled'] = isset($notice['props']['enabled']) ? (bool)sanitize_text_field($notice['props']['enabled']) : false;
+	        $notice['props']['enabled'] = isset($notice['props']['enabled']) ? (bool)sanitize_text_field($notice['props']['enabled']) : false;
 
             $notice['option_buttons'] = array_map(function($button){
                 $button['title'] = isset($button['title']) ? sanitize_text_field($button['title']) : '';
