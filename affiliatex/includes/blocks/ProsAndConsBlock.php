@@ -74,6 +74,14 @@ class ProsAndConsBlock {
 		$prosStyle = $prosBgType === 'gradient' ? "background: $prosBgGradient;" : "background-color: $prosBgColor;";
 		$consStyle = $consBgType === 'gradient' ? "background: $consBgGradient;" : "background-color: $consBgColor;";
 
+		if ( is_array( $prosListItems ) && count( $prosListItems ) > 0 && isset( $prosListItems[0]['list'] ) && is_string( $prosListItems[0]['list'] ) && has_shortcode( $prosListItems[0]['list'], 'affiliatex-product' ) ) {
+			$prosListItems = json_decode( do_shortcode( $prosListItems[0]['list'] ), true );
+		}
+
+		if ( is_array( $consListItems ) && count( $consListItems ) > 0 && isset( $consListItems[0]['list'] ) && is_string( $consListItems[0]['list'] ) && has_shortcode( $consListItems[0]['list'], 'affiliatex-product' ) ) {
+			$consListItems = json_decode( do_shortcode( $consListItems[0]['list'] ), true );
+		}
+
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'id' => "affiliatex-pros-cons-style-$block_id",
 			'class' => 'affx-pros-cons-wrapper',

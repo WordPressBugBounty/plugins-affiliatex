@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Plugin Name:     AffiliateX - Affiliate Blocks for Amazon Affiliates
+ * Plugin Name:     AffiliateX - Affiliate Blocks for WordPress, Amazon, eBay, AliExpress Affiliates
  * Plugin URI:      https://affiliatexblocks.com
  * Description:     Create professional affiliate websites with highly customizable WordPress Amazon Affiliate Blocks. Increase CTR and boost your affiliate income.
  * Author:          AffiliateX
  * Author URI:      https://affiliatexblocks.com
  * Text Domain:     affiliatex
  * Domain Path:     /languages
- * Version:         1.2.9.2
+ * Version:         1.3.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -25,7 +25,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
             global $affiliatex_fs;
             if ( !isset( $affiliatex_fs ) ) {
                 // Include Freemius SDK.
-                require_once dirname( __FILE__ ) . '/freemius/start.php';
+                require_once dirname( __FILE__ ) . '/vendor/freemius/wordpress-sdk/start.php';
                 $affiliatex_fs = fs_dynamic_init( array(
                     'id'             => '15886',
                     'slug'           => 'affiliatex',
@@ -63,7 +63,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         define( 'AFFILIATEX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
     }
     if ( !defined( 'AFFILIATEX_VERSION' ) ) {
-        define( 'AFFILIATEX_VERSION', '1.2.9.2' );
+        define( 'AFFILIATEX_VERSION', '1.3.0' );
     }
     /**
      * Init function

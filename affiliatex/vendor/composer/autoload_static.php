@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
+class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
 {
     public static $files = array (
         '7c0d5460f58f8f22531d2f669cb34f74' => __DIR__ . '/../..' . '/includes/functions/HelperFunctions.php',
@@ -14,19 +14,47 @@ class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (
+            'AffiliateX_Pro\\Helpers\\' => 23,
             'AffiliateX_Pro\\Blocks\\' => 22,
+            'AffiliateX_Pro\\Amazon\\Cron\\' => 27,
+            'AffiliateX_Pro\\Amazon\\Api\\' => 26,
+            'AffiliateX_Pro\\Amazon\\Admin\\' => 28,
+            'AffiliateX_Pro\\Amazon\\' => 22,
             'AffiliateX_Pro\\' => 15,
             'AffiliateX\\Notice\\' => 18,
             'AffiliateX\\Helpers\\' => 19,
             'AffiliateX\\Blocks\\' => 18,
+            'AffiliateX\\Amazon\\Api\\' => 22,
+            'AffiliateX\\Amazon\\Admin\\' => 24,
+            'AffiliateX\\Amazon\\' => 18,
             'AffiliateX\\' => 11,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'AffiliateX_Pro\\Helpers\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/helpers',
+        ),
         'AffiliateX_Pro\\Blocks\\' => 
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/blocks',
+        ),
+        'AffiliateX_Pro\\Amazon\\Cron\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/amazon/cron',
+        ),
+        'AffiliateX_Pro\\Amazon\\Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/amazon/api',
+        ),
+        'AffiliateX_Pro\\Amazon\\Admin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/amazon/admin',
+        ),
+        'AffiliateX_Pro\\Amazon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/amazon',
         ),
         'AffiliateX_Pro\\' => 
         array (
@@ -44,6 +72,18 @@ class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
         array (
             0 => __DIR__ . '/../..' . '/includes/blocks',
         ),
+        'AffiliateX\\Amazon\\Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/amazon/api',
+        ),
+        'AffiliateX\\Amazon\\Admin\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/amazon/admin',
+        ),
+        'AffiliateX\\Amazon\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/amazon',
+        ),
         'AffiliateX\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
@@ -57,9 +97,9 @@ class ComposerStaticInit2146853ed29db2f9df45f4fd82922370
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2146853ed29db2f9df45f4fd82922370::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2146853ed29db2f9df45f4fd82922370::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2146853ed29db2f9df45f4fd82922370::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$classMap;
 
         }, null, ClassLoader::class);
     }

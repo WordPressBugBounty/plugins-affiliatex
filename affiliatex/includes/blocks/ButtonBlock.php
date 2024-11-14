@@ -100,7 +100,7 @@ class ButtonBlock {
 		// Construct button HTML
 		$buttonHTML = sprintf(
 			'<a href="%s" class="%s" rel="%s"%s%s>%s<span class="affiliatex-btn">%s</span>%s%s</a>',
-			esc_url($buttonURL),
+			esc_url(do_shortcode($buttonURL)),
 			esc_attr($classNames),
 			esc_attr($rel),
 			$target,

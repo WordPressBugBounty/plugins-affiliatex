@@ -59,6 +59,10 @@ class NoticeBlock {
 		$noticeunorderedType = isset($attributes['noticeunorderedType']) ? $attributes['noticeunorderedType'] : 'icon';
 		$edTitleIcon = isset($attributes['edTitleIcon']) ? $attributes['edTitleIcon'] : false;
 		$titleAlignment = isset($attributes['titleAlignment']) ? $attributes['titleAlignment'] : 'left';
+		
+		if(is_array($noticeListItems) && count($noticeListItems) === 1 && isset($noticeListItems[0]['list']) && has_shortcode($noticeListItems[0]['list'], 'affiliatex-product')) {
+			$noticeListItems = json_decode(do_shortcode($noticeListItems[0]['list']), true);
+		}
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'class' => 'affx-notice-wrapper',

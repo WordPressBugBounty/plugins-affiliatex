@@ -1,15 +1,12 @@
 <?php
 
-/**
- * Admin screen functionality
- *
- * @package AffiliateX
- */
 namespace AffiliateX;
 
 defined( 'ABSPATH' ) || exit;
+use AffiliateX\Amazon\AmazonConfig;
+use AffiliateX\Amazon\AmazonController;
 /**
- * Admin class
+ * Admin class, handles admin screen functionality
  *
  * @package AffiliateX
  */
@@ -19,6 +16,7 @@ class AffiliateXAdmin {
      */
     public function __construct() {
         $this->init();
+        new AmazonController();
     }
 
     /**
@@ -115,6 +113,7 @@ class AffiliateXAdmin {
         global $wp_customize;
         $blocks_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blocks.asset.php');
         $blocks_export_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blockComponents.asset.php');
+        $amazon_config = new AmazonConfig();
         wp_register_script(
             'affiliatex',
             plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/blocks.js',
@@ -136,6 +135,7 @@ class AffiliateXAdmin {
             'pluginUrl'         => esc_url( plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) ),
             'proActive'         => ( affiliatex_fs()->is_premium() ? 'true' : 'false' ),
             'WPVersion'         => version_compare( get_bloginfo( 'version' ), '5.9', '>=' ),
+            'isAmazonActive'    => ( $amazon_config->is_active() ? 'true' : 'false' ),
         ) );
         wp_enqueue_script( 'affiliatex' );
         wp_enqueue_script( 'affiliatex-block-export' );

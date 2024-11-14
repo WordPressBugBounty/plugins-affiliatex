@@ -10,6 +10,8 @@ namespace AffiliateX\Blocks;
 
 defined('ABSPATH') || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -106,6 +108,8 @@ class ProductTableBlock
 		$productContentType = isset($attributes['productContentType']) ? $attributes['productContentType'] : '';
 		$contentListType = isset($attributes['contentListType']) ? $attributes['contentListType'] : '';
 		$productIconList = isset($attributes['productIconList']) ? $attributes['productIconList'] : [];
+		$productNameTag = isset($attributes['productNameTag']) ? AffiliateX_Helpers::validate_tag($attributes['productNameTag'], 'h5') : 'h5';
+		$tagTitle = $productNameTag;
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'id' => "affiliatex-pdt-table-style-$block_id"
@@ -130,14 +134,24 @@ class ProductTableBlock
 		foreach ($productTable as $index => $product) {
 			$counterText = $edCounter ? ($index + 1) : '';
 			$ribbonText = $product['ribbon'] ?? '';
-			$imageUrl = esc_url($product['imageUrl']);
+			$imageUrl = esc_url(do_shortcode($product['imageUrl']));
 			$imageAlt = esc_attr($product['imageAlt']);
-			$title = $edProductName ? '<h5 class="affx-pdt-name">' . wp_kses_post($product['name']) . '</h5>' : '';
+			$title = $edProductName ? sprintf(
+			       '<%1$s class="affx-pdt-name">%2$s</%1$s>',
+			        esc_attr($tagTitle),
+			        wp_kses_post($product['name'])
+			    ) : '';
+			$featuresList = $product['featuresList'];
+
+			if(is_array($featuresList) && count($featuresList) > 0 && isset($featuresList[0]['list']) && is_string($featuresList[0]['list']) && has_shortcode($featuresList[0]['list'], 'affiliatex-product')) {
+				$featuresList = json_decode(do_shortcode($featuresList[0]['list']), true);
+			}
+
 			$featuresContent = $productContentType === 'list' ?
 				sprintf('<%1$s class="affx-unordered-list affiliatex-icon affiliatex-icon-%2$s">%3$s</%1$s>',
 					$contentListType == 'unordered' ? 'ul' : 'ol',
 					esc_attr($productIconList['name']),
-					$this->render_features_list($product['featuresList'])
+					$this->render_features_list($featuresList)
 				) :
 			sprintf('<p class="affiliatex-content">%s</p>', wp_kses_post($product['features']));
 			$priceHtml = $edPrice ?
@@ -147,11 +161,32 @@ class ProductTableBlock
 					!empty($product['regularPrice']) ? '<del class="affx-pdt-reg-price">' . wp_kses_post($product['regularPrice']) . '</del>' : ''
 				) : '';
 
+			$button1Rel = [];
+			if ($product['btn1RelNoFollow']) {
+				$button1Rel[] = 'nofollow';
+			}
+			if ($product['btn1RelSponsored']) {
+				$button1Rel[] = 'sponsored';
+			}
+			$button1RelAttr = !empty($button1Rel) ? 'rel="' . implode(' ', $button1Rel) . '"' : '';
+
+			$button2Rel = [];
+			if ($product['btn2RelNoFollow']) {
+				$button2Rel[] = 'nofollow';
+			}
+			if ($product['btn2RelSponsored']) {
+				$button2Rel[] = 'sponsored';
+			}
+			$button2RelAttr = !empty($button2Rel) ? 'rel="' . implode(' ', $button2Rel) . '"' : '';
+
 			$button1Html = $edButton1 && !empty($product['button1']) ?
 				sprintf(
-					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button primary %s">%s%s%s</a></div>',
-					esc_url($product['button1URL']),
+					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button primary %s" %s %s %s>%s%s%s</a></div>',
+					esc_url(do_shortcode($product['button1URL'])),
 					$edButton1Icon ? 'icon-btn icon-' . esc_attr($button1IconAlign) : '',
+					$button1RelAttr,
+					$product['btn1OpenInNewTab'] ? 'target="_blank"' : '',
+					$product['btn1Download'] ? 'download' : '',
 					$edButton1Icon && $button1IconAlign === 'left' ? '<i class="button-icon ' . esc_attr($button1Icon['value']) . '"></i>' : '',
 					wp_kses_post($product['button1']),
 					$edButton1Icon && $button1IconAlign === 'right' ? '<i class="button-icon ' . esc_attr($button1Icon['value']) . '"></i>' : ''
@@ -159,9 +194,12 @@ class ProductTableBlock
 
 			$button2Html = $edButton2 && !empty($product['button2']) ?
 				sprintf(
-					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button secondary %s">%s%s%s</a></div>',
-					esc_url($product['button2URL']),
+					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button secondary %s" %s %s %s>%s%s%s</a></div>',
+					esc_url(do_shortcode($product['button2URL'])),
 					$edButton2Icon ? 'icon-btn icon-' . esc_attr($button2IconAlign) : '',
+					$button2RelAttr,
+					$product['btn2OpenInNewTab'] ? 'target="_blank"' : '',
+					$product['btn2Download'] ? 'download' : '',
 					$edButton2Icon && $button2IconAlign === 'left' ? '<i class="button-icon ' . esc_attr($button2Icon['value']) . '"></i>' : '',
 					wp_kses_post($product['button2']),
 					$edButton2Icon && $button2IconAlign === 'right' ? '<i class="button-icon ' . esc_attr($button2Icon['value']) . '"></i>' : ''
@@ -264,7 +302,7 @@ class ProductTableBlock
 							<div class="affx-content-left">
 								%s
 								%s
-								<h5 class="affx-pdt-name">%s</h5>
+								%s
 								<div class="affx-rating-wrap">%s</div>
 								%s
 								<div class="affx-pdt-desc">%s</div>

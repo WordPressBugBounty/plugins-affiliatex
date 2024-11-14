@@ -82,6 +82,9 @@ class AffiliateX_CTA_Styles {
 				$position = 'bottom right';
 			}
 		}
+		if ( isset( $attr['imgURL'] ) && ! empty( $attr['imgURL'] ) ) {
+			$attr['imgURL'] = do_shortcode( $attr['imgURL'] );
+		}
 		$selectors = array(
 			' .layout-type-1'                         => array(
 				'background-image' => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg' . ')',

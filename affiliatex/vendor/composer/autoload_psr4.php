@@ -6,10 +6,18 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AffiliateX_Pro\\Helpers\\' => array($baseDir . '/pro/includes/helpers'),
     'AffiliateX_Pro\\Blocks\\' => array($baseDir . '/pro/includes/blocks'),
+    'AffiliateX_Pro\\Amazon\\Cron\\' => array($baseDir . '/pro/includes/amazon/cron'),
+    'AffiliateX_Pro\\Amazon\\Api\\' => array($baseDir . '/pro/includes/amazon/api'),
+    'AffiliateX_Pro\\Amazon\\Admin\\' => array($baseDir . '/pro/includes/amazon/admin'),
+    'AffiliateX_Pro\\Amazon\\' => array($baseDir . '/pro/includes/amazon'),
     'AffiliateX_Pro\\' => array($baseDir . '/pro/includes'),
     'AffiliateX\\Notice\\' => array($baseDir . '/includes/notice'),
     'AffiliateX\\Helpers\\' => array($baseDir . '/includes/helpers'),
     'AffiliateX\\Blocks\\' => array($baseDir . '/includes/blocks'),
+    'AffiliateX\\Amazon\\Api\\' => array($baseDir . '/includes/amazon/api'),
+    'AffiliateX\\Amazon\\Admin\\' => array($baseDir . '/includes/amazon/admin'),
+    'AffiliateX\\Amazon\\' => array($baseDir . '/includes/amazon'),
     'AffiliateX\\' => array($baseDir . '/includes'),
 );

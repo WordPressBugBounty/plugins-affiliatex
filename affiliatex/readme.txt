@@ -1,11 +1,11 @@
-=== AffiliateX - Affiliate Blocks for Amazon Affiliates ===
+=== AffiliateX - Affiliate Blocks for WordPress, Amazon, eBay, AliExpress Affiliates ===
 Contributors: cagdasdag, wpcenter
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
-Tested up to: 6.6.2
+Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.2.9.2
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,12 @@ Do you want to see demo of the blocks? 👉 [https://affiliatexblocks.com/demo/]
 Want to learn more? Check our documentation 👉 [https://affiliatexblocks.com/docs/](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
 
 Do you have question, feedback? Let us know! 👉 [https://affiliatexblocks.com/contact/](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
+
+== AffiliateX Amazon Integration ==
+
+With AffiliateX, connecting to Amazon’s Product Advertising API has never been easier! This integration enables Amazon affiliates to access and display up-to-date product information, including titles, images, descriptions, and pricing—all directly within WordPress.
+
+[youtube https://youtu.be/a3H4PF2lMAY]
 
 == AffiliateX Blocks ==
 
@@ -135,6 +141,13 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/).
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.0 - 13.11.2024 =
+* New: Added Amazon API integration for all AffiliateX blocks
+* Update: Option to change the heading tag added for the Product Table block
+* Update: Upgrade page improved
+* Compatibility: Updated for the latest Freemius version
+* Fix: Fixed missing nofollow, sponsored, and target attributes
 
 = 1.2.9 - 30.09.2024 =
 * Feature: Review and Campaign Notices added

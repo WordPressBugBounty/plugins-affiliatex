@@ -41,6 +41,10 @@
       "type": "string",
       "default": "Price"
     },
+    "productNameTag": {
+      "type": "string",
+      "default": "h5"
+    },
     "productTable": {
       "type": "array",
       "default": [

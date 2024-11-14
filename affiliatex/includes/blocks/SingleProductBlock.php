@@ -116,6 +116,11 @@ class SingleProductBlock {
     $productImageSiteStripe = isset($attributes['productImageSiteStripe']) ? $attributes['productImageSiteStripe'] : '';
     $productPricingAlign = isset($attributes['productPricingAlign']) ? $attributes['productPricingAlign'] : '';
 
+	if(is_array($productContentList) && count($productContentList) > 0 && isset($productContentList[0]['list']) && is_string($productContentList[0]['list']) && has_shortcode($productContentList[0]['list'], 'affiliatex-product')){
+		$productContentList = do_shortcode($productContentList[0]['list']);
+		$productContentList = json_decode($productContentList, true);
+	}
+
     $wrapper_attributes = get_block_wrapper_attributes(array(
         'id' => "affiliatex-single-product-style-$block_id",
     ));
@@ -163,7 +168,7 @@ class SingleProductBlock {
 
     $imageHtml = $edProductImage ? sprintf(
         '<div class="affx-sp-img-wrapper">%s</div>',
-        $isSiteStripe ? wp_kses_post($productImageSiteStripe) : sprintf('<img src="%s" />', esc_url($ImageURL))
+        $isSiteStripe ? wp_kses_post($productImageSiteStripe) : sprintf('<img src="%s" />', esc_url(do_shortcode($ImageURL)))
     ) : '';
 
     $titleHtml = $edTitle ? sprintf(

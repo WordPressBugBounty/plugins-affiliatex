@@ -93,14 +93,14 @@ class ProductComparisonBlock
 		$table_body = '';
 
 		foreach ($productComparisonTable as $item) {
-			$imageUrl = esc_url($item['imageUrl']);
+			$imageUrl = esc_url(do_shortcode($item['imageUrl']));
 			$imageUrl = str_replace('app/src/images/fallback.jpg', 'src/images/fallback.jpg', $imageUrl);
 			$imageAlt = esc_attr($item['imageAlt']);
 			$ribbonText = $pcRibbon && !empty($item['ribbonText']) ? sprintf('<span class="affx-pc-ribbon">%s</span>', wp_kses_post($item['ribbonText'])) : '';
 			$title = wp_kses_post($item['title']);
 			$price = wp_kses_post($item['price']);
 			$rating = wp_kses_post($item['rating']);
-			$buttonURL = esc_url($item['buttonURL']);
+			$buttonURL = esc_url(do_shortcode($item['buttonURL']));
 			$buttonText = wp_kses_post($item['button']);
 			$buttonIconHtml = $pcButtonIcon ? '<i class="button-icon ' . esc_attr($buttonIcon['value']) . '"></i>' : '';
 
