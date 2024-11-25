@@ -11,6 +11,13 @@ defined( 'ABSPATH' ) or exit;
  */
 class AmazonApiValidator extends AmazonApiBase
 {
+    /**
+     * Stores API response
+     *
+     * @var Array|Boolean
+     */
+    private $result;
+
     protected function get_path(): string
     {
         return '/paapi5/searchitems';
@@ -35,16 +42,30 @@ class AmazonApiValidator extends AmazonApiBase
      */
     public function is_credentials_valid() : bool
     {
-        $result = $this->get_result();
+        $this->result = $this->get_result();
 
-        if($result === false){
+        if($this->result === false){
             return false;
         }
 
-        if(isset($result['Errors']) && count($result['Errors']) > 0){
+        if(isset($this->result['Errors']) && count($this->result['Errors']) > 0){
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * Get errors from API response
+     *
+     * @return array|bool
+     */
+    public function get_errors()
+    {
+        if(!isset($this->result['Errors']) && count($this->result['Errors']) === 0){
+            return false;
+        }
+
+        return $this->result['Errors'];
     }
 }

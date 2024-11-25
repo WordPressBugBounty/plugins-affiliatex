@@ -45,6 +45,7 @@ abstract class AmazonApiBase{
             'ItemInfo.Title',
             'ItemInfo.Features',
             'Offers.Listings.Price',
+            'Offers.Listings.SavingBasis',
             'BrowseNodeInfo.WebsiteSalesRank',
             'Images.Primary.Small',
             'Images.Primary.Medium',

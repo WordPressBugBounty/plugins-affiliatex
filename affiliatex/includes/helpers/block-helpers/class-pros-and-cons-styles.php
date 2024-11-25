@@ -52,13 +52,13 @@ class AffiliateX_Pros_and_Cons_Styles {
 		$contentAlignment       = isset( $attr['contentAlignment'] ) ? $attr['contentAlignment'] : 'left';
 		$bgGradient             = isset( $attr['bgColorGradient']['gradient'] ) ? $attr['bgColorGradient']['gradient'] : '';
 		$bgColor                = isset( $attr['bgColorSolid'] ) ? $attr['bgColorSolid'] : '#FFFFFF';
-		$consBgGradient         = isset( $attr['consBgGradient']['gradient'] ) ? $attr['consBgGradient']['gradient'] : '';
+		$consBgGradient         = isset( $attr['consBgGradient']['gradient'] ) ? $attr['consBgGradient']['gradient'] : 'linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%)';
 		$consBgColor            = isset( $attr['consBgColor'] ) ? $attr['consBgColor'] : '#F13A3A';
-		$prosBgGradient         = isset( $attr['prosBgGradient']['gradient'] ) ? $attr['prosBgGradient']['gradient'] : '';
+		$prosBgGradient         = isset( $attr['prosBgGradient']['gradient'] ) ? $attr['prosBgGradient']['gradient'] : 'linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%)';
 		$prosBgColor            = isset( $attr['prosBgColor'] ) ? $attr['prosBgColor'] : '#24B644';
-		$prosListBgGradient     = isset( $attr['prosListBgGradient']['gradient'] ) ? $attr['prosListBgGradient']['gradient'] : '';
+		$prosListBgGradient     = isset( $attr['prosListBgGradient']['gradient'] ) ? $attr['prosListBgGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$prosListBgColor        = isset( $attr['prosListBgColor'] ) ? $attr['prosListBgColor'] : '#F5FFF8';
-		$consListBgGradient     = isset( $attr['consListBgGradient']['gradient'] ) ? $attr['consListBgGradient']['gradient'] : '';
+		$consListBgGradient     = isset( $attr['consListBgGradient']['gradient'] ) ? $attr['consListBgGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$consListBgColor        = isset( $attr['consListBgColor'] ) ? $attr['consListBgColor'] : '#FFF5F5';
 		$contentType            = isset( $attr['contentType'] ) ? $attr['contentType'] : 'list';
 		$listType               = isset( $attr['listType'] ) ? $attr['listType'] : 'unordered';
@@ -205,7 +205,7 @@ class AffiliateX_Pros_and_Cons_Styles {
 
 			),
 			' .affx-pros-inner .affiliatex-pros'           => array(
-				'background' => isset( $attr['prosListBgType'] ) && $attr['prosListBgType'] === 'gradient' ? $consListBgGradient : $prosListBgColor,
+				'background' => isset( $attr['prosListBgType'] ) && $attr['prosListBgType'] === 'gradient' ? $prosListBgGradient : $prosListBgColor,
 
 			),
 			' .affx-cons-inner .affiliatex-cons'           => array(

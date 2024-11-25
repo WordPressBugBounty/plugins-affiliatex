@@ -107,6 +107,7 @@ class AffiliateX_Verdict_Styles {
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .main-text-holder' => array(
 				'flex-direction' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] != 'left' ? 'row' : 'row-reverse',
+				'justify-content' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] != 'left' ? 'space-between' : 'flex-end',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .affx-verdict-rating-number' => array(
 				'color' => isset( $attr['scoreTextColor'] ) ? $attr['scoreTextColor'] : '#FFFFFF',

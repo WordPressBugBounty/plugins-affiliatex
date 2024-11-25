@@ -106,9 +106,17 @@
       "type": "string",
       "default": "list"
     },
+    "prosContentType": {
+      "type": "string",
+      "default": "list"
+    },
     "prosContent": {
       "type": "string",
       "default": ""
+    },
+    "consContentType": {
+      "type": "string",
+      "default": "list"
     },
     "consContent": {
       "type": "string",
@@ -117,6 +125,22 @@
     "listType": {
       "type": "string",
       "default": "unordered"
+    },
+    "prosListType": {
+      "type": "string",
+      "default": "unordered"
+    },
+    "prosUnorderedType": {
+      "type": "string",
+      "default": "icon"
+    },
+    "consListType": {
+      "type": "string",
+      "default": "unordered"
+    },
+    "consUnorderedType": {
+      "type": "string",
+      "default": "icon"
     },
     "unorderedType": {
       "type": "string",

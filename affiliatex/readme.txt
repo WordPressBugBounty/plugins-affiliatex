@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,24 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/).
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.1 - 25.11.2024 =
+* New: Adding option to use sale-regular price via Amazon API
+* Update: Amazon connected fields open initially when user click swap
+* Fix: Showing error message from Amazon API on setting save
+* Fix: Coupon listing wrong class and style options
+* Fix: Pros and Cons block gradient color issue
+* Fix: Pros and Cons block misalignment
+* Fix: Single coupon ribbon visual issue
+* Fix: Verdict scorebox aligment
+* Fix: Decrease amazon api request
+* Fix: Pros and Cons different Amazon field usage issue
+* Fix: Product table link with Amazon issue
+* Fix: Product table reset issue
+* Fix: Pros and cons php warning issue
+* Fix: Versus block image button
+* Fix: Product comparison block swap icon issue
+
 
 = 1.3.0 - 13.11.2024 =
 * New: Added Amazon API integration for all AffiliateX blocks

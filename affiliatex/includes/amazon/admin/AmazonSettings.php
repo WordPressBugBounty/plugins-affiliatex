@@ -113,8 +113,13 @@ class AmazonSettings{
             $validator = new AmazonApiValidator();
 
             if(!$validator->is_credentials_valid()){
+                $errors = $validator->get_errors();
+
                 $this->set_option('amazon_activated', false);
-                $this->send_json_error(__('Invalid credentials', 'affiliatex'), ['invalid_api_key' => true]);
+                $this->send_json_error(__('Invalid credentials', 'affiliatex'), [
+                    'invalid_api_key' => true,
+                    'errors' => $errors
+                ]);
             }
 
             $this->set_option('amazon_activated', true);
@@ -176,6 +181,22 @@ class AmazonSettings{
     {
         try{
             $configs = new AmazonConfig();
+
+            if(!$configs->is_active()){
+                $validator = new AmazonApiValidator();
+                $errors = [];
+
+                if(!$validator->is_credentials_valid()){
+                    $errors = $validator->get_errors();
+
+                    $this->send_json_plain_success([
+                        'activated' => $configs->is_active(),
+                        'empty_settings' => $configs->is_settings_empty(),
+                        'errors' => $errors
+                    ]);
+                }
+
+            }
 
             $this->send_json_plain_success(
                 [
