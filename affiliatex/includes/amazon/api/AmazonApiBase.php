@@ -76,7 +76,7 @@ abstract class AmazonApiBase{
         return [
             'content-encoding' => 'amz-1.0',
             'content-type' => 'application/json; charset=utf-8',
-            'host' => 'webservices.amazon.com',
+            'host' => $this->configs->host,
             'x-amz-target' => 'com.amazon.paapi5.v1.ProductAdvertisingAPIv1.' . $this->get_target()
         ];
     }

@@ -1,11 +1,11 @@
 === AffiliateX - Affiliate Blocks for WordPress, Amazon, eBay, AliExpress Affiliates ===
-Contributors: cagdasdag, wpcenter
+Contributors: cagdasdag, wpcenter, freemius
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.1
+Stable tag: 1.3.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
