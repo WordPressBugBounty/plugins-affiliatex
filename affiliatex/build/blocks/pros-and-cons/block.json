@@ -4,7 +4,7 @@
   "name": "affiliatex/pros-and-cons",
   "title": "AffiliateX Pros and Cons",
   "category": "affiliatex",
-  "description": "Add a customizable pros and cons block",
+  "description": "Present product advantages and drawbacks with an easy-to-read layout.",
   "supports": {
     "multiple": true,
     "align": true

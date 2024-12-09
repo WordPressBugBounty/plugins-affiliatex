@@ -4,7 +4,7 @@
   "name": "affiliatex/product-table",
   "title": "AffiliateX Product Table",
   "category": "affiliatex",
-  "description": "Add a customizable product table block",
+  "description": "List and promote products in a clean, customizable product table.",
   "supports": {
     "multiple": true,
     "align": true

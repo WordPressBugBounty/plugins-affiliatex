@@ -9,6 +9,8 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -47,6 +49,7 @@ class CtaBlock {
 
 		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
 		$ctaTitle = isset($attributes['ctaTitle']) ? $attributes['ctaTitle'] : '';
+		$ctaTitleTag = isset($attributes['ctaTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['ctaTitleTag'], 'h2') : 'h2';
 		$ctaContent = isset($attributes['ctaContent']) ? $attributes['ctaContent'] : '';
 		$ctaBGType = isset($attributes['ctaBGType']) ? $attributes['ctaBGType'] : '';
 		$ctaLayout = isset($attributes['ctaLayout']) ? $attributes['ctaLayout'] : '';
@@ -65,7 +68,11 @@ class CtaBlock {
 		$columnReverseClass = ($columnReverse && $ctaLayout !== 'layoutOne') ? ' col-reverse' : '';
 		$bgClass = ($ctaBGType == 'image') ? ' img-opacity' : ' bg-color';
 
-		$titleHtml = !empty($ctaTitle) ? sprintf('<h2 class="affliatex-cta-title">%s</h2>', wp_kses_post($ctaTitle)) : '';
+		$titleHtml = !empty($ctaTitle) ? sprintf(
+			'<%1$s class="affliatex-cta-title">%2$s</%1$s>',
+			esc_attr($ctaTitleTag),
+			wp_kses_post($ctaTitle)
+		) : '';
 		$contentHtml = !empty($ctaContent) ? sprintf('<p class="affliatex-cta-content">%s</p>', wp_kses_post($ctaContent)) : '';
 		$imageWrapperHtml = ($ctaLayout === 'layoutTwo') ? '<div class="image-wrapper"></div>' : '';
 

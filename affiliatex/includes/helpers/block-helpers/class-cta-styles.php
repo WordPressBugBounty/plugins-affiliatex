@@ -120,7 +120,7 @@ class AffiliateX_CTA_Styles {
 
 			),
 
-			'.wp-block-affiliatex-cta h2'            => array(
+			'.wp-block-affiliatex-cta .affliatex-cta-title'            => array(
 				'color'           => isset( $attr['ctaTitleColor'] ) ? $attr['ctaTitleColor'] : '#262B33',
 				'font-family'     => isset( $attr['ctaTitleTypography']['family'] ) ? $attr['ctaTitleTypography']['family'] : $global_font_family,
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $variation ),

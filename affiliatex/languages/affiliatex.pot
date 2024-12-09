@@ -416,7 +416,7 @@ msgid "AffiliateX Buttons"
 msgstr ""
 
 #: app/src/blocks/buttons/index.js:23
-msgid "Add a customizable button."
+msgid "Create engaging, professional buttons to enhance user interaction and CTR."
 msgstr ""
 
 #: app/src/blocks/buttons/index.js:30
@@ -812,7 +812,7 @@ msgid "Affiliatex Call To Action"
 msgstr ""
 
 #: app/src/blocks/cta/index.js:24
-msgid "Add a customizable CTA."
+msgid "Boost conversions with a customizable CTA block to drive user actions."
 msgstr ""
 
 #: app/src/blocks/cta/index.js:31
@@ -988,7 +988,7 @@ msgid "AffiliateX Notice"
 msgstr ""
 
 #: app/src/blocks/notice/index.js:23
-msgid "Add a customizable notice block"
+msgid "Highlight key updates, deals, or promotions with an attention-grabbing notice block."
 msgstr ""
 
 #: app/src/blocks/notice/index.js:31
@@ -1179,7 +1179,7 @@ msgid "AffiliateX Product Comparison"
 msgstr ""
 
 #: app/src/blocks/product-comparison/index.js:23
-msgid "Add a customizable product comparison block"
+msgid "Display a detailed side-by-side comparison of multiple products."
 msgstr ""
 
 #: app/src/blocks/product-comparison/index.js:34
@@ -1319,7 +1319,7 @@ msgid "AffiliateX Product Table"
 msgstr ""
 
 #: app/src/blocks/product-table/index.js:23
-msgid "Add a customizable product table block"
+msgid "List and promote products in a clean, customizable product table."
 msgstr ""
 
 #: app/src/blocks/product-table/index.js:32
@@ -1437,7 +1437,7 @@ msgid "AffiliateX Pros and Cons"
 msgstr ""
 
 #: app/src/blocks/pros-and-cons/index.js:23
-msgid "Add a customizable pros and cons block"
+msgid "Present product advantages and drawbacks with an easy-to-read layout."
 msgstr ""
 
 #: app/src/blocks/pros-and-cons/index.js:31
@@ -1654,7 +1654,7 @@ msgid "AffiliateX Single Product"
 msgstr ""
 
 #: app/src/blocks/single-product/index.js:25
-msgid "Add a customizable single product block"
+msgid "Showcase any product with customizable layouts for affiliate marketing."
 msgstr ""
 
 #: app/src/blocks/single-product/index.js:33
@@ -1876,7 +1876,7 @@ msgid "AffiliateX Specifications"
 msgstr ""
 
 #: app/src/blocks/specifications/index.js:23
-msgid "Add a customizable specifications block"
+msgid "Show product details and specifications in a structured, customizable block."
 msgstr ""
 
 #: app/src/blocks/specifications/index.js:30
@@ -2172,7 +2172,7 @@ msgid "AffiliateX Verdict"
 msgstr ""
 
 #: app/src/blocks/verdict/index.js:24
-msgid "Add a customizable Verdict."
+msgid "Summarize product ratings or scores with a visually appealing block."
 msgstr ""
 
 #: app/src/blocks/verdict/index.js:31
@@ -2225,7 +2225,7 @@ msgid "AffiliateX Versus Line"
 msgstr ""
 
 #: app/src/blocks/versus-line/index.js:23
-msgid "Add a customizable versus line block"
+msgid "Easily compare two products with a simple and clear comparison line."
 msgstr ""
 
 #: app/src/blocks/versus-line/index.js:30

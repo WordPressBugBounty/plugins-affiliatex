@@ -4,7 +4,7 @@
   "name": "affiliatex/cta",
   "title": "Affiliatex Call To Action",
   "category": "affiliatex",
-  "description": "Add a customizable CTA.",
+  "description": "Boost conversions with a customizable CTA block to drive user actions.",
   "supports": {
     "multiple": true,
     "align": true
@@ -119,6 +119,10 @@
           "customizationPath": "typography.variation"
         }
       ]
+    },
+    "ctaTitleTag": {
+      "type": "string",
+      "default": "h2"
     },
     "ctaContentTypography": {
       "type": "object",

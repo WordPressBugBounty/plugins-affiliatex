@@ -4,7 +4,7 @@
   "name": "affiliatex/notice",
   "title": "AffiliateX Notice",
   "category": "affiliatex",
-  "description": "Add a customizable notice block",
+  "description": "Highlight key updates, deals, or promotions with an attention-grabbing notice block.",
   "supports": {
     "multiple": true,
     "align": true

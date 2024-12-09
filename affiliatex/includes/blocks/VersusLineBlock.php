@@ -9,6 +9,8 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -47,6 +49,7 @@ class VersusLineBlock {
 		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
 		$versusTable = isset($attributes['versusTable']) ? $attributes['versusTable'] : [];
 		$vsLabel = isset($attributes['vsLabel']) ? $attributes['vsLabel'] : '';
+		$versusTitleTag = isset($attributes['versusTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['versusTitleTag'], 'p') : 'p';
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'id' => "affiliatex-versus-line-style-$block_id",
@@ -59,7 +62,7 @@ class VersusLineBlock {
 			$rowsHtml .= sprintf(
 				'<tr>
 					<td class="data-label">
-						<span>%s</span>
+					<%s class="affx-versus-title">%s</%s>
 						<span class="data-info">%s</span>
 					</td>
 					<td>%s</td>
@@ -68,7 +71,9 @@ class VersusLineBlock {
 					</td>
 					<td>%s</td>
 				</tr>',
+				esc_attr($versusTitleTag),
 				wp_kses_post($item['versusTitle']),
+				esc_attr($versusTitleTag),
 				wp_kses_post($item['versusSubTitle']),
 				wp_kses_post($item['versusValue1']),
 				wp_kses_post($vsLabel),

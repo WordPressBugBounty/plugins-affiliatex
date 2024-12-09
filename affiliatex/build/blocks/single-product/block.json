@@ -4,7 +4,7 @@
   "name": "affiliatex/single-product",
   "title": "AffiliateX Single Product",
   "category": "affiliatex",
-  "description": "Add a customizable single product block",
+  "description": "Showcase any product with customizable layouts for affiliate marketing.",
   "supports": {
     "multiple": true,
     "align": true

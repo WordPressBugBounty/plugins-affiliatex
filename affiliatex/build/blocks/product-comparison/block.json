@@ -4,7 +4,7 @@
   "name": "affiliatex/product-comparison",
   "title": "AffiliateX Product Comparison",
   "category": "affiliatex",
-  "description": "Add a customizable product comparison block",
+  "description": "Display a detailed side-by-side comparison of multiple products.",
   "supports": {
     "multiple": true,
     "align": true

@@ -4,7 +4,7 @@
   "name": "affiliatex/versus-line",
   "title": "AffiliateX Versus Line",
   "category": "affiliatex",
-  "description": "Add a customizable versus line block",
+  "description": "Easily compare two products with a simple and clear comparison line.",
   "supports": {
     "multiple": true
   },
@@ -19,6 +19,40 @@
   "attributes": {
     "block_id": {
       "type": "string"
+    },
+    "versusTitleTypography": {
+      "type": "object",
+      "default": {
+        "family": "Default",
+        "variation": "n4",
+        "size": {
+          "desktop": "18px",
+          "mobile": "18px",
+          "tablet": "18px"
+        },
+        "line-height": {
+          "desktop": "1.65",
+          "mobile": "1.65",
+          "tablet": "1.65"
+        },
+        "letter-spacing": {
+          "desktop": "0em",
+          "mobile": "0em",
+          "tablet": "0em"
+        },
+        "text-transform": "none",
+        "text-decoration": "none"
+      },
+      "customizationKey": [
+        {
+          "blockPath": "default.family",
+          "customizationPath": "typography.family"
+        }
+      ]
+    },
+    "versusTitleTag": {
+      "type": "string",
+      "default": "p"
     },
     "vsLabel": {
       "type": "string",

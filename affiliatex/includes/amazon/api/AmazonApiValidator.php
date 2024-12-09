@@ -62,10 +62,10 @@ class AmazonApiValidator extends AmazonApiBase
      */
     public function get_errors()
     {
-        if(!isset($this->result['Errors']) && count($this->result['Errors']) === 0){
+        if(!isset($this->result['Errors']) && is_array($this->result['Errors']) && count($this->result['Errors']) === 0){
             return false;
         }
 
-        return $this->result['Errors'];
+        return isset($this->result['Errors']) ? $this->result['Errors'] : [];
     }
 }

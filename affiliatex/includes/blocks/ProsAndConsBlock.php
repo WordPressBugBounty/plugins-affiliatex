@@ -83,13 +83,13 @@ class ProsAndConsBlock {
 		// Convert pros list items to HTML
 		$prosListHtml = '';
 		foreach ($prosListItems as $item) {
-			$prosListHtml .= '<li>' . wp_kses_post(affx_extract_child_items($item)) . '</li>';
+			$prosListHtml .= '<li><span>' . wp_kses_post(affx_extract_child_items($item)) . '</span></li>';
 		}
 
 		// Convert cons list items to HTML
 		$consListHtml = '';
 		foreach ($consListItems as $item) {
-			$consListHtml .= '<li>' . wp_kses_post(affx_extract_child_items($item)) . '</li>';
+			$consListHtml .= '<li><span>' . wp_kses_post(affx_extract_child_items($item)) . '</span></li>';
 		}
 
 		$prosList = $prosContentType === 'list' ?

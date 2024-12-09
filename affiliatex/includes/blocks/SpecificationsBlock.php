@@ -9,6 +9,8 @@ namespace AffiliateX\Blocks;
 
 defined( 'ABSPATH' ) || exit;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * Admin class
  *
@@ -50,19 +52,24 @@ class SpecificationsBlock {
     $specificationTitle = isset($attributes['specificationTitle']) ? $attributes['specificationTitle'] : '';
     $specificationTable = isset($attributes['specificationTable']) ? $attributes['specificationTable'] : [];
     $edSpecificationTitle = isset($attributes['edSpecificationTitle']) ? $attributes['edSpecificationTitle'] : false;
+	$specificationTitleTag = isset($attributes['specificationTitleTag']) ?
+		AffiliateX_Helpers::validate_tag($attributes['specificationTitleTag'], 'h2') : 'h2';
 
     $wrapper_attributes = get_block_wrapper_attributes(array(
         'id' => "affiliatex-specification-style-$block_id",
     ));
 
-    $titleHtml = $edSpecificationTitle ? sprintf(
-        '<thead>
+	$titleHtml = $edSpecificationTitle ? sprintf(
+		'<thead>
             <tr>
-                <th class="affx-spec-title" colspan="2">%s</th>
+                <th class="affx-spec-title" colspan="2">
+                    <%1$s class="affx-specification-title">%2$s</%1$s>
+                </th>
             </tr>
         </thead>',
-        wp_kses_post($specificationTitle)
-    ) : '';
+		esc_attr($specificationTitleTag),
+		wp_kses_post($specificationTitle)
+	) : '';
 
     $tableRowsHtml = '';
     foreach ($specificationTable as $specification) {

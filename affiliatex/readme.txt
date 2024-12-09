@@ -1,15 +1,15 @@
-=== AffiliateX - Affiliate Blocks for WordPress, Amazon, eBay, AliExpress Affiliates ===
-Contributors: cagdasdag, wpcenter, freemius
+=== AffiliateX – Amazon Affiliate Plugin ===
+Contributors: cagdasdag, wpcenter
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.1.1
+Stable tag: 1.3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Create professional affiliate websites with highly customizable WordPress Amazon Affiliate Blocks. Increase CTR and boost your affiliate income.
+AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional affiliate websites with highly customizable WordPress Amazon Affiliate Blocks.
 
 == Description ==
 
@@ -39,45 +39,45 @@ With AffiliateX, connecting to Amazon’s Product Advertising API has never been
 
 == AffiliateX Blocks ==
 
-* **[Single Product](https://affiliatexblocks.com/single-product/)** - It is suitable for promoting any single product. It offers 4 different layouts to choose from.
+* **[Single Product](https://affiliatexblocks.com/single-product/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_single_product)** - It is suitable for promoting any single product. It offers 4 different layouts to choose from.
 
-* **[Pros and Cons](https://affiliatexblocks.com/pros-and-cons/)** - It allows you to share the pros and cons of any product. It has 4 different layouts.
+* **[Pros and Cons](https://affiliatexblocks.com/pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_pros_and_cons)** - It allows you to share the pros and cons of any product. It has 4 different layouts.
 
-* **[Specifications](https://affiliatexblocks.com/specifications/)** - You can display the specification of any product using this block. With 3 different layouts and tons of customization features, you can change the look and feel as per your preference.
+* **[Specifications](https://affiliatexblocks.com/specifications/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_specifications)** - You can display the specification of any product using this block. With 3 different layouts and tons of customization features, you can change the look and feel as per your preference.
 
-* **[Verdict](https://affiliatexblocks.com/verdict/)** - Using this block, you can share your verdict or score for any product. There are two different layouts available for this block.
+* **[Verdict](https://affiliatexblocks.com/verdict/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_verdict)** - Using this block, you can share your verdict or score for any product. There are two different layouts available for this block.
 
-* **[Call to Action](https://affiliatexblocks.com/call-to-action/)** - Want to increase Click Through Rate (CTR) and conversion? Using the Call to Action block, you can easily grab your visitors’ attention and encourage them to take action.
+* **[Call to Action](https://affiliatexblocks.com/call-to-action/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_call_to_action)** - Want to increase Click Through Rate (CTR) and conversion? Using the Call to Action block, you can easily grab your visitors’ attention and encourage them to take action.
 
-* **[Button](https://affiliatexblocks.com/button/)** - Add professional-looking buttons to generate more Click Through Rate (CTR). The button is fully customizable.
+* **[Button](https://affiliatexblocks.com/button/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_button)** - Add professional-looking buttons to generate more Click Through Rate (CTR). The button is fully customizable.
 
-* **[Notice](https://affiliatexblocks.com/notice/)** - You can use this block to display any special notice within your post to grab your visitors’ attention. You can inform your visitors about any special deals, discounts or promotions.
+* **[Notice](https://affiliatexblocks.com/notice/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_notice)** - You can use this block to display any special notice within your post to grab your visitors’ attention. You can inform your visitors about any special deals, discounts or promotions.
 
-* **[Versus Line](https://affiliatexblocks.com/versus-line/)** - Using this block, you can compare the specifications between two products to help your visitors make a wise purchase decision.
+* **[Versus Line](https://affiliatexblocks.com/versus-line/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_versus_line)** - Using this block, you can compare the specifications between two products to help your visitors make a wise purchase decision.
 
-* **[Product Table](https://affiliatexblocks.com/product-table/)** - Create a beautiful product listing table to promote different products.
+* **[Product Table](https://affiliatexblocks.com/product-table/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_table)** - Create a beautiful product listing table to promote different products.
 
-* **[Product Comparison Table](https://affiliatexblocks.com/product-comparison/)** - Create a stunning and informative product comparison table to compare different products all at once.
+* **[Product Comparison Table](https://affiliatexblocks.com/product-comparison/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_comparison)** - Create a stunning and informative product comparison table to compare different products all at once.
 
 == AffiliateX Pro Blocks ⭐ ==
 
-* **[Top Product](https://affiliatexblocks.com/top-products/)** - Highlight the best product with this block, designed to showcase top products effectively.
+* **[Top Product](https://affiliatexblocks.com/top-products/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_top_products)** - Highlight the best product with this block, designed to showcase top products effectively.
 
-* **[Product Tabs](https://affiliatexblocks.com/product-tabs/)** - Organize product details into tabs for a cleaner and more user-friendly layout.
+* **[Product Tabs](https://affiliatexblocks.com/product-tabs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_tabs)** - Organize product details into tabs for a cleaner and more user-friendly layout.
 
-* **[Coupon Listing](https://affiliatexblocks.com/coupon-grid/)** - Display a list of coupons in an organized and attractive layout.
+* **[Coupon Listing](https://affiliatexblocks.com/coupon-listing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_listing)** - Display a list of coupons in an organized and attractive layout.
 
-* **[Coupon Grid](https://affiliatexblocks.com/coupon-grid/)** - Create a grid of coupons, perfect for showcasing multiple offers at once.
+* **[Coupon Grid](https://affiliatexblocks.com/coupon-grid/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_grid)** - Create a grid of coupons, perfect for showcasing multiple offers at once.
 
-* **[Single Coupon](https://affiliatexblocks.com/single-coupon/)** - Highlight individual coupons with this block, providing detailed information on each offer.
+* **[Single Coupon](https://affiliatexblocks.com/single-coupon/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_coupon)** - Highlight individual coupons with this block, providing detailed information on each offer.
 
-* **[Versus](https://affiliatexblocks.com/versus/)** - Compare two products head-to-head, showcasing their differences and helping visitors make informed decisions.
+* **[Versus](https://affiliatexblocks.com/versus/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_versus)** - Compare two products head-to-head, showcasing their differences and helping visitors make informed decisions.
 
-* **[Single Product Pros and Cons](https://affiliatexblocks.com/single-product-pros-and-cons/)** - Share detailed pros and cons for a single product, helping visitors understand its strengths and weaknesses.
+* **[Single Product Pros and Cons](https://affiliatexblocks.com/single-product-pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_product_pros_and_cons)** - Share detailed pros and cons for a single product, helping visitors understand its strengths and weaknesses.
 
-* **[Product Image Button](https://affiliatexblocks.com/product-image/)** - Enhance product images with customizable buttons, driving more clicks and conversions.
+* **[Product Image Button](https://affiliatexblocks.com/product-image/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_image)** - Enhance product images with customizable buttons, driving more clicks and conversions.
 
-* **[Rating Box](https://affiliatexblocks.com/rating-box/)** -  It allows you to display a rating box with progress bars for each metric. Fully customizable to match your site's design.
+* **[Rating Box](https://affiliatexblocks.com/rating-box/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_rating_box)** -  It allows you to display a rating box with progress bars for each metric. Fully customizable to match your site's design.
 
 == FEATURES OF AFFILIATEX ==
 
@@ -134,13 +134,23 @@ No, you can’t use this plugin with any page builders.
 
 Yes, our expert support team will address all your queries from Monday to Friday. Our support hours are from 10 AM – 6 PM (UTC +5:45) Nepal Standard Time.
 
-You can contact our support team [here](https://affiliatexblocks.com/contact/).
+You can contact our support team [here](https://affiliatexblocks.com/contact/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing_page).
 
 == Credits ==
 
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.2 - 09.12.2024 =
+* New: Title and Description length limitation added for the Amazon API integration
+* Update: Title tag selection added for the missing blocks
+* Update: Documentation link for Amazon Connection added to plugin
+* Fix: Amazon icon misaligment
+* Fix: URL field overlapped in sidebar
+* Fix: Typing backward in Pros and Cons block
+* Fix: Pros and Cons block paragraph overflow
+* Fix: Empty page when there is an error on Amazon Connection
 
 = 1.3.1 - 25.11.2024 =
 * New: Adding option to use sale-regular price via Amazon API
@@ -158,7 +168,6 @@ For some of the components of AffiliateX Block, we have used codes of Blocksy Th
 * Fix: Pros and cons php warning issue
 * Fix: Versus block image button
 * Fix: Product comparison block swap icon issue
-
 
 = 1.3.0 - 13.11.2024 =
 * New: Added Amazon API integration for all AffiliateX blocks

@@ -181,14 +181,13 @@ class AmazonSettings{
     {
         try{
             $configs = new AmazonConfig();
+            $errors = [];
 
             if(!$configs->is_active()){
                 $validator = new AmazonApiValidator();
-                $errors = [];
+                $errors = $validator->get_errors();
 
                 if(!$validator->is_credentials_valid()){
-                    $errors = $validator->get_errors();
-
                     $this->send_json_plain_success([
                         'activated' => $configs->is_active(),
                         'empty_settings' => $configs->is_settings_empty(),
@@ -201,7 +200,8 @@ class AmazonSettings{
             $this->send_json_plain_success(
                 [
                     'activated' => $configs->is_active(),
-                    'empty_settings' => $configs->is_settings_empty()
+                    'empty_settings' => $configs->is_settings_empty(),
+                    'errors' => $errors
                 ]
             );
         }catch(Exception $e){

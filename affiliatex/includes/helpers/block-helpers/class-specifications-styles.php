@@ -77,8 +77,16 @@ class AffiliateX_Specifications_Styles {
 				'padding-bottom' => isset( $attr['specificationPadding']['desktop']['bottom'] ) ? $attr['specificationPadding']['desktop']['bottom'] : '16px',
 			),
 			' .affx-specification-table th'       => array(
-				'color'           => isset( $attr['specificationTitleColor'] ) ? $attr['specificationTitleColor'] : '#292929',
 				'background'      => isset( $attr['specificationTitleBgColor'] ) ? $attr['specificationTitleBgColor'] : '#FFFFFF',
+				'padding-top'     => isset( $attr['specificationPadding']['desktop']['top'] ) ? $attr['specificationPadding']['desktop']['top'] : '16px',
+				'padding-left'    => isset( $attr['specificationPadding']['desktop']['left'] ) ? $attr['specificationPadding']['desktop']['left'] : '24px',
+				'padding-right'   => isset( $attr['specificationPadding']['desktop']['right'] ) ? $attr['specificationPadding']['desktop']['right'] : '24px',
+				'padding-bottom'  => isset( $attr['specificationPadding']['desktop']['bottom'] ) ? $attr['specificationPadding']['desktop']['bottom'] : '16px',
+			),
+
+			' .affx-specification-table th .affx-specification-title'       => array(
+				'margin'     => '0',
+				'color'           => isset( $attr['specificationTitleColor'] ) ? $attr['specificationTitleColor'] : '#292929',
 				'text-align'      => isset( $attr['specificationTitleAlign'] ) ? $attr['specificationTitleAlign'] : 'left',
 				'font-family'     => isset( $attr['specificationTitleTypography']['family'] ) ? $attr['specificationTitleTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['specificationTitleTypography']['size']['desktop'] ) ? $attr['specificationTitleTypography']['size']['desktop'] : '24px',
@@ -88,11 +96,8 @@ class AffiliateX_Specifications_Styles {
 				'letter-spacing'  => isset( $attr['specificationTitleTypography']['letter-spacing']['desktop'] ) ? $attr['specificationTitleTypography']['letter-spacing']['desktop'] : '0em',
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $titleVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $titleVariation ),
-				'padding-top'     => isset( $attr['specificationPadding']['desktop']['top'] ) ? $attr['specificationPadding']['desktop']['top'] : '16px',
-				'padding-left'    => isset( $attr['specificationPadding']['desktop']['left'] ) ? $attr['specificationPadding']['desktop']['left'] : '24px',
-				'padding-right'   => isset( $attr['specificationPadding']['desktop']['right'] ) ? $attr['specificationPadding']['desktop']['right'] : '24px',
-				'padding-bottom'  => isset( $attr['specificationPadding']['desktop']['bottom'] ) ? $attr['specificationPadding']['desktop']['bottom'] : '16px',
 			),
+
 			' .affx-specification-table td.affx-spec-label' => array(
 				'color'           => isset( $attr['specificationLabelColor'] ) ? $attr['specificationLabelColor'] : '#000000',
 				'text-align'      => isset( $attr['specificationLabelAlign'] ) ? $attr['specificationLabelAlign'] : 'left',
@@ -149,13 +154,15 @@ class AffiliateX_Specifications_Styles {
 				'padding-bottom' => isset( $attr['specificationPadding']['mobile']['bottom'] ) ? $attr['specificationPadding']['mobile']['bottom'] : '16px',
 			),
 			' .affx-specification-table th'       => array(
-				'font-size'      => isset( $attr['specificationTitleTypography']['size']['mobile'] ) ? $attr['specificationTitleTypography']['size']['mobile'] : '24px',
-				'line-height'    => isset( $attr['specificationTitleTypography']['line-height']['mobile'] ) ? $attr['specificationTitleTypography']['line-height']['mobile'] : '1.5',
-				'letter-spacing' => isset( $attr['specificationTitleTypography']['letter-spacing']['mobile'] ) ? $attr['specificationTitleTypography']['letter-spacing']['mobile'] : '0em',
 				'padding-top'    => isset( $attr['specificationPadding']['mobile']['top'] ) ? $attr['specificationPadding']['mobile']['top'] : '16px',
 				'padding-left'   => isset( $attr['specificationPadding']['mobile']['left'] ) ? $attr['specificationPadding']['mobile']['left'] : '24px',
 				'padding-right'  => isset( $attr['specificationPadding']['mobile']['right'] ) ? $attr['specificationPadding']['mobile']['right'] : '24px',
 				'padding-bottom' => isset( $attr['specificationPadding']['mobile']['bottom'] ) ? $attr['specificationPadding']['mobile']['bottom'] : '16px',
+			),
+			' .affx-specification-table th .affx-specification-title'       => array(
+				'font-size'      => isset( $attr['specificationTitleTypography']['size']['mobile'] ) ? $attr['specificationTitleTypography']['size']['mobile'] : '24px',
+				'line-height'    => isset( $attr['specificationTitleTypography']['line-height']['mobile'] ) ? $attr['specificationTitleTypography']['line-height']['mobile'] : '1.5',
+				'letter-spacing' => isset( $attr['specificationTitleTypography']['letter-spacing']['mobile'] ) ? $attr['specificationTitleTypography']['letter-spacing']['mobile'] : '0em',
 			),
 			' .affx-specification-table td.affx-spec-label' => array(
 				'font-size'      => isset( $attr['specificationLabelTypography']['size']['mobile'] ) ? $attr['specificationLabelTypography']['size']['mobile'] : '18px',
@@ -191,13 +198,15 @@ class AffiliateX_Specifications_Styles {
 				'padding-bottom' => isset( $attr['specificationPadding']['tablet']['bottom'] ) ? $attr['specificationPadding']['tablet']['bottom'] : '16px',
 			),
 			' .affx-specification-table th'       => array(
-				'font-size'      => isset( $attr['specificationTitleTypography']['size']['tablet'] ) ? $attr['specificationTitleTypography']['size']['tablet'] : '24px',
-				'line-height'    => isset( $attr['specificationTitleTypography']['line-height']['tablet'] ) ? $attr['specificationTitleTypography']['line-height']['tablet'] : '1.5',
-				'letter-spacing' => isset( $attr['specificationTitleTypography']['letter-spacing']['tablet'] ) ? $attr['specificationTitleTypography']['letter-spacing']['tablet'] : '0em',
 				'padding-top'    => isset( $attr['specificationPadding']['tablet']['top'] ) ? $attr['specificationPadding']['tablet']['top'] : '16px',
 				'padding-left'   => isset( $attr['specificationPadding']['tablet']['left'] ) ? $attr['specificationPadding']['tablet']['left'] : '24px',
 				'padding-right'  => isset( $attr['specificationPadding']['tablet']['right'] ) ? $attr['specificationPadding']['tablet']['right'] : '24px',
 				'padding-bottom' => isset( $attr['specificationPadding']['tablet']['bottom'] ) ? $attr['specificationPadding']['tablet']['bottom'] : '16px',
+			),
+			' .affx-specification-table th .affx-specification-title'       => array(
+				'font-size'      => isset( $attr['specificationTitleTypography']['size']['tablet'] ) ? $attr['specificationTitleTypography']['size']['tablet'] : '24px',
+				'line-height'    => isset( $attr['specificationTitleTypography']['line-height']['tablet'] ) ? $attr['specificationTitleTypography']['line-height']['tablet'] : '1.5',
+				'letter-spacing' => isset( $attr['specificationTitleTypography']['letter-spacing']['tablet'] ) ? $attr['specificationTitleTypography']['letter-spacing']['tablet'] : '0em',
 			),
 			' .affx-specification-table td.affx-spec-label' => array(
 				'font-size'      => isset( $attr['specificationLabelTypography']['size']['tablet'] ) ? $attr['specificationLabelTypography']['size']['tablet'] : '18px',

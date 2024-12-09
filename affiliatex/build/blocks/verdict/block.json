@@ -4,7 +4,7 @@
   "name": "affiliatex/verdict",
   "title": "AffiliateX Verdict",
   "category": "affiliatex",
-  "description": "Add a customizable Verdict.",
+  "description": "Summarize product ratings or scores with a visually appealing block.",
   "supports": {
     "multiple": true,
     "align": true

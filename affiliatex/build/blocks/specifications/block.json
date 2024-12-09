@@ -4,7 +4,7 @@
   "name": "affiliatex/specifications",
   "title": "AffiliateX Specifications",
   "category": "affiliatex",
-  "description": "Add a customizable specifications block",
+  "description": "Show product details and specifications in a structured, customizable block.",
   "supports": {
     "multiple": true
   },
@@ -22,6 +22,10 @@
     "specificationTitle": {
       "type": "string",
       "default": "Specifications"
+    },
+    "specificationTitleTag": {
+      "type": "string",
+      "default": "h2"
     },
     "specificationTable": {
       "type": "array",
