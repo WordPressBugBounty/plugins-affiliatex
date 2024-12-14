@@ -3,12 +3,12 @@
 /**
  * Plugin Name:     AffiliateX – Amazon Affiliate Plugin
  * Plugin URI:      https://affiliatexblocks.com
- * Description:     AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional affiliate websites with highly customizable WordPress Amazon Affiliate Blocks.
+ * Description:     AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional affiliate websites with customizable WordPress Amazon Affiliate Blocks.
  * Author:          AffiliateX
  * Author URI:      https://affiliatexblocks.com
  * Text Domain:     affiliatex
  * Domain Path:     /languages
- * Version:         1.3.2
+ * Version:         1.3.2.1
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -63,7 +63,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         define( 'AFFILIATEX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
     }
     if ( !defined( 'AFFILIATEX_VERSION' ) ) {
-        define( 'AFFILIATEX_VERSION', '1.3.2' );
+        define( 'AFFILIATEX_VERSION', '1.3.2.1' );
     }
     /**
      * Init function
