@@ -1,9 +1,4 @@
 <?php
-/**
- * AffiliateX Button Block
- *
- * @package AffiliateX
- */
 
 namespace AffiliateX\Blocks;
 
@@ -12,52 +7,38 @@ defined( 'ABSPATH' ) || exit;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
 /**
- * Admin class
+ * AffiliateX CTA Block
  *
  * @package AffiliateX
  */
-class CtaBlock {
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->init();
+class CtaBlock extends BaseBlock
+{
+	protected function get_slug(): string
+	{
+		return 'cta';
 	}
 
-	public function init()
+	protected function get_fields(): array
 	{
-		add_action('enqueue_block_editor_assets', [$this, 'enqueue_block']);
-		add_action('init', [$this, 'register_block']);
+		return [
+			'block_id' => '',
+			'ctaTitle' => 'Call to Action Title.',
+			'ctaTitleTag' => 'h2',
+			'ctaContent' => 'Start creating CTAs in seconds, and convert more of your visitors into leads.',
+			'ctaBGType' => 'color',
+			'ctaLayout' => 'layoutOne',
+			'ctaAlignment' => 'center',
+			'columnReverse' => false,
+			'ctaButtonAlignment' => 'center',
+			'edButtons' => true
+		];
 	}
 
-	public function enqueue_block()
+	public function render(array $attributes, string $content) : string
 	{
-		wp_enqueue_script('affiliatex-blocks-cta', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/blocks/cta/index.js', array('affiliatex'), AFFILIATEX_VERSION, true);
-	}
-
-	public function register_block()
-	{
-		register_block_type_from_metadata(AFFILIATEX_PLUGIN_DIR . '/build/blocks/cta', [
-			'render_callback' => [$this, 'render'],
-		]);
-	}
-
-	public function render($attributes, $content)
-	{
-		$attributes = AffiliateX_Customization_Helper::apply_customizations($attributes);
-
-		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
-		$ctaTitle = isset($attributes['ctaTitle']) ? $attributes['ctaTitle'] : '';
-		$ctaTitleTag = isset($attributes['ctaTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['ctaTitleTag'], 'h2') : 'h2';
-		$ctaContent = isset($attributes['ctaContent']) ? $attributes['ctaContent'] : '';
-		$ctaBGType = isset($attributes['ctaBGType']) ? $attributes['ctaBGType'] : '';
-		$ctaLayout = isset($attributes['ctaLayout']) ? $attributes['ctaLayout'] : '';
-		$ctaAlignment = isset($attributes['ctaAlignment']) ? $attributes['ctaAlignment'] : '';
-		$columnReverse = isset($attributes['columnReverse']) ? $attributes['columnReverse'] : false;
-		$ctaButtonAlignment = isset($attributes['ctaButtonAlignment']) ? $attributes['ctaButtonAlignment'] : '';
-		$edButtons = isset($attributes['edButtons']) ? $attributes['edButtons'] : true;
-
+		$attributes = $this->parse_attributes($attributes);
+		extract($attributes);
+		
 		// Use get_block_wrapper_attributes to get the class names and other attributes.
 		$wrapper_attributes = get_block_wrapper_attributes([
 			'class' => "affblk-cta-wrapper",
@@ -67,49 +48,14 @@ class CtaBlock {
 		$layoutClass = ($ctaLayout === 'layoutOne') ? ' layout-type-1' : (($ctaLayout === 'layoutTwo') ? ' layout-type-2' : '');
 		$columnReverseClass = ($columnReverse && $ctaLayout !== 'layoutOne') ? ' col-reverse' : '';
 		$bgClass = ($ctaBGType == 'image') ? ' img-opacity' : ' bg-color';
-
-		$titleHtml = !empty($ctaTitle) ? sprintf(
-			'<%1$s class="affliatex-cta-title">%2$s</%1$s>',
-			esc_attr($ctaTitleTag),
-			wp_kses_post($ctaTitle)
-		) : '';
-		$contentHtml = !empty($ctaContent) ? sprintf('<p class="affliatex-cta-content">%s</p>', wp_kses_post($ctaContent)) : '';
-		$imageWrapperHtml = ($ctaLayout === 'layoutTwo') ? '<div class="image-wrapper"></div>' : '';
+		$ctaTitleTag = AffiliateX_Helpers::validate_tag($ctaTitleTag, 'h2');
 
 		if (str_contains($content, $layoutClass)) {
 			return $content;
 		}
 
-		$buttonWrapperHtml = $edButtons ? sprintf(
-			'<div class="button-wrapper cta-btn-%s">%s</div>',
-			esc_attr($ctaButtonAlignment),
-			$content
-		) : '';
-
-		$output = sprintf(
-			'<div %s>
-            <div class="%s %s %s %s">
-                <div class="content-wrapper">
-                    <div class="content-wrap">
-                        %s
-                        %s
-                    </div>
-                    %s
-                </div>
-                %s
-            </div>
-        	</div>',
-			$wrapper_attributes,
-			esc_attr($layoutClass),
-			esc_attr($ctaAlignment),
-			esc_attr($columnReverseClass),
-			esc_attr($bgClass),
-			$titleHtml,
-			$contentHtml,
-			$buttonWrapperHtml,
-			$imageWrapperHtml
-		);
-
-		return $output;
+		ob_start();
+		include $this->get_template_path();
+		return ob_get_clean();
 	}
 }

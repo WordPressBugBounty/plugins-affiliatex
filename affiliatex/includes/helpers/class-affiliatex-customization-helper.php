@@ -24,9 +24,16 @@ if ( ! class_exists( 'AffiliateX_Customization_Helper' ) ) {
 
         public static function apply_customizations($attributes) {
             foreach ($attributes as $key => &$attribute) {
+                // Convert stdClass to array if needed
+                if (is_object($attribute)) {
+                    $attribute = (array) $attribute;
+                }
                 if (isset($attribute['customizationKey'])) {
                     if (is_array($attribute['customizationKey'])) {
                         foreach ($attribute['customizationKey'] as $path) {
+                            if (is_object($path)) {
+                                $path = (array) $path;
+                            }
                             $customization_value = self::get_value_by_path(self::$customization_data, explode('.', $path['customizationPath']));
                             if ($customization_value !== null) {
                                 self::set_value_by_path($attribute, explode('.', $path['blockPath']), $customization_value);

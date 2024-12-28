@@ -17,6 +17,7 @@ class AffiliateXAdmin {
     public function __construct() {
         $this->init();
         new AmazonController();
+        new Notice\AdminNoticeManager();
     }
 
     /**
@@ -173,6 +174,12 @@ class AffiliateXAdmin {
             plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/dist/fontawesome/css/all.min.css',
             array(),
             '5.2.0'
+        );
+        wp_enqueue_style(
+            'affiliatex-editor-css',
+            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/editorCSS.css',
+            [],
+            filemtime( AFFILIATEX_PLUGIN_DIR . '/build/editorCSS.css' )
         );
     }
 

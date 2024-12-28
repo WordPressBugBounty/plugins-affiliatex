@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.2.1
+Stable tag: 1.3.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,16 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/?ut
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.3 - 26.12.2024 =
+* Update: Introduce New Editor Action Buttons (add, remove item, upload image)
+* Update: Hide admin notice in AffiliateX Dashboard for a better UX
+* Fix: Unordered List Color Doesn't Work In Editor
+* Fix: Single Product Ribbon Alignment
+* Fix: Notice title font size is not correct in view page
+* Fix: Styles being lost in editor responsive screen
+* Fix: Prevent double CSS import
+* Fix: Blocks Requests Shortcode Even If There Isn't Any Amazon Connection
 
 = 1.3.2.1 - 14.12.2024 =
 * Update: Freemius library version

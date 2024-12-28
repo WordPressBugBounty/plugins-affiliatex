@@ -265,7 +265,7 @@
       "default": true
     },
     "verdictTotalScore": {
-      "type": "decimalPoint",
+      "type": "number",
       "default": 8.5
     },
     "ratingContent": {

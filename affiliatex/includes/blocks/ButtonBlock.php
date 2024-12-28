@@ -1,66 +1,52 @@
 <?php
+
+namespace AffiliateX\Blocks;
+
+use AffiliateX\Blocks\BaseBlock;
+
+defined( 'ABSPATH' ) || exit;
+
 /**
  * AffiliateX Button Block
  *
  * @package AffiliateX
  */
-
-namespace AffiliateX\Blocks;
-
-defined( 'ABSPATH' ) || exit;
-
-/**
- * Admin class
- *
- * @package AffiliateX
- */
-class ButtonBlock {
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->init();
-	}
-
-	public function init()
+class ButtonBlock extends BaseBlock
+{
+	protected function get_slug(): string
 	{
-		add_action('enqueue_block_editor_assets', [$this, 'enqueue_block']);
-		add_action('init', [$this, 'register_block']);
+		return 'buttons';
 	}
 
-	public function enqueue_block()
+	protected function get_fields() : array
 	{
-		wp_enqueue_script('affiliatex-blocks-button', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/blocks/buttons/index.js', array('affiliatex'), AFFILIATEX_VERSION, true);
+		return [
+			'buttonLabel' => 'Button',
+			'buttonSize' => 'medium',
+			'buttonWidth' => 'flexible',
+			'buttonURL' =>	'',
+			'iconPosition' => 'left',
+			'block_id' => '',
+			'ButtonIcon' => [ 
+				'name' => 'thumb-up-simple',
+				'value' => 'far fa-thumbs-up'
+			],
+			'edButtonIcon' => false,
+			'btnRelSponsored' => false,
+			'openInNewTab' => false,
+			'btnRelNoFollow' => false,
+			'buttonAlignment' => 'flex-start',
+			'btnDownload' => false,
+			'layoutStyle' => 'layout-type-1',
+			'priceTagPosition' => 'tagBtnright',
+			'productPrice' => '$145'
+		];
 	}
 
-	public function register_block()
+	public function render(array $attributes, string $content) : string
 	{
-		register_block_type_from_metadata(AFFILIATEX_PLUGIN_DIR . '/build/blocks/buttons', [
-			'render_callback' => [$this, 'render'],
-		]);
-	}
-
-	public function render($attributes) {
-		$attributes = AffiliateX_Customization_Helper::apply_customizations($attributes);
-
-		// Extract attributes
-		$buttonLabel = isset($attributes['buttonLabel']) ? $attributes['buttonLabel'] : 'Button';
-		$buttonSize = isset($attributes['buttonSize']) ? $attributes['buttonSize'] : 'medium';
-		$buttonWidth = isset($attributes['buttonWidth']) ? $attributes['buttonWidth'] : 'flexible';
-		$buttonURL = isset($attributes['buttonURL']) ? $attributes['buttonURL'] : '';
-		$iconPosition = isset($attributes['iconPosition']) ? $attributes['iconPosition'] : 'left';
-		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
-		$ButtonIcon = isset($attributes['ButtonIcon']['value']) ? $attributes['ButtonIcon']['value'] : '';
-		$edButtonIcon = isset($attributes['edButtonIcon']) ? $attributes['edButtonIcon'] : false;
-		$btnRelSponsored = isset($attributes['btnRelSponsored']) ? $attributes['btnRelSponsored'] : false;
-		$openInNewTab = isset($attributes['openInNewTab']) ? $attributes['openInNewTab'] : false;
-		$btnRelNoFollow = isset($attributes['btnRelNoFollow']) ? $attributes['btnRelNoFollow'] : false;
-		$buttonAlignment = isset($attributes['buttonAlignment']) ? $attributes['buttonAlignment'] : 'center';
-		$btnDownload = isset($attributes['btnDownload']) ? $attributes['btnDownload'] : false;
-		$layoutStyle = isset($attributes['layoutStyle']) ? $attributes['layoutStyle'] : 'layout-type-1';
-		$priceTagPosition = isset($attributes['priceTagPosition']) ? $attributes['priceTagPosition'] : '';
-		$productPrice = isset($attributes['productPrice']) ? $attributes['productPrice'] : '';
+		$attributes = $this->parse_attributes($attributes);
+		extract($attributes);
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'class' => 'affx-btn-wrapper',
@@ -97,28 +83,8 @@ class ButtonBlock {
 		$iconLeft = $edButtonIcon && $iconPosition === 'axBtnleft' ? '<i class="button-icon ' . esc_attr($ButtonIcon) . '"></i>' : '';
 		$iconRight = $edButtonIcon && $iconPosition === 'axBtnright' ? '<i class="button-icon ' . esc_attr($ButtonIcon) . '"></i>' : '';
 
-		// Construct button HTML
-		$buttonHTML = sprintf(
-			'<a href="%s" class="%s" rel="%s"%s%s>%s<span class="affiliatex-btn">%s</span>%s%s</a>',
-			esc_url(do_shortcode($buttonURL)),
-			esc_attr($classNames),
-			esc_attr($rel),
-			$target,
-			$download,
-			$iconLeft,
-			wp_kses_post($buttonLabel),
-			$iconRight,
-			$layoutStyle === 'layout-type-2' && $priceTagPosition ? sprintf(
-				'<span class="price-tag">%s</span>',
-				wp_kses_post($productPrice)
-			) : ''
-		);
-
-		// Return the full HTML
-		return sprintf(
-			'<div %s><div class="affx-btn-inner">%s</div></div>',
-			$wrapper_attributes,
-			$buttonHTML
-		);
+		ob_start();
+		include $this->get_template_path();
+		return ob_get_clean();
 	}
 }

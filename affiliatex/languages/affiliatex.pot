@@ -808,7 +808,7 @@ msgid "Call to Action Title"
 msgstr ""
 
 #: app/src/blocks/cta/index.js:23
-msgid "Affiliatex Call To Action"
+msgid "AffiliateX Call To Action"
 msgstr ""
 
 #: app/src/blocks/cta/index.js:24

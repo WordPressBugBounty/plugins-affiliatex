@@ -1,11 +1,5 @@
 <?php
 
-/**
- * AffiliateX Button Block
- *
- * @package AffiliateX
- */
-
 namespace AffiliateX\Blocks;
 
 defined('ABSPATH') || exit;
@@ -13,37 +7,15 @@ defined('ABSPATH') || exit;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
 /**
- * Admin class
+ * AffiliateX Product Table Block
  *
  * @package AffiliateX
  */
-class ProductTableBlock
+class ProductTableBlock extends BaseBlock
 {
-
-	/**
-	 * Constructor
-	 */
-	public function __construct()
+	protected function get_slug(): string
 	{
-		$this->init();
-	}
-
-	public function init()
-	{
-		add_action('enqueue_block_editor_assets', [$this, 'enqueue_block']);
-		add_action('init', [$this, 'register_block']);
-	}
-
-	public function enqueue_block()
-	{
-		wp_enqueue_script('affiliatex-blocks-product-table', plugin_dir_url(AFFILIATEX_PLUGIN_FILE) . 'build/blocks/product-table/index.js', array('affiliatex'), AFFILIATEX_VERSION, true);
-	}
-
-	public function register_block()
-	{
-		register_block_type_from_metadata(AFFILIATEX_PLUGIN_DIR . '/build/blocks/product-table', [
-			'render_callback' => [$this, 'render'],
-		]);
+		return 'product-table';	
 	}
 
 	private function render_pt_stars($rating, $starColor, $starInactiveColor)
@@ -59,294 +31,62 @@ class ProductTableBlock
 		return $output;
 	}
 
-	private function render_features_list($features)
+	protected function get_fields(): array
 	{
-		if (!is_array($features)) {
-			return wp_kses_post($features);
-		}
-
-		$output = '';
-		foreach ($features as $item) {
-			if (is_array($item)) {
-				$output .= '<li>' . wp_kses_post(affx_extract_child_items($item)) . '</li>';
-			} elseif (is_string($item)) {
-				$output .= '<li>' . wp_kses_post($item) . '</li>';
-			}
-		}
-		return $output;
+		return [
+			'block_id' => '',
+			'productTable' => [],
+			'layoutStyle' => 'layoutOne',
+			'imageColTitle' => 'Image',
+			'productColTitle' => 'Product',
+			'featuresColTitle' => 'Features',
+			'ratingColTitle' => 'Rating',
+			'priceColTitle' => 'Price',
+			'edImage' => true,
+			'edCounter' => true,
+			'edProductName' => true,
+			'edRating' => true,
+			'edRibbon' => true,
+			'edPrice' => false,
+			'edButton1' => true,
+			'edButton1Icon' => true,
+			'button1Icon' => [
+				'name' => 'angle-right',
+				'value' => 'fas fa-angle-right'
+			],
+			'button1IconAlign' => 'right',
+			'edButton2' => true,
+			'edButton2Icon' => true,
+			'button2Icon' => [
+				'name' => 'angle-right',
+				'value' => 'fas fa-angle-right'
+			],
+			'button2IconAlign' => 'right',
+			'starColor' => '#FFB800',
+			'starInactiveColor' => '#A3ACBF',
+			'productContentType' => 'paragraph',
+			'contentListType' => 'unordered',
+			'productIconList' => [
+				'name' => 'check-circle-outline',
+				'value' => 'far fa-check-circle'
+			],
+			'productNameTag' => 'h5',
+		];
 	}
 
-	public function render($attributes)
+	public function render(array $attributes, string $content) : string
 	{
-		$attributes = AffiliateX_Customization_Helper::apply_customizations($attributes);
-
-		// Extract attributes
-		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
-		$productTable = isset($attributes['productTable']) ? $attributes['productTable'] : [];
-		$layoutStyle = isset($attributes['layoutStyle']) ? $attributes['layoutStyle'] : 'layoutOne';
-		$imageColTitle = isset($attributes['imageColTitle']) ? $attributes['imageColTitle'] : '';
-		$productColTitle = isset($attributes['productColTitle']) ? $attributes['productColTitle'] : '';
-		$featuresColTitle = isset($attributes['featuresColTitle']) ? $attributes['featuresColTitle'] : '';
-		$ratingColTitle = isset($attributes['ratingColTitle']) ? $attributes['ratingColTitle'] : '';
-		$priceColTitle = isset($attributes['priceColTitle']) ? $attributes['priceColTitle'] : '';
-		$edImage = isset($attributes['edImage']) ? $attributes['edImage'] : false;
-		$edCounter = isset($attributes['edCounter']) ? $attributes['edCounter'] : false;
-		$edProductName = isset($attributes['edProductName']) ? $attributes['edProductName'] : false;
-		$edRating = isset($attributes['edRating']) ? $attributes['edRating'] : false;
-		$edRibbon = isset($attributes['edRibbon']) ? $attributes['edRibbon'] : false;
-		$edPrice = isset($attributes['edPrice']) ? $attributes['edPrice'] : false;
-		$edButton1 = isset($attributes['edButton1']) ? $attributes['edButton1'] : false;
-		$edButton1Icon = isset($attributes['edButton1Icon']) ? $attributes['edButton1Icon'] : false;
-		$button1Icon = isset($attributes['button1Icon']) ? $attributes['button1Icon'] : [];
-		$button1IconAlign = isset($attributes['button1IconAlign']) ? $attributes['button1IconAlign'] : 'left';
-		$edButton2 = isset($attributes['edButton2']) ? $attributes['edButton2'] : false;
-		$edButton2Icon = isset($attributes['edButton2Icon']) ? $attributes['edButton2Icon'] : false;
-		$button2Icon = isset($attributes['button2Icon']) ? $attributes['button2Icon'] : [];
-		$button2IconAlign = isset($attributes['button2IconAlign']) ? $attributes['button2IconAlign'] : 'left';
-		$starColor = isset($attributes['starColor']) ? $attributes['starColor'] : '';
-		$starInactiveColor = isset($attributes['starInactiveColor']) ? $attributes['starInactiveColor'] : '';
-		$productContentType = isset($attributes['productContentType']) ? $attributes['productContentType'] : '';
-		$contentListType = isset($attributes['contentListType']) ? $attributes['contentListType'] : '';
-		$productIconList = isset($attributes['productIconList']) ? $attributes['productIconList'] : [];
-		$productNameTag = isset($attributes['productNameTag']) ? AffiliateX_Helpers::validate_tag($attributes['productNameTag'], 'h5') : 'h5';
-		$tagTitle = $productNameTag;
+		$attributes = $this->parse_attributes($attributes);
+		extract($attributes);
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'id' => "affiliatex-pdt-table-style-$block_id"
 		));
 
-		// Assemble the table head
-		$table_head = '';
-		if ($layoutStyle === 'layoutOne' || $layoutStyle === 'layoutTwo') {
-			$table_head = sprintf(
-				'<tr>%s%s%s%s%s%s</tr>',
-				$edImage ? '<td class="affx-img-col"><span>' . wp_kses_post($imageColTitle) . '</span></td>' : '',
-				'<td><span>' . wp_kses_post($productColTitle) . '</span></td>',
-				$layoutStyle === 'layoutOne' ? '<td><span>' . wp_kses_post($featuresColTitle) . '</span></td>' : '',
-				$layoutStyle === 'layoutOne' ? '<td class="affx-price-col"><span>' . wp_kses_post($priceColTitle) . '</span></td>' : '',
-				$layoutStyle === 'layoutTwo' &&  $edRating ? '<td><span>' . wp_kses_post($ratingColTitle) . '</span></td>' : '',
-				$layoutStyle === 'layoutTwo' ? '<td class="affx-price-col"><span>' . wp_kses_post($priceColTitle) . '</span></td>' : ''
-			);
-		}
+		$productNameTag = AffiliateX_Helpers::validate_tag($productNameTag, 'h5');
 
-		// Assemble the table body
-		$table_body = '';
-		foreach ($productTable as $index => $product) {
-			$counterText = $edCounter ? ($index + 1) : '';
-			$ribbonText = $product['ribbon'] ?? '';
-			$imageUrl = esc_url(do_shortcode($product['imageUrl']));
-			$imageAlt = esc_attr($product['imageAlt']);
-			$title = $edProductName ? sprintf(
-			       '<%1$s class="affx-pdt-name">%2$s</%1$s>',
-			        esc_attr($tagTitle),
-			        wp_kses_post($product['name'])
-			    ) : '';
-			$featuresList = $product['featuresList'];
-
-			if(is_array($featuresList) && count($featuresList) > 0 && isset($featuresList[0]['list']) && is_string($featuresList[0]['list']) && has_shortcode($featuresList[0]['list'], 'affiliatex-product')) {
-				$featuresList = json_decode(do_shortcode($featuresList[0]['list']), true);
-			}
-
-			$featuresContent = $productContentType === 'list' ?
-				sprintf('<%1$s class="affx-unordered-list affiliatex-icon affiliatex-icon-%2$s">%3$s</%1$s>',
-					$contentListType == 'unordered' ? 'ul' : 'ol',
-					esc_attr($productIconList['name']),
-					$this->render_features_list($featuresList)
-				) :
-			sprintf('<p class="affiliatex-content">%s</p>', wp_kses_post($product['features']));
-			$priceHtml = $edPrice ?
-				sprintf(
-					'<div class="affx-pdt-price-wrap">%s%s</div>',
-					!empty($product['offerPrice']) ? '<span class="affx-pdt-offer-price">' . wp_kses_post($product['offerPrice']) . '</span>' : '',
-					!empty($product['regularPrice']) ? '<del class="affx-pdt-reg-price">' . wp_kses_post($product['regularPrice']) . '</del>' : ''
-				) : '';
-
-			$button1Rel = [];
-			if ($product['btn1RelNoFollow']) {
-				$button1Rel[] = 'nofollow';
-			}
-			if ($product['btn1RelSponsored']) {
-				$button1Rel[] = 'sponsored';
-			}
-			$button1RelAttr = !empty($button1Rel) ? 'rel="' . implode(' ', $button1Rel) . '"' : '';
-
-			$button2Rel = [];
-			if ($product['btn2RelNoFollow']) {
-				$button2Rel[] = 'nofollow';
-			}
-			if ($product['btn2RelSponsored']) {
-				$button2Rel[] = 'sponsored';
-			}
-			$button2RelAttr = !empty($button2Rel) ? 'rel="' . implode(' ', $button2Rel) . '"' : '';
-
-			$button1Html = $edButton1 && !empty($product['button1']) ?
-				sprintf(
-					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button primary %s" %s %s %s>%s%s%s</a></div>',
-					esc_url(do_shortcode($product['button1URL'])),
-					$edButton1Icon ? 'icon-btn icon-' . esc_attr($button1IconAlign) : '',
-					$button1RelAttr,
-					$product['btn1OpenInNewTab'] ? 'target="_blank"' : '',
-					$product['btn1Download'] ? 'download' : '',
-					$edButton1Icon && $button1IconAlign === 'left' ? '<i class="button-icon ' . esc_attr($button1Icon['value']) . '"></i>' : '',
-					wp_kses_post($product['button1']),
-					$edButton1Icon && $button1IconAlign === 'right' ? '<i class="button-icon ' . esc_attr($button1Icon['value']) . '"></i>' : ''
-				) : '';
-
-			$button2Html = $edButton2 && !empty($product['button2']) ?
-				sprintf(
-					'<div class="affx-btn-inner"><a href="%s" class="affiliatex-button secondary %s" %s %s %s>%s%s%s</a></div>',
-					esc_url(do_shortcode($product['button2URL'])),
-					$edButton2Icon ? 'icon-btn icon-' . esc_attr($button2IconAlign) : '',
-					$button2RelAttr,
-					$product['btn2OpenInNewTab'] ? 'target="_blank"' : '',
-					$product['btn2Download'] ? 'download' : '',
-					$edButton2Icon && $button2IconAlign === 'left' ? '<i class="button-icon ' . esc_attr($button2Icon['value']) . '"></i>' : '',
-					wp_kses_post($product['button2']),
-					$edButton2Icon && $button2IconAlign === 'right' ? '<i class="button-icon ' . esc_attr($button2Icon['value']) . '"></i>' : ''
-				) : '';
-
-			$ratingOutput = '';
-			if ($edRating && !empty($product['rating'])) {
-				if ($layoutStyle === 'layoutOne') {
-					$ratingOutput = sprintf(
-						'<span class="star-rating-single-wrap">%s</span>',
-						wp_kses_post($product['rating'])
-					);
-				} elseif ($layoutStyle === 'layoutTwo') {
-					$ratingOutput = sprintf(
-						'<div class="affx-circle-progress-container">
-							<span class="circle-wrap" style="--data-deg:rotate(%sdeg);">
-								<span class="circle-mask full"><span class="fill"></span></span>
-								<span class="circle-mask"><span class="fill"></span></span>
-							</span>
-							<span class="affx-circle-inside">%s</span>
-						</div>',
-						esc_attr(180 * ($product['rating'] / 10)),
-						wp_kses_post($product['rating'])
-					);
-				} elseif ($layoutStyle === 'layoutThree') {
-					$ratingOutput = $this->render_pt_stars($product['rating'], $starColor, $starInactiveColor);
-				}
-			}
-			if ($layoutStyle === 'layoutOne') {
-				$table_body .= sprintf(
-					'<tr>
-						%s
-						<td>%s</td>
-						<td>%s</td>
-						<td class="affx-price-col">
-							%s
-							<div class="affx-btn-wrapper">%s%s</div>
-						</td>
-					</tr>',
-			$edImage ? sprintf(
-			'<td class="affx-img-col">
-						<div class="affx-pdt-img-container">
-							%s
-							%s
-							<div class="affx-pdt-img-wrapper">
-								<img src="%s" alt="%s">
-							</div>
-							%s
-						</div>
-					</td>',
-					(!empty($ribbonText) && $edRibbon)  ? sprintf('<span class="affx-pdt-ribbon affx-ribbon-2">%s</span>', $ribbonText) : '',
-							$edCounter ? sprintf('<span class="affx-pdt-counter">%s</span>', $counterText) : '',
-							$imageUrl,
-							$imageAlt,
-							$ratingOutput,
-					) : '',
-					$title,
-					$featuresContent,
-					$priceHtml,
-					$button1Html,
-					$button2Html
-				);
-			} elseif ($layoutStyle === 'layoutTwo') {
-				$table_body .= sprintf(
-					'<tr>
-						%s
-						<td>%s</td>
-						%s
-						<td class="affx-price-col">
-							%s
-							<div class="affx-btn-wrapper">%s%s</div>
-						</td>
-					</tr>',
-					$edImage ? sprintf(
-						'<td class="affx-img-col">
-							<div class="affx-pdt-img-container">
-								%s
-								%s
-								<div class="affx-pdt-img-wrapper">
-									<img src="%s" alt="%s">
-								</div>
-							</div>
-						</td>',
-						(!empty($ribbonText) && $edRibbon) ? sprintf('<span class="affx-pdt-ribbon affx-ribbon-2">%s</span>', $ribbonText) : '',
-						$edCounter ? sprintf('<span class="affx-pdt-counter">%s</span>', $counterText) : '',
-						$imageUrl,
-						$imageAlt,
-					) : '',
-					$title . $featuresContent,
-					$edRating ? sprintf('<td class="affx-rating-col">%s</td>', $ratingOutput) : '',
-					$priceHtml,
-					$button1Html,
-					$button2Html
-				);
-			} else if ($layoutStyle === 'layoutThree') {
-				$table_body .= sprintf(
-					'<div class="affx-pdt-table-single">
-						%s
-						<div class="affx-pdt-content-wrap">
-							<div class="affx-content-left">
-								%s
-								%s
-								%s
-								<div class="affx-rating-wrap">%s</div>
-								%s
-								<div class="affx-pdt-desc">%s</div>
-							</div>
-							<div class="affx-pdt-button-wrap">
-								<div class="affx-btn-wrapper">%s%s</div>
-							</div>
-						</div>
-					</div>',
-					$edImage ? sprintf(
-						'<div class="affx-pdt-img-wrapper">
-							<img src="%s" alt="%s">
-						</div>',
-						$imageUrl,
-						$imageAlt,
-					) : '',
-					$edCounter ? sprintf('<span class="affx-pdt-counter">%s</span>', $counterText) : '',
-					(!empty($ribbonText) && $edRibbon) ? sprintf('<span class="affx-pdt-ribbon">%s</span>', $ribbonText) : '',
-					$title,
-					$ratingOutput,
-					$priceHtml,
-					$featuresContent,
-					$button1Html,
-					$button2Html
-				);
-			}
-		}
-
-		// Assemble the final HTML output
-		$output = sprintf(
-			'<div %s>
-				<div class="affx-pdt-table-container--free affx-block-admin %s">
-					<div class="affx-pdt-table-wrapper">
-						%s
-						%s
-					</div>
-				</div>
-			</div>',
-			$wrapper_attributes,
-			$layoutStyle === 'layoutThree' ? 'layout-3' : '',
-			$layoutStyle === 'layoutThree' ? $table_body : '<table class="affx-pdt-table"><thead>' . $table_head . '</thead><tbody>' . $table_body . '</tbody></table>',
-			$layoutStyle === 'layoutThree' ? '' : ''
-		);
-
-		return $output;
+		ob_start();
+		include $this->get_template_path();
+		return ob_get_clean();
 	}
 }

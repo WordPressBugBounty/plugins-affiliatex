@@ -1,9 +1,4 @@
 <?php
-/**
- * AffiliateX Button Block
- *
- * @package AffiliateX
- */
 
 namespace AffiliateX\Blocks;
 
@@ -12,85 +7,41 @@ defined( 'ABSPATH' ) || exit;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
 /**
- * Admin class
+ * AffiliateX Versus Line Block
  *
  * @package AffiliateX
  */
-class VersusLineBlock {
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-		$this->init();
+class VersusLineBlock extends BaseBlock
+{
+	protected function get_slug(): string
+	{
+		return 'versus-line';
 	}
 
-	public function init()
+	protected function get_fields(): array
 	{
-		add_action('enqueue_block_editor_assets', [$this, 'enqueue_block']);
-		add_action('init', [$this, 'register_block']);
+		return [
+			'block_id' => '',
+			'versusTable' => [],
+			'vsLabel' => '',
+			'versusTitleTag' => 'p'
+		];
 	}
 
-	public function enqueue_block()
+	public function render(array $attributes, string $content) : string
 	{
-		wp_enqueue_script('affiliatex-blocks-versus-line', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/blocks/versus-line/index.js', array('affiliatex'), AFFILIATEX_VERSION, true);
-	}
-
-	public function register_block()
-	{
-		register_block_type_from_metadata(AFFILIATEX_PLUGIN_DIR . '/build/blocks/versus-line', [
-			'render_callback' => [$this, 'render'],
-		]);
-	}
-
-	public function render($attributes)
-	{
-		$attributes = AffiliateX_Customization_Helper::apply_customizations($attributes);
-		$block_id = isset($attributes['block_id']) ? $attributes['block_id'] : '';
-		$versusTable = isset($attributes['versusTable']) ? $attributes['versusTable'] : [];
-		$vsLabel = isset($attributes['vsLabel']) ? $attributes['vsLabel'] : '';
-		$versusTitleTag = isset($attributes['versusTitleTag']) ? AffiliateX_Helpers::validate_tag($attributes['versusTitleTag'], 'p') : 'p';
+		$attributes = $this->parse_attributes($attributes);
+		extract($attributes);
 
 		$wrapper_attributes = get_block_wrapper_attributes(array(
 			'id' => "affiliatex-versus-line-style-$block_id",
 			'class' => "affx-versus-line-block-container",
 		));
 
+		$versusTitleTag = AffiliateX_Helpers::validate_tag($attributes['versusTitleTag'], 'p');
 
-		$rowsHtml = '';
-		foreach ($versusTable as $item) {
-			$rowsHtml .= sprintf(
-				'<tr>
-					<td class="data-label">
-					<%s class="affx-versus-title">%s</%s>
-						<span class="data-info">%s</span>
-					</td>
-					<td>%s</td>
-					<td>
-						<span class="affx-vs-icon">%s</span>
-					</td>
-					<td>%s</td>
-				</tr>',
-				esc_attr($versusTitleTag),
-				wp_kses_post($item['versusTitle']),
-				esc_attr($versusTitleTag),
-				wp_kses_post($item['versusSubTitle']),
-				wp_kses_post($item['versusValue1']),
-				wp_kses_post($vsLabel),
-				wp_kses_post($item['versusValue2'])
-			);
-		}
-
-		return sprintf(
-			'<div %s>
-				<div class="affx-versus-table-wrap">
-					<table class="affx-product-versus-table">
-						<tbody>%s</tbody>
-					</table>
-				</div>
-			</div>',
-			$wrapper_attributes,
-			$rowsHtml
-		);
+		ob_start();
+		include $this->get_template_path();
+		return ob_get_clean();
 	}
 }

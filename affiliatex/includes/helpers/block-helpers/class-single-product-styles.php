@@ -248,7 +248,13 @@ class AffiliateX_Single_Product_Styles {
 
 			' .affx-sp-ribbon'                         => array(
 				'width'      => '100%',
-				'text-align' => isset( $attr['ribbonAlign'] ) ? $attr['ribbonAlign'] : 'left',
+			),
+
+			' .product-layout-2 .affx-sp-ribbon.ribbon-align-left' => array(
+				'text-align' => 'left',
+			),
+			' .product-layout-2 .affx-sp-ribbon.ribbon-align-right' => array(
+				'text-align' => 'right',
 			),
 
 			' .affx-sp-ribbon-title'                   => array(
@@ -264,20 +270,33 @@ class AffiliateX_Single_Product_Styles {
 				'color'           => isset( $attr['ribbonColor'] ) ? $attr['ribbonColor'] : '#fff',
 			),
 
-			' .affx-sp-ribbon.ribbon-layout-2 .affx-sp-ribbon-title:before' => array(
+
+			' .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:before' => array(
 				'border-bottom-color' => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
-			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-2 .affx-sp-ribbon-title:before' => array(
+			" .affx-sp-ribbon.ribbon-layout-two.ribbon-align-right .affx-sp-ribbon-title:before" => array(
+				"border-right-color" => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+					$ribbonGradient :
+					$ribbonBgColor,
+			),
+
+			" .affx-sp-ribbon.ribbon-layout-two.ribbon-align-left .affx-sp-ribbon-title:before" => array(
+				"border-bottom-color" => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+					$ribbonGradient :
+					$ribbonBgColor,
+			),
+
+			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:before' => array(
 				'border-bottom-color' => 'transparent',
 				'border-right-color' => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
-			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-2 .affx-sp-ribbon-title:hover:before' => array(
+			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:hover:before' => array(
 				'border-bottom-color' => 'transparent',
 				'border-bottom-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'solid' ? $attr['ribbonBGColor'] : $ribbonGradient,
 			),
