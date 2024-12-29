@@ -1,4 +1,7 @@
 <?php
+	if ( ! $edButton2 || empty( $product['button2'] ) ) {
+		return;
+	}
     $button2Rel = [];
     if ($product['btn2RelNoFollow']) {
         $button2Rel[] = 'nofollow';
