@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.3.1
+Stable tag: 1.3.3.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -141,6 +141,9 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/?ut
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.3.2 - 30.12.2024 =
+* Fix: Ratings always visible in verdict block
 
 = 1.3.3.1 - 29.12.2024 =
 * Fix: Product table second button always visible issue fixed
