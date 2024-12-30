@@ -27,7 +27,7 @@ class ButtonBlock extends BaseBlock
 			'buttonURL' =>	'',
 			'iconPosition' => 'left',
 			'block_id' => '',
-			'ButtonIcon' => [ 
+			'ButtonIcon' => [
 				'name' => 'thumb-up-simple',
 				'value' => 'far fa-thumbs-up'
 			],
@@ -77,11 +77,12 @@ class ButtonBlock extends BaseBlock
 		$target = $openInNewTab ? ' target="_blank"' : '';
 
 		// Construct download attribute
-		$download = $btnDownload ? ' download="affiliatex"' : '';
+		$download = $btnDownload ? ' download' : '';
+
 
 		// Construct icon HTML
-		$iconLeft = $edButtonIcon && $iconPosition === 'axBtnleft' ? '<i class="button-icon ' . esc_attr($ButtonIcon) . '"></i>' : '';
-		$iconRight = $edButtonIcon && $iconPosition === 'axBtnright' ? '<i class="button-icon ' . esc_attr($ButtonIcon) . '"></i>' : '';
+		$iconLeft = $edButtonIcon && $iconPosition === 'axBtnleft' ? '<i class="button-icon ' . esc_attr($ButtonIcon['value']) . '"></i>' : '';
+		$iconRight = $edButtonIcon && $iconPosition === 'axBtnright' ? '<i class="button-icon ' . esc_attr($ButtonIcon['value']) . '"></i>' : '';
 
 		ob_start();
 		include $this->get_template_path();

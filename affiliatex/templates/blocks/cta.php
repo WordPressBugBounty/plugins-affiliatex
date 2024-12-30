@@ -9,9 +9,11 @@
                     <p class="affliatex-cta-content"><?php echo wp_kses_post($ctaContent) ?></p>
                 <?php endif; ?>
             </div>
-            <div class="button-wrapper cta-btn-<?php echo esc_attr($ctaButtonAlignment) ?>">
-                <?php echo $content ?>
-            </div>
+            <?php if($edButtons): ?>
+	            <div class="button-wrapper cta-btn-<?php echo esc_attr($ctaButtonAlignment) ?>">
+	                <?php echo $content ?>
+	            </div>
+            <?php endif; ?>
         </div>
         <?php if($ctaLayout === 'layoutTwo'): ?>
             <div class="image-wrapper"></div>

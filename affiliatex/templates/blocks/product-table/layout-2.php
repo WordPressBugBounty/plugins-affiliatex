@@ -1,4 +1,5 @@
 <tr>
+	<?php if($edImage): ?>
     <td class="affx-img-col">
         <div class="affx-pdt-img-container">
             <?php if(!empty($ribbonText) && $edRibbon): ?>
@@ -12,6 +13,7 @@
             </div>
         </div>
     </td>
+    <?php endif; ?>
     <td><?php include 'partial/title.php' ?><?php include 'partial/features.php' ?></td>
     <?php if($edRating): ?>
         <td class="affx-rating-col"><?php include 'partial/rating.php' ?></td>

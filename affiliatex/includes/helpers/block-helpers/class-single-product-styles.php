@@ -197,9 +197,9 @@ class AffiliateX_Single_Product_Styles {
 			' .affx-sp-content-wrapper .title-wrapper' => array(
 				'border-color'        => isset( $attr['productDivider']['color']['color'] ) ? $attr['productDivider']['color']['color'] : '#E6ECF7',
 				'border-style'        => isset( $attr['productDivider']['style'] ) ? $attr['productDivider']['style'] : 'none',
-				'border-bottom-width' => isset( $attr['productDivider']['width'] ) ? $attr['productDivider']['width'] : '1',
+				'border-bottom-width' => isset( $attr['productDivider']['width'] ) ? $attr['productDivider']['width'] . 'px' : '1',
 			),
-
+			
 			' .affx-single-product-wrapper.product-layout-2 .title-wrapper' => array(
 				'padding-top'    => isset( $attr['contentSpacing']['desktop']['top'] ) ? $attr['contentSpacing']['desktop']['top'] : '30px',
 				'padding-left'   => isset( $attr['contentSpacing']['desktop']['left'] ) ? $attr['contentSpacing']['desktop']['left'] : '25px',

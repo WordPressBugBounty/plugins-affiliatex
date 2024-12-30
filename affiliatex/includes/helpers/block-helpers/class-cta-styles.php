@@ -166,7 +166,7 @@ class AffiliateX_CTA_Styles {
 				'padding-bottom' => isset( $attr['ctaBoxPadding']['desktop']['bottom'] ) ? $attr['ctaBoxPadding']['desktop']['bottom'] : '60px',
 			),
 			' .button-wrapper'                        => array(
-				'justify-content' => isset( $attr['contentAlignment'] ) ? $attr['contentAlignment'] : 'center',
+				'justify-content' => isset( $attr['ctaButtonAlignment'] ) ? $attr['ctaButtonAlignment'] : 'center',
 			),
 		);
 

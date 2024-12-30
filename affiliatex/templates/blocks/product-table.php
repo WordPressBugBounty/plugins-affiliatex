@@ -39,7 +39,9 @@ $table_body = ob_get_clean();
                             <?php if($edImage): ?>
                                 <td class="affx-img-col"><span><?php echo wp_kses_post($imageColTitle) ?></span></td>
                             <?php endif; ?>
+	                        <?php if(!($layoutStyle === 'layoutOne' && !$edProductName)): ?>
                                 <td><span><?php echo wp_kses_post($productColTitle) ?></span></td>
+                            <?php endif; ?>
                             <?php if($layoutStyle === 'layoutOne'): ?>
                                 <td><span><?php echo wp_kses_post($featuresColTitle) ?></span></td>
                                 <td class="affx-price-col"><span><?php echo wp_kses_post($priceColTitle) ?></span></td>
