@@ -62,7 +62,13 @@ class AmazonApiValidator extends AmazonApiBase
      */
     public function get_errors()
     {
-        if(!isset($this->result['Errors']) && is_array($this->result['Errors']) && count($this->result['Errors']) === 0){
+        // First check if result exists and has Errors key
+        if (!isset($this->result) || !isset($this->result['Errors'])) {
+            return false;
+        }
+
+        // Then check if Errors is an array and has items
+        if (is_array($this->result['Errors']) && count($this->result['Errors']) === 0) {
             return false;
         }
 

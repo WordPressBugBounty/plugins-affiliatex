@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.3.3
+Stable tag: 1.3.3.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,31 +13,28 @@ AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional af
 
 == Description ==
 
-AffiliateX is an Amazon affiliate plugin for affiliate marketers.
+### Best Amazon Affiliate Plugin for WordPress
 
-You can create highly effective affiliate marketing blogs with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
+AffiliateX is the [best affiliate block plugin for WordPress](https://affiliatexblocks.com/?utm_source=wporg&utm_medium=pluginlisting&utm_campaign=pluginfirstheading). You can create highly effective affiliate marketing blogs with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
 
-AffiliateX has several blocks suitable for creating affiliate marketing blogs such as Single Product, Product Comparison Table, Pros and Cons, Notice, Call to Action, Specification, Button and more. Each of these blocks is highly customizable so that you can give a unique look and feel.
+[AffiliateX Pro ⭐](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page) | [Demos](https://affiliatexblocks.com/demo/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page) | [Documentation](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page) | [Contact Us](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
 
-Built using React, the blocks are speed optimized and load in the blink of an eye.
+AffiliateX has several blocks suitable for creating affiliate marketing blogs such as Single Product, Product Comparison Table, Pros and Cons, Notice, Call to Action, Specification, Button and more. Each of these blocks is highly customizable so that you can give it a unique look and feel.
 
-AffiliateX helps you to improve your visitors, increase Click Through Rate (CTR) and boost affiliate income.
+Built using React, the blocks are speed optimized and load in the blink of an eye. AffiliateX helps you to improve your visitors, increase Click Through Rate (CTR) and boost affiliate income.
 
-Do you want to know more about AffiliateX Pro ⭐ [https://affiliatexblocks.com/pricing/](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
+### AffiliateX Amazon Integration 🚀
 
-Do you want to see demo of the blocks? 👉 [https://affiliatexblocks.com/demo/](https://affiliatexblocks.com/demo//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
+#### With AffiliateX, connecting to Amazon’s Product Advertising API has never been easier!
 
-Want to learn more? Check our documentation 👉 [https://affiliatexblocks.com/docs/](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
-
-Do you have question, feedback? Let us know! 👉 [https://affiliatexblocks.com/contact/](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)
-
-== AffiliateX Amazon Integration ==
-
-With AffiliateX, connecting to Amazon’s Product Advertising API has never been easier! This integration enables Amazon affiliates to access and display up-to-date product information, including titles, images, descriptions, and pricing—all directly within WordPress.
+By simply entering your Amazon API credentials, you can:
+- **Auto-import product details** including titles, images, descriptions, and pricing—**no manual data entry** needed.
+- Ensure **real-time product updates** whenever Amazon changes prices or product information.
+- **Save time** and minimize errors by avoiding repetitive copy-paste tasks.
 
 [youtube https://youtu.be/a3H4PF2lMAY]
 
-== AffiliateX Blocks ==
+### AffiliateX Free Blocks
 
 * **[Single Product](https://affiliatexblocks.com/single-product/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_single_product)** - It is suitable for promoting any single product. It offers 4 different layouts to choose from.
 
@@ -59,7 +56,7 @@ With AffiliateX, connecting to Amazon’s Product Advertising API has never been
 
 * **[Product Comparison Table](https://affiliatexblocks.com/product-comparison/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_comparison)** - Create a stunning and informative product comparison table to compare different products all at once.
 
-== AffiliateX Pro Blocks ⭐ ==
+### AffiliateX Pro Blocks ⭐
 
 * **[Top Product](https://affiliatexblocks.com/top-products/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_top_products)** - Highlight the best product with this block, designed to showcase top products effectively.
 
@@ -141,6 +138,15 @@ You can contact our support team [here](https://affiliatexblocks.com/contact/?ut
 For some of the components of AffiliateX Block, we have used codes of Blocksy Theme. The codes used in this plugin are used from the theme's component as they are under GPL license. - [https://creativethemes.com/blocksy/](https://creativethemes.com/blocksy/)
 
 == Changelog ==
+
+= 1.3.3.4 - 15.01.2024 =
+* Fix: Single coupon button issue
+* Fix: Pros and Cons bold text issue
+* Fix: Amazon modal css issue on safari
+* Fix: PHP Warning fix for Amazon API Validator
+
+= 1.3.3.4 - 02.01.2024 =
+* Fix: Align css issues fixed
 
 = 1.3.3.3 - 30.12.2024 =
 * Fix: Multiple refactor issue fixed
