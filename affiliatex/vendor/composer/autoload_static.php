@@ -7,7 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
 {
     public static $files = array (
-        '8d50dc88e56bace65e1e72f6017983ed' => __DIR__ . '/..' . '/freemius/wordpress-sdk/start.php',
         '6f7b0ce3c4ac60570fd14118e7f1ac6d' => __DIR__ . '/../..' . '/includes/functions/HelperFunctions.php',
         '7f557948b06be730b835672c2239ba5c' => __DIR__ . '/../..' . '/includes/functions/AjaxFunctions.php',
     );
