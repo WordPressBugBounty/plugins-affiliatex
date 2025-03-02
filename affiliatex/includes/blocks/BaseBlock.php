@@ -97,4 +97,13 @@ abstract class BaseBlock
      * @return array
      */
     abstract protected function get_fields() : array;
+
+    protected function enqueue_styles() {
+        wp_enqueue_style(
+            'affiliatex-button-style',
+            AFFILIATEX_PLUGIN_URL . 'assets/css/buttons.css',
+            [],
+            AFFILIATEX_VERSION
+        );
+    }
 }

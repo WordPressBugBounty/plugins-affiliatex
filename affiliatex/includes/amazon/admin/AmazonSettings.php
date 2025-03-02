@@ -77,20 +77,28 @@ class AmazonSettings{
         $attributes['country'] = isset($params['country']) && !empty($params['country']) ? sanitize_text_field($params['country']) : '';
         $attributes['tracking_id'] = isset($params['tracking_id']) && !empty($params['tracking_id']) ? sanitize_text_field($params['tracking_id']) : '';   
 
-        if(empty($attributes['api_key'])){
-            $this->send_json_error(__('API key is required', 'affiliatex'));
-        }
+        // Check if any field has a value
+        $has_any_value = !empty($attributes['api_key']) || 
+                        !empty($attributes['api_secret']) || 
+                        !empty($attributes['tracking_id']);
 
-        if(empty($attributes['api_secret'])){
-            $this->send_json_error(__('API secret is required', 'affiliatex'));
-        }
+        // Only validate if at least one field has a value
+        if ($has_any_value) {
+            if(empty($attributes['api_key'])){
+                $this->send_json_error(__('API key is required', 'affiliatex'));
+            }
 
-        if(empty($attributes['country'])){
-            $this->send_json_error(__('Country is required', 'affiliatex'));
-        }
+            if(empty($attributes['api_secret'])){
+                $this->send_json_error(__('API secret is required', 'affiliatex'));
+            }
 
-        if(empty($attributes['tracking_id'])){
-            $this->send_json_error(__('Tracking ID is required', 'affiliatex'));
+            if(empty($attributes['country'])){
+                $this->send_json_error(__('Country is required', 'affiliatex'));
+            }
+
+            if(empty($attributes['tracking_id'])){
+                $this->send_json_error(__('Tracking ID is required', 'affiliatex'));
+            }
         }
 
         return $attributes;
@@ -108,23 +116,35 @@ class AmazonSettings{
             $params = json_decode($request->get_body(), true);        
             $attributes = $this->sanitize_settings_fields($params);
             
+            // Check if all fields are empty
+            $all_empty = empty($attributes['api_key']) && 
+                        empty($attributes['api_secret']) && 
+                        empty($attributes['tracking_id']);
+;
+
             $this->set_option('amazon_settings', $attributes);
             
-            $validator = new AmazonApiValidator();
+            // Only validate with Amazon API if at least one field has a value
+            if (!$all_empty) {
+                $validator = new AmazonApiValidator();
 
-            if(!$validator->is_credentials_valid()){
-                $errors = $validator->get_errors();
+                if(!$validator->is_credentials_valid()){
+                    $errors = $validator->get_errors();
 
+                    $this->set_option('amazon_activated', false);
+                    $this->send_json_error(__('Invalid credentials', 'affiliatex'), [
+                        'invalid_api_key' => true,
+                        'errors' => $errors
+                    ]);
+                }
+
+                $this->set_option('amazon_activated', true);
+            } else {
+                // If all fields are empty, deactivate Amazon integration
                 $this->set_option('amazon_activated', false);
-                $this->send_json_error(__('Invalid credentials', 'affiliatex'), [
-                    'invalid_api_key' => true,
-                    'errors' => $errors
-                ]);
             }
 
-            $this->set_option('amazon_activated', true);
             $this->send_json_success(__('Settings saved successfully', 'affiliatex'));
-
         }catch(Exception $e){
             $this->send_json_error($e->getMessage());
         }

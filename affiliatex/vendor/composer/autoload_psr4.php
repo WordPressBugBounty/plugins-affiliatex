@@ -13,6 +13,7 @@ return array(
     'AffiliateX_Pro\\Amazon\\Admin\\' => array($baseDir . '/pro/includes/amazon/admin'),
     'AffiliateX_Pro\\Amazon\\' => array($baseDir . '/pro/includes/amazon'),
     'AffiliateX_Pro\\' => array($baseDir . '/pro/includes'),
+    'AffiliateX\\Traits\\' => array($baseDir . '/includes/traits'),
     'AffiliateX\\Notice\\' => array($baseDir . '/includes/notice'),
     'AffiliateX\\Helpers\\' => array($baseDir . '/includes/helpers'),
     'AffiliateX\\Blocks\\' => array($baseDir . '/includes/blocks'),

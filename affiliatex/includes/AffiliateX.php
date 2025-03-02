@@ -27,6 +27,8 @@ final class AffiliateX {
 
 	public $blocks;
 
+	public $widgets;
+
 	/**
 	 * Class Instance
 	 *
@@ -50,6 +52,9 @@ final class AffiliateX {
 		$this->admin_settings = new AffiliateXAdmin();
 		$this->public         = new AffiliateXPublic();
 		$this->blocks         = new AffiliateXBlocks();
+		if (defined('AFFX_FT_ELEMENTOR')) {
+			$this->widgets        = new AffiliateXWidgets();
+		}
 	}
 
 	/**
@@ -119,6 +124,7 @@ final class AffiliateX {
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-customization-helper.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/classes/class-ab-fonts-manager.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/notice/NoticeHandler.php';
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/AffiliateXTemplateLibrary.php';
 	}
 
 	/**

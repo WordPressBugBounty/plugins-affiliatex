@@ -4,9 +4,10 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
+class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
 {
     public static $files = array (
+        '8d50dc88e56bace65e1e72f6017983ed' => __DIR__ . '/..' . '/freemius/wordpress-sdk/start.php',
         '6f7b0ce3c4ac60570fd14118e7f1ac6d' => __DIR__ . '/../..' . '/includes/functions/HelperFunctions.php',
         '7f557948b06be730b835672c2239ba5c' => __DIR__ . '/../..' . '/includes/functions/AjaxFunctions.php',
     );
@@ -21,6 +22,7 @@ class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
             'AffiliateX_Pro\\Amazon\\Admin\\' => 28,
             'AffiliateX_Pro\\Amazon\\' => 22,
             'AffiliateX_Pro\\' => 15,
+            'AffiliateX\\Traits\\' => 18,
             'AffiliateX\\Notice\\' => 18,
             'AffiliateX\\Helpers\\' => 19,
             'AffiliateX\\Blocks\\' => 18,
@@ -60,6 +62,10 @@ class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
         array (
             0 => __DIR__ . '/../..' . '/pro/includes',
         ),
+        'AffiliateX\\Traits\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/traits',
+        ),
         'AffiliateX\\Notice\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes/notice',
@@ -97,9 +103,9 @@ class ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit59395194a151990ed8f0f0d443a7a4ba::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120::$classMap;
 
         }, null, ClassLoader::class);
     }

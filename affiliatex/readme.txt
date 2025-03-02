@@ -1,11 +1,11 @@
 === AffiliateX – Amazon Affiliate Plugin ===
-Contributors: cagdasdag, wpcenter
+Contributors: wpcenter, cagdasdag
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.3.6
+Stable tag: 1.3.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -139,151 +139,4 @@ For some of the components of AffiliateX Block, we have used codes of Blocksy Th
 
 == Changelog ==
 
-= 1.3.3.6 - 29.01.2024 =
-* Update: Freemius package version updated
-
-= 1.3.3.4 - 15.01.2024 =
-* Fix: Single coupon button issue
-* Fix: Pros and Cons bold text issue
-* Fix: Amazon modal css issue on safari
-* Fix: PHP Warning fix for Amazon API Validator
-
-= 1.3.3.4 - 02.01.2024 =
-* Fix: Align css issues fixed
-
-= 1.3.3.3 - 30.12.2024 =
-* Fix: Multiple refactor issue fixed
-
-= 1.3.3.2 - 30.12.2024 =
-* Fix: Ratings always visible in verdict block
-
-= 1.3.3.1 - 29.12.2024 =
-* Fix: Product table second button always visible issue fixed
-
-= 1.3.3 - 26.12.2024 =
-* Update: Introduce New Editor Action Buttons (add, remove item, upload image)
-* Update: Hide admin notice in AffiliateX Dashboard for a better UX
-* Fix: Unordered List Color Doesn't Work In Editor
-* Fix: Single Product Ribbon Alignment
-* Fix: Notice title font size is not correct in view page
-* Fix: Styles being lost in editor responsive screen
-* Fix: Prevent double CSS import
-* Fix: Blocks Requests Shortcode Even If There Isn't Any Amazon Connection
-
-= 1.3.2.1 - 14.12.2024 =
-* Update: Freemius library version
-
-= 1.3.2 - 09.12.2024 =
-* New: Title and Description length limitation added for the Amazon API integration
-* Update: Title tag selection added for the missing blocks
-* Update: Documentation link for Amazon Connection added to plugin
-* Fix: Amazon icon misaligment
-* Fix: URL field overlapped in sidebar
-* Fix: Typing backward in Pros and Cons block
-* Fix: Pros and Cons block paragraph overflow
-* Fix: Empty page when there is an error on Amazon Connection
-
-= 1.3.1 - 25.11.2024 =
-* New: Adding option to use sale-regular price via Amazon API
-* Update: Amazon connected fields open initially when user click swap
-* Fix: Showing error message from Amazon API on setting save
-* Fix: Coupon listing wrong class and style options
-* Fix: Pros and Cons block gradient color issue
-* Fix: Pros and Cons block misalignment
-* Fix: Single coupon ribbon visual issue
-* Fix: Verdict scorebox aligment
-* Fix: Decrease amazon api request
-* Fix: Pros and Cons different Amazon field usage issue
-* Fix: Product table link with Amazon issue
-* Fix: Product table reset issue
-* Fix: Pros and cons php warning issue
-* Fix: Versus block image button
-* Fix: Product comparison block swap icon issue
-
-= 1.3.0 - 13.11.2024 =
-* New: Added Amazon API integration for all AffiliateX blocks
-* Update: Option to change the heading tag added for the Product Table block
-* Update: Upgrade page improved
-* Compatibility: Updated for the latest Freemius version
-* Fix: Fixed missing nofollow, sponsored, and target attributes
-
-= 1.2.9 - 30.09.2024 =
-* Feature: Review and Campaign Notices added
-* Feature: Rating Box block added
-
-= 1.2.8 - 16.09.2024 =
-* Feature: Premium Blocks previews added
-
-= 1.2.7 - 29.08.2024 =
-* All the blocks converted to dynamic blocks
-
-= 1.2.6 - 21th June, 2024 =
-* Old License activation removed
-* Upgrade section removed for pro users
-
-= 1.2.5 - 19th June, 2024 =
-* Fix: WordPress 6.6 multiline rich text issue fixed
-
-= 1.2.4 - 16th June, 2024 =
-* Freemius Integration
-* Owner changes in plugin
-* New pro version structure added
-
-= 1.2.3 - 15th April, 2024 =
-* Compatibility updates.
-
-= 1.2.1 - 12th December, 2022 =
-* Compatibility updates.
-
-= 1.2.0 - 4th July 2022 =
-* Fixes: Minor Bug Fixes.
-
-= 1.1.9 - 15th April 2022 =
-* Enhancement: SiteSprite image support added for Product Block.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.8 - 21st February 2022 =
-* Enhancement: Image Padding option added for Product Comparison, Product Table, and Single Product Blocks.
-* Enhancement: Design enhancements.
-* Fixes: Title typography fixes for Verdict Block.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.7 - 8th February 2022 =
-* Enhancement: Design enhancements.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.6 - 4th February 2022 =
-* Enhancement: Design enhancements.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.5 - 27th January 2022 =
-* Enhancement: Compatibility fixes for WordPress 5.9.
-* Enhancement: Wide alignment support added for Blocks.
-* Fixes: Button Icon Size fix.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.4 - 19th January 2022 =
-* Fixes: Fixed a bug in customizer where issues was seen in some themes.
-* Fixes: Minor Bug Fixes.
-
-= 1.1.3 - 23rd December 2021 =
-* New Feature: FontAwesome CSS optional loading added.
-* Fixes: CSS Loading issue fixed in archives and search pages.
-* Fixes: CSS Load in pages other than blocks enabled page.
-
-= 1.1.2 - 21st December 2021 =
-* Fix: Minor Bug Fixes.
-
-= 1.1.1 - 18th December 2021 =
-* Fix: Responsive issue fixes for blocks.
-* Fix: Minor Bug Fixes.
-
-= 1.1.0 - 15th December 2021 =
-* **New:** Added a new block called "Specifications Block".
-* **New:** Added a new block called "Product Table".
-* Enhancement: Changed CSS Loading approach for all blocks.
-* Fix: Fixed the issue with fonts loading in block editor.
-* Fix: Fixed the issue with Inner Block CSS loading.
-
-= 1.0.0 - 22 November 2021 =
-* Initial Release.
+For the changelog of AffiliateX, please refer to [the changelog on affiliatexblocks.com](https://affiliatexblocks.com/changelog.txt).
