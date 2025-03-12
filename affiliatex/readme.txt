@@ -1,5 +1,5 @@
 === AffiliateX – Amazon Affiliate Plugin ===
-Contributors: wpcenter, cagdasdag
+Contributors: wpcenter, cagdasdag, orkunaybek
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
