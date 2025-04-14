@@ -172,14 +172,6 @@ class AB_Fonts_Manager {
 
 			$this->get_generated_stylesheet( $this_post );
 
-		} elseif ( is_archive() || is_home() || is_search() ) {
-
-			global $wp_query;
-			$cached_wp_query = $wp_query->posts;
-
-			foreach ( $cached_wp_query as $post ) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-				$this->get_generated_stylesheet( $post );
-			}
 		}
 	}
 

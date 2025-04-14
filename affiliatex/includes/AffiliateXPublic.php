@@ -27,10 +27,19 @@ class AffiliateXPublic {
 	 * @return void
 	 */
 	public function init_hooks() {
-		$m = new \AB_FONTS_MANAGER();
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'wp', array( $m, 'generate_assets' ), 99 );
+		add_action( 'wp', array( $this, 'generate_assets' ), 99 );
 		add_action( 'wp_head', array( $this, 'generate_stylesheet' ), 80 );
+	}
+
+	/**
+	 * Generate Fonts Assets
+	 *
+	 * @return void
+	 */
+	public function generate_assets() {
+		$m = new \AB_FONTS_MANAGER();
+		$m->generate_assets();
 	}
 
 	/**
@@ -75,7 +84,7 @@ class AffiliateXPublic {
 		}
 		ob_start();
 		?>
-			<style id="affiliatex-styles-frontend"><?php echo $stylesheet; //phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?></style>
+		<style id="affiliatex-styles-frontend"><?php echo $stylesheet; //phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?></style>
 		<?php
 		ob_end_flush();
 	}

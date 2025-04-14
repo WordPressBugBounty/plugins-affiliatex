@@ -7,7 +7,7 @@
   "description": "Showcase any product with customizable layouts for affiliate marketing.",
   "supports": {
     "multiple": true,
-    "align": true
+    "innerBlocks": true
   },
   "keywords": [
     "Product",
@@ -551,6 +551,14 @@
     "ribbonAlign": {
       "type": "string",
       "default": "left"
+    },
+    "buttonDirection": {
+      "type": "string",
+      "default": "column"
+    },
+    "buttonsGap": {
+      "type": "number",
+      "default": 10
     },
     "edButton": {
       "type": "boolean",

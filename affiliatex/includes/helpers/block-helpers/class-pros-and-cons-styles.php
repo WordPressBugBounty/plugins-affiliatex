@@ -68,7 +68,7 @@ class AffiliateX_Pros_and_Cons_Styles {
 		$consTextColorThree     = isset( $attr['consTextColorThree'] ) ? $attr['consTextColorThree'] : '#F13A3A';
 		$consTextColor          = isset( $attr['consTextColor'] ) ? $attr['consTextColor'] : '#ffffff';
 		$box_shadow             = array(
-			'enable'   => true,
+			'enable'   => false,
 			'h_offset' => 2,
 			'v_offset' => 5,
 			'blur'     => 20,

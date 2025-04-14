@@ -125,9 +125,9 @@ class SingleProductBlock extends BaseBlock
 		$imageAlign = $edProductImage ? 'image-' . $productImageAlign : '';
 		$ribbonLayout = '';
 		if ($productRibbonLayout === 'one') {
-			$ribbonLayout = ' ribbon-layout-1';
+			$ribbonLayout = ' ribbon-layout-one';
 		} elseif ($productRibbonLayout === 'two') {
-			$ribbonLayout = ' ribbon-layout-2';
+			$ribbonLayout = ' ribbon-layout-two';
 		}
 
 		$imageClass = !$edProductImage ? 'no-image' : '';
