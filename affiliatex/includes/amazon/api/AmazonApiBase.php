@@ -112,11 +112,12 @@ abstract class AmazonApiBase{
         $default_attributes = [
             'PartnerType' => $this->get_partner_type(),
             'PartnerTag' => $this->configs->tracking_id,
-            'Resources' => $this->get_resources()
+            'Resources' => $this->get_resources(),
+            'LanguagesOfPreference' => [$this->configs->get_language()]
         ];
 
         $attributes = $this->get_params();
-        $attributes = wp_parse_args($attributes, $default_attributes);
+        $attributes = \wp_parse_args($attributes, $default_attributes);
         $attributes = json_encode($attributes);
 
         return $attributes;
@@ -154,7 +155,7 @@ abstract class AmazonApiBase{
             return false;
         }
 
-        $response = wp_remote_post(
+        $response = \wp_remote_post(
             $this->get_endpoint(),
             [
                 'method' => 'POST',
@@ -163,11 +164,11 @@ abstract class AmazonApiBase{
             ]
         );
 
-        if(is_wp_error($response)){
+        if(\is_wp_error($response)){
             return false;
         }
 
-        $response = wp_remote_retrieve_body($response);
+        $response = \wp_remote_retrieve_body($response);
         $response = json_decode($response, true);
 
         if(json_last_error() !== JSON_ERROR_NONE){

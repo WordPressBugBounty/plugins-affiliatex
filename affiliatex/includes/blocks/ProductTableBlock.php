@@ -85,6 +85,30 @@ class ProductTableBlock extends BaseBlock
 
 		$productNameTag = AffiliateX_Helpers::validate_tag($productNameTag, 'h5');
 
+		// Process each product's features list
+		$processedProductTable = [];
+		foreach($productTable as $product) {
+			$processedProduct = $product;
+			if(isset($product['featuresList'])) {
+				$featuresList = $product['featuresList'];
+				if(is_array($featuresList) && count($featuresList) === 1 && isset($featuresList[0]['list']) && has_shortcode($featuresList[0]['list'], 'affiliatex-product')) {
+					$featuresList = json_decode(do_shortcode($featuresList[0]['list']), true);
+				}
+
+				$processedProduct['list'] = AffiliateX_Helpers::render_list(
+					array(
+						'listType' => $contentListType,
+						'unorderedType' => 'icon',
+						'listItems' => is_array($featuresList) ? $featuresList : [$featuresList],
+						'iconName' => $productIconList['value'] ?? '',
+					)
+				);
+			}
+			$processedProductTable[] = $processedProduct;
+		}
+		
+		$productTable = $processedProductTable;
+		
 		ob_start();
 		include $this->get_template_path();
 		return ob_get_clean();

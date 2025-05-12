@@ -170,10 +170,10 @@ class AffiliateXAdmin {
         }
         // Styles.
         wp_enqueue_style(
-            'all',
-            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/dist/fontawesome/css/all.min.css',
+            'fontawesome',
+            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/fontawesome.css',
             array(),
-            '5.2.0'
+            AFFILIATEX_VERSION
         );
         wp_enqueue_style(
             'affiliatex-editor-css',

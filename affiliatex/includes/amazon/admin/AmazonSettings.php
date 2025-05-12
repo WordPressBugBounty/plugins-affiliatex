@@ -7,6 +7,7 @@ defined('ABSPATH') or exit;
 use AffiliateX\Amazon\AmazonConfig;
 use AffiliateX\Amazon\Api\AmazonApiValidator;
 use Exception;
+use WP_REST_Request;
 
 /**
  * Amazon settings handler
@@ -76,6 +77,8 @@ class AmazonSettings{
         $attributes['api_secret'] = isset($params['api_secret']) && !empty($params['api_secret']) ? sanitize_text_field($params['api_secret']) : '';
         $attributes['country'] = isset($params['country']) && !empty($params['country']) ? sanitize_text_field($params['country']) : '';
         $attributes['tracking_id'] = isset($params['tracking_id']) && !empty($params['tracking_id']) ? sanitize_text_field($params['tracking_id']) : '';   
+        $attributes['language'] = isset($params['language']) && !empty($params['language']) ? sanitize_text_field($params['language']) : '';
+        $attributes['update_frequency'] = isset($params['update_frequency']) ? sanitize_text_field($params['update_frequency']) : '';
 
         // Check if any field has a value
         $has_any_value = !empty($attributes['api_key']) || 
@@ -162,7 +165,9 @@ class AmazonSettings{
                 'api_key' => '',
                 'api_secret' => '',
                 'tracking_id' => '',
-                'country' => 'us'
+                'country' => 'us',
+                'language' => 'en_US',
+                'update_frequency' => 'daily'
             ];
 
             $settings = $this->get_option('amazon_settings', []);

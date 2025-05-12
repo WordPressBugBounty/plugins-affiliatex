@@ -4,6 +4,7 @@ ob_start();
 foreach($productTable as $index => $product){
     $counterText = $edCounter ? ($index + 1) : '';
     $ribbonText = $product['ribbon'] ?? '';
+		$imageId = $product['imageId'] ?? '';
     $imageUrl = esc_url(do_shortcode($product['imageUrl']));
     $imageAlt = esc_attr($product['imageAlt']);
     $featuresList = $product['featuresList'];

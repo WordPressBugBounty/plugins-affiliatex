@@ -52,14 +52,14 @@ class ElementorManager {
     public function register_font_awesome() {
         wp_register_style(
             'fontawesome',
-            AFFILIATEX_PLUGIN_URL . 'assets/dist/fontawesome/css/all.min.css',
+            AFFILIATEX_PLUGIN_URL . 'build/fontawesome.css',
             [],
             AFFILIATEX_VERSION
         );
 
         wp_register_script(
             'fontawesome-all',
-            AFFILIATEX_PLUGIN_URL . 'assets/dist/fontawesome/js/all.min.js',
+            AFFILIATEX_PLUGIN_URL . 'build/fontawesome.js',
             [],
             AFFILIATEX_VERSION,
             true

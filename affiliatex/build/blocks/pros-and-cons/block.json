@@ -62,14 +62,14 @@
       "type": "object",
       "default": {
         "name": "check-circle",
-        "value": "far fa-circle"
+        "value": "far fa-circle-check"
       }
     },
     "consIcon": {
       "type": "object",
       "default": {
         "name": "times-circle",
-        "value": "far fa-circle"
+        "value": "far fa-circle-xmark"
       }
     },
     "prosListIcon": {

@@ -143,6 +143,7 @@ function affx_get_customization_settings( $encode = false ) {
 			'editorCustomSidebarWidth' => '330',
 			'editorSidebarWidth'       => 'inherit',
 			'disableFontAwesome'       => false,
+			'templateLibrary'          => true
 		)
 	);
 

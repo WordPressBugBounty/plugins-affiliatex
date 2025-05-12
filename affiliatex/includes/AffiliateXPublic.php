@@ -58,12 +58,11 @@ class AffiliateXPublic {
 
 			$customization_data = affx_get_customization_settings();
 			if( isset( $customization_data['disableFontAwesome'] ) && ! $customization_data['disableFontAwesome'] ) {
-				// Styles.
 				wp_enqueue_style(
-					'all',
-					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/dist/fontawesome/css/all.min.css',
+					'fontawesome',
+					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/fontawesome.css',
 					array(),
-					'5.2.0'
+					AFFILIATEX_VERSION
 				);
 			}
 		}

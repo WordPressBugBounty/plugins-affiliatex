@@ -65,6 +65,20 @@ class AmazonConfig
     public $country_name;
 
     /**
+     * Amazon Language
+     *
+     * @var string
+     */
+    public $language;
+
+    /**
+     * Amazon Update Frequency
+     *
+     * @var string
+     */
+    public $update_frequency;
+
+    /**
      * Amazon Countries
      *
      * @var array
@@ -73,107 +87,128 @@ class AmazonConfig
         'au' => [
             'label' => 'Australia',
             'host' => 'webservices.amazon.com.au',
-            'region' => 'us-west-2'
+            'region' => 'us-west-2',
+            'languages' => ['en_AU']
         ],
         'be' => [
             'label' => 'Belgium',
             'host' => 'webservices.amazon.be',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['fr_BE', 'nl_BE', 'en_GB']
         ],
         'br' => [
             'label' => 'Brazil',
             'host' => 'webservices.amazon.com.br',
-            'region' => 'us-east-1'
+            'region' => 'us-east-1',
+            'languages' => ['pt_BR']
         ],
         'ca' => [
             'label' => 'Canada',
             'host' => 'webservices.amazon.ca',
-            'region' => 'us-east-1'
+            'region' => 'us-east-1',
+            'languages' => ['en_CA', 'fr_CA']
         ],
         'eg' => [
             'label' => 'Egypt',
             'host' => 'webservices.amazon.eg',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['en_AE', 'ar_AE']
         ],
         'fr' => [
             'label' => 'France',
             'host' => 'webservices.amazon.fr',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['fr_FR']
         ],
         'de' => [
             'label' => 'Germany',
             'host' => 'webservices.amazon.de',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['de_DE', 'cs_CZ', 'en_GB', 'nl_NL', 'pl_PL', 'tr_TR']
         ],
         'in' => [
             'label' => 'India',
             'host' => 'webservices.amazon.in',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['en_IN', 'hi_IN', 'kn_IN', 'ml_IN', 'ta_IN', 'te_IN']
         ],
         'it' => [
             'label' => 'Italy',
             'host' => 'webservices.amazon.it',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['it_IT']
         ],
         'jp' => [
             'label' => 'Japan',
             'host' => 'webservices.amazon.co.jp',
-            'region' => 'eu-west-2'
+            'region' => 'eu-west-2',
+            'languages' => ['ja_JP', 'en_US', 'zh_CN']
         ],
         'mx' => [
             'label' => 'Mexico',
             'host' => 'webservices.amazon.com.mx',
-            'region' => 'us-east-1'
+            'region' => 'us-east-1',
+            'languages' => ['es_MX']
         ],
         'nl' => [
             'label' => 'Netherlands',
             'host' => 'webservices.amazon.nl',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['nl_NL']
         ],
         'pl' => [
             'label' => 'Poland',
             'host' => 'webservices.amazon.pl',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['pl_PL', 'en_GB']
         ],
         'sg' => [
             'label' => 'Singapore',
             'host' => 'webservices.amazon.sg',
-            'region' => 'us-east-2'
+            'region' => 'us-east-2',
+            'languages' => ['en_SG']
         ],
         'sa' => [
             'label' => 'Saudi Arabia',
             'host' => 'webservices.amazon.sa',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['en_AE', 'ar_AE']
         ],
         'es' => [
             'label' => 'Spain',
             'host' => 'webservices.amazon.es',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['es_ES']
         ],
         'se' => [
             'label' => 'Sweden',
             'host' => 'webservices.amazon.se',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['sv_SE']
         ],
         'tr' => [
             'label' => 'Turkey',
             'host' => 'webservices.amazon.com.tr',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['tr_TR']
         ],
         'ae' => [
             'label' => 'United Arab Emirates',
             'host' => 'webservices.amazon.ae',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['en_AE', 'ar_AE']
         ],
         'uk' => [
             'label' => 'United Kingdom',
             'host' => 'webservices.amazon.co.uk',
-            'region' => 'eu-west-1'
+            'region' => 'eu-west-1',
+            'languages' => ['en_GB']
         ],
         'us' => [
             'label' => 'United States',
             'host' => 'webservices.amazon.com',
-            'region' => 'us-east-1'
+            'region' => 'us-east-1',
+            'languages' => ['en_US', 'de_DE', 'es_US', 'ko_KR', 'pt_BR', 'zh_CN', 'zh_TW']
         ]
     ];
 
@@ -189,6 +224,8 @@ class AmazonConfig
         $this->host = $country_data['host'];
         $this->region = $country_data['region'];
         $this->country_name = $country_data['label'];
+        $this->language = isset($configs['language']) ? $configs['language'] : 'en_US';
+        $this->update_frequency = isset($configs['update_frequency']) ? $configs['update_frequency'] : 'daily';
     }
 
     /**
@@ -220,5 +257,15 @@ class AmazonConfig
     public function is_settings_empty() : bool
     {
         return empty($this->api_key) || empty($this->api_secret) || empty($this->country) || empty($this->tracking_id);
+    }
+
+    /**
+     * Get Amazon language
+     *
+     * @return string
+     */
+    public function get_language() : string
+    {
+        return $this->language;
     }
 }

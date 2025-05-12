@@ -32,6 +32,7 @@ const freeEntries = {
 	blockComponents: path.join(PATHS.free.src, 'blocks/blocks-export.js'),
 	adminCSS: path.join(PATHS.free.src, 'admin/scss/index.scss'),
 	proBlocksPreview: path.join(PATHS.free.src, 'blocks/pro-blocks-preview.js'),
+	fontawesome: path.join(ROOT_PATH, 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'),
 };
 
 // Free blocks
@@ -96,6 +97,7 @@ module.exports = (env = {}) => {
 			...defaultConfig.externals,
 			"affiliatex-components": "window.affiliatexExports.blockComponents",
 		},
+
 		// Cache optimization
 		cache: {
 			type: 'filesystem',

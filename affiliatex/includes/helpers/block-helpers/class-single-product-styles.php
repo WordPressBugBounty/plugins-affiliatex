@@ -122,7 +122,7 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
+				'justify-content'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content p'          => array(
@@ -146,8 +146,20 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
+				'justify-content'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
+			),
+			' .affx-single-product-content ol li'      => array(
+				'font-family'     => isset($attr['productContentTypography']['family']) ? $attr['productContentTypography']['family'] : $global_font_family,
+				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation($con_variation),
+				'font-style'      => AffiliateX_Helpers::get_font_style($con_variation),
+				'font-size'       => isset($attr['productContentTypography']['size']['desktop']) ? $attr['productContentTypography']['size']['desktop'] : '18px',
+				'line-height'     => isset($attr['productContentTypography']['line-height']['desktop']) ? $attr['productContentTypography']['line-height']['desktop'] : '1.65',
+				'text-transform'  => isset($attr['productContentTypography']['text-transform']) ? $attr['productContentTypography']['text-transform'] : 'none',
+				'text-decoration' => isset($attr['productContentTypography']['text-decoration']) ? $attr['productContentTypography']['text-decoration'] : 'none',
+				'letter-spacing'  => isset($attr['productContentTypography']['letter-spacing']['desktop']) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
+				'justify-content'      => isset($attr['productContentAlign']) ? $attr['productContentAlign'] : 'left',
+				'color'           => isset($attr['productContentColor']) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-sp-marked-price'                   => array(
 				'font-family'     => isset( $attr['pricingTypography']['family'] ) ? $attr['pricingTypography']['family'] : $global_font_family,
@@ -301,10 +313,10 @@ class AffiliateX_Single_Product_Styles {
 				'border-bottom-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'solid' ? $attr['ribbonBGColor'] : $ribbonGradient,
 			),
 
-			' .affiliatex-icon li:before'              => array(
+			' .affx-single-product-content li:before'              => array(
 				'color' => isset( $attr['iconColor'] ) ? $attr['iconColor'] : '#24B644',
 			),
-			' .affiliatex-icon li:after'              => array(
+			' .affx-single-product-content i'              => array(
 				'color' => isset( $attr['iconColor'] ) ? $attr['iconColor'] : '#24B644',
 			),
 

@@ -57,13 +57,15 @@ class NoticeBlock extends BaseBlock
 			'id' => "affiliatex-notice-style-$block_id"
 		));
 
-		$titleIconClass = $edTitleIcon ? "affiliatex-icon-{$noticeTitleIcon['name']}" : '';
 		$titleTag1 = AffiliateX_Helpers::validate_tag($titleTag1, 'h2');
-
-		if ($noticeContentType === 'list') {
-			$listTag = $noticeListType === 'unordered' ? 'ul' : 'ol';
-			$listClass = $noticeunorderedType === 'icon' ? "affiliatex-list icon affiliatex-icon affiliatex-icon-{$noticeListIcon['name']}" : 'affiliatex-list bullet';
-		}
+		$list = AffiliateX_Helpers::render_list(
+			array(
+				'listType' => $noticeListType,
+				'unorderedType' => $noticeunorderedType,
+				'listItems' => $noticeListItems,
+				'iconName' => $noticeListIcon['value'],
+			)
+		);
 
 		ob_start();
 		include $this->get_template_path();

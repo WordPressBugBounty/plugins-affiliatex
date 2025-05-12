@@ -8,9 +8,7 @@
             <?php if($edCounter): ?>
                 <span class="affx-pdt-counter"><?php echo $counterText ?></span>
             <?php endif; ?>
-            <div class="affx-pdt-img-wrapper">
-                <img src="<?php echo $imageUrl ?>" alt="<?php echo $imageAlt ?>">
-            </div>
+            <?php include 'partial/image.php' ?>
             <?php include 'partial/rating.php' ?>
         </div>
     </td>

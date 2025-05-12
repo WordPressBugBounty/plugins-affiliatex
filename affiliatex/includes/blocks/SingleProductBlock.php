@@ -134,7 +134,16 @@ class SingleProductBlock extends BaseBlock
 		$productRatingNumberClass = $PricingType === 'number' ? 'rating-align-' . $productRatingAlign : '';
 		$ImageURL = $productImageType === 'default' ? $ImgUrl : $productImageExternal;
 		$isSiteStripe = 'sitestripe' === $productImageType && '' !== $productImageSiteStripe ? true : false;
+		$productImage = AffiliateX_Helpers::affiliatex_get_media_image_html($ImgID, $ImageURL, $ImgAlt, $isSiteStripe, $productImageSiteStripe);
 
+		$list = AffiliateX_Helpers::render_list(
+			array(
+				'listType' => $ContentListType,
+				'unorderedType' => 'icon',
+				'listItems' => $productContentList,
+				'iconName' => $productIconList['value'],
+			)
+		);
 		ob_start();
 		include $this->get_template_path();
 		return ob_get_clean();

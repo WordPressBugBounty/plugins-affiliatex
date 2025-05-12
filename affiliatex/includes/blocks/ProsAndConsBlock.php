@@ -26,11 +26,11 @@ class ProsAndConsBlock extends BaseBlock
 			'consTitle' => 'Cons',
 			'prosIcon' => [
 				'name' => 'check-circle',
-				'value' => 'far fa-circle'
+				'value' => 'far fa-circle-check'
 			],
 			'consIcon' => [
 				'name' => 'times-circle',
-				'value' => 'far fa-circle'
+				'value' => 'far fa-circle-xmark'
 			],
 			'titleTag1' => 'p',
 			'layoutStyle' => 'layout-type-1',
@@ -76,7 +76,25 @@ class ProsAndConsBlock extends BaseBlock
 		}
 
 		$titleTag1 = AffiliateX_Helpers::validate_tag($titleTag1, 'p');
-		
+
+		$prosList = AffiliateX_Helpers::render_list(
+			array(
+				'listType' => $prosListType,
+				'unorderedType' => $prosUnorderedType,
+				'listItems' => $prosListItems,
+				'iconName' => $prosIcon['value'],
+			)
+		);
+
+		$consList = AffiliateX_Helpers::render_list(
+			array(
+				'listType' => $consListType,	
+				'unorderedType' => $consUnorderedType,
+				'listItems' => $consListItems,
+				'iconName' => $consIcon['value'],
+			)
+		);
+
 		ob_start();
 		include $this->get_template_path();
 		return ob_get_clean();

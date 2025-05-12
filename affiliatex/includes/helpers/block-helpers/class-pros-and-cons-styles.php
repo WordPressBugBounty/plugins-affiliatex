@@ -295,11 +295,13 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'color'           => isset( $attr['prosListColor'] ) ? $attr['prosListColor'] : $global_font_color,
 				'display'         => $contentAlignment != 'left' ? 'block' : 'flex',
 			),
-			' .affiliatex-block-pros .affiliatex-icon::before' => array(
+			' .affiliatex-block-pros i' => array(
 				'font-size' => isset( $attr['prosIconSize'] ) ? $attr['prosIconSize'] . 'px' : '18px',
+				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? $prosTextColorThree : $prosTextColor,
 			),
-			' .affiliatex-block-cons .affiliatex-icon::before' => array(
+			' .affiliatex-block-cons i' => array(
 				'font-size' => isset( $attr['consIconSize'] ) ? $attr['consIconSize'] . 'px' : '18px',
+				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? $consTextColorThree : $consTextColor,
 			),
 			' .affiliatex-pros ul li::before'              => array(
 				'color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
@@ -316,12 +318,18 @@ class AffiliateX_Pros_and_Cons_Styles {
 			' .affiliatex-cons li::marker'                 => array(
 				'color' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
 			),
+			' .affiliatex-pros li i'                      => array(
+				'color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
+			),
+			' .affiliatex-cons li i'                      => array(
+				'color' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
+			),
 			' .affiliatex-cons ul.bullet li::before'       => array(
 				'background' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
 			),
 			' .affiliatex-pros ol li::before'              => array(
-				'border-color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#F13A3A',
-				'color'        => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#F13A3A',
+				'border-color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
+				'color'        => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
 			),
 			' .affiliatex-cons ol li::before'              => array(
 				'border-color' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
@@ -351,14 +359,14 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'border-style'  => isset( $attr['consContentBorderThree']['style'] ) ? $attr['consContentBorderThree']['style'] : 'solid',
 				'border-color'  => isset( $attr['consContentBorderThree']['color']['color'] ) ? $attr['consContentBorderThree']['color']['color'] : '#F13A3A',
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['desktop']['top'] ) && isset( $attr['titleBorderWidthThree']['desktop']['right'] ) && isset( $attr['titleBorderWidthThree']['desktop']['bottom'] ) && isset( $attr['titleBorderWidthThree']['desktop']['left'] ) ? $attr['titleBorderWidthThree']['desktop']['top'] . ' ' . $attr['titleBorderWidthThree']['desktop']['right'] . ' ' . $attr['titleBorderWidthThree']['desktop']['bottom'] . ' ' . $attr['titleBorderWidthThree']['desktop']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['desktop']['top'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['right'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['left'] ) ? $attr['titleBorderRadiusThree']['desktop']['top'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['right'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['left'] . ' ' : '50px 50px 50px 50px',
 				'border-style'  => isset( $attr['prosBorderThree']['style'] ) ? $attr['prosBorderThree']['style'] : 'solid',
 				'border-color'  => isset( $attr['prosBorderThree']['color']['color'] ) ? $attr['prosBorderThree']['color']['color'] : '#ffffff',
 				'background'    => isset( $attr['prosBgType'] ) && $attr['prosBgType'] === 'gradient' ? $prosBgGradient : $prosBgColor,
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['desktop']['top'] ) && isset( $attr['titleBorderWidthThree']['desktop']['right'] ) && isset( $attr['titleBorderWidthThree']['desktop']['bottom'] ) && isset( $attr['titleBorderWidthThree']['desktop']['left'] ) ? $attr['titleBorderWidthThree']['desktop']['top'] . ' ' . $attr['titleBorderWidthThree']['desktop']['right'] . ' ' . $attr['titleBorderWidthThree']['desktop']['bottom'] . ' ' . $attr['titleBorderWidthThree']['desktop']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['desktop']['top'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['right'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['desktop']['left'] ) ? $attr['titleBorderRadiusThree']['desktop']['top'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['right'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['desktop']['left'] . ' ' : '50px 50px 50px 50px',
 				'border-style'  => isset( $attr['consBorderThree']['style'] ) ? $attr['consBorderThree']['style'] : 'solid',
@@ -612,11 +620,11 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'border-width'  => isset( $attr['contentBorderWidthThree']['mobile']['top'] ) && isset( $attr['contentBorderWidthThree']['mobile']['right'] ) && isset( $attr['contentBorderWidthThree']['mobile']['bottom'] ) && isset( $attr['contentBorderWidthThree']['mobile']['left'] ) ? $attr['contentBorderWidthThree']['mobile']['top'] . ' ' . $attr['contentBorderWidthThree']['mobile']['right'] . ' ' . $attr['contentBorderWidthThree']['mobile']['bottom'] . ' ' . $attr['contentBorderWidthThree']['mobile']['left'] . ' ' : '0 4px 4px 4px',
 				'border-radius' => isset( $attr['contentBorderRadiusThree']['mobile']['top'] ) && isset( $attr['contentBorderRadiusThree']['mobile']['right'] ) && isset( $attr['contentBorderRadiusThree']['mobile']['bottom'] ) && isset( $attr['contentBorderRadiusThree']['mobile']['left'] ) ? $attr['contentBorderRadiusThree']['mobile']['top'] . ' ' . $attr['contentBorderRadiusThree']['mobile']['right'] . ' ' . $attr['contentBorderRadiusThree']['mobile']['bottom'] . ' ' . $attr['contentBorderRadiusThree']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['mobile']['top'] ) && isset( $attr['titleBorderWidthThree']['mobile']['right'] ) && isset( $attr['titleBorderWidthThree']['mobile']['bottom'] ) && isset( $attr['titleBorderWidthThree']['mobile']['left'] ) ? $attr['titleBorderWidthThree']['mobile']['top'] . ' ' . $attr['titleBorderWidthThree']['mobile']['right'] . ' ' . $attr['titleBorderWidthThree']['mobile']['bottom'] . ' ' . $attr['titleBorderWidthThree']['mobile']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['mobile']['top'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['right'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['left'] ) ? $attr['titleBorderRadiusThree']['mobile']['top'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['right'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['left'] . ' ' : '50px 50px 50px 50px',
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['mobile']['top'] ) && isset( $attr['titleBorderWidthThree']['mobile']['right'] ) && isset( $attr['titleBorderWidthThree']['mobile']['bottom'] ) && isset( $attr['titleBorderWidthThree']['mobile']['left'] ) ? $attr['titleBorderWidthThree']['mobile']['top'] . ' ' . $attr['titleBorderWidthThree']['mobile']['right'] . ' ' . $attr['titleBorderWidthThree']['mobile']['bottom'] . ' ' . $attr['titleBorderWidthThree']['mobile']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['mobile']['top'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['right'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['mobile']['left'] ) ? $attr['titleBorderRadiusThree']['mobile']['top'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['right'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['mobile']['left'] . ' ' : '50px 50px 50px 50px',
 			),
@@ -792,11 +800,11 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'border-width'  => isset( $attr['contentBorderWidthThree']['tablet']['top'] ) && isset( $attr['contentBorderWidthThree']['tablet']['right'] ) && isset( $attr['contentBorderWidthThree']['tablet']['bottom'] ) && isset( $attr['contentBorderWidthThree']['tablet']['left'] ) ? $attr['contentBorderWidthThree']['tablet']['top'] . ' ' . $attr['contentBorderWidthThree']['tablet']['right'] . ' ' . $attr['contentBorderWidthThree']['tablet']['bottom'] . ' ' . $attr['contentBorderWidthThree']['tablet']['left'] . ' ' : '0 4px 4px 4px',
 				'border-radius' => isset( $attr['contentBorderRadiusThree']['tablet']['top'] ) && isset( $attr['contentBorderRadiusThree']['tablet']['right'] ) && isset( $attr['contentBorderRadiusThree']['tablet']['bottom'] ) && isset( $attr['contentBorderRadiusThree']['tablet']['left'] ) ? $attr['contentBorderRadiusThree']['tablet']['top'] . ' ' . $attr['contentBorderRadiusThree']['tablet']['right'] . ' ' . $attr['contentBorderRadiusThree']['tablet']['bottom'] . ' ' . $attr['contentBorderRadiusThree']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-pros > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['tablet']['top'] ) && isset( $attr['titleBorderWidthThree']['tablet']['right'] ) && isset( $attr['titleBorderWidthThree']['tablet']['bottom'] ) && isset( $attr['titleBorderWidthThree']['tablet']['left'] ) ? $attr['titleBorderWidthThree']['tablet']['top'] . ' ' . $attr['titleBorderWidthThree']['tablet']['right'] . ' ' . $attr['titleBorderWidthThree']['tablet']['bottom'] . ' ' . $attr['titleBorderWidthThree']['tablet']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['tablet']['top'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['right'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['left'] ) ? $attr['titleBorderRadiusThree']['tablet']['top'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['right'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['left'] . ' ' : '50px 50px 50px 50px',
 			),
-			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons .affiliatex-title:before' => array(
+			' .affx-pros-cons-inner-wrapper.layout-type-3 .affiliatex-block-cons > i' => array(
 				'border-width'  => isset( $attr['titleBorderWidthThree']['tablet']['top'] ) && isset( $attr['titleBorderWidthThree']['tablet']['right'] ) && isset( $attr['titleBorderWidthThree']['tablet']['bottom'] ) && isset( $attr['titleBorderWidthThree']['tablet']['left'] ) ? $attr['titleBorderWidthThree']['tablet']['top'] . ' ' . $attr['titleBorderWidthThree']['tablet']['right'] . ' ' . $attr['titleBorderWidthThree']['tablet']['bottom'] . ' ' . $attr['titleBorderWidthThree']['tablet']['left'] . ' ' : '4px 4px 4px 4px',
 				'border-radius' => isset( $attr['titleBorderRadiusThree']['tablet']['top'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['right'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['bottom'] ) && isset( $attr['titleBorderRadiusThree']['tablet']['left'] ) ? $attr['titleBorderRadiusThree']['tablet']['top'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['right'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['bottom'] . ' ' . $attr['titleBorderRadiusThree']['tablet']['left'] . ' ' : '50px 50px 50px 50px',
 			),

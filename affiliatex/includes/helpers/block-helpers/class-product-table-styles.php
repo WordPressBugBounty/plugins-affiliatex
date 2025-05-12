@@ -282,8 +282,11 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $headerVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $headerVariation ),
 			),
-			' .affx-pdt-table-wrapper .affiliatex-icon li:before' => array(
+			' .affx-pdt-table-wrapper .afx-icon-list li:before' => array(
 				'color' => isset( $attr['productIconColor'] ) ? $attr['productIconColor'] : '#24B644',
+			),
+			' .affx-pdt-table-wrapper .afx-icon-list li i' => array(
+				'color' => isset($attr['productIconColor']) ? $attr['productIconColor'] : '#24B644',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-img-container' => array(
 				'padding-top'      => isset( $attr['imagePadding']['desktop']['top'] ) ? $attr['imagePadding']['desktop']['top'] : '0px',

@@ -1,8 +1,6 @@
 <div class="affx-pdt-table-single">
     <?php if($edImage): ?>
-        <div class="affx-pdt-img-wrapper">
-            <img src="<?php echo $imageUrl ?>" alt="<?php echo $imageAlt ?>">
-        </div>
+			<?php include 'partial/image.php' ?>
     <?php endif; ?>
     <div class="affx-pdt-content-wrap">
         <div class="affx-content-left">

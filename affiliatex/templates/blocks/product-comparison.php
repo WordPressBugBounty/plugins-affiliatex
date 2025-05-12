@@ -1,3 +1,6 @@
+<?php
+use AffiliateX\Helpers\AffiliateX_Helpers;
+?>
 <div <?php echo $wrapper_attributes ?>>
     <div class="affx-product-comparison-block-container affx-versus-block-container">
         <div class="affx-versus-table-wrap">
@@ -13,7 +16,7 @@
                                 <div class="affx-versus-product">
                                     <?php if($pcImage): ?>
                                         <div class="affx-versus-product-img">
-                                            <img src="<?php echo esc_url(do_shortcode(str_replace('app/src/images/fallback.jpg', 'src/images/fallback.jpg', $item['imageUrl']))) ?>" alt="<?php echo esc_attr($item['imageAlt']) ?>">
+                                            <?php echo AffiliateX_Helpers::affiliatex_get_media_image_html($item['imageId'], $item['imageUrl'], $item['imageAlt']); ?>
                                         </div>
                                     <?php endif; ?>
                                     <div class="affx-product-content">
