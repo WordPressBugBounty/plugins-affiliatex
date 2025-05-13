@@ -51,7 +51,9 @@ class AffiliateXPublic {
 		if ( is_affiliatex_block() ) {
 			wp_enqueue_style(
 				'affiliatex-public', // Handle.
-				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/publicCSS.css'
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/publicCSS.css',
+				array(),
+				AFFILIATEX_VERSION
 			);
 			$m = new \AB_FONTS_MANAGER();
 			$m->load_dynamic_google_fonts();
