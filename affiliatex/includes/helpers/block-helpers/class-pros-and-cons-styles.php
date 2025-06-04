@@ -294,14 +294,14 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
 				'color'           => isset( $attr['prosListColor'] ) ? $attr['prosListColor'] : $global_font_color,
 				'display'         => $contentAlignment != 'left' ? 'block' : 'flex',
-			),
+			),	
 			' .affiliatex-block-pros i' => array(
 				'font-size' => isset( $attr['prosIconSize'] ) ? $attr['prosIconSize'] . 'px' : '18px',
-				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? $prosTextColorThree : $prosTextColor,
+				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $prosTextColor,
 			),
 			' .affiliatex-block-cons i' => array(
 				'font-size' => isset( $attr['consIconSize'] ) ? $attr['consIconSize'] . 'px' : '18px',
-				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? $consTextColorThree : $consTextColor,
+				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $consTextColor,
 			),
 			' .affiliatex-pros ul li::before'              => array(
 				'color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
