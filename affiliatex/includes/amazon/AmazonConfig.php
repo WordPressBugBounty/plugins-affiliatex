@@ -79,6 +79,13 @@ class AmazonConfig
     public $update_frequency;
 
     /**
+     * Use External API instead of Amazon API
+     *
+     * @var bool
+     */
+    public $use_external_api;
+
+    /**
      * Amazon Countries
      *
      * @var array
@@ -226,6 +233,7 @@ class AmazonConfig
         $this->country_name = $country_data['label'];
         $this->language = isset($configs['language']) ? $configs['language'] : 'en_US';
         $this->update_frequency = isset($configs['update_frequency']) ? $configs['update_frequency'] : 'daily';
+        $this->use_external_api = isset($configs['external_api']) ? (bool) $configs['external_api'] : false;
     }
 
     /**
@@ -256,7 +264,42 @@ class AmazonConfig
      */
     public function is_settings_empty() : bool
     {
+        if ($this->is_using_external_api()) {
+            return empty($this->country) || empty($this->tracking_id);
+        }
+        
         return empty($this->api_key) || empty($this->api_secret) || empty($this->country) || empty($this->tracking_id);
+    }
+
+    /**
+     * Check if using external API instead of Amazon API
+     *
+     * @return boolean
+     */
+    public function is_using_external_api() : bool
+    {
+        return $this->use_external_api === true;
+    }
+
+    /**
+     * Check if using Amazon API directly
+     *
+     * @return boolean
+     */
+    public function is_using_amazon_api() : bool
+    {
+        return !$this->is_using_external_api();
+    }
+
+    /**
+     * Static helper to check if settings indicate external API usage
+     *
+     * @param array $settings
+     * @return boolean
+     */
+    public static function is_external_api_from_settings(array $settings) : bool
+    {
+        return isset($settings['external_api']) && $settings['external_api'] === true;
     }
 
     /**

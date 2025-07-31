@@ -32,6 +32,8 @@ const freeEntries = {
 	blockComponents: path.join(PATHS.free.src, 'blocks/blocks-export.js'),
 	adminCSS: path.join(PATHS.free.src, 'admin/scss/index.scss'),
 	proBlocksPreview: path.join(PATHS.free.src, 'blocks/pro-blocks-preview.js'),
+	elementorEditor: path.join(PATHS.free.src, 'elementor/editor.js'),
+	elementorEditorCSS: path.join(PATHS.free.src, 'blocks/scss/elementor/editor.scss' ),
 	fontawesome: path.join(ROOT_PATH, 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'),
 };
 
@@ -59,6 +61,7 @@ const proEntries = {
 	editor: path.join(PATHS.pro.src, 'blocks/scss/editor.scss'),
 	public: path.join(PATHS.pro.src, 'blocks/scss/public.scss'),
 	blockComponents: path.join(PATHS.free.src, 'blocks/blocks-export.js'),
+	elementorEditor: path.join(PATHS.pro.src, 'elementor/editor.js'),
 };
 
 // Pro blocks
@@ -114,7 +117,7 @@ module.exports = (env = {}) => {
 			memoryCacheUnaffected: true,
 			store: 'pack',
 			version: '1.0'
-		}
+        }
 	};
 
 	// Pro-specific plugins

@@ -5,6 +5,9 @@ namespace AffiliateX;
 defined( 'ABSPATH' ) || exit;
 use AffiliateX\Amazon\AmazonConfig;
 use AffiliateX\Amazon\AmazonController;
+use AffiliateX\Helpers\Elementor\WidgetHelper;
+use AffiliateX\Elementor\ControlsManager;
+use AffiliateX\Elementor\ElementorManager;
 /**
  * Admin class, handles admin screen functionality
  *
@@ -18,6 +21,8 @@ class AffiliateXAdmin {
         $this->init();
         new AmazonController();
         new Notice\AdminNoticeManager();
+        new ControlsManager();
+        new ElementorManager();
     }
 
     /**
@@ -26,7 +31,8 @@ class AffiliateXAdmin {
      * @return void
      */
     public function init() {
-        add_action( 'enqueue_block_editor_assets', array($this, 'gb_editor_assets') );
+        add_action( 'enqueue_block_editor_assets', array($this, 'editor_assets') );
+        add_action( 'elementor/editor/after_enqueue_scripts', array($this, 'editor_assets'), 9 );
         add_filter( 'block_categories_all', array($this, 'add_block_category') );
         add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts') );
         // Admin Script Translations
@@ -110,7 +116,7 @@ class AffiliateXAdmin {
      *
      * @return void
      */
-    public function gb_editor_assets() {
+    public function editor_assets() {
         global $wp_customize;
         $blocks_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blocks.asset.php');
         $blocks_export_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blockComponents.asset.php');
@@ -137,10 +143,11 @@ class AffiliateXAdmin {
             'proActive'         => ( affiliatex_fs()->is_premium() ? 'true' : 'false' ),
             'WPVersion'         => version_compare( get_bloginfo( 'version' ), '5.9', '>=' ),
             'isAmazonActive'    => ( $amazon_config->is_active() ? 'true' : 'false' ),
+            'connectAllButton'  => WidgetHelper::get_connect_all_button_html(),
         ) );
         wp_enqueue_script( 'affiliatex' );
         wp_enqueue_script( 'affiliatex-block-export' );
-        if ( !affiliatex_fs()->is_premium() ) {
+        if ( !affiliatex_fs()->is_premium() && !affx_is_elementor_editor() ) {
             $pro_blocks_preview_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/proBlocksPreview.asset.php');
             wp_enqueue_script(
                 'affiliatex-pro-blocks-preview',

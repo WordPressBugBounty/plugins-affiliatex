@@ -1,7 +1,7 @@
 <div <?php echo $wrapper_attributes ?>>
     <div class="affx-specification-block-container">
-        <table class="affx-specification-table <?php echo esc_attr($layoutStyle) ?>">
-            <?php if($edSpecificationTitle): ?>
+        <table class="affx-specification-table <?php echo $styleClasses; ?>">
+            <?php if($edSpecificationTitle) : ?>
                 <thead>
                     <tr>
                         <th class="affx-spec-title" colspan="2">

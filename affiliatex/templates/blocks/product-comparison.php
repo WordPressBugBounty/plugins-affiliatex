@@ -16,7 +16,7 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
                                 <div class="affx-versus-product">
                                     <?php if($pcImage): ?>
                                         <div class="affx-versus-product-img">
-                                            <?php echo AffiliateX_Helpers::affiliatex_get_media_image_html($item['imageId'], $item['imageUrl'], $item['imageAlt']); ?>
+                                            <?php echo AffiliateX_Helpers::affiliatex_get_media_image_html($item['imageId'] ?? 0, $item['imageUrl'] ?? '', $item['imageAlt'] ?? ''); ?>
                                         </div>
                                     <?php endif; ?>
                                     <div class="affx-product-content">
@@ -37,7 +37,7 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
                                         </div>
                                         <?php if($pcButton): ?>
                                             <div class="affx-btn-wrap">
-                                                <a href="<?php echo esc_url(do_shortcode($item['buttonURL'])) ?>" class="affiliatex-button affx-winner-button <?php echo $pcButtonIcon ? 'icon-btn icon-' . esc_attr($buttonIconAlign) : '' ?>">
+                                                <a href="<?php echo esc_url(do_shortcode($item['buttonURL'])) ?>" class="affiliatex-button affx-winner-button <?php echo $pcButtonIcon ? 'icon-btn icon-' . esc_attr($buttonIconAlign) : '' ?>" <?php echo $item['rel'] . ' ' . $item['target'] . ' ' . $item['download'] ?>>
                                                     <?php if($pcButtonIcon && $buttonIconAlign === 'left'): ?>
                                                         <i class="button-icon <?php echo esc_attr($buttonIcon['value']) ?>"></i>
                                                     <?php endif; ?>

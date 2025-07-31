@@ -16,7 +16,7 @@
             <?php endif; ?>
         </div>
         <?php if($ctaLayout === 'layoutTwo'): ?>
-            <div class="image-wrapper"></div>
+            <div class="image-wrapper" <?php echo $inlineImageWrapperStyles ?>></div>
         <?php endif; ?>
     </div>
 </div>

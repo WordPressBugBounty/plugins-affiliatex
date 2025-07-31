@@ -32,12 +32,10 @@ class CampaignNoticeHandler{
         $response = wp_remote_get( $remote_url );
 
         if(is_wp_error($response)){
-            error_log(sprintf('Error fetching notices: %s', $response->get_error_message()));
             return;
         }
 
         if(wp_remote_retrieve_response_code($response) !== 200){
-            error_log(sprintf('Error fetching notices: Unexpected response code %s', wp_remote_retrieve_response_code($response)));
             return;
         }
 
@@ -45,7 +43,6 @@ class CampaignNoticeHandler{
         $notices = json_decode($notices, true);
 
         if(!is_array($notices) || json_last_error() !== JSON_ERROR_NONE){
-            error_log('Error fetching notices: Invalid JSON');
             return;
         }
 

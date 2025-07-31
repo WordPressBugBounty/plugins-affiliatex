@@ -1,68 +1,73 @@
 <?php
 namespace AffiliateX\Elementor;
 
+/**
+ * Elementor Manager Class.
+ * 
+ * This class is responsible for enqueuing the assets for the Elementor editor.
+ * 
+ * @package AffiliateX\Elementor
+ * @since 1.0.0
+ * @version 1.0.0
+ */
 class ElementorManager {
-    private $widgets = [];
-
-    public function __construct($widgets = []) {
-        $this->widgets = $widgets;
-
-        // Register widgets
-        add_action('elementor/widgets/register', [$this, 'register_widgets']);
-        
-        // Register category
-        add_action('elementor/elements/categories_registered', [$this, 'add_elementor_widget_categories']);
-
-        // Enqueue main styles
-        add_action('elementor/frontend/after_enqueue_styles', [$this, 'enqueue_styles']);
-        add_action('elementor/editor/after_enqueue_styles', [$this, 'enqueue_styles']);
-
-        // Register Font Awesome
-        add_action('wp_enqueue_scripts', [$this, 'register_font_awesome']);
+    /**
+     * Constructor.
+     * 
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function __construct() {
+        add_action('elementor/editor/after_enqueue_scripts', [$this, 'enqueue_assets']);
+        add_action('elementor/icons_manager/additional_tabs', [$this, 'add_custom_icons_tab']);
+        add_action('elementor/editor/after_enqueue_styles', [$this, 'enqueue_custom_icons_css']);
     }
 
-    public function register_widgets($widgets_manager) {
-        foreach ($this->widgets as $widget) {
-            $widgets_manager->register(new $widget());
+    /**
+     * Enqueue Assets.
+     * 
+     * @since 1.0.0
+     * @version 1.0.0
+     */
+    public function enqueue_assets(){
+        if (affx_is_elementor_editor()) {
+            wp_enqueue_script(
+                'affiliatex-elementor-editor',
+                AFFILIATEX_PLUGIN_URL . '/build/elementorEditor.js',
+                ['jquery', 'affiliatex'],
+                AFFILIATEX_VERSION
+            );
         }
     }
 
-    public function add_elementor_widget_categories($elements_manager) {
-        $elements_manager->add_category(
-            'affiliatex',
-            [
-                'title' => __('AffiliateX', 'affiliatex'),
-                'icon' => 'fa fa-plug',
-                'active' => true,
-                'position' => 1
-            ]
-        );
+    /**
+     * Add custom icons tab to Elementor icon picker
+     */
+    public function add_custom_icons_tab($tabs) {
+        $tabs['affiliatex-icons'] = [
+            'name' => 'affiliatex-icons',
+            'label' => __('AffiliateX Icons', 'affiliatex'),
+            'url' => AFFILIATEX_PLUGIN_URL . 'assets/css/custom-icons.css',
+            'enqueue' => [AFFILIATEX_PLUGIN_URL . 'assets/css/custom-icons.css'],
+            'prefix' => 'affx-',
+            'displayPrefix' => 'affx',
+            'labelIcon' => 'affx-button',
+            'ver' => AFFILIATEX_VERSION,
+            'fetchJson' => AFFILIATEX_PLUGIN_URL . 'assets/js/custom-icons.json',
+            'native' => true,
+        ];
+        return $tabs;
     }
 
-    public function enqueue_styles() {
-        // Enqueue the main compiled CSS file
+    /**
+     * Enqueue custom icons CSS
+     */
+    public function enqueue_custom_icons_css() {
         wp_enqueue_style(
-            'affiliatex-blocks-style',
-            AFFILIATEX_PLUGIN_URL . 'build/style-index.css',
+            'affiliatex-custom-icons',
+            AFFILIATEX_PLUGIN_URL . 'assets/css/custom-icons.css',
             [],
             AFFILIATEX_VERSION
         );
     }
-
-    public function register_font_awesome() {
-        wp_register_style(
-            'fontawesome',
-            AFFILIATEX_PLUGIN_URL . 'build/fontawesome.css',
-            [],
-            AFFILIATEX_VERSION
-        );
-
-        wp_register_script(
-            'fontawesome-all',
-            AFFILIATEX_PLUGIN_URL . 'build/fontawesome.js',
-            [],
-            AFFILIATEX_VERSION,
-            true
-        );
-    }
-} 
+}

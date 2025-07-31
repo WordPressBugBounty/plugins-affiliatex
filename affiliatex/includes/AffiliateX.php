@@ -52,9 +52,7 @@ final class AffiliateX {
 		$this->admin_settings = new AffiliateXAdmin();
 		$this->public         = new AffiliateXPublic();
 		$this->blocks         = new AffiliateXBlocks();
-		if (defined('AFFX_FT_ELEMENTOR')) {
-			$this->widgets        = new AffiliateXWidgets();
-		}
+		$this->widgets        = new AffiliateXWidgets();
 	}
 
 	/**

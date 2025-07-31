@@ -89,7 +89,7 @@ class AffiliateX_Notice_Styles {
 				'text-transform'  => isset( $attr['titleTypography']['text-transform'] ) ? $attr['titleTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['titleTypography']['text-decoration'] ) ? $attr['titleTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['titleTypography']['letter-spacing']['desktop'] ) ? $attr['titleTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productTitleAlign'] ) ? $attr['productTitleAlign'] : 'left',
+				'text-align'      => isset( $attr['titleAlignment'] ) ? $attr['titleAlignment'] : 'left',
 				'color'           => isset( $attr['noticeTextColor'] ) ? $attr['noticeTextColor'] : '#ffffff',
 				'padding-top'     => isset( $attr['titlePadding']['desktop']['top'] ) ? $attr['titlePadding']['desktop']['top'] : '10px',
 				'padding-left'    => isset( $attr['titlePadding']['desktop']['left'] ) ? $attr['titlePadding']['desktop']['left'] : '15px',

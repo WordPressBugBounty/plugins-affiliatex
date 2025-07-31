@@ -8,7 +8,7 @@ defined('ABSPATH') or exit;
 
 /**
  * Amazon API base class to create a new Amazon API request
- * 
+ *
  * @package AffiliateX
  */
 abstract class AmazonApiBase{
@@ -130,10 +130,17 @@ abstract class AmazonApiBase{
      */
     protected function get_endpoint() : string
     {
-        $end_point = sprintf('https://%s%s',
-            $this->configs->host,
-            $this->get_path()
-        );
+        if ($this->configs->is_using_external_api()) {
+            $end_point = sprintf('%s/wp-json/affiliatex-proxy/v1/amazon-proxy%s',
+                AFFILIATEX_EXTERNAL_API_ENDPOINT,
+                $this->get_path()
+            );
+        } else {
+            $end_point = sprintf('https://%s%s',
+                $this->configs->host,
+                $this->get_path()
+            );
+        }
 
         return $end_point;
     }
@@ -148,32 +155,76 @@ abstract class AmazonApiBase{
         if($this->configs->is_settings_empty()){
             return false;
         }
-        
-        $signature = $this->get_signature();
-        
-        if(!$signature){
-            return false;
+
+        if ($this->configs->is_using_external_api()) {
+            // Get license key and site URL for validation
+            $license_key = '';
+            $site_url = site_url();
+
+            if (function_exists('affiliatex_fs') && affiliatex_fs()->is_registered()) {
+                $license = affiliatex_fs()->_get_license();
+                if (is_object($license)) {
+                    $license_key = $license->secret_key;
+                }
+            }
+
+            $headers = [
+                'Content-Type' => 'application/json',
+                'X-Tracking-ID' => $this->configs->tracking_id,
+                'X-Country' => $this->configs->country,
+                'X-Language' => $this->configs->language,
+                'X-License-Key' => $license_key,
+                'X-Domain' => $site_url
+            ];
+
+	        // Prepare request args based on API type
+	        $request_args = [
+		        'method' => 'POST',
+		        'headers' => $headers,
+		        'sslverify' => false,
+		        'timeout' => 30,
+	        ];
+
+	        $request_args['body'] = $this->get_payload();
+
+	        $response = \wp_remote_post($this->get_endpoint(), $request_args);
+
+	        if(\is_wp_error($response)){
+		        return false;
+	        }
+
+	        $response_code = \wp_remote_retrieve_response_code($response);
+
+	        if ($response_code !== 200) {
+		        return false;
+	        }
+        } else {
+            $signature = $this->get_signature();
+
+            if(!$signature){
+                return false;
+            }
+
+	        $response = \wp_remote_post(
+		        $this->get_endpoint(),
+		        [
+			        'method' => 'POST',
+			        'body' => $this->get_payload(),
+			        'headers' => $signature->get_headers(),
+		        ]
+	        );
+
+	        if(\is_wp_error($response)){
+		        return false;
+	        }
         }
 
-        $response = \wp_remote_post(
-            $this->get_endpoint(),
-            [
-                'method' => 'POST',
-                'body' => $this->get_payload(),
-                'headers' => $signature->get_headers(),
-            ]
-        );
+	    $response = \wp_remote_retrieve_body($response);
+	    $response = json_decode($response, true);
 
-        if(\is_wp_error($response)){
-            return false;
-        }
-
-        $response = \wp_remote_retrieve_body($response);
-        $response = json_decode($response, true);
-
-        if(json_last_error() !== JSON_ERROR_NONE){
-            return false;
-        }
+	    if(json_last_error() !== JSON_ERROR_NONE){
+		    return false;
+	    }
 
         return $response;
     }

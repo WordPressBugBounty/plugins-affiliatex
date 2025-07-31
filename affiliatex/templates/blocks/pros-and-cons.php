@@ -1,5 +1,5 @@
 <div <?php echo $wrapper_attributes ?>>
-	<div class="affx-pros-cons-inner-wrapper <?php echo esc_attr($layoutStyle) ?>">
+	<div class="affx-pros-cons-inner-wrapper <?php echo esc_attr($inner_wrapper_classes) ?>">
 		<div class="affx-pros-inner">
 			<div class="pros-icon-title-wrap">
 				<div class="affiliatex-block-pros">
@@ -10,7 +10,7 @@
 				</div>
 			</div>
 			<div class="affiliatex-pros">
-				<?php if ($prosContentType === 'list'): ?>
+				<?php if ($prosContentType === 'list' || $prosContentType === 'amazon'): ?>
 					<?php echo $prosList ?>
 				<?php else: ?>
 					<p class="affiliatex-content"><?php echo $prosContent ?></p>
@@ -27,7 +27,7 @@
 				</div>
 			</div>
 			<div class="affiliatex-cons">
-				<?php if ($consContentType === 'list'): ?>
+				<?php if ($consContentType === 'list' || $consContentType === 'amazon'): ?>
 					<?php echo $consList ?>
 				<?php else: ?>
 					<p class="affiliatex-content"><?php echo $consContent ?></p>

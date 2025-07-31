@@ -6,7 +6,11 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AffiliateX_Pro\\Updater\\' => array($baseDir . '/pro/includes/updater'),
+    'AffiliateX_Pro\\Traits\\' => array($baseDir . '/pro/includes/traits'),
     'AffiliateX_Pro\\Helpers\\' => array($baseDir . '/pro/includes/helpers'),
+    'AffiliateX_Pro\\Elementor\\Widgets\\' => array($baseDir . '/pro/includes/elementor/widgets'),
+    'AffiliateX_Pro\\Elementor\\' => array($baseDir . '/pro/includes/elementor'),
     'AffiliateX_Pro\\Blocks\\' => array($baseDir . '/pro/includes/blocks'),
     'AffiliateX_Pro\\Amazon\\Cron\\' => array($baseDir . '/pro/includes/amazon/cron'),
     'AffiliateX_Pro\\Amazon\\Api\\' => array($baseDir . '/pro/includes/amazon/api'),
@@ -15,7 +19,11 @@ return array(
     'AffiliateX_Pro\\' => array($baseDir . '/pro/includes'),
     'AffiliateX\\Traits\\' => array($baseDir . '/includes/traits'),
     'AffiliateX\\Notice\\' => array($baseDir . '/includes/notice'),
+    'AffiliateX\\Helpers\\Elementor\\' => array($baseDir . '/includes/helpers/elementor'),
     'AffiliateX\\Helpers\\' => array($baseDir . '/includes/helpers'),
+    'AffiliateX\\Elementor\\Widgets\\' => array($baseDir . '/includes/elementor/widgets'),
+    'AffiliateX\\Elementor\\Controls\\' => array($baseDir . '/includes/elementor/controls'),
+    'AffiliateX\\Elementor\\' => array($baseDir . '/includes/elementor'),
     'AffiliateX\\Blocks\\' => array($baseDir . '/includes/blocks'),
     'AffiliateX\\Amazon\\Api\\' => array($baseDir . '/includes/amazon/api'),
     'AffiliateX\\Amazon\\Admin\\' => array($baseDir . '/includes/amazon/admin'),

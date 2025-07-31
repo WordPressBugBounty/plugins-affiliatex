@@ -26,6 +26,13 @@ abstract class BaseBlock
     protected $template_path = AFFILIATEX_PLUGIN_DIR . '/templates/blocks/';
 
     /**
+     * Elementor Flag.
+     *
+     * @var bool
+     */
+    protected const IS_ELEMENTOR = false;
+
+    /**
      * Hook actions and initiates the block
      */
     public function __construct()

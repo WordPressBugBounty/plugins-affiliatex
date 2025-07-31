@@ -61,6 +61,14 @@ class AmazonSettings{
                 return current_user_can('manage_options');
             }
         ]);
+
+        register_rest_route('affiliatex/v1/api', '/get-usage-stats', [
+            'methods' => 'GET',
+            'callback' => [$this, 'get_usage_stats'],
+            'permission_callback' => function(){
+                return current_user_can('manage_options');
+            }
+        ]);
     }
 
     /**
@@ -73,20 +81,37 @@ class AmazonSettings{
     {
         $attributes = [];
 
-        $attributes['api_key'] = isset($params['api_key']) && !empty($params['api_key']) ? sanitize_text_field($params['api_key']) : '';
-        $attributes['api_secret'] = isset($params['api_secret']) && !empty($params['api_secret']) ? sanitize_text_field($params['api_secret']) : '';
+        $attributes['external_api'] = isset($params['external_api']) ? (bool) $params['external_api'] : false;
+        
+        // Handle API keys based on external_api setting
+        if (AmazonConfig::is_external_api_from_settings($attributes)) {
+            // When using external API, save whatever is provided (even empty values)
+            $attributes['api_key'] = isset($params['api_key']) ? sanitize_text_field($params['api_key']) : '';
+            $attributes['api_secret'] = isset($params['api_secret']) ? sanitize_text_field($params['api_secret']) : '';
+        } else {
+            // When using Amazon API, only save if provided and not empty
+            $attributes['api_key'] = isset($params['api_key']) && !empty($params['api_key']) ? sanitize_text_field($params['api_key']) : '';
+            $attributes['api_secret'] = isset($params['api_secret']) && !empty($params['api_secret']) ? sanitize_text_field($params['api_secret']) : '';
+        }
+        
         $attributes['country'] = isset($params['country']) && !empty($params['country']) ? sanitize_text_field($params['country']) : '';
         $attributes['tracking_id'] = isset($params['tracking_id']) && !empty($params['tracking_id']) ? sanitize_text_field($params['tracking_id']) : '';   
         $attributes['language'] = isset($params['language']) && !empty($params['language']) ? sanitize_text_field($params['language']) : '';
         $attributes['update_frequency'] = isset($params['update_frequency']) ? sanitize_text_field($params['update_frequency']) : '';
 
-        // Check if any field has a value
         $has_any_value = !empty($attributes['api_key']) || 
                         !empty($attributes['api_secret']) || 
                         !empty($attributes['tracking_id']);
 
-        // Only validate if at least one field has a value
-        if ($has_any_value) {
+        if (AmazonConfig::is_external_api_from_settings($attributes)) {
+            if(empty($attributes['tracking_id'])){
+                $this->send_json_error(__('Tracking ID is required', 'affiliatex'));
+            }
+
+            if(empty($attributes['country'])){
+                $this->send_json_error(__('Country is required', 'affiliatex'));
+            }
+        } else if ($has_any_value) {
             if(empty($attributes['api_key'])){
                 $this->send_json_error(__('API key is required', 'affiliatex'));
             }
@@ -119,31 +144,35 @@ class AmazonSettings{
             $params = json_decode($request->get_body(), true);        
             $attributes = $this->sanitize_settings_fields($params);
             
-            // Check if all fields are empty
             $all_empty = empty($attributes['api_key']) && 
                         empty($attributes['api_secret']) && 
                         empty($attributes['tracking_id']);
-;
 
             $this->set_option('amazon_settings', $attributes);
             
-            // Only validate with Amazon API if at least one field has a value
             if (!$all_empty) {
-                $validator = new AmazonApiValidator();
+                if (AmazonConfig::is_external_api_from_settings($attributes)) {
+                    if (!empty($attributes['tracking_id']) && !empty($attributes['country'])) {
+                        $this->set_option('amazon_activated', true);
+                    } else {
+                        $this->set_option('amazon_activated', false);
+                    }
+                } else {
+                    $validator = new AmazonApiValidator();
 
-                if(!$validator->is_credentials_valid()){
-                    $errors = $validator->get_errors();
+                    if(!$validator->is_credentials_valid()){
+                        $errors = $validator->get_errors();
 
-                    $this->set_option('amazon_activated', false);
-                    $this->send_json_error(__('Invalid credentials', 'affiliatex'), [
-                        'invalid_api_key' => true,
-                        'errors' => $errors
-                    ]);
+                        $this->set_option('amazon_activated', false);
+                        $this->send_json_error(__('Invalid credentials', 'affiliatex'), [
+                            'invalid_api_key' => true,
+                            'errors' => $errors
+                        ]);
+                    }
+
+                    $this->set_option('amazon_activated', true);
                 }
-
-                $this->set_option('amazon_activated', true);
             } else {
-                // If all fields are empty, deactivate Amazon integration
                 $this->set_option('amazon_activated', false);
             }
 
@@ -167,7 +196,8 @@ class AmazonSettings{
                 'tracking_id' => '',
                 'country' => 'us',
                 'language' => 'en_US',
-                'update_frequency' => 'daily'
+                'update_frequency' => 'daily',
+                'external_api' => false
             ];
 
             $settings = $this->get_option('amazon_settings', []);
@@ -229,6 +259,108 @@ class AmazonSettings{
                     'errors' => $errors
                 ]
             );
+        }catch(Exception $e){
+            $this->send_json_error($e->getMessage());
+        }
+    }
+
+    /**
+     * Get usage statistics with fallback values
+     *
+     * @return void
+     */
+    public function get_usage_stats() : void
+    {
+        try{
+            $settings = $this->get_option('amazon_settings', []);
+            
+            if (!AmazonConfig::is_external_api_from_settings($settings)) {
+                $this->send_json_plain_success([
+                    'show_usage' => false
+                ]);
+                return;
+            }
+
+            $license_key = '';
+            $site_url = parse_url(site_url(), PHP_URL_HOST);
+            
+            if (function_exists('affiliatex_fs') && affiliatex_fs()->is_registered()) {
+                $license = affiliatex_fs()->_get_license();
+                if (is_object($license)) {
+                    $license_key = $license->secret_key;
+                }
+            }
+
+            if (empty($license_key)) {
+                $this->send_json_plain_success([
+                    'show_usage' => true,
+                    'error' => true,
+                    'message' => __('No valid license found', 'affiliatex')
+                ]);
+                return;
+            }
+
+            $response = wp_remote_post(
+                AFFILIATEX_EXTERNAL_API_ENDPOINT . '/wp-json/affiliatex-proxy/v1/usage-stats',
+                [
+                    'headers' => [
+                        'Content-Type' => 'application/json',
+                    ],
+                    'body' => json_encode([
+                        'license_key' => $license_key,
+                        'domain' => $site_url
+                    ]),
+                    'timeout' => 30,
+                    'sslverify' => false
+                ]
+            );
+
+            if (is_wp_error($response)) {
+                $this->send_json_plain_success([
+                    'show_usage' => true,
+                    'error' => true,
+                    'message' => __('Failed to fetch usage statistics', 'affiliatex')
+                ]);
+                return;
+            }
+
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body, true);
+
+            if (!$data || !is_array($data)) {
+                $this->send_json_plain_success([
+                    'show_usage' => true,
+                    'error' => true,
+                    'message' => __('Invalid response from usage API', 'affiliatex')
+                ]);
+                return;
+            }
+
+            if (isset($data['code']) && $data['code'] === 'rate_limit_exceeded') {
+                $this->send_json_plain_success([
+                    'show_usage' => true,
+                    'rate_limit_exceeded' => true,
+                    'limit' => $data['data']['limit'] ?? 0,
+                    'reset_at' => $data['data']['reset_at'] ?? '',
+                    'reset_timestamp' => $data['data']['reset_timestamp'] ?? 0
+                ]);
+                return;
+            }
+
+            // Ensure we have valid numeric values, with defaults that make sense
+            $limit = isset($data['limit']) && is_numeric($data['limit']) ? (int)$data['limit'] : 3000;
+            $used = isset($data['used']) && is_numeric($data['used']) ? (int)$data['used'] : 0;
+            $remaining = isset($data['remaining']) && is_numeric($data['remaining']) ? (int)$data['remaining'] : $limit - $used;
+
+            $this->send_json_plain_success([
+                'show_usage' => true,
+                'limit' => $limit,
+                'used' => $used,
+                'remaining' => $remaining,
+                'reset_at' => $data['reset_at'] ?? '',
+                'reset_timestamp' => $data['reset_timestamp'] ?? 0
+            ]);
+
         }catch(Exception $e){
             $this->send_json_error($e->getMessage());
         }

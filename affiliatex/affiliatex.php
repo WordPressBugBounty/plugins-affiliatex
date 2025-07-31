@@ -8,7 +8,7 @@
  * Author URI:      https://affiliatexblocks.com
  * Text Domain:     affiliatex
  * Domain Path:     /languages
- * Version:         1.3.6.3
+ * Version:         1.3.7
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -63,7 +63,10 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         define( 'AFFILIATEX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
     }
     if ( !defined( 'AFFILIATEX_VERSION' ) ) {
-        define( 'AFFILIATEX_VERSION', '1.3.6.3' );
+        define( 'AFFILIATEX_VERSION', '1.3.7' );
+    }
+    if ( !defined( 'AFFILIATEX_EXTERNAL_API_ENDPOINT' ) ) {
+        define( 'AFFILIATEX_EXTERNAL_API_ENDPOINT', 'https://affiliatexblocks.com' );
     }
     /**
      * Init function

@@ -142,9 +142,40 @@ class AffiliateX_Helpers {
 		$wrapperClasses[] .= 'affiliatex-list-type-' . $listType;
 		$wrapperClasses[] .= $unorderedType === 'icon' ? 'afx-icon-list' : 'bullet';
 
+        // Parse Amazon shortcode if listItems is a string.
+        if ( is_string( $listItems ) ) {
+            $listItems = affx_maybe_parse_amazon_shortcode( $listItems );
+        }
+
 		ob_start();
 		include AFFILIATEX_PLUGIN_DIR . '/templates/components/list.php';
 		return ob_get_clean();
+	}
+
+	/**
+	 * Convert an associative array of html element attributes into string format.
+	 * 
+	 * @param mixed $args	An associative array of attribute keys and values.
+	 * 
+	 * @return string
+	 */
+	public static function array_to_attributes( array $args = [] ): string {
+		$string = '';
+
+		if ( is_array( $args ) && ! empty ( $args ) ) {
+			$string = implode( ' ', array_map( function( $key, $value ) {
+				if ( is_array( $value ) ) {
+					$value = implode( ' ', $value );
+				}
+
+				return esc_attr( $key ) . '="' . esc_attr( $value ) . '"';
+			},
+			array_keys( $args ),
+			$args
+			));
+		}
+
+		return $string;
 	}
 
 	/**

@@ -4,7 +4,7 @@ namespace AffiliateX\Blocks;
 
 use AffiliateX\Traits\ButtonRenderTrait;
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 /**
  * AffiliateX Button Block
@@ -22,32 +22,12 @@ class ButtonBlock extends BaseBlock
 
 	protected function get_fields(): array
 	{
-		return [
-			'buttonLabel' => 'Button',
-			'buttonSize' => 'medium',
-			'buttonWidth' => 'flexible',
-			'buttonURL' => '',
-			'iconPosition' => 'left',
-			'block_id' => '',
-			'ButtonIcon' => [
-				'name' => 'thumb-up-simple',
-				'value' => 'far fa-thumbs-up'
-			],
-			'edButtonIcon' => false,
-			'btnRelSponsored' => false,
-			'openInNewTab' => false,
-			'btnRelNoFollow' => false,
-			'buttonAlignment' => 'flex-start',
-			'btnDownload' => false,
-			'layoutStyle' => 'layout-type-1',
-			'priceTagPosition' => 'tagBtnright',
-			'productPrice' => '$145'
-		];
+		return $this->get_button_fields();
 	}
 
-	public function render(array $attributes, string $content) : string
+	public function render(array $attributes, string $content): string
 	{
 		$attributes = $this->parse_attributes($attributes);
-		return $this->render_button($attributes);
+		return $this->render_button_template($attributes, $content);
 	}
 }

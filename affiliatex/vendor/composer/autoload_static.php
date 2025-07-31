@@ -15,7 +15,11 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
     public static $prefixLengthsPsr4 = array (
         'A' => 
         array (
+            'AffiliateX_Pro\\Updater\\' => 23,
+            'AffiliateX_Pro\\Traits\\' => 22,
             'AffiliateX_Pro\\Helpers\\' => 23,
+            'AffiliateX_Pro\\Elementor\\Widgets\\' => 33,
+            'AffiliateX_Pro\\Elementor\\' => 25,
             'AffiliateX_Pro\\Blocks\\' => 22,
             'AffiliateX_Pro\\Amazon\\Cron\\' => 27,
             'AffiliateX_Pro\\Amazon\\Api\\' => 26,
@@ -24,7 +28,11 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
             'AffiliateX_Pro\\' => 15,
             'AffiliateX\\Traits\\' => 18,
             'AffiliateX\\Notice\\' => 18,
+            'AffiliateX\\Helpers\\Elementor\\' => 29,
             'AffiliateX\\Helpers\\' => 19,
+            'AffiliateX\\Elementor\\Widgets\\' => 29,
+            'AffiliateX\\Elementor\\Controls\\' => 30,
+            'AffiliateX\\Elementor\\' => 21,
             'AffiliateX\\Blocks\\' => 18,
             'AffiliateX\\Amazon\\Api\\' => 22,
             'AffiliateX\\Amazon\\Admin\\' => 24,
@@ -34,9 +42,25 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
     );
 
     public static $prefixDirsPsr4 = array (
+        'AffiliateX_Pro\\Updater\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/updater',
+        ),
+        'AffiliateX_Pro\\Traits\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/traits',
+        ),
         'AffiliateX_Pro\\Helpers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/helpers',
+        ),
+        'AffiliateX_Pro\\Elementor\\Widgets\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/elementor/widgets',
+        ),
+        'AffiliateX_Pro\\Elementor\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/elementor',
         ),
         'AffiliateX_Pro\\Blocks\\' => 
         array (
@@ -70,9 +94,25 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             0 => __DIR__ . '/../..' . '/includes/notice',
         ),
+        'AffiliateX\\Helpers\\Elementor\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/helpers/elementor',
+        ),
         'AffiliateX\\Helpers\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes/helpers',
+        ),
+        'AffiliateX\\Elementor\\Widgets\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/elementor/widgets',
+        ),
+        'AffiliateX\\Elementor\\Controls\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/elementor/controls',
+        ),
+        'AffiliateX\\Elementor\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/includes/elementor',
         ),
         'AffiliateX\\Blocks\\' => 
         array (

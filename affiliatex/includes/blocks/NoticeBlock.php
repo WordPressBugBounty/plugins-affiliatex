@@ -2,6 +2,7 @@
 
 namespace AffiliateX\Blocks;
 
+use AffiliateX\Traits\NoticeRenderTrait;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
 defined( 'ABSPATH' ) || exit;
@@ -13,41 +14,13 @@ defined( 'ABSPATH' ) || exit;
  */
 class NoticeBlock extends BaseBlock
 {
-	protected function get_slug(): string
-	{
-		return 'notice';
-	}
-
-	protected function get_fields(): array
-	{
-		return [
-			'block_id' => '',
-			'titleTag1' => 'h2',
-			'layoutStyle' => 'layout-type-1',
-			'noticeTitle' => 'Notice',
-			'noticeTitleIcon' => [
-				'name' => 'info-circle',
-				'value' => 'fa fa-info-circle'
-			],
-			'noticeListItems' => ['List items'],
-			'noticeListType' => 'unordered',
-			'noticeContent' => 'This is the notice content',
-			'noticeContentType' => 'list',
-			'noticeListIcon' => [
-				'name' => 'check-circle',
-				'value' => 'far fa-check-circle'
-			],
-			'noticeunorderedType' => 'icon',
-			'edTitleIcon' => true,
-			'titleAlignment' => 'left'
-		];
-	}
+	use NoticeRenderTrait;
 
 	public function render(array $attributes, string $content) : string
 	{
 		$attributes = $this->parse_attributes($attributes);
 		extract($attributes);
-		
+
 		if(is_array($noticeListItems) && count($noticeListItems) === 1 && isset($noticeListItems[0]['list']) && has_shortcode($noticeListItems[0]['list'], 'affiliatex-product')) {
 			$noticeListItems = json_decode(do_shortcode($noticeListItems[0]['list']), true);
 		}

@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.3.6.3
+Stable tag: 1.3.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -33,6 +33,19 @@ By simply entering your **Amazon API credentials**, you can:
 - **Save time** and minimize errors by avoiding repetitive copy-paste tasks.
 
 [youtube https://youtu.be/a3H4PF2lMAY]
+
+### Gutenberg + Elementor Support 🎯
+
+#### AffiliateX works seamlessly with both WordPress editors!
+
+AffiliateX provides **full compatibility** with both **Gutenberg** (WordPress's default block editor) and **Elementor**. This dual-editor support means you can:
+
+- Use **Gutenberg blocks** for a native WordPress experience with lightning-fast performance
+- Switch to **Elementor** for advanced page building capabilities and visual design control
+- Access the **same powerful customization options** in both editors—no feature limitations based on your editor choice
+- Maintain **consistent branding and styling** across all your affiliate content, regardless of which editor you prefer
+
+Whether you're a Gutenberg enthusiast or an Elementor power user, AffiliateX adapts to your workflow while delivering the same professional affiliate marketing blocks and functionality. This flexibility ensures you can create stunning affiliate websites using the editor you're most comfortable with.
 
 ### AffiliateX Free Blocks
 
@@ -94,7 +107,7 @@ AffiliateX is an Amazon WordPress plugin built for affiliate marketers who want 
 
 * **No Coding required**: Even if you are a complete newbie, you can easily use this plugin without writing a single line of code.
 
-* **Better Performance and Speed**: AffiliateX uses the core Gutenberg editor so you don’t need to use heavy page builders and eliminate the need for unnecessary CSS and JS files. It boosts your website loading speed and performance.
+* **Better Performance and Speed**: AffiliateX uses the core Gutenberg and Elementor editors so you don't need to use heavy page builders and eliminate the need for unnecessary CSS and JS files. It boosts your website loading speed and performance.
 
 == Installation ==
 
@@ -121,7 +134,7 @@ AffiliateX is one of the best WordPress plugins for Amazon affiliates who want t
 
 = Does this plugin work with Classic Editor? =
 
-No, it doesn’t. It only works with Gutenberg Editor.
+No, it doesn't. It only works with Gutenberg and Elementor editors.
 
 = Can I use this plugin with page builders? =
 

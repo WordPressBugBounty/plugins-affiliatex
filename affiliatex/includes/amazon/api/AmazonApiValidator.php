@@ -6,7 +6,7 @@ defined( 'ABSPATH' ) or exit;
 
 /**
  * Amazon API credential validator
- * 
+ *
  * @package AffiliateX
  */
 class AmazonApiValidator extends AmazonApiBase

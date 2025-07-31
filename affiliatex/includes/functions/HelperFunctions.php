@@ -296,3 +296,44 @@ if ( ! function_exists( 'affx_extract_child_items' ) ) {
 	}
 }
 
+/**
+ * Check if the current page is Elementor editor.
+ *
+ * @return bool
+ */
+if ( ! function_exists( 'affx_is_elementor_editor' ) ) {
+	function affx_is_elementor_editor() {
+		return isset( $_GET['action'] ) && $_GET['action'] === 'elementor';
+	}
+}
+
+/**
+ * Parse Amazon shortcode if present.
+ *
+ * @param mixed $data
+ * @return mixed
+ */
+if ( ! function_exists( 'affx_maybe_parse_amazon_shortcode' ) ) {
+    function affx_maybe_parse_amazon_shortcode($data)
+    {
+        if (is_string($data) && has_shortcode($data, 'affiliatex-product')) {
+            $parsed_data = do_shortcode($data);
+
+            if ( json_decode($parsed_data ) ) {
+                $parsed_data = json_decode($parsed_data, true);
+            }
+
+            return $parsed_data;
+        } elseif( is_array($data) ) {
+            return array_combine(
+                array_keys($data),
+                array_map(function($item) {
+                    return affx_maybe_parse_amazon_shortcode($item);
+                }, $data)
+            );
+        }
+
+        return $data;
+    }
+}
+

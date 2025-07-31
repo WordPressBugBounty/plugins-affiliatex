@@ -4,10 +4,10 @@ ob_start();
 foreach($productTable as $index => $product){
     $counterText = $edCounter ? ($index + 1) : '';
     $ribbonText = $product['ribbon'] ?? '';
-		$imageId = $product['imageId'] ?? '';
-    $imageUrl = esc_url(do_shortcode($product['imageUrl']));
-    $imageAlt = esc_attr($product['imageAlt']);
-    $featuresList = $product['featuresList'];
+    $imageId = $product['imageId'] ?? '';
+    $imageUrl = esc_url(do_shortcode($product['imageUrl'] ?? ''));
+    $imageAlt = esc_attr($product['imageAlt'] ?? '');
+    $featuresList = $product['featuresList'] ?? [];
 
     if(is_array($featuresList) && count($featuresList) > 0 && isset($featuresList[0]['list']) && is_string($featuresList[0]['list']) && has_shortcode($featuresList[0]['list'], 'affiliatex-product')) {
         $featuresList = json_decode(do_shortcode($featuresList[0]['list']), true);
