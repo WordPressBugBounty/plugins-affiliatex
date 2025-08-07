@@ -97,7 +97,8 @@ class AmazonConfig
             'region' => 'us-west-2',
             'languages' => ['en_AU'],
             'currency' => 'AUD',
-            'currency_symbol' => 'A$'
+            'currency_symbol' => 'A$',
+            'domain' => 'amazon.com.au'
         ],
         'be' => [
             'label' => 'Belgium',
@@ -105,7 +106,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['fr_BE', 'nl_BE', 'en_GB'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.be'
         ],
         'br' => [
             'label' => 'Brazil',
@@ -113,7 +115,8 @@ class AmazonConfig
             'region' => 'us-east-1',
             'languages' => ['pt_BR'],
             'currency' => 'BRL',
-            'currency_symbol' => 'R$'
+            'currency_symbol' => 'R$',
+            'domain' => 'amazon.com.br'
         ],
         'ca' => [
             'label' => 'Canada',
@@ -121,7 +124,8 @@ class AmazonConfig
             'region' => 'us-east-1',
             'languages' => ['en_CA', 'fr_CA'],
             'currency' => 'CAD',
-            'currency_symbol' => 'C$'
+            'currency_symbol' => 'C$',
+            'domain' => 'amazon.ca'
         ],
         'eg' => [
             'label' => 'Egypt',
@@ -129,7 +133,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['en_AE', 'ar_AE'],
             'currency' => 'EGP',
-            'currency_symbol' => 'ج.م'
+            'currency_symbol' => 'ج.م',
+            'domain' => 'amazon.eg'
         ],
         'fr' => [
             'label' => 'France',
@@ -137,7 +142,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['fr_FR'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.fr'
         ],
         'de' => [
             'label' => 'Germany',
@@ -145,7 +151,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['de_DE', 'cs_CZ', 'en_GB', 'nl_NL', 'pl_PL', 'tr_TR'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.de'
         ],
         'in' => [
             'label' => 'India',
@@ -153,7 +160,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['en_IN', 'hi_IN', 'kn_IN', 'ml_IN', 'ta_IN', 'te_IN'],
             'currency' => 'INR',
-            'currency_symbol' => '₹'
+            'currency_symbol' => '₹',
+            'domain' => 'amazon.in'
         ],
         'it' => [
             'label' => 'Italy',
@@ -161,7 +169,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['it_IT'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.it'
         ],
         'jp' => [
             'label' => 'Japan',
@@ -169,7 +178,8 @@ class AmazonConfig
             'region' => 'eu-west-2',
             'languages' => ['ja_JP', 'en_US', 'zh_CN'],
             'currency' => 'JPY',
-            'currency_symbol' => '¥'
+            'currency_symbol' => '¥',
+            'domain' => 'amazon.co.jp'
         ],
         'mx' => [
             'label' => 'Mexico',
@@ -177,7 +187,8 @@ class AmazonConfig
             'region' => 'us-east-1',
             'languages' => ['es_MX'],
             'currency' => 'MXN',
-            'currency_symbol' => 'MX$'
+            'currency_symbol' => 'MX$',
+            'domain' => 'amazon.com.mx'
         ],
         'nl' => [
             'label' => 'Netherlands',
@@ -185,7 +196,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['nl_NL'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.nl'
         ],
         'pl' => [
             'label' => 'Poland',
@@ -193,7 +205,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['pl_PL', 'en_GB'],
             'currency' => 'PLN',
-            'currency_symbol' => 'zł'
+            'currency_symbol' => 'zł',
+            'domain' => 'amazon.pl'
         ],
         'sg' => [
             'label' => 'Singapore',
@@ -201,7 +214,8 @@ class AmazonConfig
             'region' => 'us-east-2',
             'languages' => ['en_SG'],
             'currency' => 'SGD',
-            'currency_symbol' => 'S$'
+            'currency_symbol' => 'S$',
+            'domain' => 'amazon.sg'
         ],
         'sa' => [
             'label' => 'Saudi Arabia',
@@ -209,7 +223,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['en_AE', 'ar_AE'],
             'currency' => 'SAR',
-            'currency_symbol' => 'ر.س'
+            'currency_symbol' => 'ر.س',
+            'domain' => 'amazon.sa'
         ],
         'es' => [
             'label' => 'Spain',
@@ -217,7 +232,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['es_ES'],
             'currency' => 'EUR',
-            'currency_symbol' => '€'
+            'currency_symbol' => '€',
+            'domain' => 'amazon.es'
         ],
         'se' => [
             'label' => 'Sweden',
@@ -225,7 +241,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['sv_SE'],
             'currency' => 'SEK',
-            'currency_symbol' => 'kr'
+            'currency_symbol' => 'kr',
+            'domain' => 'amazon.se'
         ],
         'tr' => [
             'label' => 'Turkey',
@@ -233,7 +250,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['tr_TR'],
             'currency' => 'TRY',
-            'currency_symbol' => '₺'
+            'currency_symbol' => '₺',
+            'domain' => 'amazon.com.tr'
         ],
         'ae' => [
             'label' => 'United Arab Emirates',
@@ -241,7 +259,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['en_AE', 'ar_AE'],
             'currency' => 'AED',
-            'currency_symbol' => 'د.إ'
+            'currency_symbol' => 'د.إ',
+            'domain' => 'amazon.ae'
         ],
         'uk' => [
             'label' => 'United Kingdom',
@@ -249,7 +268,8 @@ class AmazonConfig
             'region' => 'eu-west-1',
             'languages' => ['en_GB'],
             'currency' => 'GBP',
-            'currency_symbol' => '£'
+            'currency_symbol' => '£',
+            'domain' => 'amazon.co.uk'
         ],
         'us' => [
             'label' => 'United States',
@@ -257,7 +277,8 @@ class AmazonConfig
             'region' => 'us-east-1',
             'languages' => ['en_US', 'de_DE', 'es_US', 'ko_KR', 'pt_BR', 'zh_CN', 'zh_TW'],
             'currency' => 'USD',
-            'currency_symbol' => '$'
+            'currency_symbol' => '$',
+            'domain' => 'amazon.com'
         ]
     ];
 
@@ -409,5 +430,26 @@ class AmazonConfig
     {
         $country_data = $this->get_country_data($country);
         return $country_data['currency_symbol'] ?? '$';
+    }
+
+    /**
+     * Transform Amazon URL to use country-specific domain
+     *
+     * @param string $url The original Amazon URL (e.g. from DetailPageURL)
+     * @return string URL with country-specific domain
+     */
+    public function transform_url_for_marketplace(string $url) : string
+    {
+        if (empty($url)) {
+            return $url;
+        }
+
+        $target_domain = $this->countries[$this->country]['domain'] ?? 'amazon.com';
+        
+        return preg_replace(
+            '/https?:\/\/(www\.)?amazon\.[a-z]+(?:\.[a-z]+)?/',
+            'https://' . $target_domain,
+            $url
+        );
     }
 }
