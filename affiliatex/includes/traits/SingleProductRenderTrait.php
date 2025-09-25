@@ -104,6 +104,9 @@ trait SingleProductRenderTrait
             'ribbonAlign'            => 'left',
             'ImgUrl'                 => '',
             'numberRatings'          => '8.5',
+            'edFullBlockLink'        => false,
+            'blockUrl'               => '',
+            'blockOpenInNewTab'      => false,
             'productRatingAlign'     => 'right',
             'productStarRatingAlign' => 'left',
             'productImageType'       => 'default',
@@ -403,6 +406,37 @@ trait SingleProductRenderTrait
                         'placeholder' => 'Enter SiteStripe Markup',
                         'condition'   => [
                             'productImageType' => 'sitestripe',
+                        ],
+                    ],
+                ],
+            ],
+
+            'affx_sp_link_settings' => [
+                'label'  => __('Link Settings', 'affiliatex'),
+                'tab'    => Controls_Manager::TAB_CONTENT,
+                'fields' => [
+                    'edFullBlockLink' => [
+                        'label'        => __('Make Whole Block Clickable', 'affiliatex'),
+                        'type'         => Controls_Manager::SWITCHER,
+                        'return_value' => 'true',
+                        'default'      => 'false',
+                    ],
+                    'blockUrl' => [
+                        'label'       => __('Link URL', 'affiliatex'),
+                        'type'        => ControlsManager::TEXT,
+                        'label_block' => true,
+                        'placeholder' => __('Enter link URL', 'affiliatex'),
+                        'condition'   => [
+                            'edFullBlockLink' => 'true',
+                        ],
+                    ],
+                    'blockOpenInNewTab' => [
+                        'label'        => __('Open link in new tab', 'affiliatex'),
+                        'type'         => Controls_Manager::SWITCHER,
+                        'return_value' => 'true',
+                        'default'      => 'false',
+                        'condition'   => [
+                            'edFullBlockLink' => 'true',
                         ],
                     ],
                 ],
@@ -1430,6 +1464,7 @@ trait SingleProductRenderTrait
                     'productBorder' => [
                         'type'           => \Elementor\Group_Control_Border::get_type(),
                         'name'           => 'productBorder',
+                        'responsive' => true,
                         'selector'       => $this->select_element('wrapper'),
                         'fields_options' => [
                             'border' => [
@@ -1464,6 +1499,26 @@ trait SingleProductRenderTrait
                         ],
                         'selectors'   => [
                             $this->select_element('wrapper') => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        ],
+                    ],
+                    'productImageBorderRadius' => [
+                        'label'       => esc_html__('Image Border Radius', 'affiliatex'),
+                        'type'        => Controls_Manager::DIMENSIONS,
+                        'size_units'  => ['px', '%'],
+                        'default'     => [
+                            'top'      => 0,
+                            'right'    => 0,
+                            'bottom'   => 0,
+                            'left'     => 0,
+                            'unit'     => 'px',
+                            'isLinked' => false,
+                        ],
+                        'selectors'   => [
+                            $this->select_element('wrapper') . ' .affx-sp-img-wrapper' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                            $this->select_element('wrapper') . ' .affx-sp-img-wrapper img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                        ],
+                        'condition' => [
+                            'edProductImage' => 'true',
                         ],
                     ],
                     'productShadow' => [
@@ -1635,6 +1690,9 @@ trait SingleProductRenderTrait
                                     'defaults' => [
                                         'button_child_buttonURL' => '',
                                     ],
+                                    'conditions' => [
+                                        'blockUrl' => '[@copy]'
+                                    ],
                                 ],
                                 'type' => 'link',
                             ],
@@ -1714,8 +1772,10 @@ trait SingleProductRenderTrait
 
         if(self::IS_ELEMENTOR){
             $wrapper_attributes = sprintf(
-                'id="%s"',
-                "affiliatex-single-product-style-$block_id"
+                'id="%s" class="%s" data-widget-type="%s"',
+                "affiliatex-single-product-style-$block_id",
+                "affx-amazon-item",
+                "affiliatex-single-product"
             );
         } else {
             $wrapper_attributes = get_block_wrapper_attributes(array(
@@ -1723,7 +1783,8 @@ trait SingleProductRenderTrait
             ));
         }
 
-        $productTitleTag = AffiliateX_Helpers::validate_tag($productTitleTag, 'h2');
+        $wrapper_attributes = AffiliateX_Helpers::add_clickable_attributes($wrapper_attributes, $edFullBlockLink, $blockUrl, $blockOpenInNewTab);
+        $productTitleTag    = AffiliateX_Helpers::validate_tag($productTitleTag, 'h2');
         $productSubTitleTag = AffiliateX_Helpers::validate_tag($productSubTitleTag, 'h3');
 
         $layoutClass = '';

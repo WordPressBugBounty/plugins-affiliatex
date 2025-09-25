@@ -34,7 +34,7 @@ class ElementorManager {
             wp_enqueue_script(
                 'affiliatex-elementor-editor',
                 AFFILIATEX_PLUGIN_URL . '/build/elementorEditor.js',
-                ['jquery', 'affiliatex'],
+                ['jquery', 'affiliatex', 'affiliatex-block-export'],
                 AFFILIATEX_VERSION
             );
         }

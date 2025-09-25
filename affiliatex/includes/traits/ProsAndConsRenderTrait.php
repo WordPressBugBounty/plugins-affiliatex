@@ -116,7 +116,7 @@ trait ProsAndConsRenderTrait
                     'listType' => $prosListType,
                     'unorderedType' => $prosUnorderedType,
                     'listItems' => $prosListItems,
-                    'iconName' => $prosIcon['value'],
+                    'iconName' => isset($prosIcon['value']) ? $prosIcon['value'] : '',
                 )
             );
         }
@@ -127,7 +127,7 @@ trait ProsAndConsRenderTrait
                     'listType' => $consListType,
                     'unorderedType' => $consUnorderedType,
                     'listItems' => $consListItems,
-                    'iconName' => $consIcon['value'],
+                    'iconName' => isset($consIcon['value']) ? $consIcon['value'] : '',
                 )
             );
         }

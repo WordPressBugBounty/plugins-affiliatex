@@ -63,8 +63,7 @@ class NoticeWidget extends ElementorBase
                 'default' => 'layout-type-1',
                 'options' => [
                     'layout-type-1' => __('Layout One', 'affiliatex'),
-                    'layout-type-2' => __('Layout Two', 'affiliatex'),
-                    'layout-type-3' => __('Layout Three', 'affiliatex')
+                    'layout-type-2' => __('Layout Two', 'affiliatex')
                 ]
             ]
         );
@@ -185,7 +184,6 @@ class NoticeWidget extends ElementorBase
                 ],
                 'selectors' => [
                     $this->select_element('title') . ' > i' => 'font-size: {{SIZE}}{{UNIT}}',
-                    $this->select_element('layout-3-wrapper') . ' > i' => 'font-size: {{SIZE}}{{UNIT}}',
                 ]
             ]
         );
@@ -421,6 +419,7 @@ class NoticeWidget extends ElementorBase
             [
                 'name'           => 'noticeBorder',
                 'label'          => __('Border', 'affiliatex'),
+                'responsive'     => true,
                 'selector'       => $this->select_element('wrapper'),
                 'fields_options' => [
                     'border' => [
@@ -522,11 +521,10 @@ class NoticeWidget extends ElementorBase
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#084ACA',
                 'selectors' => [
-                    $this->select_element('layout-2-wrapper') . ' .affiliatex-notice-title' => 'color: {{VALUE}} !important;',
-                    $this->select_element('layout-3-wrapper') . ' .affiliatex-notice-title' => 'color: {{VALUE}} !important;'
+                    $this->select_element('layout-2-wrapper') . ' .affiliatex-notice-title' => 'color: {{VALUE}} !important;'
                 ],
                 'condition' => [
-                    'layoutStyle' => ['layout-type-2', 'layout-type-3']
+                    'layoutStyle' => ['layout-type-2']
                 ]
             ]
         );
@@ -663,11 +661,10 @@ class NoticeWidget extends ElementorBase
                 'type'      => Controls_Manager::COLOR,
                 'default'   => '#084ACA',
                 'selectors' => [
-                    $this->select_element('layout-2-wrapper') . ' .affiliatex-notice-title > i' => 'color: {{VALUE}} !important;',
-                    $this->select_element('layout-3-wrapper') . ' > i' => 'color: {{VALUE}} !important;',
+                    $this->select_element('layout-2-wrapper') . ' .affiliatex-notice-title > i' => 'color: {{VALUE}} !important;'
                 ],
                 'condition' => [
-                    'layoutStyle' => [ 'layout-type-2', 'layout-type-3' ],
+                    'layoutStyle' => [ 'layout-type-2' ],
                     'edTitleIcon' => 'true',
                 ]
             ]
@@ -719,7 +716,7 @@ class NoticeWidget extends ElementorBase
                     ]
                 ],
                 'condition' => [
-                    'layoutStyle' => ['layout-type-2', 'layout-type-3'],
+                    'layoutStyle' => ['layout-type-2'],
                 ]
             ]
         );
@@ -894,12 +891,10 @@ class NoticeWidget extends ElementorBase
                 'default' => 'DEFAULT_VALUE',
                 'selectors' => [
                     $this->select_element('layout-2-wrapper' ) => 'padding: 20px',
-                    $this->select_element('layout-3-wrapper' ) => 'padding: 20px',
                     $this->select_element('layout-2-wrapper' ) . ' .affiliatex-notice-title' => 'padding-bottom: 10px',
-                    $this->select_element('layout-3-wrapper' ) . ' .affiliatex-notice-title' => 'padding-bottom: 10px',
                 ],
                 'condition' => [
-                    'layoutStyle' => ['layout-type-2', 'layout-type-3'],
+                    'layoutStyle' => ['layout-type-2'],
                 ]
 			]
 		);

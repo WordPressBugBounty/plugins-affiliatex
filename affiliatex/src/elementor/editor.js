@@ -65,10 +65,13 @@ import { __ } from '@wordpress/i18n';
                 'affiliatex-specifications',
                 'affiliatex-verdict',
                 'affiliatex-versus-line',
+                'affiliatex-versus',
+            ];
+
+            const initiallyHiddenWidgets = [
+                'affiliatex-top-products',
                 'affiliatex-coupon-listing',
                 'affiliatex-coupon-grid',
-                'affiliatex-versus',
-                'affiliatex-top-products',
             ];
 
             const addButton = (panel, model) => {
@@ -82,6 +85,9 @@ import { __ } from '@wordpress/i18n';
                             const navigationPanel = $(panel.el).find('.elementor-panel-navigation');
                             if($(panel.el).find('.affx-connect-all-wrapper').length === 0){
                                 navigationPanel.after(AffiliateX.connectAllButton);
+                                if(initiallyHiddenWidgets.includes(model.get('widgetType'))){
+                                    $(panel.el).find('.affx-connect-all-wrapper').hide();
+                                }
                             }
                         }
                     }

@@ -123,6 +123,7 @@ final class AffiliateX {
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/classes/class-ab-fonts-manager.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/notice/NoticeHandler.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/AffiliateXTemplateLibrary.php';
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/migration/MigrationManager.php';
 	}
 
 	/**

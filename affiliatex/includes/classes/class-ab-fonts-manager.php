@@ -171,7 +171,12 @@ class AB_Fonts_Manager {
 			$this_post = apply_filters( 'affiliatex_post_for_stylesheet', $this_post );
 
 			$this->get_generated_stylesheet( $this_post );
-
+		}
+		
+		// Generate stylesheet for widget blocks on all pages that might display widgets
+		// This includes home, archive, category, tag, author, search pages etc.
+		if ( ! is_admin() ) {
+			$this->get_generated_widget_stylesheet();
 		}
 	}
 
@@ -204,6 +209,33 @@ class AB_Fonts_Manager {
 
 			self::$stylesheet .= $assets['css'];
 			self::$script     .= $assets['js'];
+		}
+	}
+
+	/**
+	 * Generates stylesheet for widget blocks.
+	 *
+	 * @since 1.7.0
+	 */
+	public function get_generated_widget_stylesheet() {
+		// Get block widgets
+		$block_widgets = get_option( 'widget_block' );
+		if ( empty( $block_widgets ) || ! is_array( $block_widgets ) ) {
+			return;
+		}
+		
+		// Process each widget's blocks
+		foreach ( $block_widgets as $widget ) {
+			if ( empty( $widget['content'] ) ) {
+				continue;
+			}
+			
+			$blocks = $this->parse( $widget['content'] );
+			if ( is_array( $blocks ) && ! empty( $blocks ) ) {
+				$assets = $this->get_assets( $blocks );
+				self::$stylesheet .= $assets['css'];
+				self::$script     .= $assets['js'];
+			}
 		}
 	}
 

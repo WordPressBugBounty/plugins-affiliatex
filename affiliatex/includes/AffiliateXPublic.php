@@ -7,6 +7,8 @@
 
 namespace AffiliateX;
 
+use AffiliateX\Helpers\AffiliateX_Helpers;
+
 /**
  * AffilateX Public instance
  *
@@ -28,6 +30,7 @@ class AffiliateXPublic {
 	 */
 	public function init_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp', array( $this, 'generate_assets' ), 99 );
 		add_action( 'wp_head', array( $this, 'generate_stylesheet' ), 80 );
 	}
@@ -48,7 +51,7 @@ class AffiliateXPublic {
 	 * @return void
 	 */
 	public function enqueue_styles() {
-		if ( is_affiliatex_block() ) {
+		if ( AffiliateX_Helpers::post_has_affiliatex_items() ) {
 			wp_enqueue_style(
 				'affiliatex-public', // Handle.
 				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/publicCSS.css',
@@ -58,15 +61,29 @@ class AffiliateXPublic {
 			$m = new \AB_FONTS_MANAGER();
 			$m->load_dynamic_google_fonts();
 
-			$customization_data = affx_get_customization_settings();
-			if( isset( $customization_data['disableFontAwesome'] ) && ! $customization_data['disableFontAwesome'] ) {
-				wp_enqueue_style(
-					'fontawesome',
-					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/fontawesome.css',
-					array(),
-					AFFILIATEX_VERSION
-				);
-			}
+			wp_enqueue_style(
+				'fontawesome',
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/fontawesome.css',
+				array(),
+				AFFILIATEX_VERSION
+			);
+		}
+	}
+
+	/**
+	 * Load Frontend JavaScript assets.
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
+		if ( AffiliateX_Helpers::post_has_affiliatex_items() ) {
+			wp_enqueue_script(
+				'affiliatex-frontend',
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/frontendJS.js',
+				array('jquery'),
+				AFFILIATEX_VERSION,
+				true
+			);
 		}
 	}
 

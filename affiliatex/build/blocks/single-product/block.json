@@ -357,6 +357,29 @@
         }
       }
     },
+    "productImageBorderRadius": {
+      "type": "object",
+      "default": {
+        "desktop": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "mobile": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        },
+        "tablet": {
+          "top": "0",
+          "left": "0",
+          "right": "0",
+          "bottom": "0"
+        }
+      }
+    },
     "productShadow": {
       "type": "object",
       "default": {
@@ -642,6 +665,18 @@
       }
     },
     "preview": {
+      "type": "boolean",
+      "default": false
+    },
+    "edFullBlockLink": {
+      "type": "boolean",
+      "default": false
+    },
+    "blockUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "blockOpenInNewTab": {
       "type": "boolean",
       "default": false
     }

@@ -2,14 +2,16 @@
 use AffiliateX\Helpers\AffiliateX_Helpers;
 ?>
 <div <?php echo $wrapper_attributes ?>>
-    <div class="affx-product-comparison-block-container affx-versus-block-container">
+    <div class="affx-product-comparison-block-container affx-versus-block-container<?php echo $matchCardHeights ? ' match-heights' : '' ?>">
         <div class="affx-versus-table-wrap">
             <table class="affx-product-versus-table layout-1">
                 <thead>
                     <tr>
-                        <th class="data-label" style="width:<?php echo 92 / (count($productComparisonTable) + 1) ?>%;"></th>
+                        <?php if($pcTitleColumn): ?>
+                            <th class="data-label" style="width:<?php echo 92 / (count($productComparisonTable) + 1) ?>%;"></th>
+                        <?php endif; ?>
                         <?php foreach( $productComparisonTable as $item): ?>
-                            <th class="affx-product-col" style="width:<?php echo 92 / (count($productComparisonTable) + 1) ?>%;">
+                            <th class="affx-product-col" style="width:<?php echo ($pcTitleColumn ? 92 : 100) / ($pcTitleColumn ? count($productComparisonTable) + 1 : count($productComparisonTable)) ?>%;">
                                 <?php if($pcRibbon && !empty($item['ribbonText'])): ?>
                                     <span class="affx-pc-ribbon"><?php echo wp_kses_post($item['ribbonText']) ?></span>
                                 <?php endif; ?>
@@ -27,27 +29,31 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
                                                 </<?php echo esc_attr($pcTitleTag) ?>>
                                             </div>
                                         <?php endif; ?>
-                                        <?php if($pcPrice): ?>
-                                            <div class="affx-price-wrap">
-                                                <span class="affx-price"><?php echo wp_kses_post($item['price']) ?></span>
-                                            </div>
-                                        <?php endif; ?>
-                                        <div class="affx-rating-wrap">
-                                            <?php echo $pcRating ? $this->render_pc_stars($item['rating'], $starColor, $starInactiveColor) : '' ?>
+                                        <div>
+                                            <?php if($pcPrice): ?>
+                                                <div class="affx-price-wrap">
+                                                    <span class="affx-price"><?php echo wp_kses_post($item['price']) ?></span>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if($pcRating): ?>
+                                                <div class="affx-rating-wrap">
+                                                    <?php echo $this->render_pc_stars($item['rating'], $starColor, $starInactiveColor) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                            <?php if($pcButton): ?>
+                                                <div class="affx-btn-wrap">
+                                                    <a href="<?php echo esc_url(do_shortcode($item['buttonURL'])) ?>" class="affiliatex-button affx-winner-button <?php echo $pcButtonIcon ? 'icon-btn icon-' . esc_attr($buttonIconAlign) : '' ?>" <?php echo $item['rel'] . ' ' . $item['target'] . ' ' . $item['download'] ?>>
+                                                        <?php if($pcButtonIcon && $buttonIconAlign === 'left'): ?>
+                                                            <i class="button-icon <?php echo esc_attr($buttonIcon['value']) ?>"></i>
+                                                        <?php endif; ?>
+                                                        <?php echo wp_kses_post($item['button']) ?>
+                                                        <?php if($pcButtonIcon && $buttonIconAlign === 'right'): ?>
+                                                            <i class="button-icon <?php echo esc_attr($buttonIcon['value']) ?>"></i>
+                                                        <?php endif; ?>
+                                                    </a>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
-                                        <?php if($pcButton): ?>
-                                            <div class="affx-btn-wrap">
-                                                <a href="<?php echo esc_url(do_shortcode($item['buttonURL'])) ?>" class="affiliatex-button affx-winner-button <?php echo $pcButtonIcon ? 'icon-btn icon-' . esc_attr($buttonIconAlign) : '' ?>" <?php echo $item['rel'] . ' ' . $item['target'] . ' ' . $item['download'] ?>>
-                                                    <?php if($pcButtonIcon && $buttonIconAlign === 'left'): ?>
-                                                        <i class="button-icon <?php echo esc_attr($buttonIcon['value']) ?>"></i>
-                                                    <?php endif; ?>
-                                                    <?php echo wp_kses_post($item['button']) ?>
-                                                    <?php if($pcButtonIcon && $buttonIconAlign === 'right'): ?>
-                                                        <i class="button-icon <?php echo esc_attr($buttonIcon['value']) ?>"></i>
-                                                    <?php endif; ?>
-                                                </a>
-                                            </div>
-                                        <?php endif; ?>
                                     </div>
                                 </div>
                             </th>
@@ -59,9 +65,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
                         <tr>
                             <?php foreach($productComparisonTable as $countIndex => $count): ?>
                                 <?php if($countIndex === 0): ?>
-                                    <td class="data-label">
-                                        <?php echo wp_kses_post($item['title']) ?>
-                                    </td>
+                                    <?php if($pcTitleColumn): ?>
+                                        <td class="data-label">
+                                            <?php echo wp_kses_post($item['title']) ?>
+                                        </td>
+                                    <?php endif; ?>
                                     <td>
                                         <?php echo wp_kses_post($item['specs'][$countIndex] ?? '') ?>
                                     </td>

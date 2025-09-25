@@ -402,6 +402,7 @@ class CtaWidget extends ElementorBase
             [
                 'name'           => 'ctaBorder',
                 'label'          => __('Border', 'affiliatex'),
+                'responsive'     => true,
                 'selector'       => $this->select_element('wrapper'),
                 'fields_options' => [
                     'border' => [
@@ -424,7 +425,7 @@ class CtaWidget extends ElementorBase
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'ctaBorderRadius',
             [
                 'label'      => __('Border Radius', 'affiliatex'),
@@ -601,6 +602,18 @@ class CtaWidget extends ElementorBase
                 'condition' => [
                     'ctaLayout' => 'layoutOne'
                 ]
+            ]
+        );
+
+        $this->add_control(
+            'ctaExternalBgImage',
+            [
+                'label'     => __('External Image URL', 'affiliatex'),
+                'type'      => ControlsManager::TEXT,
+                'condition' => [
+                    'ctaLayout' => 'layoutOne',
+                    'ctaBGType_background' => 'image'
+                ],
             ]
         );
 
@@ -832,6 +845,17 @@ class CtaWidget extends ElementorBase
                             ],
                             'conditions' => [
                                 'imageType' => 'external'
+                            ],
+                        ],
+                        'type' => 'image',
+                    ],
+                    [
+                        'field' => 'images',
+                        'blockField' => [
+                            'name' => 'ctaExternalBgImage',
+                            'type' => 'image',
+                            'defaults' => [
+                                'ctaExternalBgImage' => '',
                             ],
                         ],
                         'type' => 'image',

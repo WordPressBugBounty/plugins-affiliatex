@@ -99,7 +99,12 @@ class AffiliateXAdmin {
             // Styles.
             wp_enqueue_style( 'affiliatex-dashboard', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/dashboard.css' );
             // Styles.
-            wp_enqueue_style( 'affiliatex-options-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css' );
+            wp_enqueue_style(
+                'affiliatex-options-style-css',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css',
+                array(),
+                AFFILIATEX_VERSION
+            );
             wp_enqueue_style(
                 'toastr',
                 plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'assets/css/toastr.min.css',
@@ -158,7 +163,12 @@ class AffiliateXAdmin {
             );
         }
         if ( !isset( $wp_customize ) ) {
-            wp_enqueue_style( 'affiliatex-gb-style-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css' );
+            wp_enqueue_style(
+                'affiliatex-gb-style-css',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css',
+                array(),
+                AFFILIATEX_VERSION
+            );
         }
         if ( function_exists( 'gutenberg_get_block_categories' ) ) {
             $scripts = 'js/scripts-old.js';

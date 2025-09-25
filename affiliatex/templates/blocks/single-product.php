@@ -1,6 +1,6 @@
 <div <?php echo $wrapper_attributes ?>>
     <div class="affx-single-product-wrapper<?php echo esc_attr($layoutClass) ?>">
-        <div class="affx-sp-inner">
+        <div class="affx-sp-inner affx-amazon-item__border">
             <?php 
                 switch($productLayout) {
                     case 'layoutOne':

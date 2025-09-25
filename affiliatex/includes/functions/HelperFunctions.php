@@ -142,7 +142,6 @@ function affx_get_customization_settings( $encode = false ) {
 			'editorCustomWidth'        => '1170',
 			'editorCustomSidebarWidth' => '330',
 			'editorSidebarWidth'       => 'inherit',
-			'disableFontAwesome'       => false,
 			'templateLibrary'          => true
 		)
 	);
@@ -243,36 +242,6 @@ function affx_get_disabled_blocks() {
 }
 
 /**
- * Is_affiliatex_block - Returns true when viewing a recipe block page.
- *
- * @return bool
- */
-function is_affiliatex_block() {
-	$affx_block =
-		has_block( 'affiliatex/buttons' ) ||
-		has_block( 'affiliatex/pros-and-cons' ) ||
-		has_block( 'affiliatex/cta' ) ||
-		has_block( 'affiliatex/notice' ) ||
-		has_block( 'affiliatex/verdict' ) ||
-		has_block( 'affiliatex/single-product' ) ||
-		has_block( 'affiliatex/specifications' ) ||
-		has_block( 'affiliatex/versus-line' ) ||
-		has_block( 'affiliatex/single-product-pros-and-cons' ) ||
-		has_block( 'affiliatex/product-image-button' ) ||
-		has_block( 'affiliatex/single-coupon' ) ||
-		has_block( 'affiliatex/coupon-grid' ) ||
-		has_block( 'affiliatex/product-tabs' ) ||
-		has_block( 'affiliatex/coupon-listing' ) ||
-		has_block( 'affiliatex/top-products' ) ||
-		has_block( 'affiliatex/versus' ) ||
-		has_block( 'affiliatex/product-table' ) ||
-		has_block( 'affiliatex/product-comparison' ) ||
-		has_block( 'affiliatex/rating-box' );
-
-	return apply_filters( 'is_affiliatex_block', $affx_block );
-}
-
-/**
  * Extract content from a block element.
  *
  * @param $element
@@ -336,4 +305,3 @@ if ( ! function_exists( 'affx_maybe_parse_amazon_shortcode' ) ) {
         return $data;
     }
 }
-

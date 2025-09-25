@@ -172,6 +172,7 @@ class VersusLineWidget extends ElementorBase
             [
                 'name'           => 'border',
                 'label'          => __('Border', 'affiliatex'),
+                'responsive' => true,
                 'selector'       => $this->select_element('wrapper'),
                 'fields_options' => [
                     'border' => [

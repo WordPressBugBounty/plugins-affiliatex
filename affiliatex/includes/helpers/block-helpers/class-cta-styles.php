@@ -97,17 +97,17 @@ class AffiliateX_CTA_Styles {
 				'background-position' => $position,
 			),
 			' .bg-color'                              => array(
-				'background' => isset( $attr['ctaBgColorType'] ) && $attr['ctaBgColorType'] === 'gradient' ? $ctaBgGradient : $ctaBGColor,
+				'background' => ( ! isset( $attr['ctaBGType'] ) || $attr['ctaBGType'] !== 'image' ) ? ( isset( $attr['ctaBgColorType'] ) && $attr['ctaBgColorType'] === 'gradient' ? $ctaBgGradient : $ctaBGColor ) : 'undefined',
 			),
 
 			'.wp-block-affiliatex-cta > div'               => array(
 				'background-size'     => 'cover',
 				'background-repeat'   => 'no-repeat',
 				'background-position' => $position,
-				'border-style'        => isset( $attr['ctaBorder']['style'] ) ? $attr['ctaBorder']['style'] : 'none',
+				'border-style'        => isset( $attr['ctaBorder']['style'] ) ? $attr['ctaBorder']['style'] : 'solid',
 				'border-width'        => isset( $attr['ctaBorderWidth']['top'] ) && isset( $attr['ctaBorderWidth']['right'] ) && isset( $attr['ctaBorderWidth']['bottom'] ) && isset( $attr['ctaBorderWidth']['left'] ) ? $attr['ctaBorderWidth']['top'] . ' ' . $attr['ctaBorderWidth']['right'] . ' ' . $attr['ctaBorderWidth']['bottom'] . ' ' . $attr['ctaBorderWidth']['left'] . ' ' : '1px 1px 1px 1px',
 				'border-radius'       => isset( $attr['ctaBorderRadius']['desktop']['top'] ) && isset( $attr['ctaBorderRadius']['desktop']['right'] ) && isset( $attr['ctaBorderRadius']['desktop']['bottom'] ) && isset( $attr['ctaBorderRadius']['desktop']['left'] ) ? $attr['ctaBorderRadius']['desktop']['top'] . ' ' . $attr['ctaBorderRadius']['desktop']['right'] . ' ' . $attr['ctaBorderRadius']['desktop']['bottom'] . ' ' . $attr['ctaBorderRadius']['desktop']['left'] . ' ' : '8px 8px 8px 8px',
-				'border-color'        => isset( $attr['ctaBorder']['color']['color'] ) ? $attr['ctaBorder']['color']['color'] : '#dddddd',
+				'border-color'        => isset( $attr['ctaBorder']['color']['color'] ) ? $attr['ctaBorder']['color']['color'] : '#E6ECF7',
 				'margin-top'          => isset( $attr['ctaMargin']['desktop']['top'] ) ? $attr['ctaMargin']['desktop']['top'] : '0px',
 				'margin-left'         => isset( $attr['ctaMargin']['desktop']['left'] ) ? $attr['ctaMargin']['desktop']['left'] : '0px',
 				'margin-right'        => isset( $attr['ctaMargin']['desktop']['right'] ) ? $attr['ctaMargin']['desktop']['right'] : '0px',

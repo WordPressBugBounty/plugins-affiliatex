@@ -131,6 +131,10 @@
       "type": "boolean",
       "default": true
     },
+    "pcTitleColumn": {
+      "type": "boolean",
+      "default": true
+    },
     "pcButtonIcon": {
       "type": "boolean",
       "default": true
@@ -566,6 +570,10 @@
           "bottom": "0px"
         }
       }
+    },
+    "matchCardHeights": {
+      "type": "boolean",
+      "default": false
     },
     "preview": {
       "type": "boolean",

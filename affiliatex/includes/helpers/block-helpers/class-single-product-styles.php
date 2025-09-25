@@ -76,6 +76,7 @@ class AffiliateX_Single_Product_Styles {
 				'margin-bottom' => '0',
 			),
 			' .affx-single-product-wrapper'            => array(
+                'overflow'      => 'hidden',
 				'border-width'  => isset( $attr['productBorderWidth']['desktop']['top'] ) && isset( $attr['productBorderWidth']['desktop']['right'] ) && isset( $attr['productBorderWidth']['desktop']['bottom'] ) && isset( $attr['productBorderWidth']['desktop']['left'] ) ? $attr['productBorderWidth']['desktop']['top'] . ' ' . $attr['productBorderWidth']['desktop']['right'] . ' ' . $attr['productBorderWidth']['desktop']['bottom'] . ' ' . $attr['productBorderWidth']['desktop']['left'] . ' ' : '1px 1px 1px 1px',
 				'border-radius' => isset( $attr['productBorderRadius']['desktop']['top'] ) && isset( $attr['productBorderRadius']['desktop']['right'] ) && isset( $attr['productBorderRadius']['desktop']['bottom'] ) && isset( $attr['productBorderRadius']['desktop']['left'] ) ? $attr['productBorderRadius']['desktop']['top'] . ' ' . $attr['productBorderRadius']['desktop']['right'] . ' ' . $attr['productBorderRadius']['desktop']['bottom'] . ' ' . $attr['productBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
 				'border-style'  => isset( $attr['productBorder']['style'] ) ? $attr['productBorder']['style'] : 'solid',
@@ -369,6 +370,11 @@ class AffiliateX_Single_Product_Styles {
 				'padding-left'     => isset( $attr['imagePadding']['desktop']['left'] ) ? $attr['imagePadding']['desktop']['left'] : '0px',
 				'padding-right'    => isset( $attr['imagePadding']['desktop']['right'] ) ? $attr['imagePadding']['desktop']['right'] : '0px',
 				'padding-bottom'   => isset( $attr['imagePadding']['desktop']['bottom'] ) ? $attr['imagePadding']['desktop']['bottom'] : '0px',
+				'overflow'         => 'hidden',
+				'border-radius'    => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
+			),
+			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
+				'border-radius'    => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 		);
 
@@ -474,6 +480,11 @@ class AffiliateX_Single_Product_Styles {
 				'padding-left'     => isset( $attr['imagePadding']['mobile']['left'] ) ? $attr['imagePadding']['mobile']['left'] : '0px',
 				'padding-right'    => isset( $attr['imagePadding']['mobile']['right'] ) ? $attr['imagePadding']['mobile']['right'] : '0px',
 				'padding-bottom'   => isset( $attr['imagePadding']['mobile']['bottom'] ) ? $attr['imagePadding']['mobile']['bottom'] : '0px',
+				'overflow'         => 'hidden',
+				'border-radius'    => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
+			),
+			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
+				'border-radius'    => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 		);
 		return $mobile_selectors;
@@ -578,6 +589,11 @@ class AffiliateX_Single_Product_Styles {
 				'padding-left'     => isset( $attr['imagePadding']['tablet']['left'] ) ? $attr['imagePadding']['tablet']['left'] : '0px',
 				'padding-right'    => isset( $attr['imagePadding']['tablet']['right'] ) ? $attr['imagePadding']['tablet']['right'] : '0px',
 				'padding-bottom'   => isset( $attr['imagePadding']['tablet']['bottom'] ) ? $attr['imagePadding']['tablet']['bottom'] : '0px',
+				'overflow'         => 'hidden',
+				'border-radius'    => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
+			),
+			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
+				'border-radius'    => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 		);
 		return $tablet_selectors;

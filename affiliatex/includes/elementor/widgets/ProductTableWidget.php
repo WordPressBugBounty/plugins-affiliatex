@@ -107,7 +107,6 @@ class ProductTableWidget extends ElementorBase
             'image'            => 'image-wrapper',
             'star-rating'      => 'star-rating-single-wrap',
             'circle-rating'    => 'affx-circle-progress-container .affx-circle-inside',
-            'table'            => 'affx-pdt-table-wrapper',
             'table-single'     => 'affx-pdt-table-single',
             'price'            => 'affx-pdt-table-wrapper .affx-pdt-price-wrap',
             'image-container'  => 'affx-pdt-table-wrapper .affx-pdt-img-container',
@@ -681,6 +680,7 @@ class ProductTableWidget extends ElementorBase
 					'button1Border' => [
 						'label' => __('Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+						'responsive' => true,
 						'selector' => $this->select_element('primary-button'),
 						'fields_options' => [
 							'border' => [
@@ -761,6 +761,7 @@ class ProductTableWidget extends ElementorBase
 					'button2Border' => [
 						'label' => __('Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_element('secondary-button'),
 						'fields_options' => [
 							'border' => [
@@ -833,10 +834,7 @@ class ProductTableWidget extends ElementorBase
                     'border' => [
 						'label' => __('Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
-						'selector' => $this->select_elements([
-                            ['table', ':not(.layout-3)'],
-                            'table-single'
-                        ]),
+						'selector' => $this->select_element('wrapper'),
 						'fields_options' => [
 							'border' => [
 								'default' => 'none',
@@ -875,20 +873,14 @@ class ProductTableWidget extends ElementorBase
 							'isLinked' => false
 						],
 						'selectors' => [
-							$this->select_elements([
-                                ['table', ':not(.layout-3)'],
-                                'table-single'
-                            ]) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
+							$this->select_element('wrapper') => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 						],
 						'condition' => [
 						]
 					],
 					'boxShadow' => [
 						'type' => Group_Control_Box_Shadow::get_type(),
-						'selector' => $this->select_elements([
-                            ['table', ':not(.layout-3)'],
-                            'table-single'
-                        ]),
+						'selector' => $this->select_element('wrapper'),
 						'label' => __('Box Shadow', 'affiliatex'),
 						'fields_options' => [
 							'box_shadow_type' => [
@@ -926,7 +918,7 @@ class ProductTableWidget extends ElementorBase
 						'type' => Controls_Manager::COLOR,
 						'default' => $defaults['ribbonColor'],
 						'selectors' => [
-							$this->select_element(['table', ' .affx-pdt-ribbon']) => 'color: {{VALUE}}',
+							$this->select_element(['wrapper', ' .affx-pdt-ribbon']) => 'color: {{VALUE}}',
 						],
 						'condition' => [
                             'edRibbon' => 'true',
@@ -938,8 +930,8 @@ class ProductTableWidget extends ElementorBase
 						'default' => $defaults['ribbonBgColor'],
 						'selectors' => [
 							$this->select_elements([
-                                ['table', ' .affx-pdt-ribbon'],
-                                ['table', ' .affx-pdt-ribbon::before']
+                                ['wrapper', ' .affx-pdt-ribbon'],
+                                ['wrapper', ' .affx-pdt-ribbon::before']
                             ]) => 'background: {{VALUE}}',
 						],
 						'condition' => [
@@ -959,7 +951,7 @@ class ProductTableWidget extends ElementorBase
 						'type' => Controls_Manager::COLOR,
 						'default' => $defaults['counterColor'],
 						'selectors' => [
-							$this->select_element(['table', ' .affx-pdt-counter']) => 'color: {{VALUE}}',
+							$this->select_element(['wrapper', ' .affx-pdt-counter']) => 'color: {{VALUE}}',
 						],
 						'condition' => [
                             'edCounter' => 'true',
@@ -970,7 +962,7 @@ class ProductTableWidget extends ElementorBase
 						'type' => Controls_Manager::COLOR,
 						'default' => $defaults['counterBgColor'],
 						'selectors' => [
-							$this->select_element(['table', ' .affx-pdt-counter']) => 'background: {{VALUE}}',
+							$this->select_element(['wrapper', ' .affx-pdt-counter']) => 'background: {{VALUE}}',
 						],
 						'condition' => [
                             'edCounter' => 'true',
@@ -1082,7 +1074,7 @@ class ProductTableWidget extends ElementorBase
 						'type' => Controls_Manager::COLOR,
 						'default' => $defaults['tableHeaderColor'],
 						'selectors' => [
-							$this->select_element(['table', ' .affx-pdt-table thead td']) => 'color: {{VALUE}}',
+							$this->select_element(['wrapper', ' .affx-pdt-table thead td']) => 'color: {{VALUE}}',
 						],
 						'condition' => [
                             'layoutStyle!' => 'layoutThree',
@@ -1093,7 +1085,7 @@ class ProductTableWidget extends ElementorBase
 						'type' => Controls_Manager::COLOR,
 						'default' => $defaults['tableHeaderBgColor'],
 						'selectors' => [
-							$this->select_element(['table', ' .affx-pdt-table thead td']) => 'background: {{VALUE}}; border-color: {{VALUE}}',
+							$this->select_element(['wrapper', ' .affx-pdt-table thead td']) => 'background: {{VALUE}}; border-color: {{VALUE}}',
 						],
 						'condition' => [
                             'layoutStyle!' => 'layoutThree',
@@ -1267,8 +1259,8 @@ class ProductTableWidget extends ElementorBase
 						'selectors' => [
 							$this->select_elements([
                                 'wrapper',
-                                ['table', ' p'],
-                                ['table', ' li'],
+                                ['wrapper', ' p'],
+                                ['wrapper', ' li'],
                             ]) => 'color: {{VALUE}}',
 						],
 					],
@@ -1278,8 +1270,8 @@ class ProductTableWidget extends ElementorBase
 						'default' => $defaults['productIconColor'],
 						'selectors' => [
 							$this->select_elements([
-                                ['table', ' .afx-icon-list li:before'],
-                                ['table', ' .afx-icon-list li i'],
+                                ['wrapper', ' .afx-icon-list li:before'],
+                                ['wrapper', ' .afx-icon-list li i'],
                             ]) => 'color: {{VALUE}}',
 						],
 						'condition' => [
@@ -1290,8 +1282,8 @@ class ProductTableWidget extends ElementorBase
 						'type' => Group_Control_Background::get_type(),
 						'types' => ['classic', 'gradient'],
 						'selector' => $this->select_elements([
-                            ['table', ':not(.layout-3)'],
-                            ['table', ' .affx-pdt-table'],
+                            'wrapper',
+                            ['wrapper', ' .affx-pdt-table'],
                             'table-single',
                         ]),
 						'exclude' => ['image'],
@@ -1342,7 +1334,7 @@ class ProductTableWidget extends ElementorBase
 					'ribbonTypography' => [
 						'label' => __('Ribbon Typography', 'affiliatex'),
 						'type' => Group_Control_Typography::get_type(),
-						'selector' => $this->select_element(['table', ' .affx-pdt-ribbon']),
+						'selector' => $this->select_element(['wrapper', ' .affx-pdt-ribbon']),
 						'fields_options' => [
 							'typography' => [
 								'default' => 'custom'
@@ -1385,7 +1377,7 @@ class ProductTableWidget extends ElementorBase
 					'counterTypography' => [
 						'label' => __('Counter Typography', 'affiliatex'),
 						'type' => Group_Control_Typography::get_type(),
-						'selector' => $this->select_element(['table', ' .affx-pdt-counter']),
+						'selector' => $this->select_element(['wrapper', ' .affx-pdt-counter']),
 						'fields_options' => [
 							'typography' => [
 								'default' => 'custom'
@@ -1599,7 +1591,7 @@ class ProductTableWidget extends ElementorBase
 					'headerTypography' => [
 						'label' => __('Table Header Typography', 'affiliatex'),
 						'type' => Group_Control_Typography::get_type(),
-						'selector' => $this->select_element(['table', ' .affx-pdt-table thead td']),
+						'selector' => $this->select_element(['wrapper', ' .affx-pdt-table thead td']),
 						'fields_options' => [
 							'typography' => [
 								'default' => 'custom'
@@ -1681,8 +1673,8 @@ class ProductTableWidget extends ElementorBase
 						'type' => Group_Control_Typography::get_type(),
 						'selector' => $this->select_elements([
                             'wrapper',
-                            ['table', ' p'],
-                            ['table', ' li'],
+                            ['wrapper', ' p'],
+                            ['wrapper', ' li'],
                         ]),
 						'fields_options' => [
 							'typography' => [
@@ -1868,8 +1860,8 @@ class ProductTableWidget extends ElementorBase
 						],
 						'selectors' => [
 							$this->select_elements([
-                                ['table', ' td:not(.affx-img-col)'],
-                                ['table', ' th'],
+                                ['wrapper', ' td:not(.affx-img-col)'],
+                                ['wrapper', ' th'],
                             ]) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'
 						]
                     ],

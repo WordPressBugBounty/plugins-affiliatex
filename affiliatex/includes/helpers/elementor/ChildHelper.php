@@ -97,10 +97,10 @@ class ChildHelper
     public function section_name(string $section_name): string
     {
         if ($this->config['index'] !== null && $this->config['is_child'] === true) {
-            return sprintf('affx_%s_%s', $this->config['name_prefix'], $section_name);
+            return sprintf('affx_%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $section_name);
         } else
         if ($this->config['index'] === null && $this->config['is_child'] === true) {
-            return sprintf('affx_%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $section_name);
+            return sprintf('affx_%s_%s', $this->config['name_prefix'], $section_name);
         }
 
         return sprintf('affx_%s_%s', $this->config['name_prefix'], $section_name);
@@ -116,12 +116,22 @@ class ChildHelper
         foreach ($this->fields as $section_id => $section) {
             $section_fields = $section['fields'];
 
+            // Process section-level conditions
+            $section_conditions = [];
+            if (isset($section['condition'])) {
+                foreach ($section['condition'] as $conditional_field_id => $conditional_value) {
+                    $section_conditions[$this->field_name($conditional_field_id)] = $conditional_value;
+                }
+            }
+
+            $section_conditions = array_merge($section_conditions, $this->config['conditions'] ?? []);
+
             $this->controller->start_controls_section(
                 $this->section_name($section_id),
                 [
                     'label' => $this->section_label($section['label']),
                     'tab' => $section['tab'],
-                    'condition' => $this->config['conditions'] ?? []
+                    'condition' => $section_conditions
                 ]
             );
 
@@ -157,7 +167,6 @@ class ChildHelper
                     $field['selectors'] = $selectors;
                 }
 
-                // for group controls
                 if (WidgetHelper::is_group_control($field)) {
                     $this->controller->add_group_control(
                         $field['type'],
@@ -168,27 +177,21 @@ class ChildHelper
                             ]
                         ),
                     );
-
-                    continue;
-                };
-
-                // for responsive controls
-                if (isset($field['responsive']) && $field['responsive'] === true) {
-                    unset($field['responsive']);
+                } else if ( WidgetHelper::is_responsive_control($field) ) {
+                    if ( isset($field['responsive']) ) {
+                        unset($field['responsive']);
+                    }
 
                     $this->controller->add_responsive_control(
                         $this->field_name($field_id),
                         $field
                     );
-
-                    continue;
+                } else {
+                    $this->controller->add_control(
+                        $this->field_name($field_id),
+                        $field
+                    );
                 }
-
-                // for regular controls
-                $this->controller->add_control(
-                    $this->field_name($field_id),
-                    $field
-                );
             }
 
             $this->controller->end_controls_section();

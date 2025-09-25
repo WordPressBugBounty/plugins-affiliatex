@@ -195,6 +195,50 @@ class ProsAndConsWidget extends ElementorBase
 				'label' => __('Pros Settings', 'affiliatex'),
 				'tab' => Controls_Manager::TAB_CONTENT,
 				'fields' => [
+                    'prosTitle' => [
+						'label' => __('Pros Heading Title', 'affiliatex'),
+						'type' => ControlsManager::TEXT,
+						'default' => __('Pros', 'affiliatex'),
+					],
+					'prosIconStatus' => [
+						'label' => __('Enable Pros Title Icon', 'affiliatex'),
+						'type' => Controls_Manager::SWITCHER,
+						'return_value' => 'true',
+						'default' => 'true',
+					],
+					'prosListIcon' => [
+						'label' => __('Pros Title Icon', 'affiliatex'),
+						'type' => Controls_Manager::ICONS,
+						'default' => [
+							'value' => 'far fa-thumbs-up',
+							'library' => 'fa-regular',
+						],
+						'condition' => [
+							'prosIconStatus' => 'true',
+						],
+					],
+					'prosIconSize' => [
+                        'label' => __('Pros Title Icon Size', 'affiliatex'),
+						'type' => Controls_Manager::SLIDER,
+						'size_units' => ['px'],
+						'range' => [
+							'px' => [
+								'min' => 0,
+								'max' => 40,
+								'step' => 1,
+							],
+						],
+						'default' => [
+							'unit' => 'px',
+							'size' => 18,
+						],
+						'selectors' => [
+							$this->select_element('pros-block') . ' i' => 'font-size: {{SIZE}}{{UNIT}};',
+						],
+						'condition' => [
+							'prosIconStatus' => 'true',
+						],
+					],
 					'prosContentType' => [
 						'label' => __('Content Type', 'affiliatex'),
 						'type' => Controls_Manager::CHOOSE,
@@ -290,33 +334,55 @@ class ProsAndConsWidget extends ElementorBase
 						'toggle' => false,
 						'default' => 'icon',
 						'condition' => [
-							'prosListType' => 'unordered',
 							'prosContentType' => ['list', 'amazon'],
+							'prosListType' => 'unordered',
 						],
 					],
-					'prosTitle' => [
-						'label' => __('Pros Heading Title', 'affiliatex'),
+					'prosIcon' => [
+						'label' => __('Pros List Icon', 'affiliatex'),
+						'type' => Controls_Manager::ICONS,
+						'default' => [
+							'value' => 'far fa-check-circle',
+							'library' => 'fa-regular',
+						],
+                        'condition' => [
+                            'prosContentType' => ['list', 'amazon'],
+							'prosListType' => 'unordered',
+                            'prosUnorderedType' => 'icon',
+                        ],
+					]
+				],
+			],
+
+
+			'cons_settings_section' => [
+				'label' => __('Cons Settings', 'affiliatex'),
+				'tab' => Controls_Manager::TAB_CONTENT,
+				'fields' => [
+                    'consTitle' => [
+						'label' => __('Cons Heading Title', 'affiliatex'),
 						'type' => ControlsManager::TEXT,
-						'default' => __('Pros', 'affiliatex'),
+						'default' => __('Cons', 'affiliatex'),
 					],
-					'prosIconStatus' => [
-						'label' => __('Enable Pros Title Icon', 'affiliatex'),
+					'consIconStatus' => [
+						'label' => __('Enable Cons Title Icon', 'affiliatex'),
 						'type' => Controls_Manager::SWITCHER,
 						'return_value' => 'true',
 						'default' => 'true',
 					],
-					'prosListIcon' => [
-						'label' => __('Pros Title Icon', 'affiliatex'),
+					'consListIcon' => [
+						'label' => __('Cons Title Icon', 'affiliatex'),
 						'type' => Controls_Manager::ICONS,
 						'default' => [
-							'value' => 'far fa-thumbs-up',
+							'value' => 'far fa-thumbs-down',
 							'library' => 'fa-regular',
 						],
 						'condition' => [
-							'prosIconStatus' => 'true',
+							'consIconStatus' => 'true',
 						],
 					],
-					'prosIconSize' => [
+					'consIconSize' => [
+                        'label' => __('Cons Title Icon Size', 'affiliatex'),
 						'type' => Controls_Manager::SLIDER,
 						'size_units' => ['px'],
 						'range' => [
@@ -331,28 +397,12 @@ class ProsAndConsWidget extends ElementorBase
 							'size' => 18,
 						],
 						'selectors' => [
-							$this->select_element('pros-block') . ' i' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element('cons-block') . ' i' => 'font-size: {{SIZE}}{{UNIT}};',
 						],
 						'condition' => [
-							'prosIconStatus' => 'true',
+							'consIconStatus' => 'true',
 						],
 					],
-					'prosIcon' => [
-						'label' => __('Pros List Icon', 'affiliatex'),
-						'type' => Controls_Manager::ICONS,
-						'default' => [
-							'value' => 'far fa-check-circle',
-							'library' => 'fa-regular',
-						],
-					]
-				],
-			],
-
-
-			'cons_settings_section' => [
-				'label' => __('Cons Settings', 'affiliatex'),
-				'tab' => Controls_Manager::TAB_CONTENT,
-				'fields' => [
 					'consContentType' => [
 						'label' => __('Content Type', 'affiliatex'),
 						'type' => Controls_Manager::CHOOSE,
@@ -447,53 +497,10 @@ class ProsAndConsWidget extends ElementorBase
 						],
 						'default' => 'icon',
 						'condition' => [
-							'consListType' => 'unordered',
 							'consContentType' => ['list', 'amazon'],
+							'consListType' => 'unordered',
 						],
 						'toggle' => false,
-					],
-					'consTitle' => [
-						'label' => __('Cons Heading Title', 'affiliatex'),
-						'type' => ControlsManager::TEXT,
-						'default' => __('Cons', 'affiliatex'),
-					],
-					'consIconStatus' => [
-						'label' => __('Enable Cons Title Icon', 'affiliatex'),
-						'type' => Controls_Manager::SWITCHER,
-						'return_value' => 'true',
-						'default' => 'true',
-					],
-					'consListIcon' => [
-						'label' => __('Cons Title Icon', 'affiliatex'),
-						'type' => Controls_Manager::ICONS,
-						'default' => [
-							'value' => 'far fa-thumbs-down',
-							'library' => 'fa-regular',
-						],
-						'condition' => [
-							'consIconStatus' => 'true',
-						],
-					],
-					'consIconSize' => [
-						'type' => Controls_Manager::SLIDER,
-						'size_units' => ['px'],
-						'range' => [
-							'px' => [
-								'min' => 0,
-								'max' => 40,
-								'step' => 1,
-							],
-						],
-						'default' => [
-							'unit' => 'px',
-							'size' => 18,
-						],
-						'selectors' => [
-							$this->select_element('cons-block') . ' i' => 'font-size: {{SIZE}}{{UNIT}};',
-						],
-						'condition' => [
-							'consIconStatus' => 'true',
-						],
 					],
 					'consIcon' => [
 						'label' => __('Cons List Icon', 'affiliatex'),
@@ -502,6 +509,11 @@ class ProsAndConsWidget extends ElementorBase
 							'value' => 'far fa-times-circle',
 							'library' => 'fa-regular',
 						],
+                        'condition' => [
+                            'consContentType' => ['list', 'amazon'],
+							'consListType' => 'unordered',
+                            'consUnorderedType' => 'icon',
+                        ],
 					]
 				]
 			],
@@ -513,6 +525,7 @@ class ProsAndConsWidget extends ElementorBase
 					'prosBorder' => [
 						'label' => __('Pros Title Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(['pros-block']),
 						'fields_options' => [
 							'border' => [
@@ -543,6 +556,7 @@ class ProsAndConsWidget extends ElementorBase
 					'prosBorderThree' => [
 						'label' => __('Pros Title Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_element('layout-3-pros-title-icon'),
 						'fields_options' => [
 							'border' => [
@@ -573,6 +587,7 @@ class ProsAndConsWidget extends ElementorBase
 					'prosContentBorder' => [
 						'label' => __('Pros Content Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(
 							[
 								'pros-content-wrapper'
@@ -607,6 +622,7 @@ class ProsAndConsWidget extends ElementorBase
 					'prosContentBorderThree' => [
 						'label' => __('Pros Content Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(
 							[
 								['layout-3-wrapper', ' .pros-icon-title-wrap'],
@@ -642,6 +658,7 @@ class ProsAndConsWidget extends ElementorBase
 					'consBorder' => [
 						'label' => __('Cons Title Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(['cons-block']),
 						'fields_options' => [
 							'border' => [
@@ -672,6 +689,7 @@ class ProsAndConsWidget extends ElementorBase
 					'consBorderThree' => [
 						'label' => __('Cons Title Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_element('layout-3-cons-title-icon'),
 						'fields_options' => [
 							'border' => [
@@ -703,6 +721,7 @@ class ProsAndConsWidget extends ElementorBase
 					'consContentBorder' => [
 						'label' => __('Cons Content Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(
 							[
 								'cons-content-wrapper'
@@ -737,6 +756,7 @@ class ProsAndConsWidget extends ElementorBase
 					'consContentBorderThree' => [
 						'label' => __('Cons Content Border', 'affiliatex'),
 						'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
 						'selector' => $this->select_elements(
 							[
 								['layout-3-wrapper', ' .cons-icon-title-wrap'],

@@ -296,6 +296,7 @@ class SpecificationsWidget extends ElementorBase
             [
                 'name'           => 'specificationBorder',
                 'label'          => __('Border', 'affiliatex'),
+                'responsive' => true,
                 'selector'       => $this->select_element('container'),
                 'fields_options' => [
                     'border' => [

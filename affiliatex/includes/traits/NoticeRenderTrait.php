@@ -51,7 +51,6 @@ trait NoticeRenderTrait
             'inner-wrapper'    => 'affx-notice-inner-wrapper',
             'layout-1-wrapper' => 'affx-notice-inner-wrapper.layout-type-1',
             'layout-2-wrapper' => 'affx-notice-inner-wrapper.layout-type-2',
-            'layout-3-wrapper' => 'affx-notice-inner-wrapper.layout-type-3',
             'title'            => 'affiliatex-notice-title',
             'paragraph'        => 'affiliatex-notice-content p',
             'list'             => 'affiliatex-notice-content li',

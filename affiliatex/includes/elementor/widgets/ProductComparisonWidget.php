@@ -112,6 +112,27 @@ class ProductComparisonWidget extends ElementorBase
             ]
         );
 
+        $this->add_control(
+            'pcTitleColumn',
+            [
+                'label'        => __('Enable Title Column', 'affiliatex'),
+                'type'         => Controls_Manager::SWITCHER,
+                'return_value' => 'true',
+                'default'      => 'true'
+            ]
+        );
+
+        $this->add_control(
+            'matchCardHeights',
+            [
+                'label'        => __('Match Card Heights', 'affiliatex'),
+                'type'         => Controls_Manager::SWITCHER,
+                'return_value' => 'true',
+                'default'      => 'false',
+                'description'  => __('Make all product cards the same height and align buttons at the bottom.', 'affiliatex'),
+            ]
+        );
+
         $this->end_controls_section();
 
         /**************************************************************
@@ -583,6 +604,7 @@ class ProductComparisonWidget extends ElementorBase
             [
                 'name'           => 'border',
                 'label'          => __('Border', 'affiliatex'),
+                'responsive'     => true,
                 'selector'       => WidgetHelper::select_multiple_elements([
                     $this->select_element('container'),
                     $this->select_element('table-headings'),
@@ -1213,6 +1235,7 @@ class ProductComparisonWidget extends ElementorBase
             [
                 'name'      => 'buttonBorder',
                 'label'     => __('Button Border', 'affiliatex'),
+                'responsive' => true,
                 'selector'  => $this->select_element('button'),
                 'condition' => [
                     'pcButton' => 'true'

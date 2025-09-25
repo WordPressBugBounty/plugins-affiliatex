@@ -120,7 +120,7 @@ class AffiliateX_Notice_Styles {
 				'line-height'     => isset( $attr['listTypography']['line-height']['desktop'] ) ? $attr['listTypography']['line-height']['desktop'] : '1.65',
 				'text-transform'  => isset( $attr['listTypography']['text-transform'] ) ? $attr['listTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
-				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['titleTypography']['letter-spacing']['desktop'] : '0em',
+				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
 				'text-align'      => isset( $attr['alignment'] ) ? $attr['alignment'] : 'left',
 				'color'           => isset( $attr['noticeListColor'] ) ? $attr['noticeListColor'] : $global_font_color,
 			),
@@ -132,7 +132,7 @@ class AffiliateX_Notice_Styles {
 				'line-height'     => isset( $attr['listTypography']['line-height']['desktop'] ) ? $attr['listTypography']['line-height']['desktop'] : '1.65',
 				'text-transform'  => isset( $attr['listTypography']['text-transform'] ) ? $attr['listTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
-				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['titleTypography']['letter-spacing']['desktop'] : '0em',
+				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
 				'justify-content' => isset( $attr['alignment'] ) ? $attr['alignment'] : 'left',
 				'color'           => isset( $attr['noticeListColor'] ) ? $attr['noticeListColor'] : $global_font_color,
 			),
@@ -141,6 +141,8 @@ class AffiliateX_Notice_Styles {
 			),
 			' .affiliatex-notice-content .affiliatex-list li:before' => array(
 				'color'     => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
+			),
+			' .affiliatex-notice-content ul.affiliatex-list li:before' => array(
 				'font-size' => isset( $attr['noticeListIconSize'] ) ? $attr['noticeListIconSize'] . 'px' : '17px',
 			),
 			' .affiliatex-notice-content .affiliatex-list li i' => array(
@@ -173,30 +175,6 @@ class AffiliateX_Notice_Styles {
 				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-content' => array(
-				'padding-top'    => '0px',
-				'padding-left'   => '0px',
-				'padding-right'  => '0px',
-				'padding-bottom' => '0px',
-			),
-			' .affx-notice-inner-wrapper.layout-type-3'    => array(
-				'margin-top'     => isset( $attr['noticeMargin']['desktop']['top'] ) ? $attr['noticeMargin']['desktop']['top'] : '0px',
-				'margin-left'    => isset( $attr['noticeMargin']['desktop']['left'] ) ? $attr['noticeMargin']['desktop']['left'] : '0px',
-				'margin-right'   => isset( $attr['noticeMargin']['desktop']['right'] ) ? $attr['noticeMargin']['desktop']['right'] : '0px',
-				'margin-bottom'  => isset( $attr['noticeMargin']['desktop']['bottom'] ) ? $attr['noticeMargin']['desktop']['bottom'] : '30px',
-				'padding-top'    => isset( $attr['noticePadding']['desktop']['top'] ) ? $attr['noticePadding']['desktop']['top'] : '20px',
-				'padding-left'   => isset( $attr['noticePadding']['desktop']['left'] ) ? $attr['noticePadding']['desktop']['left'] : '20px',
-				'padding-right'  => isset( $attr['noticePadding']['desktop']['right'] ) ? $attr['noticePadding']['desktop']['right'] : '20px',
-				'padding-bottom' => isset( $attr['noticePadding']['desktop']['bottom'] ) ? $attr['noticePadding']['desktop']['bottom'] : '20px',
-				'background'     => isset( $attr['noticeBgTwoType'] ) && $attr['noticeBgTwoType'] === 'gradient' ? $bg2Gradient : $bg2Color,
-			),
-			' .affx-notice-inner-wrapper.layout-type-3 .affiliatex-notice-title' => array(
-				'color'          => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#084ACA',
-				'padding-top'    => '0px',
-				'padding-left'   => '0px',
-				'padding-right'  => '0px',
-				'padding-bottom' => '10px',
-			),
-			' .affx-notice-inner-wrapper.layout-type-3 .affiliatex-notice-content' => array(
 				'padding-top'    => '0px',
 				'padding-left'   => '0px',
 				'padding-right'  => '0px',
@@ -261,16 +239,6 @@ class AffiliateX_Notice_Styles {
 				'padding-right'  => isset( $attr['noticePadding']['mobile']['right'] ) ? $attr['noticePadding']['mobile']['right'] : '20px',
 				'padding-bottom' => isset( $attr['noticePadding']['mobile']['bottom'] ) ? $attr['noticePadding']['mobile']['bottom'] : '20px',
 			),
-			' .affx-notice-inner-wrapper.layout-type-3' => array(
-				'margin-top'     => isset( $attr['noticeMargin']['mobile']['top'] ) ? $attr['noticeMargin']['mobile']['top'] : '0px',
-				'margin-left'    => isset( $attr['noticeMargin']['mobile']['left'] ) ? $attr['noticeMargin']['mobile']['left'] : '0px',
-				'margin-right'   => isset( $attr['noticeMargin']['mobile']['right'] ) ? $attr['noticeMargin']['mobile']['right'] : '0px',
-				'margin-bottom'  => isset( $attr['noticeMargin']['mobile']['bottom'] ) ? $attr['noticeMargin']['mobile']['bottom'] : '30px',
-				'padding-top'    => isset( $attr['noticePadding']['mobile']['top'] ) ? $attr['noticePadding']['mobile']['top'] : '20px',
-				'padding-left'   => isset( $attr['noticePadding']['mobile']['left'] ) ? $attr['noticePadding']['mobile']['left'] : '20px',
-				'padding-right'  => isset( $attr['noticePadding']['mobile']['right'] ) ? $attr['noticePadding']['mobile']['right'] : '20px',
-				'padding-bottom' => isset( $attr['noticePadding']['mobile']['bottom'] ) ? $attr['noticePadding']['mobile']['bottom'] : '20px',
-			),
 		);
 		return $mobile_selectors;
 	}
@@ -307,16 +275,6 @@ class AffiliateX_Notice_Styles {
 				'margin-bottom' => isset( $attr['noticeMargin']['tablet']['bottom'] ) ? $attr['noticeMargin']['tablet']['bottom'] : '30px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2' => array(
-				'margin-top'     => isset( $attr['noticeMargin']['tablet']['top'] ) ? $attr['noticeMargin']['tablet']['top'] : '0px',
-				'margin-left'    => isset( $attr['noticeMargin']['tablet']['left'] ) ? $attr['noticeMargin']['tablet']['left'] : '0px',
-				'margin-right'   => isset( $attr['noticeMargin']['tablet']['right'] ) ? $attr['noticeMargin']['tablet']['right'] : '0px',
-				'margin-bottom'  => isset( $attr['noticeMargin']['tablet']['bottom'] ) ? $attr['noticeMargin']['tablet']['bottom'] : '30px',
-				'padding-top'    => isset( $attr['noticePadding']['tablet']['top'] ) ? $attr['noticePadding']['tablet']['top'] : '20px',
-				'padding-left'   => isset( $attr['noticePadding']['tablet']['left'] ) ? $attr['noticePadding']['tablet']['left'] : '20px',
-				'padding-right'  => isset( $attr['noticePadding']['tablet']['right'] ) ? $attr['noticePadding']['tablet']['right'] : '20px',
-				'padding-bottom' => isset( $attr['noticePadding']['tablet']['bottom'] ) ? $attr['noticePadding']['tablet']['bottom'] : '20px',
-			),
-			' .affx-notice-inner-wrapper.layout-type-3' => array(
 				'margin-top'     => isset( $attr['noticeMargin']['tablet']['top'] ) ? $attr['noticeMargin']['tablet']['top'] : '0px',
 				'margin-left'    => isset( $attr['noticeMargin']['tablet']['left'] ) ? $attr['noticeMargin']['tablet']['left'] : '0px',
 				'margin-right'   => isset( $attr['noticeMargin']['tablet']['right'] ) ? $attr['noticeMargin']['tablet']['right'] : '0px',

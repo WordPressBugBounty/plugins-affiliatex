@@ -302,6 +302,7 @@ class VerdictWidget extends ElementorBase
             Group_Control_Border::get_type(),
             [
                 'name' => 'verdictBorder',
+                'responsive' => true,
                 'selector' => $this->select_element('wrapper'),
                 'fields_options' => [
                     'border' => [
@@ -324,7 +325,7 @@ class VerdictWidget extends ElementorBase
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'verdictBorderRadius',
             [
                 'label' => esc_html__('Border Radius', 'affiliatex'),

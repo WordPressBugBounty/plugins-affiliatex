@@ -179,8 +179,13 @@ trait CtaRenderTrait
 
         $layoutClass        = ($ctaLayout === 'layoutOne') ? ' layout-type-1' : (($ctaLayout === 'layoutTwo') ? ' layout-type-2' : '');
         $columnReverseClass = ($columnReverse && $ctaLayout !== 'layoutOne') ? ' col-reverse' : '';
-        $bgClass            = ( isset( $attributes['ctaBGType_background'] ) && $attributes['ctaBGType_background'] == 'image' ) ? ' img-opacity' : ' bg-color';
         $ctaTitleTag        = AffiliateX_Helpers::validate_tag($ctaTitleTag, 'h2');
+
+        if ( ( isset( $attributes['ctaBGType_background'] ) && $attributes['ctaBGType_background'] == 'image' ) || ( isset( $attributes['ctaBGType'] ) && $attributes['ctaBGType'] == 'image' ) ) {
+            $bgClass = ' img-opacity';
+        } else {
+            $bgClass = ' bg-color';
+        }
 
         if (str_contains($content, $layoutClass)) {
             return $content;
@@ -189,7 +194,11 @@ trait CtaRenderTrait
         $inlineImageWrapperStyles = '';
         if (isset($attributes['imageType']) && $attributes['imageType'] === 'external' && !empty($attributes['imageExternal'])) {
             $inlineImageWrapperStyles = 'style="background-image: url(' . esc_url($attributes['imageExternal']) . ')"';
+        } elseif (isset($attributes['useExternalImage']) && $attributes['useExternalImage'] && !empty($attributes['ctaExternalBgImage'])) {
+            $inlineImageWrapperStyles = 'style="background-image: url(' . esc_url($attributes['ctaExternalBgImage']) . ')"';
         }
+
+        $classes = implode( ' ', [esc_attr($layoutClass), esc_attr($ctaAlignment), esc_attr($columnReverseClass), esc_attr($bgClass)] );
 
         ob_start();
         include $this->get_template_path();

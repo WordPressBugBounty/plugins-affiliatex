@@ -71,6 +71,7 @@ trait ProductComparisonRenderTrait
             'pcRating'               => true,
             'pcPrice'                => true,
             'pcButton'               => true,
+            'pcTitleColumn'          => true,
             'pcButtonIcon'           => true,
             'buttonIconAlign'        => 'right',
             'buttonIcon'             => [
@@ -78,7 +79,8 @@ trait ProductComparisonRenderTrait
                 'value' => 'fas fa-angle-right'
             ],
             'pcTitleTag'             => 'h2',
-            'pcTitleAlign'           => 'center'
+            'pcTitleAlign'           => 'center',
+            'matchCardHeights'       => false
         ];
     }
 

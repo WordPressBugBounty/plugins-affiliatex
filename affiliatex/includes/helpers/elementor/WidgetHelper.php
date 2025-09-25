@@ -10,6 +10,7 @@ use Elementor\Group_Control_Css_Filter;
 use Elementor\Group_Control_Flex_Item;
 use Elementor\Group_Control_Image_Size;
 use Elementor\Group_Control_Typography;
+use Elementor\Controls_Manager;
 
 defined('ABSPATH') or exit;
 
@@ -153,6 +154,11 @@ class WidgetHelper
                             $field
                         )
                     );
+                } else if ( self::is_responsive_control($field) ) {
+                    $controller->add_responsive_control(
+                        $field_id,
+                        $field
+                    );
                 } else {
                     $controller->add_control(
                         $field_id,
@@ -184,6 +190,17 @@ class WidgetHelper
         ];
 
         return in_array($field['type'], $group_controls);
+    }
+
+    /**
+     * Checks if field is responsive control in Elementor
+     *
+     * @param array $field
+     * @return boolean
+     */
+    public static function is_responsive_control(array $field): bool
+    {
+        return $field['type'] === Controls_Manager::DIMENSIONS || ( isset($field['responsive']) && ( $field['responsive'] === true ) );
     }
 
     /**
@@ -342,10 +359,6 @@ class WidgetHelper
     public static function prefix_amazon_attributes(array $amazonAttributes, string $prefix): array
     {
         foreach ($amazonAttributes as $key => $control) {
-            // Remove field property if exists
-            if (isset($control['field'])) {
-                unset($amazonAttributes[$key]['field']);
-            }
 
             // Prefix the blockField name
             if (isset($control['blockField']['name'])) {

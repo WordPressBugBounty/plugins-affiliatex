@@ -238,6 +238,7 @@ trait ButtonRenderTrait
                     'buttonBorder' => [
                         'label' => __('Button Border', 'affiliatex'),
                         'type' => Group_Control_Border::get_type(),
+                        'responsive' => true,
                         'selector' => '{{WRAPPER}} .affx-btn-inner a'
                     ],
                     'buttonShadow' => [
@@ -607,7 +608,8 @@ trait ButtonRenderTrait
         $settings = wp_parse_args($settings, $this->get_button_fields());
         $settings = WidgetHelper::process_attributes($settings);
 
-        $button_id = 'button-' . ($settings['name'] ?? '');
+        // Create unique button ID to prevent conflicts when multiple buttons are rendered
+        $button_id = 'button-' . ($settings['name'] ?? '') . '-' . $this->get_id() . '-' . uniqid();
         
         // Build all link attributes using Elementor's helper
         if (isset($settings['button_url'])) {

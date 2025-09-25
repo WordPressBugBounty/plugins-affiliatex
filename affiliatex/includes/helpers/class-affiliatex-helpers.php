@@ -100,7 +100,7 @@ class AffiliateX_Helpers {
 
 	public static function get_fontweight_variation( $variation ) {
 		$fontType   = $variation[1];
-		$fontWeight = $fontType * 100;
+		$fontWeight = (int) $fontType * 100;
 		return $fontWeight;
 	}
 
@@ -215,5 +215,97 @@ class AffiliateX_Helpers {
 
 		return '';
 	}
+
+    /**
+     * Check if the current page has AffiliateX Elementor widgets.
+     *
+     * @param int|null $post_id Optional. Post ID to check. Defaults to current post.
+     * @return bool
+     */
+    public static function has_elementor_widgets( $post_id = null ) {
+        if ( ! class_exists( '\Elementor\Plugin' ) ) {
+            return false;
+        }
+
+        if ( ! $post_id ) {
+            $post_id = get_the_ID();
+        }
+
+        if ( ! $post_id || ! \Elementor\Plugin::$instance->db->is_built_with_elementor( $post_id ) ) {
+            return false;
+        }
+
+        $elementor_data = get_post_meta( $post_id, '_elementor_data', true );
+        
+        return $elementor_data && ( 
+            strpos( $elementor_data, 'affiliatex-' ) !== false || 
+            strpos( $elementor_data, '"widgetType":"affx-' ) !== false 
+        );
+    }
+
+    /**
+     * Is_affiliatex_block - Returns true when viewing a page with AffiliateX blocks.
+     * 
+     * Checks for both Gutenberg blocks.
+     *
+     * @return bool
+     */
+    public static function is_affiliatex_block() {
+        $affx_block =
+            has_block( 'affiliatex/buttons' ) ||
+            has_block( 'affiliatex/pros-and-cons' ) ||
+            has_block( 'affiliatex/cta' ) ||
+            has_block( 'affiliatex/notice' ) ||
+            has_block( 'affiliatex/verdict' ) ||
+            has_block( 'affiliatex/single-product' ) ||
+            has_block( 'affiliatex/specifications' ) ||
+            has_block( 'affiliatex/versus-line' ) ||
+            has_block( 'affiliatex/single-product-pros-and-cons' ) ||
+            has_block( 'affiliatex/product-image-button' ) ||
+            has_block( 'affiliatex/single-coupon' ) ||
+            has_block( 'affiliatex/coupon-grid' ) ||
+            has_block( 'affiliatex/product-tabs' ) ||
+            has_block( 'affiliatex/coupon-listing' ) ||
+            has_block( 'affiliatex/top-products' ) ||
+            has_block( 'affiliatex/versus' ) ||
+            has_block( 'affiliatex/product-table' ) ||
+            has_block( 'affiliatex/product-comparison' ) ||
+            has_block( 'affiliatex/rating-box' );
+
+        return apply_filters( 'is_affiliatex_block', $affx_block );
+    }
+
+    /**
+     * Returns true when viewing a page with AffiliateX blocks or widgets.
+     * 
+     * Checks for both Gutenberg blocks and Elementor widgets.
+     *
+     * @return bool
+     */
+    public static function post_has_affiliatex_items() {
+        return apply_filters( 'post_has_affiliatex_items', self::is_affiliatex_block() || self::has_elementor_widgets() );
+    }
+
+    /**
+     * Add full block link attributes to the block wrapper.
+     *
+     * @param string $wrapper_attributes
+     * @param bool $edFullBlockLink
+     * @param string $blockUrl
+     * @param bool $blockOpenInNewTab
+     * @return string
+     */
+    public static function add_clickable_attributes( $wrapper_attributes, $edFullBlockLink, $blockUrl, $blockOpenInNewTab ) {
+        if ( $edFullBlockLink ) {
+            $wrapper_attributes .= sprintf(
+                ' data-clickable="%s" data-click-url="%s" data-click-new-tab="%s"',
+                $edFullBlockLink ? 'true' : 'false',
+                esc_url( do_shortcode( $blockUrl ) ),
+                $blockOpenInNewTab ? 'true' : 'false'
+            );
+        }
+
+        return $wrapper_attributes;
+    }
 }
 

@@ -283,17 +283,6 @@ msgstr ""
 msgid "Sidebar Width"
 msgstr ""
 
-#: app/src/admin/Customization.js:428
-msgid "Assets"
-msgstr ""
-
-#: app/src/admin/Customization.js:434
-msgid "Disable FontAwesome"
-msgstr ""
-
-#: app/src/admin/Customization.js:441
-msgid "Enable this option if you want to disable FontAwesome assets on your frontend."
-msgstr ""
 
 #: app/src/admin/header.js:14
 msgid "AffiliateX - Gutenberg Blocks for Affiliate Marketing"

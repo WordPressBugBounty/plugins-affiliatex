@@ -1,5 +1,5 @@
 <div <?php echo $wrapper_attributes ?>>
-    <div class="<?php echo esc_attr($layoutClass) ?> <?php echo esc_attr($ctaAlignment) ?> <?php echo esc_attr($columnReverseClass) ?> <?php echo esc_attr($bgClass) ?>">
+    <div class="<?php echo $classes ?>" <?php echo ($ctaLayout == 'layoutOne' && !empty($inlineImageWrapperStyles)) ? $inlineImageWrapperStyles : ''; ?>>
         <div class="content-wrapper">
             <div class="content-wrap">
                 <<?php echo esc_attr($ctaTitleTag) ?> class="affliatex-cta-title">
