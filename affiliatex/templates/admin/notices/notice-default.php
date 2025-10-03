@@ -9,7 +9,7 @@
                 <?php echo wp_kses_post($this->get_description()) ?>
             </div>
             <div class="affx-notice__options">
-               <?php echo wp_kses_post($this->render_option_buttons()) ?>
+               <?php echo $this->render_option_buttons() ?>
             </div>
         </div>
     </div>
