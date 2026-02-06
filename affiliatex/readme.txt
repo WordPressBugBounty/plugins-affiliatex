@@ -1,11 +1,11 @@
-=== AffiliateX – Affiliate Blocks, Amazon Affiliate Plugin ===
+=== AffiliateX – Amazon Affiliate Plugin ===
 Contributors: wpcenter, cagdasdag, orkunaybek
 Plugin link: https://affiliatexblocks.com
 Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
 Requires at least: 5.8
-Tested up to: 6.8.2
+Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 1.3.8.1
+Stable tag: 1.4.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,108 +13,101 @@ AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional af
 
 == Description ==
 
-### Best Amazon Affiliate Plugin for WordPress
+### Best Amazon Affiliate Block Plugin for WordPress
 
-AffiliateX is the [best affiliate block plugin for WordPress](https://affiliatexblocks.com/?utm_source=wporg&utm_medium=pluginlisting&utm_campaign=pluginfirstheading). You can create highly effective **affiliate marketing blogs** and **Amazon affiliate websites** with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
+AffiliateX is the [best affiliate block plugin for WordPress](https://affiliatexblocks.com/?utm_source=wporg&utm_medium=pluginlisting&utm_campaign=pluginfirstheading). You can create highly effective affiliate marketing blogs with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
 
 **[AffiliateX Pro ⭐](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Demos](https://affiliatexblocks.com/demo/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Documentation](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Contact Us](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)**
 
-AffiliateX has several **affiliate marketing blocks** suitable for building **WordPress affiliate websites** such as Single Product, Product Comparison Table, Pros and Cons, Notice, Call to Action, Specification, Button and more. Each of these affiliate blocks is highly customizable so that you can give your **affiliate content** a unique look and feel.
+AffiliateX has several blocks suitable for creating affiliate marketing blogs such as Single Product, Product Comparison Table, Pros and Cons, Notice, Call to Action, Specification, Button and more. Each of these blocks is highly customizable so that you can give it a unique look and feel.
 
-Built using React, the affiliate blocks are speed optimized and load in the blink of an eye. AffiliateX helps you improve your visitors' engagement, increase Click Through Rate (CTR) and boost **Amazon affiliate income**. The affiliate plugin is specifically designed for affiliate marketers who want to maximize their affiliate earnings through professional affiliate website design and advanced affiliate marketing strategies.
-
-### Why Choose AffiliateX for Your Affiliate Success? 🎯
-
-AffiliateX stands out as the premier affiliate plugin because it understands the unique needs of affiliate marketers. Whether you're running affiliate blogs, affiliate review sites, or comprehensive affiliate marketing websites, this affiliate plugin provides all the affiliate tools necessary for affiliate success. The affiliate blocks are crafted specifically for affiliate promotions, ensuring your affiliate links get maximum visibility and your affiliate offers convert at higher rates. Every serious affiliate marketer needs reliable affiliate solutions, and AffiliateX delivers the most comprehensive affiliate block collection available for WordPress affiliate sites.
+Built using React, the blocks are speed optimized and load in the blink of an eye. AffiliateX helps you to improve your visitors, increase Click Through Rate (CTR) and boost affiliate income.
 
 ### AffiliateX Amazon Integration 🚀 ([Pro Feature ⭐](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page))
 
-#### With AffiliateX, connecting to Amazon's Product Advertising API has never been easier!
+#### With AffiliateX, connecting to Amazon’s Product Advertising API has never been easier!
 
 By simply entering your **Amazon API credentials**, you can:
-- **Auto-import affiliate product details** including titles, images, descriptions, and pricing—**no manual data entry** needed.
-- Ensure **real-time affiliate product updates** whenever Amazon changes prices or product information.
-- **Save time** and minimize errors by avoiding repetitive copy-paste tasks in your **affiliate marketing workflow**.
-
-This Amazon affiliate integration makes AffiliateX the ultimate Amazon affiliate plugin for WordPress. Amazon affiliate marketers can streamline their Amazon affiliate promotions while maintaining accurate Amazon affiliate product information throughout their affiliate campaigns.
+- **Auto-import product details** including titles, images, descriptions, and pricing—**no manual data entry** needed.
+- Ensure **real-time product updates** whenever Amazon changes prices or product information.
+- **Save time** and minimize errors by avoiding repetitive copy-paste tasks.
 
 [youtube https://youtu.be/a3H4PF2lMAY]
 
-### Gutenberg + Elementor Support 🎯 – Perfect for Affiliate Marketers
+### Gutenberg + Elementor Support 🎯
 
 #### AffiliateX works seamlessly with both WordPress editors!
 
-AffiliateX provides **full compatibility** with both **Gutenberg affiliate blocks** (WordPress's default block editor) and **Elementor affiliate design options**. This dual-editor support means you can:
+AffiliateX provides **full compatibility** with both **Gutenberg** (WordPress's default block editor) and **Elementor**. This dual-editor support means you can:
 
-- Use **Gutenberg affiliate blocks** for a native WordPress experience with lightning-fast performance
-- Switch to **Elementor** for advanced affiliate page building capabilities and visual design control
-- Access the **same powerful affiliate customization options** in both editors—no feature limitations based on your editor choice
-- Maintain **consistent affiliate branding and styling** across all your affiliate content, regardless of which editor you prefer
+- Use **Gutenberg blocks** for a native WordPress experience with lightning-fast performance
+- Switch to **Elementor** for advanced page building capabilities and visual design control
+- Access the **same powerful customization options** in both editors—no feature limitations based on your editor choice
+- Maintain **consistent branding and styling** across all your affiliate content, regardless of which editor you prefer
 
-Whether you're a Gutenberg enthusiast or an Elementor power user, AffiliateX adapts to your workflow while delivering the same professional **affiliate marketing blocks** and functionality. This flexibility ensures you can create stunning **Amazon affiliate websites** using the editor you're most comfortable with.
+Whether you're a Gutenberg enthusiast or an Elementor power user, AffiliateX adapts to your workflow while delivering the same professional affiliate marketing blocks and functionality. This flexibility ensures you can create stunning affiliate websites using the editor you're most comfortable with.
 
 ### AffiliateX Free Blocks
-AffiliateX provides multiple free affiliate blocks to help build and optimize your affiliate websites for higher conversions:
 
-* **[Single Product](https://affiliatexblocks.com/single-product/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_single_product)** - The Affiliate Single Product block is perfect for promoting any affiliate product. It offers 4 unique layouts, helping you create an attractive affiliate product showcase that drives affiliate conversions and maximizes affiliate earnings for your affiliate business.
+* **[Single Product](https://affiliatexblocks.com/single-product/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_single_product)** - It is suitable for promoting any single product. It offers 4 different layouts to choose from.
 
-* **[Pros and Cons](https://affiliatexblocks.com/pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_pros_and_cons)** - The Affiliate Pros and Cons block lets you highlight product advantages and disadvantages. With 4 different layouts, it is ideal for affiliate reviews and comparisons, helping affiliate visitors make informed purchasing decisions through your affiliate links while building trust in your affiliate recommendations.
+* **[Pros and Cons](https://affiliatexblocks.com/pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_pros_and_cons)** - It allows you to share the pros and cons of any product. It has 4 different layouts.
 
-* **[Specifications](https://affiliatexblocks.com/specifications/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_specifications)** - Showcase detailed product specifications using this affiliate block. With 3 layouts and deep customization, you can present affiliate products professionally while maintaining your affiliate brand consistency across all your affiliate promotions.
+* **[Specifications](https://affiliatexblocks.com/specifications/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_specifications)** - You can display the specification of any product using this block. With 3 different layouts and tons of customization features, you can change the look and feel as per your preference.
 
-* **[Verdict](https://affiliatexblocks.com/verdict/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_verdict)** - Share your final verdict or rating for any affiliate product. Two different layouts are available for creating trust in your affiliate reviews and encouraging affiliate link clicks from your affiliate audience.
+* **[Verdict](https://affiliatexblocks.com/verdict/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_verdict)** - Using this block, you can share your verdict or score for any product. There are two different layouts available for this block.
 
-* **[Call to Action](https://affiliatexblocks.com/call-to-action/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_call_to_action)** - Boost affiliate conversions with strong calls to action. This affiliate block grabs attention and increases CTR for affiliate offers, making it essential for successful affiliate marketing campaigns and affiliate revenue optimization.
+* **[Call to Action](https://affiliatexblocks.com/call-to-action/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_call_to_action)** - Want to increase Click Through Rate (CTR) and conversion? Using the Call to Action block, you can easily grab your visitors’ attention and encourage them to take action.
 
-* **[Button](https://affiliatexblocks.com/button/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_button)** - Add professional-looking affiliate buttons to maximize CTR. This fully customizable affiliate block ensures higher click-throughs on your affiliate promotions and affiliate deals while maintaining consistent affiliate branding.
+* **[Button](https://affiliatexblocks.com/button/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_button)** - Add professional-looking buttons to generate more Click Through Rate (CTR). The button is fully customizable.
 
-* **[Notice](https://affiliatexblocks.com/notice/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_notice)** - Use this affiliate block to highlight important deals, affiliate promotions, or discount announcements that capture visitor attention and drive affiliate sales through strategic affiliate messaging.
+* **[Notice](https://affiliatexblocks.com/notice/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_notice)** - You can use this block to display any special notice within your post to grab your visitors’ attention. You can inform your visitors about any special deals, discounts or promotions.
 
-* **[Versus Line](https://affiliatexblocks.com/versus-line/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_versus_line)** - Compare two affiliate products directly with this versus block. Perfect for affiliate marketers who create quick product comparisons and need efficient affiliate comparison tools for their affiliate content strategy.
+* **[Versus Line](https://affiliatexblocks.com/versus-line/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_versus_line)** - Using this block, you can compare the specifications between two products to help your visitors make a wise purchase decision.
 
-* **[Product Table](https://affiliatexblocks.com/product-table/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_table)** - Build a responsive affiliate product listing table. This affiliate block helps you showcase multiple products in one structured layout, perfect for affiliate sites with extensive affiliate product catalogs.
+* **[Product Table](https://affiliatexblocks.com/product-table/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_table)** - Create a beautiful product listing table to promote different products.
 
-* **[Product Comparison Table](https://affiliatexblocks.com/product-comparison/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_comparison)** - Create a detailed affiliate comparison table to compare multiple products at once. Ideal for affiliate blogs and review sites that need comprehensive affiliate product comparisons to help affiliate visitors make purchasing decisions.
+* **[Product Comparison Table](https://affiliatexblocks.com/product-comparison/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=block_demo_product_comparison)** - Create a stunning and informative product comparison table to compare different products all at once.
 
 ### AffiliateX Pro Blocks ⭐
 
-* **[Top Product](https://affiliatexblocks.com/top-products/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_top_products)** - Showcase your top affiliate product with this block. Highlight best-performing affiliate offers with engaging layouts that maximize affiliate conversions and showcase your most profitable affiliate recommendations.
+* **[Top Product](https://affiliatexblocks.com/top-products/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_top_products)** - Highlight the best product with this block, designed to showcase top products effectively.
 
-* **[Product Tabs](https://affiliatexblocks.com/product-tabs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_tabs)** - Organize affiliate product details into clean tabs. A powerful affiliate block for making your product reviews more user-friendly while maintaining organized affiliate content presentation for better affiliate user experience.
+* **[Product Tabs](https://affiliatexblocks.com/product-tabs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_tabs)** - Organize product details into tabs for a cleaner and more user-friendly layout.
 
-* **[Coupon Listing](https://affiliatexblocks.com/coupon-listing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_listing)** - Display multiple affiliate coupons in an attractive list format. Perfect for affiliate sites offering discounts and promotions, helping affiliate marketers organize their affiliate deals and affiliate discount offers effectively.
+* **[Coupon Listing](https://affiliatexblocks.com/coupon-listing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_listing)** - Display a list of coupons in an organized and attractive layout.
 
-* **[Coupon Grid](https://affiliatexblocks.com/coupon-grid/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_grid)** - Build a grid layout for affiliate coupons. Ideal for affiliate marketers showcasing several affiliate offers together while maintaining clean affiliate deal presentation and maximizing affiliate coupon visibility.
+* **[Coupon Grid](https://affiliatexblocks.com/coupon-grid/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_coupon_grid)** - Create a grid of coupons, perfect for showcasing multiple offers at once.
 
-* **[Single Coupon](https://affiliatexblocks.com/single-coupon/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_coupon)** - Highlight one affiliate coupon with full details. This affiliate block helps increase conversions on exclusive deals and promotes high-value affiliate offers that drive significant affiliate commissions.
+* **[Single Coupon](https://affiliatexblocks.com/single-coupon/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_coupon)** - Highlight individual coupons with this block, providing detailed information on each offer.
 
-* **[Versus](https://affiliatexblocks.com/versus/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_versus)** - Compare two affiliate products head-to-head. Great for affiliate review content that needs detailed side-by-side product comparisons, helping affiliate visitors understand affiliate product differences and make informed affiliate purchases.
+* **[Versus](https://affiliatexblocks.com/versus/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_versus)** - Compare two products head-to-head, showcasing their differences and helping visitors make informed decisions.
 
-* **[Single Product Pros and Cons](https://affiliatexblocks.com/single-product-pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_product_pros_and_cons)** - Share detailed pros and cons for one affiliate product. Perfect affiliate block for deeper product reviews that build affiliate trust and provide comprehensive affiliate product analysis.
+* **[Single Product Pros and Cons](https://affiliatexblocks.com/single-product-pros-and-cons/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_single_product_pros_and_cons)** - Share detailed pros and cons for a single product, helping visitors understand its strengths and weaknesses.
 
-* **[Product Image Button](https://affiliatexblocks.com/product-image/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_image)** - Add clickable affiliate buttons on product images to increase engagement and boost affiliate sales while creating interactive affiliate product displays that enhance affiliate user experience.
+* **[Product Image Button](https://affiliatexblocks.com/product-image/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_product_image)** - Enhance product images with customizable buttons, driving more clicks and conversions.
 
-* **[Rating Box](https://affiliatexblocks.com/rating-box/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_rating_box)** - Display a customizable rating box with metrics for affiliate products. An essential affiliate block for product review websites that need professional affiliate rating systems and affiliate credibility indicators.
+* **[Rating Box](https://affiliatexblocks.com/rating-box/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=pro_block_demo_rating_box)** -  It allows you to display a rating box with progress bars for each metric. Fully customizable to match your site's design.
 
 == FEATURES OF AFFILIATEX ==
 
-AffiliateX is a powerful Amazon WordPress affiliate plugin built for affiliate marketers who want speed, high Click Through Rate (CTR), and maximum conversion on their affiliate websites.
+AffiliateX is an Amazon WordPress plugin built for affiliate marketers who want speed, high Click Through Rate (CTR) and conversion.
 
-* **Easy to Use**: AffiliateX is designed for every affiliate marketer. The affiliate plugin is easy to use and makes it simple to promote affiliate products without any hassle, whether you're a beginner affiliate marketer or experienced affiliate professional.
+* **Easy to Use**: AffiliateX is built for everyone. The plugin is easy to use and makes it easier to promote any products without any hassle.
 
-* **Multiple Layouts**: The affiliate blocks include different layouts to choose from. You can select the desired layout and configure them as per your affiliate content strategy, ensuring your affiliate promotions match your affiliate brand and affiliate website design.
+* **Multiple Layouts**: The blocks include different layouts to choose from. You can select the desired layout and configure them as per your preference.
 
-* **Powerful Customization Control**: Each affiliate block includes tons of customization controls for alignment, colors, typography, and much more—giving affiliate websites full design flexibility to match any affiliate branding requirements and affiliate style preferences.
+* **Powerful Customization Control**: Each block includes tons of customization controls for alignment, colors, typography and much more.
 
-* **Responsive Design**: To help your affiliate articles rank better and provide a smooth user experience, all affiliate blocks are made fully responsive across all devices, ensuring your affiliate content performs well on mobile devices where many affiliate purchases occur.
+* **Responsive Design**: To help your articles rank better and provide a smooth experience to all your visitors, all the blocks are made fully responsive.
 
-* **Global Customization Settings**: You can easily change global settings for font family, font color, button color, and even set the backend editor width for consistent affiliate content design across all your affiliate pages and affiliate promotions.
+* **Global Customization Settings**: You can easily change the global settings for font family, font color, button color and even set the backend editor width.
 
-* **Works with Any Theme**: AffiliateX works seamlessly with any WordPress theme, ensuring affiliate marketers don't face compatibility issues when integrating affiliate blocks into their existing affiliate website design or affiliate blog layout.
+* **Work with any theme**: AffiliateX works with any WordPress theme without any issues.
 
-* **No Coding Required**: Even if you are new to affiliate marketing, you can easily use this affiliate plugin without writing a single line of code, making it accessible for affiliate beginners who want to start their affiliate journey immediately.
+* **No Coding required**: Even if you are a complete newbie, you can easily use this plugin without writing a single line of code.
 
-* **Better Performance and Speed**: AffiliateX uses the core Gutenberg and Elementor editors, so you don't need heavy page builders. This eliminates unnecessary CSS and JS files and boosts your affiliate site's loading speed and performance, which is crucial for affiliate SEO and affiliate user retention.
+* **Better Performance and Speed**: AffiliateX uses the core Gutenberg and Elementor editors so you don't need to use heavy page builders and eliminate the need for unnecessary CSS and JS files. It boosts your website loading speed and performance.
 
 == Installation ==
 

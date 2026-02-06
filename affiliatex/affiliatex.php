@@ -8,7 +8,7 @@
  * Author URI:      https://affiliatexblocks.com
  * Text Domain:     affiliatex
  * Domain Path:     /languages
- * Version:         1.3.8.1
+ * Version:         1.4.1.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -20,12 +20,16 @@ if ( function_exists( 'affiliatex_fs' ) ) {
     affiliatex_fs()->set_basename( false, __FILE__ );
 } else {
     if ( !function_exists( 'affiliatex_fs' ) ) {
-        // Create a helper function for easy SDK access.
+        /**
+         * Create a helper function for easy SDK access.
+         *
+         * @return object
+         */
         function affiliatex_fs() {
             global $affiliatex_fs;
             if ( !isset( $affiliatex_fs ) ) {
                 // Include Freemius SDK.
-                require_once dirname( __FILE__ ) . '/vendor/freemius/wordpress-sdk/start.php';
+                require_once __DIR__ . '/vendor/freemius/wordpress-sdk/start.php';
                 $affiliatex_fs = fs_dynamic_init( array(
                     'id'             => '15886',
                     'slug'           => 'affiliatex',
@@ -36,11 +40,11 @@ if ( function_exists( 'affiliatex_fs' ) ) {
                     'premium_suffix' => 'pro',
                     'has_addons'     => false,
                     'has_paid_plans' => true,
-                    'menu'           => [
+                    'menu'           => array(
                         'slug'    => 'affiliatex_blocks',
                         'support' => false,
                         'contact' => true,
-                    ],
+                    ),
                     'is_live'        => true,
                 ) );
             }
@@ -53,6 +57,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         do_action( 'affiliatex_fs_loaded' );
     }
     require_once __DIR__ . '/vendor/autoload.php';
+    require_once __DIR__ . '/vendor/woocommerce/action-scheduler/action-scheduler.php';
     if ( !defined( 'AFFILIATEX_PLUGIN_FILE' ) ) {
         define( 'AFFILIATEX_PLUGIN_FILE', __FILE__ );
     }
@@ -63,7 +68,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         define( 'AFFILIATEX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
     }
     if ( !defined( 'AFFILIATEX_VERSION' ) ) {
-        define( 'AFFILIATEX_VERSION', '1.3.8.1' );
+        define( 'AFFILIATEX_VERSION', '1.4.1.2' );
     }
     if ( !defined( 'AFFILIATEX_EXTERNAL_API_ENDPOINT' ) ) {
         define( 'AFFILIATEX_EXTERNAL_API_ENDPOINT', 'https://affiliatexblocks.com' );
@@ -71,11 +76,11 @@ if ( function_exists( 'affiliatex_fs' ) ) {
     /**
      * Init function
      */
-    function AffiliateX_init() {
+    function affiliatex_init() {
         return AffiliateX::instance();
     }
 
-    $GLOBALS['AffiliateX'] = AffiliateX_init();
+    $GLOBALS['AffiliateX'] = affiliatex_init();
     // Invokes all functions attached to the 'affiliatex_free_loaded' hook
     do_action( 'affiliatex_free_loaded' );
 }

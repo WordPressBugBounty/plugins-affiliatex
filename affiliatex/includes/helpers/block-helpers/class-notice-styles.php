@@ -96,11 +96,11 @@ class AffiliateX_Notice_Styles {
 				'padding-right'   => isset( $attr['titlePadding']['desktop']['right'] ) ? $attr['titlePadding']['desktop']['right'] : '15px',
 				'padding-bottom'  => isset( $attr['titlePadding']['desktop']['bottom'] ) ? $attr['titlePadding']['desktop']['bottom'] : '10px',
 			),
-			' .affiliatex-notice-title i'                     => array(
-				'font-size' => isset($attr['noticeIconSize']) ? $attr['noticeIconSize'] . 'px' : '18px',
+			' .affiliatex-notice-title i'                  => array(
+				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '18px',
 			),
-			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title i'                     => array(
-				'color'     => isset($attr['noticeIconTwoColor']) ? $attr['noticeIconTwoColor'] : '#084ACA',
+			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title i' => array(
+				'color' => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#084ACA',
 			),
 			' .affiliatex-notice-icon'                     => array(
 				'color'     => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#084ACA',
@@ -140,14 +140,14 @@ class AffiliateX_Notice_Styles {
 				'color' => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
 			),
 			' .affiliatex-notice-content .affiliatex-list li:before' => array(
-				'color'     => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
+				'color' => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
 			),
 			' .affiliatex-notice-content ul.affiliatex-list li:before' => array(
 				'font-size' => isset( $attr['noticeListIconSize'] ) ? $attr['noticeListIconSize'] . 'px' : '17px',
 			),
 			' .affiliatex-notice-content .affiliatex-list li i' => array(
-				'color'     => isset($attr['noticeIconColor']) ? $attr['noticeIconColor'] : '#24b644',
-				'font-size' => isset($attr['noticeListIconSize']) ? $attr['noticeListIconSize'] . 'px' : '17px',
+				'color'     => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
+				'font-size' => isset( $attr['noticeListIconSize'] ) ? $attr['noticeListIconSize'] . 'px' : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2'    => array(
 				'margin-top'     => isset( $attr['noticeMargin']['desktop']['top'] ) ? $attr['noticeMargin']['desktop']['top'] : '0px',
@@ -187,9 +187,9 @@ class AffiliateX_Notice_Styles {
 				'background' => isset( $attr['listBgType'] ) && $attr['listBgType'] === 'gradient' ? $listBgGradient : $listBgColor,
 			),
 			' .affiliatex-notice-content .affiliatex-list' => array(
-				'list-style' => $noticeContentType == 'list' &&
-				$noticeListType == 'unordered' &&
-				$noticeunorderedType == 'icon'
+				'list-style' => $noticeContentType === 'list' &&
+				$noticeListType === 'unordered' &&
+				$noticeunorderedType === 'icon'
 					? 'none'
 					: '',
 			),
@@ -287,5 +287,4 @@ class AffiliateX_Notice_Styles {
 		);
 		return $tablet_selectors;
 	}
-
 }

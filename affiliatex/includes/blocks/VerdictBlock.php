@@ -4,25 +4,25 @@ namespace AffiliateX\Blocks;
 
 use AffiliateX\Traits\VerdictRenderTrait;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * AffiliateX Verdict Block
  *
  * @package AffiliateX
  */
-class VerdictBlock extends BaseBlock
-{
-    use VerdictRenderTrait;
+class VerdictBlock extends BaseBlock {
 
-    /**
-     * Gutenberg block render.
-     * @param mixed $attributes
-     * @param mixed $content
-     * @return string
-     */
-    public function render($attributes, $content): string
-    {
-        return $this->render_template($attributes, $content);
-    }
+	use VerdictRenderTrait;
+
+	/**
+	 * Gutenberg block render.
+	 *
+	 * @param array $attributes
+	 * @param string $content
+	 * @return string
+	 */
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
+	}
 }

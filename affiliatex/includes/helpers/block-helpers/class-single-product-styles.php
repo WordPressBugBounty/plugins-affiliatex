@@ -18,6 +18,7 @@ class AffiliateX_Single_Product_Styles {
 			'pricingTypography'         => isset( $attr['pricingTypography'] ) ? $attr['pricingTypography'] : array(),
 			'ribbonContentTypography'   => isset( $attr['ribbonContentTypography'] ) ? $attr['ribbonContentTypography'] : array(),
 			'numRatingTypography'       => isset( $attr['numRatingTypography'] ) ? $attr['numRatingTypography'] : array(),
+			'readMoreTypography'        => isset( $attr['readMoreTypography'] ) ? $attr['readMoreTypography'] : array(),
 		);
 	}
 
@@ -76,7 +77,7 @@ class AffiliateX_Single_Product_Styles {
 				'margin-bottom' => '0',
 			),
 			' .affx-single-product-wrapper'            => array(
-                'overflow'      => 'hidden',
+				'overflow'      => 'hidden',
 				'border-width'  => isset( $attr['productBorderWidth']['desktop']['top'] ) && isset( $attr['productBorderWidth']['desktop']['right'] ) && isset( $attr['productBorderWidth']['desktop']['bottom'] ) && isset( $attr['productBorderWidth']['desktop']['left'] ) ? $attr['productBorderWidth']['desktop']['top'] . ' ' . $attr['productBorderWidth']['desktop']['right'] . ' ' . $attr['productBorderWidth']['desktop']['bottom'] . ' ' . $attr['productBorderWidth']['desktop']['left'] . ' ' : '1px 1px 1px 1px',
 				'border-radius' => isset( $attr['productBorderRadius']['desktop']['top'] ) && isset( $attr['productBorderRadius']['desktop']['right'] ) && isset( $attr['productBorderRadius']['desktop']['bottom'] ) && isset( $attr['productBorderRadius']['desktop']['left'] ) ? $attr['productBorderRadius']['desktop']['top'] . ' ' . $attr['productBorderRadius']['desktop']['right'] . ' ' . $attr['productBorderRadius']['desktop']['bottom'] . ' ' . $attr['productBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
 				'border-style'  => isset( $attr['productBorder']['style'] ) ? $attr['productBorder']['style'] : 'solid',
@@ -123,7 +124,7 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
+				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content p'          => array(
@@ -147,20 +148,31 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
+				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content ol li'      => array(
-				'font-family'     => isset($attr['productContentTypography']['family']) ? $attr['productContentTypography']['family'] : $global_font_family,
-				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation($con_variation),
-				'font-style'      => AffiliateX_Helpers::get_font_style($con_variation),
-				'font-size'       => isset($attr['productContentTypography']['size']['desktop']) ? $attr['productContentTypography']['size']['desktop'] : '18px',
-				'line-height'     => isset($attr['productContentTypography']['line-height']['desktop']) ? $attr['productContentTypography']['line-height']['desktop'] : '1.65',
-				'text-transform'  => isset($attr['productContentTypography']['text-transform']) ? $attr['productContentTypography']['text-transform'] : 'none',
-				'text-decoration' => isset($attr['productContentTypography']['text-decoration']) ? $attr['productContentTypography']['text-decoration'] : 'none',
-				'letter-spacing'  => isset($attr['productContentTypography']['letter-spacing']['desktop']) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content'      => isset($attr['productContentAlign']) ? $attr['productContentAlign'] : 'left',
-				'color'           => isset($attr['productContentColor']) ? $attr['productContentColor'] : $global_font_color,
+				'font-family'     => isset( $attr['productContentTypography']['family'] ) ? $attr['productContentTypography']['family'] : $global_font_family,
+				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $con_variation ),
+				'font-style'      => AffiliateX_Helpers::get_font_style( $con_variation ),
+				'font-size'       => isset( $attr['productContentTypography']['size']['desktop'] ) ? $attr['productContentTypography']['size']['desktop'] : '18px',
+				'line-height'     => isset( $attr['productContentTypography']['line-height']['desktop'] ) ? $attr['productContentTypography']['line-height']['desktop'] : '1.65',
+				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
+				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
+				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
+				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
+				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
+			),
+			' .affx-single-product-content .affx-readmore-btn' => array(
+				'color'           => isset( $attr['readMoreColor'] ) ? $attr['readMoreColor'] : '#2670FF',
+				'font-family'     => isset( $attr['readMoreTypography']['family'] ) ? $attr['readMoreTypography']['family'] : 'Default',
+				'font-weight'     => isset( $attr['readMoreTypography']['variation'] ) ? AffiliateX_Helpers::get_fontweight_variation( $attr['readMoreTypography']['variation'] ) : '400',
+				'font-style'      => isset( $attr['readMoreTypography']['variation'] ) ? AffiliateX_Helpers::get_font_style( $attr['readMoreTypography']['variation'] ) : 'normal',
+				'font-size'       => isset( $attr['readMoreTypography']['size']['desktop'] ) ? $attr['readMoreTypography']['size']['desktop'] : '14px',
+				'line-height'     => isset( $attr['readMoreTypography']['line-height']['desktop'] ) ? $attr['readMoreTypography']['line-height']['desktop'] : '1.65',
+				'text-transform'  => isset( $attr['readMoreTypography']['text-transform'] ) ? $attr['readMoreTypography']['text-transform'] : 'none',
+				'text-decoration' => isset( $attr['readMoreTypography']['text-decoration'] ) ? $attr['readMoreTypography']['text-decoration'] : 'none',
+				'letter-spacing'  => isset( $attr['readMoreTypography']['letter-spacing']['desktop'] ) ? $attr['readMoreTypography']['letter-spacing']['desktop'] : '0em',
 			),
 			' .affx-sp-marked-price'                   => array(
 				'font-family'     => isset( $attr['pricingTypography']['family'] ) ? $attr['pricingTypography']['family'] : $global_font_family,
@@ -212,7 +224,7 @@ class AffiliateX_Single_Product_Styles {
 				'border-style'        => isset( $attr['productDivider']['style'] ) ? $attr['productDivider']['style'] : 'none',
 				'border-bottom-width' => isset( $attr['productDivider']['width'] ) ? $attr['productDivider']['width'] . 'px' : '1',
 			),
-			
+
 			' .affx-single-product-wrapper.product-layout-2 .title-wrapper' => array(
 				'padding-top'    => isset( $attr['contentSpacing']['desktop']['top'] ) ? $attr['contentSpacing']['desktop']['top'] : '30px',
 				'padding-left'   => isset( $attr['contentSpacing']['desktop']['left'] ) ? $attr['contentSpacing']['desktop']['left'] : '25px',
@@ -260,7 +272,7 @@ class AffiliateX_Single_Product_Styles {
 			),
 
 			' .affx-sp-ribbon'                         => array(
-				'width'      => '100%',
+				'width' => '100%',
 			),
 
 			' .product-layout-2 .affx-sp-ribbon.ribbon-align-left' => array(
@@ -283,41 +295,39 @@ class AffiliateX_Single_Product_Styles {
 				'color'           => isset( $attr['ribbonColor'] ) ? $attr['ribbonColor'] : '#fff',
 			),
 
-
 			' .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:before' => array(
-				'border-bottom-color' => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+				'border-bottom-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
-			" .affx-sp-ribbon.ribbon-layout-two.ribbon-align-right .affx-sp-ribbon-title:before" => array(
-				"border-right-color" => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+			' .affx-sp-ribbon.ribbon-layout-two.ribbon-align-right .affx-sp-ribbon-title:before' => array(
+				'border-right-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
-			" .affx-sp-ribbon.ribbon-layout-two.ribbon-align-left .affx-sp-ribbon-title:before" => array(
-				"border-bottom-color" => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+			' .affx-sp-ribbon.ribbon-layout-two.ribbon-align-left .affx-sp-ribbon-title:before' => array(
+				'border-bottom-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
 			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:before' => array(
 				'border-bottom-color' => 'transparent',
-				'border-right-color' => isset($attr['ribbonBgColorType']) && $attr['ribbonBgColorType'] === 'gradient' ?
+				'border-right-color'  => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'gradient' ?
 					$ribbonGradient :
 					$ribbonBgColor,
 			),
 
 			' .affx-sp-content.image-right .affx-sp-ribbon.ribbon-layout-two .affx-sp-ribbon-title:hover:before' => array(
-				'border-bottom-color' => 'transparent',
 				'border-bottom-color' => isset( $attr['ribbonBgColorType'] ) && $attr['ribbonBgColorType'] === 'solid' ? $attr['ribbonBGColor'] : $ribbonGradient,
 			),
 
-			' .affx-single-product-content li:before'              => array(
+			' .affx-single-product-content li:before'  => array(
 				'color' => isset( $attr['iconColor'] ) ? $attr['iconColor'] : '#24B644',
 			),
-			' .affx-single-product-content i'              => array(
+			' .affx-single-product-content i'          => array(
 				'color' => isset( $attr['iconColor'] ) ? $attr['iconColor'] : '#24B644',
 			),
 
@@ -366,15 +376,15 @@ class AffiliateX_Single_Product_Styles {
 			),
 
 			' .affx-single-product-wrapper .affx-sp-img-wrapper' => array(
-				'padding-top'      => isset( $attr['imagePadding']['desktop']['top'] ) ? $attr['imagePadding']['desktop']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['desktop']['left'] ) ? $attr['imagePadding']['desktop']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['desktop']['right'] ) ? $attr['imagePadding']['desktop']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['desktop']['bottom'] ) ? $attr['imagePadding']['desktop']['bottom'] : '0px',
-				'overflow'         => 'hidden',
-				'border-radius'    => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
+				'padding-top'    => isset( $attr['imagePadding']['desktop']['top'] ) ? $attr['imagePadding']['desktop']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['desktop']['left'] ) ? $attr['imagePadding']['desktop']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['desktop']['right'] ) ? $attr['imagePadding']['desktop']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['desktop']['bottom'] ) ? $attr['imagePadding']['desktop']['bottom'] : '0px',
+				'overflow'       => 'hidden',
+				'border-radius'  => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
-				'border-radius'    => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
+				'border-radius' => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 		);
 
@@ -476,15 +486,20 @@ class AffiliateX_Single_Product_Styles {
 				'letter-spacing' => isset( $attr['numRatingTypography']['letter-spacing']['mobile'] ) ? $attr['numRatingTypography']['letter-spacing']['mobile'] : '0em',
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper' => array(
-				'padding-top'      => isset( $attr['imagePadding']['mobile']['top'] ) ? $attr['imagePadding']['mobile']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['mobile']['left'] ) ? $attr['imagePadding']['mobile']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['mobile']['right'] ) ? $attr['imagePadding']['mobile']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['mobile']['bottom'] ) ? $attr['imagePadding']['mobile']['bottom'] : '0px',
-				'overflow'         => 'hidden',
-				'border-radius'    => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
+				'padding-top'    => isset( $attr['imagePadding']['mobile']['top'] ) ? $attr['imagePadding']['mobile']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['mobile']['left'] ) ? $attr['imagePadding']['mobile']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['mobile']['right'] ) ? $attr['imagePadding']['mobile']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['mobile']['bottom'] ) ? $attr['imagePadding']['mobile']['bottom'] : '0px',
+				'overflow'       => 'hidden',
+				'border-radius'  => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
-				'border-radius'    => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
+				'border-radius' => isset( $attr['productImageBorderRadius']['mobile']['top'] ) && isset( $attr['productImageBorderRadius']['mobile']['right'] ) && isset( $attr['productImageBorderRadius']['mobile']['bottom'] ) && isset( $attr['productImageBorderRadius']['mobile']['left'] ) ? $attr['productImageBorderRadius']['mobile']['top'] . ' ' . $attr['productImageBorderRadius']['mobile']['right'] . ' ' . $attr['productImageBorderRadius']['mobile']['bottom'] . ' ' . $attr['productImageBorderRadius']['mobile']['left'] . ' ' : '0px 0px 0px 0px',
+			),
+			' .affx-single-product-content .affx-readmore-btn' => array(
+				'font-size'      => isset( $attr['readMoreTypography']['size']['mobile'] ) ? $attr['readMoreTypography']['size']['mobile'] : '14px',
+				'line-height'    => isset( $attr['readMoreTypography']['line-height']['mobile'] ) ? $attr['readMoreTypography']['line-height']['mobile'] : '1.65',
+				'letter-spacing' => isset( $attr['readMoreTypography']['letter-spacing']['mobile'] ) ? $attr['readMoreTypography']['letter-spacing']['mobile'] : '0em',
 			),
 		);
 		return $mobile_selectors;
@@ -585,18 +600,22 @@ class AffiliateX_Single_Product_Styles {
 				'letter-spacing' => isset( $attr['numRatingTypography']['letter-spacing']['tablet'] ) ? $attr['numRatingTypography']['letter-spacing']['tablet'] : '0em',
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper' => array(
-				'padding-top'      => isset( $attr['imagePadding']['tablet']['top'] ) ? $attr['imagePadding']['tablet']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['tablet']['left'] ) ? $attr['imagePadding']['tablet']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['tablet']['right'] ) ? $attr['imagePadding']['tablet']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['tablet']['bottom'] ) ? $attr['imagePadding']['tablet']['bottom'] : '0px',
-				'overflow'         => 'hidden',
-				'border-radius'    => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
+				'padding-top'    => isset( $attr['imagePadding']['tablet']['top'] ) ? $attr['imagePadding']['tablet']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['tablet']['left'] ) ? $attr['imagePadding']['tablet']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['tablet']['right'] ) ? $attr['imagePadding']['tablet']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['tablet']['bottom'] ) ? $attr['imagePadding']['tablet']['bottom'] : '0px',
+				'overflow'       => 'hidden',
+				'border-radius'  => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
-				'border-radius'    => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
+				'border-radius' => isset( $attr['productImageBorderRadius']['tablet']['top'] ) && isset( $attr['productImageBorderRadius']['tablet']['right'] ) && isset( $attr['productImageBorderRadius']['tablet']['bottom'] ) && isset( $attr['productImageBorderRadius']['tablet']['left'] ) ? $attr['productImageBorderRadius']['tablet']['top'] . ' ' . $attr['productImageBorderRadius']['tablet']['right'] . ' ' . $attr['productImageBorderRadius']['tablet']['bottom'] . ' ' . $attr['productImageBorderRadius']['tablet']['left'] . ' ' : '0px 0px 0px 0px',
+			),
+			' .affx-single-product-content .affx-readmore-btn' => array(
+				'font-size'      => isset( $attr['readMoreTypography']['size']['tablet'] ) ? $attr['readMoreTypography']['size']['tablet'] : '14px',
+				'line-height'    => isset( $attr['readMoreTypography']['line-height']['tablet'] ) ? $attr['readMoreTypography']['line-height']['tablet'] : '1.65',
+				'letter-spacing' => isset( $attr['readMoreTypography']['letter-spacing']['tablet'] ) ? $attr['readMoreTypography']['letter-spacing']['tablet'] : '0em',
 			),
 		);
 		return $tablet_selectors;
 	}
-
 }

@@ -43,14 +43,14 @@ class AffiliateX_Button_Styles {
 		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#2670FF';
 		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
-		$bgType           = isset( $attr['buttonBGType'] ) ? $attr['buttonBGType'] : 'solid';
+		$bgType                = isset( $attr['buttonBGType'] ) ? $attr['buttonBGType'] : 'solid';
 		$bgHoverType           = isset( $attr['buttonHoverBGType'] ) ? $attr['buttonHoverBGType'] : 'solid';
-		$buttonBgGradient = isset( $attr['buttonBgGradient']['gradient'] ) ? $attr['buttonBgGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
+		$buttonBgGradient      = isset( $attr['buttonBgGradient']['gradient'] ) ? $attr['buttonBgGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$buttonBgHoverGradient = isset( $attr['buttonBgHoverGradient']['gradient'] ) ? $attr['buttonBgHoverGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
-		$buttonBGColor    = isset( $attr['buttonBGColor'] ) ? $attr['buttonBGColor'] : $global_btn_color;
+		$buttonBGColor         = isset( $attr['buttonBGColor'] ) ? $attr['buttonBGColor'] : $global_btn_color;
 		$buttonBGHoverColor    = isset( $attr['buttonBGHoverColor'] ) ? $attr['buttonBGHoverColor'] : $global_btn_hover_color;
 
-		$variation        = isset( $attr['buttonTypography']['variation'] ) ? $attr['buttonTypography']['variation'] : 'n4';
+		$variation = isset( $attr['buttonTypography']['variation'] ) ? $attr['buttonTypography']['variation'] : 'n4';
 
 		$selectors = array(
 			' .affiliatex-button'                    => array(
@@ -89,7 +89,7 @@ class AffiliateX_Button_Styles {
 			),
 			' .affiliatex-button:hover'              => array(
 				'color'        => isset( $attr['buttonTextHoverColor'] ) ? $attr['buttonTextHoverColor'] : '#ffffff',
-				'background'       => $bgHoverType && $bgHoverType === 'solid' ? $buttonBGHoverColor : $buttonBgHoverGradient,
+				'background'   => $bgHoverType && $bgHoverType === 'solid' ? $buttonBGHoverColor : $buttonBgHoverGradient,
 				'border-color' => isset( $attr['buttonborderHoverColor'] ) ? $attr['buttonborderHoverColor'] : '#ffffff',
 			),
 			' .button-icon'                          => array(
@@ -172,5 +172,4 @@ class AffiliateX_Button_Styles {
 
 		return $tablet_selectors;
 	}
-
 }

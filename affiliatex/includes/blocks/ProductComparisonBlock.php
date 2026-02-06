@@ -4,19 +4,18 @@ namespace AffiliateX\Blocks;
 
 use AffiliateX\Traits\ProductComparisonRenderTrait;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * AffiliateX Button Block
  *
  * @package AffiliateX
  */
-class ProductComparisonBlock extends BaseBlock
-{
-    use ProductComparisonRenderTrait;
+class ProductComparisonBlock extends BaseBlock {
 
-    public function render(array $attributes, string $content): string
-    {
-        return $this->render_template($attributes, $content);
-    }
+	use ProductComparisonRenderTrait;
+
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
+	}
 }

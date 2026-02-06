@@ -12,12 +12,11 @@ defined( 'ABSPATH' ) || exit;
  *
  * @package AffiliateX
  */
-class NoticeBlock extends BaseBlock
-{
+class NoticeBlock extends BaseBlock {
+
 	use NoticeRenderTrait;
 
-	public function render(array $attributes, string $content): string
-	{
-		return $this->render_template($attributes, $content);
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
 	}
 }

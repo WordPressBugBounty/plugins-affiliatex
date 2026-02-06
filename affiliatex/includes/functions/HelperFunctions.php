@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Remove old pro plugin that stays in EDD
+ *
  * @return void
  */
 function affx_is_pro_license_activated() {
@@ -45,7 +46,7 @@ function affx_clean_vars( $var ) {
  * @param array $args      (Required) Value to merge with $defaults.
  * @param array $defaults  Array that serves as the defaults. Default value: ''
  *
- * @return void
+ * @return array
  */
 function affx_wp_parse_args( &$args, $defaults = '' ) {
 	$args     = (array) $args;
@@ -65,7 +66,7 @@ function affx_wp_parse_args( &$args, $defaults = '' ) {
 /**
  * AffiliateX get block settings.
  *
- * @return void
+ * @return array
  */
 function affx_get_block_settings( $encode = false ) {
 
@@ -92,21 +93,22 @@ function affx_get_block_settings( $encode = false ) {
 			'versus'                   => true,
 			'productTable'             => true,
 			'productComparison'        => true,
-			'ratingBox' 	   		   => true
+			'ratingBox'                => true,
+			'dynamicListing'           => true,
 		)
 	);
 
 	$settings = affx_wp_parse_args( $settings, $block_defaults );
 
-	return $encode ? json_encode( $settings ) : $settings;
+	return $encode ? wp_json_encode( $settings ) : $settings;
 }
 
 /**
  * AffiliateX get customization settings.
  *
- * @return void
+ * @return array
  */
-function affx_get_customization_settings( $encode = false ) {
+function affx_get_customization_settings( $encode = false, $parse_default = true ) {
 
 	$settings = get_option( 'affiliatex_customization_settings' ) ? json_decode( get_option( 'affiliatex_customization_settings' ), true ) : array();
 
@@ -142,13 +144,13 @@ function affx_get_customization_settings( $encode = false ) {
 			'editorCustomWidth'        => '1170',
 			'editorCustomSidebarWidth' => '330',
 			'editorSidebarWidth'       => 'inherit',
-			'templateLibrary'          => true
+			'templateLibrary'          => true,
 		)
 	);
 
-	$settings = affx_wp_parse_args( $settings, $customization_defaults );
+	$settings = $parse_default ? affx_wp_parse_args( $settings, $customization_defaults ) : $settings;
 
-	return $encode ? json_encode( $settings ) : $settings;
+	return $encode ? wp_json_encode( $settings ) : $settings;
 }
 
 /**
@@ -196,7 +198,7 @@ function affx_search_reusable_blocks_within_innerblocks( $blocks, $block_name ) 
 /**
  * AffiliateX get disabled blocks.
  *
- * @return void
+ * @return array
  */
 function affx_get_disabled_blocks() {
 
@@ -219,10 +221,11 @@ function affx_get_disabled_blocks() {
 		'versus'                   => 'affiliatex/versus',
 		'productTable'             => 'affiliatex/product-table',
 		'productComparison'        => 'affiliatex/product-comparison',
-		'ratingBox'				   => 'affiliatex/rating-box'
+		'ratingBox'                => 'affiliatex/rating-box',
+		'dynamicListing'           => 'affiliatex/dynamic-listing',
 	);
 
-	$pro_blocks = array( 'singleProductProsAndCons', 'productImageButton', 'singleCoupon', 'couponGrid', 'productTabs', 'couponListing', 'topProducts', 'versus', 'ratingBox' );
+	$pro_blocks = array( 'singleProductProsAndCons', 'productImageButton', 'singleCoupon', 'couponGrid', 'productTabs', 'couponListing', 'topProducts', 'versus', 'ratingBox', 'dynamicListing' );
 
 	$license_activated = affiliatex_fs()->is__premium_only();
 
@@ -231,7 +234,7 @@ function affx_get_disabled_blocks() {
 	$disabled_blocks = array();
 
 	foreach ( $block_settings as $key => $value ) {
-		if ( ! $value || ( ! $license_activated && in_array( $key, $pro_blocks ) ) ) {
+		if ( ! $value || ( ! $license_activated && in_array( $key, $pro_blocks, true ) ) ) {
 			if ( isset( $blocks[ $key ] ) && ! affx_has_block( $blocks[ $key ] ) ) {
 				$disabled_blocks[] = $blocks[ $key ];
 			}
@@ -272,7 +275,7 @@ if ( ! function_exists( 'affx_extract_child_items' ) ) {
  */
 if ( ! function_exists( 'affx_is_elementor_editor' ) ) {
 	function affx_is_elementor_editor() {
-		return isset( $_GET['action'] ) && $_GET['action'] === 'elementor';
+		return isset( $_GET['action'] ) && $_GET['action'] === 'elementor'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 	}
 }
 
@@ -283,25 +286,27 @@ if ( ! function_exists( 'affx_is_elementor_editor' ) ) {
  * @return mixed
  */
 if ( ! function_exists( 'affx_maybe_parse_amazon_shortcode' ) ) {
-    function affx_maybe_parse_amazon_shortcode($data)
-    {
-        if (is_string($data) && has_shortcode($data, 'affiliatex-product')) {
-            $parsed_data = do_shortcode($data);
+	function affx_maybe_parse_amazon_shortcode( $data ) {
+		if ( is_string( $data ) && has_shortcode( $data, 'affiliatex-product' ) ) {
+			$parsed_data = do_shortcode( $data );
 
-            if ( json_decode($parsed_data ) ) {
-                $parsed_data = json_decode($parsed_data, true);
-            }
+			if ( json_decode( $parsed_data ) ) {
+				$parsed_data = json_decode( $parsed_data, true );
+			}
 
-            return $parsed_data;
-        } elseif( is_array($data) ) {
-            return array_combine(
-                array_keys($data),
-                array_map(function($item) {
-                    return affx_maybe_parse_amazon_shortcode($item);
-                }, $data)
-            );
-        }
+			return $parsed_data;
+		} elseif ( is_array( $data ) ) {
+			return array_combine(
+				array_keys( $data ),
+				array_map(
+					function ( $item ) {
+						return affx_maybe_parse_amazon_shortcode( $item );
+					},
+					$data
+				)
+			);
+		}
 
-        return $data;
-    }
+		return $data;
+	}
 }

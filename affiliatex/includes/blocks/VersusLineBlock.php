@@ -11,12 +11,11 @@ use AffiliateX\Traits\VersusLineRenderTrait;
  *
  * @package AffiliateX
  */
-class VersusLineBlock extends BaseBlock
-{
+class VersusLineBlock extends BaseBlock {
+
 	use VersusLineRenderTrait;
 
-	public function render(array $attributes, string $content) : string
-	{
-		return $this->render_template($attributes, $content);
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
 	}
 }

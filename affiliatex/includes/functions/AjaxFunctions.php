@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Ajax of AffiliateX.
  *
@@ -50,7 +49,6 @@ class AffiliateX_Ajax {
 		add_action( 'wp_ajax_save_block_settings', array( $this, 'save_block_settings' ) );
 		add_action( 'wp_ajax_get_customization_settings', array( $this, 'get_customization_settings' ) );
 		add_action( 'wp_ajax_save_customization_settings', array( $this, 'save_customization_settings' ) );
-
 	}
 
 
@@ -70,8 +68,24 @@ class AffiliateX_Ajax {
 	public function save_block_settings() {
 		check_ajax_referer( 'affiliatex_ajax_nonce', 'security' );
 
-		$data = isset( $_POST['data'] ) ? affx_clean_vars( json_decode( stripslashes_deep( $_POST['data'] ) ), true, 512, JSON_OBJECT_AS_ARRAY ) : array();
-		update_option( 'affiliatex_block_settings', json_encode( $data ) );
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'affiliatex' ) );
+		}
+
+		$data = array();
+
+		if ( isset( $_POST['data'] ) ) {
+			$raw_data     = stripslashes_deep( $_POST['data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			$decoded_data = json_decode( $raw_data );
+
+			if ( json_last_error() !== JSON_ERROR_NONE ) {
+				wp_send_json_error( __( 'Invalid JSON data.', 'affiliatex' ) );
+			}
+
+			$data = affx_clean_vars( $decoded_data, true, 512, JSON_OBJECT_AS_ARRAY );
+		}
+
+		update_option( 'affiliatex_block_settings', wp_json_encode( $data ) );
 
 		wp_send_json_success( __( 'Saved successfully.', 'affiliatex' ) );
 	}
@@ -92,9 +106,24 @@ class AffiliateX_Ajax {
 	public function save_customization_settings() {
 		check_ajax_referer( 'affiliatex_ajax_nonce', 'security' );
 
-		$data = isset( $_POST['data'] ) ? affx_clean_vars( json_decode( stripslashes_deep( $_POST['data'] ) ), true, 512, JSON_OBJECT_AS_ARRAY ) : array();
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( __( 'You do not have permission to perform this action.', 'affiliatex' ) );
+		}
 
-		update_option( 'affiliatex_customization_settings', json_encode( $data ) );
+		$data = array();
+
+		if ( isset( $_POST['data'] ) ) {
+			$raw_data     = stripslashes_deep( $_POST['data'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+			$decoded_data = json_decode( $raw_data );
+
+			if ( json_last_error() !== JSON_ERROR_NONE ) {
+				wp_send_json_error( __( 'Invalid JSON data.', 'affiliatex' ) );
+			}
+
+			$data = affx_clean_vars( $decoded_data, true, 512, JSON_OBJECT_AS_ARRAY );
+		}
+
+		update_option( 'affiliatex_customization_settings', wp_json_encode( $data ) );
 
 		wp_send_json_success( __( 'Saved successfully.', 'affiliatex' ) );
 	}

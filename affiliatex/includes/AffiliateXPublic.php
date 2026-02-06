@@ -30,7 +30,6 @@ class AffiliateXPublic {
 	 */
 	public function init_hooks() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp', array( $this, 'generate_assets' ), 99 );
 		add_action( 'wp_head', array( $this, 'generate_stylesheet' ), 80 );
 	}
@@ -67,25 +66,17 @@ class AffiliateXPublic {
 				array(),
 				AFFILIATEX_VERSION
 			);
-		}
-	}
 
-	/**
-	 * Load Frontend JavaScript assets.
-	 *
-	 * @return void
-	 */
-	public function enqueue_scripts() {
-		if ( AffiliateX_Helpers::post_has_affiliatex_items() ) {
 			wp_enqueue_script(
 				'affiliatex-frontend',
-				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/frontendJS.js',
-				array('jquery'),
+				plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/frontendJs.js',
+				array( 'jquery' ),
 				AFFILIATEX_VERSION,
-				true
+				false
 			);
 		}
 	}
+
 
 	/**
 	 * Generates stylesheet and appends in head tag.
@@ -94,7 +85,7 @@ class AffiliateXPublic {
 	 */
 	public function generate_stylesheet() {
 
-		$m = new \AB_FONTS_MANAGER();
+		$m          = new \AB_FONTS_MANAGER();
 		$stylesheet = $m::$stylesheet;
 
 		if ( is_null( $stylesheet ) || '' === $stylesheet ) {
@@ -102,9 +93,8 @@ class AffiliateXPublic {
 		}
 		ob_start();
 		?>
-		<style id="affiliatex-styles-frontend"><?php echo $stylesheet; //phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped ?></style>
+		<style id="affiliatex-styles-frontend"><?php echo $stylesheet; //phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped, WordPress.Security.EscapeOutput.OutputNotEscaped ?></style>
 		<?php
 		ob_end_flush();
 	}
-
 }

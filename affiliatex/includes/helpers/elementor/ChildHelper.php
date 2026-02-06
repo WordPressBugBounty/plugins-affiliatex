@@ -5,242 +5,245 @@ namespace AffiliateX\Helpers\Elementor;
 use AffiliateX\Helpers\Elementor\WidgetHelper;
 use Elementor\Widget_Base;
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Helper Class to handle child Widgets in Elementor
- * 
+ *
  * @package AffiliateX
  */
-class ChildHelper
-{
-    /**
-     * Config of child information
-     *
-     * @var array
-     */
-    protected $config = [
-        'name_prefix'  => 'child_',
-        'label_prefix' => '',
-        'index'        => null,
-        'is_child'     => false,
-        'defaults'     => [],
-        'conditions'   => []
-    ];
+class ChildHelper {
 
-    /**
-     * Elementor Widget base to hook controls
-     *
-     * @var ElementorBase
-     */
-    protected $controller;
+	/**
+	 * Config of child information
+	 *
+	 * @var array
+	 */
+	protected $config = array(
+		'name_prefix'  => 'child_',
+		'label_prefix' => '',
+		'index'        => null,
+		'is_child'     => false,
+		'defaults'     => array(),
+		'conditions'   => array(),
+	);
 
-    /**
-     * Child sections containing fields
-     *
-     * @var array
-     */
-    protected $fields;
+	/**
+	 * Elementor Widget base to hook controls
+	 *
+	 * @var ElementorBase
+	 */
+	protected $controller;
 
-    /**
-     * Constructor, receives configs
-     *
-     * @param array $config
-     */
-    public function __construct(Widget_Base $controller, array $fields, array $config = [])
-    {
-        $this->config = wp_parse_args($config, $this->config);
-        $this->controller = $controller;
-        $this->fields = $fields;
-    }
+	/**
+	 * Child sections containing fields
+	 *
+	 * @var array
+	 */
+	protected $fields;
 
-    /**
-     * Generate child field name with prefix and index
-     *
-     * @param string $field_name
-     * @return string
-     */
-    public function field_name(string $field_name): string
-    {
-        if ($this->config['index'] === null && $this->config['is_child'] === true) {
-            return sprintf('%s_%s', $this->config['name_prefix'], $field_name);
-        } elseif ($this->config['index'] !== null && $this->config['is_child'] === true) {
-            return sprintf('%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $field_name);
-        }
+	/**
+	 * Constructor, receives configs
+	 *
+	 * @param Widget_Base $controller
+	 * @param array $fields
+	 * @param array $config
+	 */
+	public function __construct( Widget_Base $controller, array $fields, array $config = array() ) {
+		$this->config     = wp_parse_args( $config, $this->config );
+		$this->controller = $controller;
+		$this->fields     = $fields;
+	}
 
-        return $field_name;
-    }
+	/**
+	 * Generate child field name with prefix and index
+	 *
+	 * @param string $field_name
+	 * @return string
+	 */
+	public function field_name( string $field_name ): string {
+		if ( $this->config['index'] === null && $this->config['is_child'] === true ) {
+			return sprintf( '%s_%s', $this->config['name_prefix'], $field_name );
+		} elseif ( $this->config['index'] !== null && $this->config['is_child'] === true ) {
+			return sprintf( '%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $field_name );
+		}
 
-    /**
-     * Generates child section label
-     *
-     * @param string $label
-     * @return string
-     */
-    public function section_label(string $label): string
-    {
-        if ($this->config['index'] === null && $this->config['is_child'] === true) {
-            return sprintf('%s | %s', $this->config['label_prefix'], $label);
-        } elseif ($this->config['index'] !== null && $this->config['is_child'] === true) {
-            return sprintf('%s %d | %s', $this->config['label_prefix'], $this->config['index'], $label);
-        }
+		return $field_name;
+	}
 
-        return $label;
-    }
+	/**
+	 * Generates child section label
+	 *
+	 * @param string $label
+	 * @return string
+	 */
+	public function section_label( string $label ): string {
+		if ( $this->config['index'] === null && $this->config['is_child'] === true ) {
+			return sprintf( '%s | %s', $this->config['label_prefix'], $label );
+		} elseif ( $this->config['index'] !== null && $this->config['is_child'] === true ) {
+			return sprintf( '%s %d | %s', $this->config['label_prefix'], $this->config['index'], $label );
+		}
 
-    /**
-     * Generates child section name
-     *
-     * @param string $section_name
-     * @return string
-     */
-    public function section_name(string $section_name): string
-    {
-        if ($this->config['index'] !== null && $this->config['is_child'] === true) {
-            return sprintf('affx_%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $section_name);
-        } else
-        if ($this->config['index'] === null && $this->config['is_child'] === true) {
-            return sprintf('affx_%s_%s', $this->config['name_prefix'], $section_name);
-        }
+		return $label;
+	}
 
-        return sprintf('affx_%s_%s', $this->config['name_prefix'], $section_name);
-    }
+	/**
+	 * Generates child section name
+	 *
+	 * @param string $section_name
+	 * @return string
+	 */
+	public function section_name( string $section_name ): string {
+		if ( $this->config['index'] !== null && $this->config['is_child'] === true ) {
+			return sprintf( 'affx_%s_%d_%s', $this->config['name_prefix'], $this->config['index'], $section_name );
+		} elseif ( $this->config['index'] === null && $this->config['is_child'] === true ) {
+			return sprintf( 'affx_%s_%s', $this->config['name_prefix'], $section_name );
+		}
 
-    /**
-     * Generates child fields
-     *
-     * @return void
-     */
-    public function generate_fields(): void
-    {
-        foreach ($this->fields as $section_id => $section) {
-            $section_fields = $section['fields'];
+		return sprintf( 'affx_%s_%s', $this->config['name_prefix'], $section_name );
+	}
 
-            // Process section-level conditions
-            $section_conditions = [];
-            if (isset($section['condition'])) {
-                foreach ($section['condition'] as $conditional_field_id => $conditional_value) {
-                    $section_conditions[$this->field_name($conditional_field_id)] = $conditional_value;
-                }
-            }
+	/**
+	 * Generates child fields
+	 *
+	 * @return void
+	 */
+	public function generate_fields(): void {
+		foreach ( $this->fields as $section_id => $section ) {
+			$section_fields = $section['fields'];
 
-            $section_conditions = array_merge($section_conditions, $this->config['conditions'] ?? []);
+			// Process section-level conditions
+			$section_conditions = array();
+			if ( isset( $section['condition'] ) ) {
+				foreach ( $section['condition'] as $conditional_field_id => $conditional_value ) {
+					$section_conditions[ $this->field_name( $conditional_field_id ) ] = $conditional_value;
+				}
+			}
 
-            $this->controller->start_controls_section(
-                $this->section_name($section_id),
-                [
-                    'label' => $this->section_label($section['label']),
-                    'tab' => $section['tab'],
-                    'condition' => $section_conditions
-                ]
-            );
+			$section_conditions = array_merge( $section_conditions, $this->config['conditions'] ?? array() );
 
-            foreach ($section_fields as $field_id => $field) {
-                $conditions = [];
+			$this->controller->start_controls_section(
+				$this->section_name( $section_id ),
+				array(
+					'label'     => $this->section_label( $section['label'] ),
+					'tab'       => $section['tab'],
+					'condition' => $section_conditions,
+				)
+			);
 
-                // merge child and parent conditions
-                if (isset($field['condition'])) {
-                    foreach ($field['condition'] as $conditional_field_id => $conditional_value) {
-                        $conditions[$this->field_name($conditional_field_id)] = $conditional_value;
-                    }
-                }
+			foreach ( $section_fields as $field_id => $field ) {
+				$conditions = array();
 
-                $conditions = array_merge($conditions, $this->config['conditions'] ?? []);
-                $field['condition'] = $conditions;
+				// merge child and parent conditions
+				if ( isset( $field['condition'] ) ) {
+					foreach ( $field['condition'] as $conditional_field_id => $conditional_value ) {
+						$conditions[ $this->field_name( $conditional_field_id ) ] = $conditional_value;
+					}
+				}
 
-                // handle default values
-                $field['default'] = isset($this->config['defaults'][$field_id]) ? $this->config['defaults'][$field_id] : $field['default'] ?? null;
+				// Merge field specific conditions
+				if ( isset( $this->config['field_conditions'] ) ) {
+					if ( isset( $this->config['field_conditions'][ $this->field_name( $field_id ) ] ) ) {
+						foreach ( $this->config['field_conditions'][ $this->field_name( $field_id ) ] as $condition_field_id => $condition_value ) {
+							$conditions[ $condition_field_id ] = $condition_value;
+						}
+					}
+				}
 
-                if (WidgetHelper::is_group_control($field)) {
-                    $field['fields_options'] = wp_parse_args($field['default'] ?? [], $field['fields_options'] ?? []);
-                }
+				$conditions         = array_merge( $conditions, $this->config['conditions'] ?? array() );
+				$field['condition'] = $conditions;
 
-                // replace selector to handle nested styles
-                if (isset($field['selector'])) {
-                    $field['selector'] = $this->element_selector($field['selector']);
-                } elseif (isset($field['selectors']) && is_array($field['selectors'])) {
-                    $selectors = [];
-                    foreach ($field['selectors'] as $selector => $style_props) {
-                        $selectors[$this->element_selector($selector)] = $style_props;
-                    }
+				// handle default values
+				$field['default'] = isset( $this->config['defaults'][ $field_id ] ) ? $this->config['defaults'][ $field_id ] : $field['default'] ?? null;
 
-                    $field['selectors'] = $selectors;
-                }
+				if ( WidgetHelper::is_group_control( $field ) ) {
+					$field['fields_options'] = wp_parse_args( $field['default'] ?? array(), $field['fields_options'] ?? array() );
+				}
 
-                if (WidgetHelper::is_group_control($field)) {
-                    $this->controller->add_group_control(
-                        $field['type'],
-                        array_merge(
-                            $field,
-                            [
-                                'name' => $this->field_name($field_id)
-                            ]
-                        ),
-                    );
-                } else if ( WidgetHelper::is_responsive_control($field) ) {
-                    if ( isset($field['responsive']) ) {
-                        unset($field['responsive']);
-                    }
+				// replace selector to handle nested styles
+				if ( isset( $field['selector'] ) ) {
+					$field['selector'] = $this->element_selector( $field['selector'] );
+				} elseif ( isset( $field['selectors'] ) && is_array( $field['selectors'] ) ) {
+					$selectors = array();
+					foreach ( $field['selectors'] as $selector => $style_props ) {
+						$selectors[ $this->element_selector( $selector ) ] = $style_props;
+					}
 
-                    $this->controller->add_responsive_control(
-                        $this->field_name($field_id),
-                        $field
-                    );
-                } else {
-                    $this->controller->add_control(
-                        $this->field_name($field_id),
-                        $field
-                    );
-                }
-            }
+					$field['selectors'] = $selectors;
+				}
 
-            $this->controller->end_controls_section();
-        }
-    }
+				if ( WidgetHelper::is_group_control( $field ) ) {
+					$this->controller->add_group_control(
+						$field['type'],
+						array_merge(
+							$field,
+							array(
+								'name' => $this->field_name( $field_id ),
+							)
+						),
+					);
+				} elseif ( WidgetHelper::is_responsive_control( $field ) ) {
+					if ( isset( $field['responsive'] ) ) {
+						unset( $field['responsive'] );
+					}
 
-    /**
-     * Extracts child attributes from an array by replacing 'dynamic' prefix
-     *
-     * @param array $attributes
-     * @return array
-     */
-    public static function extract_attributes(array $attributes, array $config): array
-    {
-        $child_attributes = ['name' => $config['name_prefix'] ];
-        $formatted_prefix = sprintf('%s_%s', $config['name_prefix'], empty($config['index']) ? '' : $config['index'] . '_');
+					$this->controller->add_responsive_control(
+						$this->field_name( $field_id ),
+						$field
+					);
+				} else {
+					$this->controller->add_control(
+						$this->field_name( $field_id ),
+						$field
+					);
+				}
+			}
 
-        foreach ($attributes as $key => $value) {
-            if (strpos($key, $formatted_prefix) === 0) {
-                $child_attributes[substr($key, strlen($formatted_prefix))] = $value;
-            }
-        }
+			$this->controller->end_controls_section();
+		}
+	}
 
-        return $child_attributes;
-    }
+	/**
+	 * Extracts child attributes from an array by replacing 'dynamic' prefix
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	public static function extract_attributes( array $attributes, array $config ): array {
+		$child_attributes = array( 'name' => $config['name_prefix'] );
+		$formatted_prefix = sprintf( '%s_%s', $config['name_prefix'], empty( $config['index'] ) ? '' : $config['index'] . '_' );
 
-    /**
-     * Generates child element selector
-     *
-     * @param string $selector
-     * @return string
-     */
-    public function element_selector(string $selector): string
-    {
-        $wrapper = isset($this->config['wrapper']) ? sprintf('{{WRAPPER}} .%s', $this->config['wrapper']) : '{{WRAPPER}}';
-        $formatted_selector = '';
+		foreach ( $attributes as $key => $value ) {
+			if ( strpos( $key, $formatted_prefix ) === 0 ) {
+				$child_attributes[ substr( $key, strlen( $formatted_prefix ) ) ] = $value;
+			}
+		}
 
-        if ($this->config['index'] === null || $this->config['is_child'] !== true) {
-            return $selector;
-        }
+		return $child_attributes;
+	}
 
-        if (is_integer($this->config['index']) && $this->config['index'] > 0 && isset($this->config['wrapper'])) {
-            $wrapper = sprintf('%s:nth-child(%d)', $wrapper, $this->config['index']);
-        }
+	/**
+	 * Generates child element selector
+	 *
+	 * @param string $selector
+	 * @return string
+	 */
+	public function element_selector( string $selector ): string {
+		$wrapper            = isset( $this->config['wrapper'] ) ? sprintf( '{{WRAPPER}} .%s', $this->config['wrapper'] ) : '{{WRAPPER}}';
+		$formatted_selector = '';
 
-        if (strpos($selector, '{{WRAPPER}}') !== false) {
-            $formatted_selector = str_replace('{{WRAPPER}}', $wrapper, $selector);
-        }
+		if ( $this->config['index'] === null || $this->config['is_child'] !== true ) {
+			return $selector;
+		}
 
-        return $formatted_selector;
-    }
+		if ( is_integer( $this->config['index'] ) && $this->config['index'] > 0 && isset( $this->config['wrapper'] ) ) {
+			$wrapper = sprintf( '%s:nth-child(%d)', $wrapper, $this->config['index'] );
+		}
+
+		if ( strpos( $selector, '{{WRAPPER}}' ) !== false ) {
+			$formatted_selector = str_replace( '{{WRAPPER}}', $wrapper, $selector );
+		}
+
+		return $formatted_selector;
+	}
 }

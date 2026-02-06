@@ -18,15 +18,37 @@ final class AffiliateX {
 
 	/**
 	 * Single instance of the class
+	 *
+	 * @var AffiliateX|null
 	 */
-	protected static $_instance = null;
+	protected static $instance = null;
 
+	/**
+	 * Holds the admin settings instance.
+	 *
+	 * @var AffiliateXAdmin
+	 */
 	public $admin_settings;
 
+	/**
+	 * Holds the public instance.
+	 *
+	 * @var AffiliateXPublic
+	 */
 	public $public;
 
+	/**
+	 * Holds the blocks instance.
+	 *
+	 * @var AffiliateXBlocks
+	 */
 	public $blocks;
 
+	/**
+	 * Holds the widgets instance.
+	 *
+	 * @var AffiliateXWidgets
+	 */
 	public $widgets;
 
 	/**
@@ -35,17 +57,17 @@ final class AffiliateX {
 	 * @return class instance
 	 */
 	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
 		}
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
 	 * Plugin constructor
 	 */
 	public function __construct() {
-		$this->defineConstants();
+		$this->define_constants();
 		$this->includes();
 		$this->init_hooks();
 
@@ -61,7 +83,6 @@ final class AffiliateX {
 	 * @return void
 	 */
 	public function activate() {
-
 	}
 
 	/**
@@ -70,7 +91,6 @@ final class AffiliateX {
 	 * @return void
 	 */
 	public function deactivate() {
-
 	}
 
 	/**
@@ -86,25 +106,25 @@ final class AffiliateX {
 	}
 
 	/**
-     * Init Wheel_Of_Life when WordPress initializes.
-     *
-     * @since 1.0.0
-     * @access public
-     */
-    public function init() {
-        // Before init action.
+	 * Init Wheel_Of_Life when WordPress initializes.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function init() {
+		// Before init action.
 		do_action( 'before_affiliatex_init' );
 
-        // Set up localization.
-        $this->loadPluginTextdomain();
-    }
+		// Set up localization.
+		$this->load_plugin_textdomain();
+	}
 
 	/**
 	 * Define constants
 	 *
 	 * @return void
 	 */
-	public function defineConstants() {
+	public function define_constants() {
 		$this->define( 'AFFILIATEX_PLUGIN_NAME', 'affiliatex' );
 		$this->define( 'AFFILIATEX_ABSPATH', dirname( AFFILIATEX_PLUGIN_FILE ) . '/' );
 		$this->define( 'AFFILIATEX_TABLET_BREAKPOINT', '1024' );
@@ -117,6 +137,9 @@ final class AffiliateX {
 	 * @return void
 	 */
 	public function includes() {
+		// Load helper functions first - these are required by other classes
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/functions/HelperFunctions.php';
+		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/functions/AjaxFunctions.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-helpers.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-block-helpers.php';
 		require plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . 'includes/helpers/class-affiliatex-customization-helper.php';
@@ -151,7 +174,7 @@ final class AffiliateX {
 	 *      - WP_LANG_DIR/affiliatex/affiliatex-LOCALE.mo
 	 *      - WP_LANG_DIR/plugins/affiliatex-LOCALE.mo
 	 */
-	public function loadPluginTextdomain() {
+	public function load_plugin_textdomain() {
 		if ( function_exists( 'determine_locale' ) ) {
 			$locale = determine_locale();
 		} else {
@@ -168,5 +191,4 @@ final class AffiliateX {
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
 	}
-
 }

@@ -4,6 +4,11 @@ namespace AffiliateX\Elementor\Controls;
 
 use Elementor\Control_Text;
 
+/**
+ * Text Control Class
+ *
+ * @package AffiliateX\Elementor\Controls
+ */
 class TextControl extends Control_Text {
 
 	public function get_type() {
@@ -11,12 +16,13 @@ class TextControl extends Control_Text {
 	}
 
 	protected function get_default_settings() {
-		return [
-            'label_block' => true,
-            'amazon_button' => true,
-            'repeater_name' => null,
-            'inner_repeater_name' => null,
-		];
+		return array(
+			'label_block'         => true,
+			'amazon_button'       => true,
+			'search_button'       => false,
+			'repeater_name'       => null,
+			'inner_repeater_name' => null,
+		);
 	}
 
 	public function content_template() {

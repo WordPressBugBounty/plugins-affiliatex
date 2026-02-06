@@ -172,7 +172,7 @@ class AB_Fonts_Manager {
 
 			$this->get_generated_stylesheet( $this_post );
 		}
-		
+
 		// Generate stylesheet for widget blocks on all pages that might display widgets
 		// This includes home, archive, category, tag, author, search pages etc.
 		if ( ! is_admin() ) {
@@ -223,16 +223,16 @@ class AB_Fonts_Manager {
 		if ( empty( $block_widgets ) || ! is_array( $block_widgets ) ) {
 			return;
 		}
-		
+
 		// Process each widget's blocks
 		foreach ( $block_widgets as $widget ) {
 			if ( empty( $widget['content'] ) ) {
 				continue;
 			}
-			
+
 			$blocks = $this->parse( $widget['content'] );
 			if ( is_array( $blocks ) && ! empty( $blocks ) ) {
-				$assets = $this->get_assets( $blocks );
+				$assets            = $this->get_assets( $blocks );
 				self::$stylesheet .= $assets['css'];
 				self::$script     .= $assets['js'];
 			}
@@ -271,7 +271,7 @@ class AB_Fonts_Manager {
 					$_block_fonts = $this->get_block_fonts( $block );
 					if ( is_array( $_block_fonts ) ) {
 						foreach ( $_block_fonts as $_block_font ) {
-							if(!is_array($_block_font)){
+							if ( ! is_array( $_block_font ) ) {
 								continue;
 							}
 
@@ -285,11 +285,17 @@ class AB_Fonts_Manager {
 		return $blocks_fonts;
 	}
 
-	function flatten( array $array ) {
+	/**
+	 * Flatten an array.
+	 *
+	 * @param array $array
+	 * @return array
+	 */
+	public function flatten( array $array ) {
 		$return = array();
 		array_walk_recursive(
 			$array,
-			function( $a ) use ( &$return ) {
+			function ( $a ) use ( &$return ) {
 				$return[] = $a;
 			}
 		);
@@ -468,7 +474,7 @@ class AB_Fonts_Manager {
 
 	public function load_dynamic_google_fonts() {
 		$has_dynamic_google_fonts = apply_filters(
-			'affiliatex:typography:google:use-remote',
+			'affiliatex_typography_google_use_remote',
 			true
 		);
 
@@ -486,7 +492,7 @@ class AB_Fonts_Manager {
 		);
 
 		if ( ! empty( $url ) ) {
-			wp_register_style( 'affiliatex-fonts-font-source-google', $url, array(), null );
+			wp_register_style( 'affiliatex-fonts-font-source-google', $url, array(), AFFILIATEX_VERSION, null );
 			wp_enqueue_style( 'affiliatex-fonts-font-source-google' );
 		}
 	}
@@ -542,7 +548,7 @@ class AB_Fonts_Manager {
 				||
 				! isset( $value['family'] )
 				||
-				in_array( $value['family'], $system_fonts_families )
+				in_array( $value['family'], $system_fonts_families, true )
 				||
 				$value['family'] === 'Default'
 				||
@@ -723,7 +729,7 @@ class AB_Fonts_Manager {
 				return $body;
 			} else {
 				if ( empty( $saved_data['fonts'] ) ) {
-					$saved_data['fonts'] = json_encode( array( 'items' => array() ) );
+					$saved_data['fonts'] = wp_json_encode( array( 'items' => array() ) );
 				}
 
 				update_option(
@@ -741,10 +747,15 @@ class AB_Fonts_Manager {
 	}
 
 	public function get_googgle_fonts( $as_keys = false ) {
-		$maybe_custom_source = apply_filters(
-			'ab-typography-google-fonts-source',
-			null
+		$maybe_custom_source = apply_filters_deprecated(
+			'ab_typography_google_fonts_source',
+			array( null ),
+			'1.3.9',
+			'affiliatex_typography_google_fonts_source',
+			'Please use affiliatex_typography_google_fonts_source instead.'
 		);
+
+		$maybe_custom_source = apply_filters( 'affiliatex_typography_google_fonts_source', $maybe_custom_source );
 
 		if ( $maybe_custom_source ) {
 			return $maybe_custom_source;
@@ -847,18 +858,17 @@ class AB_Fonts_Manager {
 }
 
 if ( ! function_exists( 'affiliatex_typography_default_values' ) ) {
-	function affiliatex_typography_default_values( $values = array() ) {
+	/**
+	 * Affiliatex typography default values.
+	 *
+	 * @param array $values
+	 * @return array
+	 */
+	function affiliatex_typography_default_values( $values = array() ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 		return array_merge(
 			array(
 				'family'          => 'Default',
 				'variation'       => 'Default',
-
-				'size'            => '17px',
-				'line-height'     => '1.65',
-				'letter-spacing'  => '0em',
-				'text-transform'  => 'none',
-				'text-decoration' => 'none',
-
 				'size'            => 'CT_CSS_SKIP_RULE',
 				'line-height'     => 'CT_CSS_SKIP_RULE',
 				'letter-spacing'  => 'CT_CSS_SKIP_RULE',

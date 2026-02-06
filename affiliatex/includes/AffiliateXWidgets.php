@@ -14,46 +14,63 @@ use AffiliateX\Elementor\Widgets\VerdictWidget;
 use AffiliateX\Elementor\Widgets\SpecificationsWidget;
 use AffiliateX\Elementor\Widgets\VersusLineWidget;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Elementor Widgets class
  *
  * @package AffiliateX
  */
-class AffiliateXWidgets
-{
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        add_action('elementor/init', [$this, 'init']);
-    }
+class AffiliateXWidgets {
 
-    public function init()
-    {
-        // Check if Elementor is installed and activated
-        if (!did_action('elementor/loaded')) {
-            return;
-        }
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		add_action( 'elementor/init', array( $this, 'init' ) );
+		add_filter( 'affiliatex_widgets_before_init', array( $this, 'disable_widgets' ) );
+	}
 
-        // Initialize Elementor integration
-        require_once AFFILIATEX_PLUGIN_DIR . '/includes/elementor/WidgetManager.php';
+	public function init() {
+		// Check if Elementor is installed and activated
+		if ( ! did_action( 'elementor/loaded' ) ) {
+			return;
+		}
 
-        $widgets = [
-            'ButtonWidget' => ButtonWidget::class,
-            'CtaWidget' => CtaWidget::class,
-            'NoticeWidget' => NoticeWidget::class,
-            'ProductComparisonWidget' => ProductComparisonWidget::class,
-            'ProductTableWidget' => ProductTableWidget::class,
-            'ProsAndConsWidget' => ProsAndConsWidget::class,
-            'SingleProductWidget' => SingleProductWidget::class,
-            'SpecificationsWidget' => SpecificationsWidget::class,
-            'VerdictWidget' => VerdictWidget::class,
-            'VersusLineWidget' => VersusLineWidget::class,
-        ];
+		$widgets = apply_filters(
+			'affiliatex_widgets_before_init',
+			array(
+				'affiliatex/buttons'            => ButtonWidget::class,
+				'affiliatex/cta'                => CtaWidget::class,
+				'affiliatex/notice'             => NoticeWidget::class,
+				'affiliatex/product-comparison' => ProductComparisonWidget::class,
+				'affiliatex/product-table'      => ProductTableWidget::class,
+				'affiliatex/pros-and-cons'      => ProsAndConsWidget::class,
+				'affiliatex/single-product'     => SingleProductWidget::class,
+				'affiliatex/specifications'     => SpecificationsWidget::class,
+				'affiliatex/verdict'            => VerdictWidget::class,
+				'affiliatex/versus-line'        => VersusLineWidget::class,
+			)
+		);
 
-        new WidgetManager($widgets);
-    }
+		new WidgetManager( $widgets );
+	}
+
+	/**
+	 * Disable widgets that are disabled in the block settings.
+	 *
+	 * @param array $widgets Widgets array.
+	 * @return array
+	 */
+	public function disable_widgets( $widgets ) {
+		$disabled_widgets = affx_get_disabled_blocks();
+
+		if ( ! empty( $disabled_widgets ) ) {
+			foreach ( $disabled_widgets as $widget ) {
+				unset( $widgets[ $widget ] );
+			}
+		}
+
+		return $widgets;
+	}
 }

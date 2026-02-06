@@ -2,7 +2,7 @@
 
 namespace AffiliateX\Elementor\Widgets;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 use AffiliateX\Helpers\Elementor\ChildHelper;
 use AffiliateX\Helpers\Elementor\WidgetHelper;
@@ -13,55 +13,50 @@ use AffiliateX\Traits\SingleProductRenderTrait;
  *
  * @package AffiliateX
  */
-class SingleProductWidget extends ElementorBase
-{
-    use SingleProductRenderTrait;
-    protected function get_slug(): string
-    {
-        return 'single-product';
-    }
+class SingleProductWidget extends ElementorBase {
 
-    protected function get_child_slugs(): array
-    {
-        return ['buttons'];
-    }
+	use SingleProductRenderTrait;
 
-    public function get_title()
-    {
-        return __('AffiliateX Single Product', 'affiliatex');
-    }
+	protected function get_slug(): string {
+		return 'single-product';
+	}
 
-    public function get_icon()
-    {
-        return 'affx-icon-single-product';
-    }
+	protected function get_child_slugs(): array {
+		return array( 'buttons' );
+	}
 
-    public function get_keywords()
-    {
-        return [
-            "Product",
-            "Single Product",
-            "AffiliateX"
-        ];
-    }
+	public function get_title() {
+		return __( 'AffiliateX Single Product', 'affiliatex' );
+	}
 
-    protected function register_controls()
-    {
-         WidgetHelper::generate_fields(
-            $this,
-            $this->get_sp_elementor_controls(),
-            'single-product'
-        );
+	public function get_icon() {
+		return 'affx-icon-single-product';
+	}
 
-        /**************************************************************
-         * Child Button settings
-         **************************************************************/
-        $child = new ChildHelper(
-            $this,
-            $this->get_button_elementor_fields(),
-            self::$inner_button_config
-        );
+	public function get_keywords() {
+		return array(
+			'Product',
+			'Single Product',
+			'AffiliateX',
+		);
+	}
 
-        $child->generate_fields();
-    }
+	protected function register_controls() {
+		WidgetHelper::generate_fields(
+			$this,
+			$this->get_sp_elementor_controls(),
+			'single-product'
+		);
+
+		/**************************************************************
+		 * Child Button settings
+		 */
+		$child = new ChildHelper(
+			$this,
+			$this->get_button_elementor_fields(),
+			self::$inner_button_config
+		);
+
+		$child->generate_fields();
+	}
 }

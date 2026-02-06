@@ -1,32 +1,14 @@
-<div <?php echo $wrapper_attributes ?>>
-    <div class="affx-btn-inner">
-        <?php if (isset($elementorLinkAttributes)): ?>
-            <a <?php echo $elementorLinkAttributes; ?>>
-                <?php echo $iconLeft ?>
-                <span class="affiliatex-btn"><?php echo wp_kses_post($buttonLabel) ?></span>
-                <?php echo $iconRight ?>
-                <?php if($layoutStyle === 'layout-type-2' && $priceTagPosition): ?>
-                    <span class="price-tag">
-                        <?php echo wp_kses_post($productPrice) ?>
-                    </span>
-                <?php endif; ?>
-            </a>
-        <?php else: ?>
-            <a href="<?php echo esc_url(do_shortcode($buttonURL)) ?>" 
-               class="<?php echo esc_attr($classNames) ?>" 
-               rel="<?php echo esc_attr($rel) ?>"
-               <?php echo $target ?>
-               <?php echo $download ? 'download' : ''; ?>
-            >
-                <?php echo $iconLeft ?>
-                <span class="affiliatex-btn"><?php echo wp_kses_post($buttonLabel) ?></span>
-                <?php echo $iconRight ?>
-                <?php if($layoutStyle === 'layout-type-2' && $priceTagPosition): ?>
-                    <span class="price-tag">
-                        <?php echo wp_kses_post($productPrice) ?>
-                    </span>
-                <?php endif; ?>
-            </a>
-        <?php endif; ?>
-    </div>
+<div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
+	<div class="affx-btn-inner">
+		<<?php echo esc_attr( $tag ) . ' ' . wp_kses_post( $link_attributes ); ?>>
+			<?php echo wp_kses_post( $iconLeft ); ?>
+			<span class="affiliatex-btn"><?php echo wp_kses_post( $buttonLabel ); ?></span>
+			<?php echo wp_kses_post( $iconRight ); ?>
+			<?php if ( $layoutStyle === 'layout-type-2' && $priceTagPosition ) : ?>
+				<span class="price-tag">
+					<?php echo wp_kses_post( $productPrice ); ?>
+				</span>
+			<?php endif; ?>
+		</<?php echo esc_attr( $tag ); ?>>
+	</div>
 </div>

@@ -12,7 +12,7 @@ class AffiliateX_Versus_Line_Styles {
 
 	public static function block_fonts( $attr ) {
 		return array(
-			'versusTitleTypography' => isset($attr['versusTitleTypography']) ? $attr['versusTitleTypography'] : array(),
+			'versusTitleTypography'   => isset( $attr['versusTitleTypography'] ) ? $attr['versusTitleTypography'] : array(),
 			'vsTypography'            => isset( $attr['vsTypography'] ) ? $attr['vsTypography'] : array(),
 			'versusContentTypography' => isset( $attr['versusContentTypography'] ) ? $attr['versusContentTypography'] : array(),
 		);
@@ -42,19 +42,19 @@ class AffiliateX_Versus_Line_Styles {
 
 	public static function get_selectors( $attr ) {
 
-		$customization_data     = affx_get_customization_settings();
-		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
-		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
+		$customization_data = affx_get_customization_settings();
+		$global_font_family = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
+		$global_font_color  = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
 
 		$bgType           = isset( $attr['bgType'] ) ? $attr['bgType'] : 'solid';
 		$bgGradient       = isset( $attr['bgColorGradient']['gradient'] ) ? $attr['bgColorGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
 		$bgColor          = isset( $attr['bgColorSolid'] ) ? $attr['bgColorSolid'] : '#FFFFFF';
 		$contentVariation = isset( $attr['versusContentTypography']['variation'] ) ? $attr['versusContentTypography']['variation'] : 'n4';
 		$vsVariation      = isset( $attr['vsTypography']['variation'] ) ? $attr['vsTypography']['variation'] : 'n4';
-		$titleVariation = isset($attr['versusTitleTypography']['variation']) ? $attr['versusTitleTypography']['variation'] : 'n4';
+		$titleVariation   = isset( $attr['versusTitleTypography']['variation'] ) ? $attr['versusTitleTypography']['variation'] : 'n4';
 
 		$selectors = array(
-			' .affx-versus-table-wrap'               => array(
+			' .affx-versus-table-wrap'                    => array(
 				'color'           => isset( $attr['contentColor'] ) ? $attr['contentColor'] : $global_font_color,
 				'font-family'     => isset( $attr['versusContentTypography']['family'] ) ? $attr['versusContentTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['versusContentTypography']['size']['desktop'] ) ? $attr['versusContentTypography']['size']['desktop'] : '18px',
@@ -80,18 +80,18 @@ class AffiliateX_Versus_Line_Styles {
 				'background'      => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
 			),
 			' .affx-versus-table-wrap .affx-versus-title' => array(
-				'color' => isset($attr['contentColor']) ? $attr['contentColor'] : $global_font_color,
-				'font-family' => isset($attr['versusTitleTypography']['family']) ? $attr['versusTitleTypography']['family'] : $global_font_family,
-				'font-size' => isset($attr['versusTitleTypography']['size']['desktop']) ? $attr['versusTitleTypography']['size']['desktop'] : '18px',
-				'line-height' => isset($attr['versusTitleTypography']['line-height']['desktop']) ? $attr['versusTitleTypography']['line-height']['desktop'] : '1.65',
-				'text-transform' => isset($attr['versusTitleTypography']['text-transform']) ? $attr['versusTitleTypography']['text-transform'] : 'none',
-				'text-decoration' => isset($attr['versusTitleTypography']['text-decoration']) ? $attr['versusTitleTypography']['text-decoration'] : 'none',
-				'letter-spacing' => isset($attr['versusTitleTypography']['letter-spacing']['desktop']) ? $attr['versusTitleTypography']['letter-spacing']['desktop'] : '0em',
-				'font-weight' => AffiliateX_Helpers::get_fontweight_variation($titleVariation),
-				'font-style' => AffiliateX_Helpers::get_font_style($titleVariation),
-				'margin' => '0'
+				'color'           => isset( $attr['contentColor'] ) ? $attr['contentColor'] : $global_font_color,
+				'font-family'     => isset( $attr['versusTitleTypography']['family'] ) ? $attr['versusTitleTypography']['family'] : $global_font_family,
+				'font-size'       => isset( $attr['versusTitleTypography']['size']['desktop'] ) ? $attr['versusTitleTypography']['size']['desktop'] : '18px',
+				'line-height'     => isset( $attr['versusTitleTypography']['line-height']['desktop'] ) ? $attr['versusTitleTypography']['line-height']['desktop'] : '1.65',
+				'text-transform'  => isset( $attr['versusTitleTypography']['text-transform'] ) ? $attr['versusTitleTypography']['text-transform'] : 'none',
+				'text-decoration' => isset( $attr['versusTitleTypography']['text-decoration'] ) ? $attr['versusTitleTypography']['text-decoration'] : 'none',
+				'letter-spacing'  => isset( $attr['versusTitleTypography']['letter-spacing']['desktop'] ) ? $attr['versusTitleTypography']['letter-spacing']['desktop'] : '0em',
+				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $titleVariation ),
+				'font-style'      => AffiliateX_Helpers::get_font_style( $titleVariation ),
+				'margin'          => '0',
 			),
-			' .affx-versus-table-wrap .affx-vs-icon' => array(
+			' .affx-versus-table-wrap .affx-vs-icon'      => array(
 				'color'           => isset( $attr['vsTextColor'] ) ? $attr['vsTextColor'] : '#000',
 				'background'      => isset( $attr['vsBgColor'] ) ? $attr['vsBgColor'] : '#E6ECF7',
 				'font-family'     => isset( $attr['vsTypography']['family'] ) ? $attr['vsTypography']['family'] : $global_font_family,
@@ -115,7 +115,7 @@ class AffiliateX_Versus_Line_Styles {
 	public static function get_mobileselectors( $attr ) {
 
 		$mobile_selectors = array(
-			' .affx-versus-table-wrap'               => array(
+			' .affx-versus-table-wrap'                    => array(
 				'font-size'      => isset( $attr['versusContentTypography']['size']['mobile'] ) ? $attr['versusContentTypography']['size']['mobile'] : '18px',
 				'line-height'    => isset( $attr['versusContentTypography']['line-height']['mobile'] ) ? $attr['versusContentTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['versusContentTypography']['letter-spacing']['mobile'] ) ? $attr['versusContentTypography']['letter-spacing']['mobile'] : '0em',
@@ -131,11 +131,11 @@ class AffiliateX_Versus_Line_Styles {
 				'border-radius'  => isset( $attr['borderRadius']['mobile']['top'] ) && isset( $attr['borderRadius']['mobile']['right'] ) && isset( $attr['borderRadius']['mobile']['bottom'] ) && isset( $attr['borderRadius']['mobile']['left'] ) ? $attr['borderRadius']['mobile']['top'] . ' ' . $attr['borderRadius']['mobile']['right'] . ' ' . $attr['borderRadius']['mobile']['bottom'] . ' ' . $attr['borderRadius']['mobile']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-versus-table-wrap .affx-versus-title' => array(
-			'font-size' => isset($attr['versusTitleTypography']['size']['mobile']) ? $attr['versusTitleTypography']['size']['mobile'] : '18px',
-			'line-height' => isset($attr['versusTitleTypography']['line-height']['mobile']) ? $attr['versusTitleTypography']['line-height']['mobile'] : '1.65',
-			'letter-spacing' => isset($attr['versusTitleTypography']['letter-spacing']['mobile']) ? $attr['versusTitleTypography']['letter-spacing']['mobile'] : '0em',
+				'font-size'      => isset( $attr['versusTitleTypography']['size']['mobile'] ) ? $attr['versusTitleTypography']['size']['mobile'] : '18px',
+				'line-height'    => isset( $attr['versusTitleTypography']['line-height']['mobile'] ) ? $attr['versusTitleTypography']['line-height']['mobile'] : '1.65',
+				'letter-spacing' => isset( $attr['versusTitleTypography']['letter-spacing']['mobile'] ) ? $attr['versusTitleTypography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-versus-table-wrap .affx-vs-icon' => array(
+			' .affx-versus-table-wrap .affx-vs-icon'      => array(
 				'font-size'      => isset( $attr['vsTypography']['size']['mobile'] ) ? $attr['vsTypography']['size']['mobile'] : '18px',
 				'line-height'    => isset( $attr['vsTypography']['line-height']['mobile'] ) ? $attr['vsTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['vsTypography']['letter-spacing']['mobile'] ) ? $attr['vsTypography']['letter-spacing']['mobile'] : '0em',
@@ -148,7 +148,7 @@ class AffiliateX_Versus_Line_Styles {
 	public static function get_tabletselectors( $attr ) {
 
 		$tablet_selectors = array(
-			' .affx-versus-table-wrap'               => array(
+			' .affx-versus-table-wrap'                    => array(
 				'font-size'      => isset( $attr['versusContentTypography']['size']['tablet'] ) ? $attr['versusContentTypography']['size']['tablet'] : '18px',
 				'line-height'    => isset( $attr['versusContentTypography']['line-height']['tablet'] ) ? $attr['versusContentTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['versusContentTypography']['letter-spacing']['tablet'] ) ? $attr['versusContentTypography']['letter-spacing']['tablet'] : '0em',
@@ -164,11 +164,11 @@ class AffiliateX_Versus_Line_Styles {
 				'border-radius'  => isset( $attr['borderRadius']['tablet']['top'] ) && isset( $attr['borderRadius']['tablet']['right'] ) && isset( $attr['borderRadius']['tablet']['bottom'] ) && isset( $attr['borderRadius']['tablet']['left'] ) ? $attr['borderRadius']['tablet']['top'] . ' ' . $attr['borderRadius']['tablet']['right'] . ' ' . $attr['borderRadius']['tablet']['bottom'] . ' ' . $attr['borderRadius']['tablet']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-versus-table-wrap .affx-versus-title' => array(
-			'font-size' => isset($attr['versusTitleTypography']['size']['tablet']) ? $attr['versusTitleTypography']['size']['tablet'] : '18px',
-			'line-height' => isset($attr['versusTitleTypography']['line-height']['tablet']) ? $attr['versusTitleTypography']['line-height']['tablet'] : '1.65',
-			'letter-spacing' => isset($attr['versusTitleTypography']['letter-spacing']['tablet']) ? $attr['versusTitleTypography']['letter-spacing']['tablet'] : '0em',
+				'font-size'      => isset( $attr['versusTitleTypography']['size']['tablet'] ) ? $attr['versusTitleTypography']['size']['tablet'] : '18px',
+				'line-height'    => isset( $attr['versusTitleTypography']['line-height']['tablet'] ) ? $attr['versusTitleTypography']['line-height']['tablet'] : '1.65',
+				'letter-spacing' => isset( $attr['versusTitleTypography']['letter-spacing']['tablet'] ) ? $attr['versusTitleTypography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-versus-table-wrap .affx-vs-icon' => array(
+			' .affx-versus-table-wrap .affx-vs-icon'      => array(
 				'font-size'      => isset( $attr['vsTypography']['size']['tablet'] ) ? $attr['vsTypography']['size']['tablet'] : '18px',
 				'line-height'    => isset( $attr['vsTypography']['line-height']['tablet'] ) ? $attr['vsTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['vsTypography']['letter-spacing']['tablet'] ) ? $attr['vsTypography']['letter-spacing']['tablet'] : '0em',
@@ -177,5 +177,4 @@ class AffiliateX_Versus_Line_Styles {
 
 		return $tablet_selectors;
 	}
-
 }

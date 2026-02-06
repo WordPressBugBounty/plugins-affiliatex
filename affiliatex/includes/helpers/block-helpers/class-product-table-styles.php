@@ -69,7 +69,7 @@ class AffiliateX_Product_Table_Styles {
 		$headerVariation  = isset( $attr['headerTypography']['variation'] ) ? $attr['headerTypography']['variation'] : 'n4';
 
 		$selectors = array(
-			' .affx-pdt-table-wrapper'                => array(
+			' .affx-pdt-table-wrapper'                     => array(
 				'font-family'     => isset( $attr['contentTypography']['family'] ) ? $attr['contentTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['contentTypography']['size']['desktop'] ) ? $attr['contentTypography']['size']['desktop'] : '18px',
 				'line-height'     => isset( $attr['contentTypography']['line-height']['desktop'] ) ? $attr['contentTypography']['line-height']['desktop'] : '1.65',
@@ -83,13 +83,13 @@ class AffiliateX_Product_Table_Styles {
 				'margin-right'    => isset( $attr['margin']['desktop']['right'] ) ? $attr['margin']['desktop']['right'] : '0px',
 				'margin-bottom'   => isset( $attr['margin']['desktop']['bottom'] ) ? $attr['margin']['desktop']['bottom'] : '30px',
 				'color'           => isset( $attr['contentColor'] ) ? $attr['contentColor'] : $global_font_color,
-                'border-style' => isset( $attr['border']['style'] ) ? $attr['border']['style'] : 'solid',
-				'border-color' => isset( $attr['border']['color']['color'] ) ? $attr['border']['color']['color'] : '#E6ECF7',
-				'border-width' => isset( $attr['borderWidth']['desktop']['top'] ) && isset( $attr['borderWidth']['desktop']['right'] ) && isset( $attr['borderWidth']['desktop']['bottom'] ) && isset( $attr['borderWidth']['desktop']['left'] ) ? $attr['borderWidth']['desktop']['top'] . ' ' . $attr['borderWidth']['desktop']['right'] . ' ' . $attr['borderWidth']['desktop']['bottom'] . ' ' . $attr['borderWidth']['desktop']['left'] . ' ' : '1px 1px 1px 1px',
-				'background'   => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
-				'box-shadow'   => isset( $attr['boxShadow'] ) && $attr['boxShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['boxShadow'] ) : 'none',
+				'border-style'    => isset( $attr['border']['style'] ) ? $attr['border']['style'] : 'solid',
+				'border-color'    => isset( $attr['border']['color']['color'] ) ? $attr['border']['color']['color'] : '#E6ECF7',
+				'border-width'    => isset( $attr['borderWidth']['desktop']['top'] ) && isset( $attr['borderWidth']['desktop']['right'] ) && isset( $attr['borderWidth']['desktop']['bottom'] ) && isset( $attr['borderWidth']['desktop']['left'] ) ? $attr['borderWidth']['desktop']['top'] . ' ' . $attr['borderWidth']['desktop']['right'] . ' ' . $attr['borderWidth']['desktop']['bottom'] . ' ' . $attr['borderWidth']['desktop']['left'] . ' ' : '1px 1px 1px 1px',
+				'background'      => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
+				'box-shadow'      => isset( $attr['boxShadow'] ) && $attr['boxShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['boxShadow'] ) : 'none',
 			),
-			' .star-rating-single-wrap'               => array(
+			' .star-rating-single-wrap'                    => array(
 				'color'           => isset( $attr['ratingColor'] ) ? $attr['ratingColor'] : '#FFFFFF',
 				'background'      => isset( $attr['ratingBgColor'] ) ? $attr['ratingBgColor'] : '#24B644',
 				'font-family'     => isset( $attr['ratingTypography']['family'] ) ? $attr['ratingTypography']['family'] : $global_font_family,
@@ -101,7 +101,7 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $ratingVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $ratingVariation ),
 			),
-			' .circle-wrap .circle-mask .fill'        => array(
+			' .circle-wrap .circle-mask .fill'             => array(
 				'background' => isset( $attr['rating2BgColor'] ) ? $attr['rating2BgColor'] : '#24B644',
 			),
 			' .affx-circle-progress-container .affx-circle-inside' => array(
@@ -115,7 +115,7 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $rating2Variation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $rating2Variation ),
 			),
-			' .affx-pdt-table-wrapper p'              => array(
+			' .affx-pdt-table-wrapper p'                   => array(
 				'color'           => isset( $attr['contentColor'] ) ? $attr['contentColor'] : $global_font_color,
 				'font-family'     => isset( $attr['contentTypography']['family'] ) ? $attr['contentTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['contentTypography']['size']['desktop'] ) ? $attr['contentTypography']['size']['desktop'] : '18px',
@@ -126,7 +126,7 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $contentVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $contentVariation ),
 			),
-			' .affx-pdt-table-wrapper li'             => array(
+			' .affx-pdt-table-wrapper li'                  => array(
 				'color'           => isset( $attr['contentColor'] ) ? $attr['contentColor'] : $global_font_color,
 				'font-family'     => isset( $attr['contentTypography']['family'] ) ? $attr['contentTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['contentTypography']['size']['desktop'] ) ? $attr['contentTypography']['size']['desktop'] : '18px',
@@ -137,7 +137,7 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $contentVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $contentVariation ),
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-name' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-name'      => array(
 				'color'           => isset( $attr['titleColor'] ) ? $attr['titleColor'] : $global_font_color,
 				'font-family'     => isset( $attr['titleTypography']['family'] ) ? $attr['titleTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['titleTypography']['size']['desktop'] ) ? $attr['titleTypography']['size']['desktop'] : '22px',
@@ -148,10 +148,10 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $titleVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $titleVariation ),
 			),
-			' .affx-pdt-table' => array(
+			' .affx-pdt-table'                             => array(
 				'background' => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
 			),
-			' .affx-pdt-table-single'                 => array(
+			' .affx-pdt-table-single'                      => array(
 				'margin-top'    => isset( $attr['margin']['desktop']['top'] ) ? $attr['margin']['desktop']['top'] : '0px',
 				'margin-left'   => isset( $attr['margin']['desktop']['left'] ) ? $attr['margin']['desktop']['left'] : '0px',
 				'margin-right'  => isset( $attr['margin']['desktop']['right'] ) ? $attr['margin']['desktop']['right'] : '0px',
@@ -159,19 +159,19 @@ class AffiliateX_Product_Table_Styles {
 				'background'    => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
 				'box-shadow'    => isset( $attr['boxShadow'] ) && $attr['boxShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['boxShadow'] ) : 'none',
 			),
-			' .affx-pdt-table-wrapper td:not(.affx-img-col)'             => array(
+			' .affx-pdt-table-wrapper td:not(.affx-img-col)' => array(
 				'padding-top'    => isset( $attr['padding']['desktop']['top'] ) ? $attr['padding']['desktop']['top'] : '24px',
 				'padding-left'   => isset( $attr['padding']['desktop']['left'] ) ? $attr['padding']['desktop']['left'] : '24px',
 				'padding-right'  => isset( $attr['padding']['desktop']['right'] ) ? $attr['padding']['desktop']['right'] : '24px',
 				'padding-bottom' => isset( $attr['padding']['desktop']['bottom'] ) ? $attr['padding']['desktop']['bottom'] : '24px',
 			),
-			' .affx-pdt-table-wrapper th'             => array(
+			' .affx-pdt-table-wrapper th'                  => array(
 				'padding-top'    => isset( $attr['padding']['desktop']['top'] ) ? $attr['padding']['desktop']['top'] : '24px',
 				'padding-left'   => isset( $attr['padding']['desktop']['left'] ) ? $attr['padding']['desktop']['left'] : '24px',
 				'padding-right'  => isset( $attr['padding']['desktop']['right'] ) ? $attr['padding']['desktop']['right'] : '24px',
 				'padding-bottom' => isset( $attr['padding']['desktop']['bottom'] ) ? $attr['padding']['desktop']['bottom'] : '24px',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-counter' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-counter'   => array(
 				'color'           => isset( $attr['counterColor'] ) ? $attr['counterColor'] : '#FFFFFF',
 				'background'      => isset( $attr['counterBgColor'] ) ? $attr['counterBgColor'] : '#24B644',
 				'font-family'     => isset( $attr['counterTypography']['family'] ) ? $attr['counterTypography']['family'] : $global_font_family,
@@ -183,7 +183,7 @@ class AffiliateX_Product_Table_Styles {
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $counterVariation ),
 				'font-style'      => AffiliateX_Helpers::get_font_style( $counterVariation ),
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-ribbon' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-ribbon'    => array(
 				'color'           => isset( $attr['ribbonColor'] ) ? $attr['ribbonColor'] : '#FFFFFF',
 				'background'      => isset( $attr['ribbonBgColor'] ) ? $attr['ribbonBgColor'] : '#F13A3A',
 				'font-family'     => isset( $attr['ribbonTypography']['family'] ) ? $attr['ribbonTypography']['family'] : $global_font_family,
@@ -198,7 +198,7 @@ class AffiliateX_Product_Table_Styles {
 			' .affx-pdt-table-wrapper .affx-pdt-ribbon::before' => array(
 				'background' => isset( $attr['ribbonBgColor'] ) ? $attr['ribbonBgColor'] : '#F13A3A',
 			),
-			' .affx-pdt-table-wrapper .affiliatex-button' => array(
+			' .affx-pdt-table-wrapper .affiliatex-button'  => array(
 				'font-family'     => isset( $attr['buttonTypography']['family'] ) ? $attr['buttonTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['buttonTypography']['size']['desktop'] ) ? $attr['buttonTypography']['size']['desktop'] : '14px',
 				'line-height'     => isset( $attr['buttonTypography']['line-height']['desktop'] ) ? $attr['buttonTypography']['line-height']['desktop'] : '1.65',
@@ -245,12 +245,12 @@ class AffiliateX_Product_Table_Styles {
 			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
 				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
-				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
-				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'color'           => isset( $attr['priceColor'] ) ? $attr['priceColor'] : '#262B33',
@@ -280,13 +280,13 @@ class AffiliateX_Product_Table_Styles {
 				'color' => isset( $attr['productIconColor'] ) ? $attr['productIconColor'] : '#24B644',
 			),
 			' .affx-pdt-table-wrapper .afx-icon-list li i' => array(
-				'color' => isset($attr['productIconColor']) ? $attr['productIconColor'] : '#24B644',
+				'color' => isset( $attr['productIconColor'] ) ? $attr['productIconColor'] : '#24B644',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-img-container' => array(
-				'padding-top'      => isset( $attr['imagePadding']['desktop']['top'] ) ? $attr['imagePadding']['desktop']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['desktop']['left'] ) ? $attr['imagePadding']['desktop']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['desktop']['right'] ) ? $attr['imagePadding']['desktop']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['desktop']['bottom'] ) ? $attr['imagePadding']['desktop']['bottom'] : '0px',
+				'padding-top'    => isset( $attr['imagePadding']['desktop']['top'] ) ? $attr['imagePadding']['desktop']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['desktop']['left'] ) ? $attr['imagePadding']['desktop']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['desktop']['right'] ) ? $attr['imagePadding']['desktop']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['desktop']['bottom'] ) ? $attr['imagePadding']['desktop']['bottom'] : '0px',
 			),
 
 		);
@@ -298,7 +298,7 @@ class AffiliateX_Product_Table_Styles {
 		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$mobile_selectors = array(
-			' .affx-pdt-table-wrapper'                => array(
+			' .affx-pdt-table-wrapper'                    => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['mobile'] ) ? $attr['contentTypography']['size']['mobile'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['mobile'] ) ? $attr['contentTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['mobile'] ) ? $attr['contentTypography']['letter-spacing']['mobile'] : '0em',
@@ -306,9 +306,9 @@ class AffiliateX_Product_Table_Styles {
 				'margin-left'    => isset( $attr['margin']['mobile']['left'] ) ? $attr['margin']['mobile']['left'] : '0px',
 				'margin-right'   => isset( $attr['margin']['mobile']['right'] ) ? $attr['margin']['mobile']['right'] : '0px',
 				'margin-bottom'  => isset( $attr['margin']['mobile']['bottom'] ) ? $attr['margin']['mobile']['bottom'] : '30px',
-                'border-width' => isset( $attr['borderWidth']['mobile']['top'] ) && isset( $attr['borderWidth']['mobile']['right'] ) && isset( $attr['borderWidth']['mobile']['bottom'] ) && isset( $attr['borderWidth']['mobile']['left'] ) ? $attr['borderWidth']['mobile']['top'] . ' ' . $attr['borderWidth']['mobile']['right'] . ' ' . $attr['borderWidth']['mobile']['bottom'] . ' ' . $attr['borderWidth']['mobile']['left'] . ' ' : '1px 1px 1px 1px',
+				'border-width'   => isset( $attr['borderWidth']['mobile']['top'] ) && isset( $attr['borderWidth']['mobile']['right'] ) && isset( $attr['borderWidth']['mobile']['bottom'] ) && isset( $attr['borderWidth']['mobile']['left'] ) ? $attr['borderWidth']['mobile']['top'] . ' ' . $attr['borderWidth']['mobile']['right'] . ' ' . $attr['borderWidth']['mobile']['bottom'] . ' ' . $attr['borderWidth']['mobile']['left'] . ' ' : '1px 1px 1px 1px',
 			),
-			' .star-rating-single-wrap'               => array(
+			' .star-rating-single-wrap'                   => array(
 				'font-size'      => isset( $attr['ratingTypography']['size']['mobile'] ) ? $attr['ratingTypography']['size']['mobile'] : '13px',
 				'line-height'    => isset( $attr['ratingTypography']['line-height']['mobile'] ) ? $attr['ratingTypography']['line-height']['mobile'] : '1.5',
 				'letter-spacing' => isset( $attr['ratingTypography']['letter-spacing']['mobile'] ) ? $attr['ratingTypography']['letter-spacing']['mobile'] : '0em',
@@ -318,45 +318,45 @@ class AffiliateX_Product_Table_Styles {
 				'line-height'    => isset( $attr['rating2Typography']['line-height']['mobile'] ) ? $attr['rating2Typography']['line-height']['mobile'] : '1.5',
 				'letter-spacing' => isset( $attr['rating2Typography']['letter-spacing']['mobile'] ) ? $attr['rating2Typography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-pdt-table-wrapper p'              => array(
+			' .affx-pdt-table-wrapper p'                  => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['mobile'] ) ? $attr['contentTypography']['size']['mobile'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['mobile'] ) ? $attr['contentTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['mobile'] ) ? $attr['contentTypography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-pdt-table-wrapper li'             => array(
+			' .affx-pdt-table-wrapper li'                 => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['mobile'] ) ? $attr['contentTypography']['size']['mobile'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['mobile'] ) ? $attr['contentTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['mobile'] ) ? $attr['contentTypography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-name' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-name'     => array(
 				'font-size'      => isset( $attr['titleTypography']['size']['mobile'] ) ? $attr['titleTypography']['size']['mobile'] : '22px',
 				'line-height'    => isset( $attr['titleTypography']['line-height']['mobile'] ) ? $attr['titleTypography']['line-height']['mobile'] : '1.65',
 				'letter-spacing' => isset( $attr['titleTypography']['letter-spacing']['mobile'] ) ? $attr['titleTypography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-pdt-table-single'                 => array(
+			' .affx-pdt-table-single'                     => array(
 				'margin-top'    => isset( $attr['margin']['mobile']['top'] ) ? $attr['margin']['mobile']['top'] : '0px',
 				'margin-left'   => isset( $attr['margin']['mobile']['left'] ) ? $attr['margin']['mobile']['left'] : '0px',
 				'margin-right'  => isset( $attr['margin']['mobile']['right'] ) ? $attr['margin']['mobile']['right'] : '0px',
 				'margin-bottom' => isset( $attr['margin']['mobile']['bottom'] ) ? $attr['margin']['mobile']['bottom'] : '30px',
 			),
-			' .affx-pdt-table-wrapper td'             => array(
+			' .affx-pdt-table-wrapper td'                 => array(
 				'padding-top'    => isset( $attr['padding']['mobile']['top'] ) ? $attr['padding']['mobile']['top'] : '16px',
 				'padding-left'   => isset( $attr['padding']['mobile']['left'] ) ? $attr['padding']['mobile']['left'] : '16px',
 				'padding-right'  => isset( $attr['padding']['mobile']['right'] ) ? $attr['padding']['mobile']['right'] : '16px',
 				'padding-bottom' => isset( $attr['padding']['mobile']['bottom'] ) ? $attr['padding']['mobile']['bottom'] : '16px',
 			),
-			' .affx-pdt-table-wrapper th'             => array(
+			' .affx-pdt-table-wrapper th'                 => array(
 				'padding-top'    => isset( $attr['padding']['mobile']['top'] ) ? $attr['padding']['mobile']['top'] : '16px',
 				'padding-left'   => isset( $attr['padding']['mobile']['left'] ) ? $attr['padding']['mobile']['left'] : '16px',
 				'padding-right'  => isset( $attr['padding']['mobile']['right'] ) ? $attr['padding']['mobile']['right'] : '16px',
 				'padding-bottom' => isset( $attr['padding']['mobile']['bottom'] ) ? $attr['padding']['mobile']['bottom'] : '16px',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-counter' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-counter'  => array(
 				'font-size'      => isset( $attr['counterTypography']['size']['mobile'] ) ? $attr['counterTypography']['size']['mobile'] : '18px',
 				'line-height'    => isset( $attr['counterTypography']['line-height']['mobile'] ) ? $attr['counterTypography']['line-height']['mobile'] : '1.5',
 				'letter-spacing' => isset( $attr['counterTypography']['letter-spacing']['mobile'] ) ? $attr['counterTypography']['letter-spacing']['mobile'] : '0em',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-ribbon' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-ribbon'   => array(
 				'font-size'      => isset( $attr['ribbonTypography']['size']['mobile'] ) ? $attr['ribbonTypography']['size']['mobile'] : '13px',
 				'line-height'    => isset( $attr['ribbonTypography']['line-height']['mobile'] ) ? $attr['ribbonTypography']['line-height']['mobile'] : '1.5',
 				'letter-spacing' => isset( $attr['ribbonTypography']['letter-spacing']['mobile'] ) ? $attr['ribbonTypography']['letter-spacing']['mobile'] : '0em',
@@ -375,11 +375,11 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button1Padding']['mobile']['left'] ) ? $attr['button1Padding']['mobile']['left'] : '5px',
 				'padding-right'  => isset( $attr['button1Padding']['mobile']['right'] ) ? $attr['button1Padding']['mobile']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button1Padding']['mobile']['bottom'] ) ? $attr['button1Padding']['mobile']['bottom'] : '10px',
-				'border-style'     => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
-				'border-width'     => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
-				'border-color'     => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
-				'box-shadow'       => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
-				'border-radius'    => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+				'border-style'   => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
+				'border-width'   => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
+				'border-color'   => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
+				'box-shadow'     => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
+				'border-radius'  => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary' => array(
 				'margin-top'     => isset( $attr['button2Margin']['mobile']['top'] ) ? $attr['button2Margin']['mobile']['top'] : '5px',
@@ -390,21 +390,21 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button2Padding']['mobile']['left'] ) ? $attr['button2Padding']['mobile']['left'] : '5px',
 				'padding-right'  => isset( $attr['button2Padding']['mobile']['right'] ) ? $attr['button2Padding']['mobile']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button2Padding']['mobile']['bottom'] ) ? $attr['button2Padding']['mobile']['bottom'] : '10px',
-				'border-style'     => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
-				'border-width'     => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
-				'border-color'     => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
-				'box-shadow'       => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
-				'border-radius'    => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+				'border-style'   => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
+				'border-width'   => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
+				'border-color'   => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
+				'box-shadow'     => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
+				'border-radius'  => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
 				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
-				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
-				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['mobile'] ) ? $attr['priceTypography']['size']['mobile'] : '22px',
@@ -417,10 +417,10 @@ class AffiliateX_Product_Table_Styles {
 				'letter-spacing' => isset( $attr['headerTypography']['letter-spacing']['mobile'] ) ? $attr['headerTypography']['letter-spacing']['mobile'] : '0em',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-img-wrapper' => array(
-				'padding-top'      => isset( $attr['imagePadding']['mobile']['top'] ) ? $attr['imagePadding']['mobile']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['mobile']['left'] ) ? $attr['imagePadding']['mobile']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['mobile']['right'] ) ? $attr['imagePadding']['mobile']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['mobile']['bottom'] ) ? $attr['imagePadding']['mobile']['bottom'] : '0px',
+				'padding-top'    => isset( $attr['imagePadding']['mobile']['top'] ) ? $attr['imagePadding']['mobile']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['mobile']['left'] ) ? $attr['imagePadding']['mobile']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['mobile']['right'] ) ? $attr['imagePadding']['mobile']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['mobile']['bottom'] ) ? $attr['imagePadding']['mobile']['bottom'] : '0px',
 			),
 		);
 
@@ -431,7 +431,7 @@ class AffiliateX_Product_Table_Styles {
 		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
 
 		$tablet_selectors = array(
-			' .affx-pdt-table-wrapper'                => array(
+			' .affx-pdt-table-wrapper'                    => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['tablet'] ) ? $attr['contentTypography']['size']['tablet'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['tablet'] ) ? $attr['contentTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['tablet'] ) ? $attr['contentTypography']['letter-spacing']['tablet'] : '0em',
@@ -439,9 +439,9 @@ class AffiliateX_Product_Table_Styles {
 				'margin-left'    => isset( $attr['margin']['tablet']['left'] ) ? $attr['margin']['tablet']['left'] : '0px',
 				'margin-right'   => isset( $attr['margin']['tablet']['right'] ) ? $attr['margin']['tablet']['right'] : '0px',
 				'margin-bottom'  => isset( $attr['margin']['tablet']['bottom'] ) ? $attr['margin']['tablet']['bottom'] : '30px',
-                'border-width' => isset( $attr['borderWidth']['tablet']['top'] ) && isset( $attr['borderWidth']['tablet']['right'] ) && isset( $attr['borderWidth']['tablet']['bottom'] ) && isset( $attr['borderWidth']['tablet']['left'] ) ? $attr['borderWidth']['tablet']['top'] . ' ' . $attr['borderWidth']['tablet']['right'] . ' ' . $attr['borderWidth']['tablet']['bottom'] . ' ' . $attr['borderWidth']['tablet']['left'] . ' ' : '1px 1px 1px 1px',
+				'border-width'   => isset( $attr['borderWidth']['tablet']['top'] ) && isset( $attr['borderWidth']['tablet']['right'] ) && isset( $attr['borderWidth']['tablet']['bottom'] ) && isset( $attr['borderWidth']['tablet']['left'] ) ? $attr['borderWidth']['tablet']['top'] . ' ' . $attr['borderWidth']['tablet']['right'] . ' ' . $attr['borderWidth']['tablet']['bottom'] . ' ' . $attr['borderWidth']['tablet']['left'] . ' ' : '1px 1px 1px 1px',
 			),
-			' .star-rating-single-wrap'               => array(
+			' .star-rating-single-wrap'                   => array(
 				'font-size'      => isset( $attr['ratingTypography']['size']['tablet'] ) ? $attr['ratingTypography']['size']['tablet'] : '13px',
 				'line-height'    => isset( $attr['ratingTypography']['line-height']['tablet'] ) ? $attr['ratingTypography']['line-height']['tablet'] : '1.5',
 				'letter-spacing' => isset( $attr['ratingTypography']['letter-spacing']['tablet'] ) ? $attr['ratingTypography']['letter-spacing']['tablet'] : '0em',
@@ -451,45 +451,45 @@ class AffiliateX_Product_Table_Styles {
 				'line-height'    => isset( $attr['rating2Typography']['line-height']['tablet'] ) ? $attr['rating2Typography']['line-height']['tablet'] : '1.5',
 				'letter-spacing' => isset( $attr['rating2Typography']['letter-spacing']['tablet'] ) ? $attr['rating2Typography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-pdt-table-wrapper p'              => array(
+			' .affx-pdt-table-wrapper p'                  => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['tablet'] ) ? $attr['contentTypography']['size']['tablet'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['tablet'] ) ? $attr['contentTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['tablet'] ) ? $attr['contentTypography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-pdt-table-wrapper li'             => array(
+			' .affx-pdt-table-wrapper li'                 => array(
 				'font-size'      => isset( $attr['contentTypography']['size']['tablet'] ) ? $attr['contentTypography']['size']['tablet'] : '16px',
 				'line-height'    => isset( $attr['contentTypography']['line-height']['tablet'] ) ? $attr['contentTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['contentTypography']['letter-spacing']['tablet'] ) ? $attr['contentTypography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-name' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-name'     => array(
 				'font-size'      => isset( $attr['titleTypography']['size']['tablet'] ) ? $attr['titleTypography']['size']['tablet'] : '22px',
 				'line-height'    => isset( $attr['titleTypography']['line-height']['tablet'] ) ? $attr['titleTypography']['line-height']['tablet'] : '1.65',
 				'letter-spacing' => isset( $attr['titleTypography']['letter-spacing']['tablet'] ) ? $attr['titleTypography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-pdt-table-single'                 => array(
+			' .affx-pdt-table-single'                     => array(
 				'margin-top'    => isset( $attr['margin']['tablet']['top'] ) ? $attr['margin']['tablet']['top'] : '0px',
 				'margin-left'   => isset( $attr['margin']['tablet']['left'] ) ? $attr['margin']['tablet']['left'] : '0px',
 				'margin-right'  => isset( $attr['margin']['tablet']['right'] ) ? $attr['margin']['tablet']['right'] : '0px',
 				'margin-bottom' => isset( $attr['margin']['tablet']['bottom'] ) ? $attr['margin']['tablet']['bottom'] : '30px',
 			),
-			' .affx-pdt-table-wrapper td'             => array(
+			' .affx-pdt-table-wrapper td'                 => array(
 				'padding-top'    => isset( $attr['padding']['tablet']['top'] ) ? $attr['padding']['tablet']['top'] : '16px',
 				'padding-left'   => isset( $attr['padding']['tablet']['left'] ) ? $attr['padding']['tablet']['left'] : '16px',
 				'padding-right'  => isset( $attr['padding']['tablet']['right'] ) ? $attr['padding']['tablet']['right'] : '16px',
 				'padding-bottom' => isset( $attr['padding']['tablet']['bottom'] ) ? $attr['padding']['tablet']['bottom'] : '16px',
 			),
-			' .affx-pdt-table-wrapper th'             => array(
+			' .affx-pdt-table-wrapper th'                 => array(
 				'padding-top'    => isset( $attr['padding']['tablet']['top'] ) ? $attr['padding']['tablet']['top'] : '16px',
 				'padding-left'   => isset( $attr['padding']['tablet']['left'] ) ? $attr['padding']['tablet']['left'] : '16px',
 				'padding-right'  => isset( $attr['padding']['tablet']['right'] ) ? $attr['padding']['tablet']['right'] : '16px',
 				'padding-bottom' => isset( $attr['padding']['tablet']['bottom'] ) ? $attr['padding']['tablet']['bottom'] : '16px',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-counter' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-counter'  => array(
 				'font-size'      => isset( $attr['counterTypography']['size']['tablet'] ) ? $attr['counterTypography']['size']['tablet'] : '18px',
 				'line-height'    => isset( $attr['counterTypography']['line-height']['tablet'] ) ? $attr['counterTypography']['line-height']['tablet'] : '1.5',
 				'letter-spacing' => isset( $attr['counterTypography']['letter-spacing']['tablet'] ) ? $attr['counterTypography']['letter-spacing']['tablet'] : '0em',
 			),
-			' .affx-pdt-table-wrapper .affx-pdt-ribbon' => array(
+			' .affx-pdt-table-wrapper .affx-pdt-ribbon'   => array(
 				'font-size'      => isset( $attr['ribbonTypography']['size']['tablet'] ) ? $attr['ribbonTypography']['size']['tablet'] : '13px',
 				'line-height'    => isset( $attr['ribbonTypography']['line-height']['tablet'] ) ? $attr['ribbonTypography']['line-height']['tablet'] : '1.5',
 				'letter-spacing' => isset( $attr['ribbonTypography']['letter-spacing']['tablet'] ) ? $attr['ribbonTypography']['letter-spacing']['tablet'] : '0em',
@@ -508,11 +508,11 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button1Padding']['tablet']['left'] ) ? $attr['button1Padding']['tablet']['left'] : '5px',
 				'padding-right'  => isset( $attr['button1Padding']['tablet']['right'] ) ? $attr['button1Padding']['tablet']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button1Padding']['tablet']['bottom'] ) ? $attr['button1Padding']['tablet']['bottom'] : '10px',
-				'border-style'     => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
-				'border-width'     => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
-				'border-color'     => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
-				'box-shadow'       => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
-				'border-radius'    => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+				'border-style'   => isset( $attr['button1Border']['style'] ) ? $attr['button1Border']['style'] : 'none',
+				'border-width'   => isset( $attr['button1Border']['width'] ) ? $attr['button1Border']['width'] . 'px' : '1px',
+				'border-color'   => isset( $attr['button1Border']['color']['color'] ) ? $attr['button1Border']['color']['color'] : '#dddddd',
+				'box-shadow'     => isset( $attr['button1Shadow'] ) && $attr['button1Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button1Shadow'] ) : 'none',
+				'border-radius'  => isset( $attr['button1Radius']['desktop']['top'] ) && isset( $attr['button1Radius']['desktop']['right'] ) && isset( $attr['button1Radius']['desktop']['bottom'] ) && isset( $attr['button1Radius']['desktop']['left'] ) ? $attr['button1Radius']['desktop']['top'] . ' ' . $attr['button1Radius']['desktop']['right'] . ' ' . $attr['button1Radius']['desktop']['bottom'] . ' ' . $attr['button1Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary' => array(
 				'margin-top'     => isset( $attr['button2Margin']['tablet']['top'] ) ? $attr['button2Margin']['tablet']['top'] : '5px',
@@ -523,21 +523,21 @@ class AffiliateX_Product_Table_Styles {
 				'padding-left'   => isset( $attr['button2Padding']['tablet']['left'] ) ? $attr['button2Padding']['tablet']['left'] : '5px',
 				'padding-right'  => isset( $attr['button2Padding']['tablet']['right'] ) ? $attr['button2Padding']['tablet']['right'] : '5px',
 				'padding-bottom' => isset( $attr['button2Padding']['tablet']['bottom'] ) ? $attr['button2Padding']['tablet']['bottom'] : '10px',
-				'border-style'     => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
-				'border-width'     => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
-				'border-color'     => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
-				'box-shadow'       => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
-				'border-radius'    => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
+				'border-style'   => isset( $attr['button2Border']['style'] ) ? $attr['button2Border']['style'] : 'none',
+				'border-width'   => isset( $attr['button2Border']['width'] ) ? $attr['button2Border']['width'] . 'px' : '1px',
+				'border-color'   => isset( $attr['button2Border']['color']['color'] ) ? $attr['button2Border']['color']['color'] : '#dddddd',
+				'box-shadow'     => isset( $attr['button2Shadow'] ) && $attr['button2Shadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['button2Shadow'] ) : 'none',
+				'border-radius'  => isset( $attr['button2Radius']['desktop']['top'] ) && isset( $attr['button2Radius']['desktop']['right'] ) && isset( $attr['button2Radius']['desktop']['bottom'] ) && isset( $attr['button2Radius']['desktop']['left'] ) ? $attr['button2Radius']['desktop']['top'] . ' ' . $attr['button2Radius']['desktop']['right'] . ' ' . $attr['button2Radius']['desktop']['bottom'] . ' ' . $attr['button2Radius']['desktop']['left'] . ' ' : '0 0 0 0',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.primary:hover' => array(
 				'color'            => isset( $attr['button1TextHoverColor'] ) ? $attr['button1TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button1BgHoverColor'] ) ? $attr['button1BgHoverColor'] : $global_btn_hover_color,
-				'border-color' => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button1borderHoverColor'] ) ? $attr['button1borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
 				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
-				'border-color' => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
+				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
 				'font-size'      => isset( $attr['priceTypography']['size']['tablet'] ) ? $attr['priceTypography']['size']['tablet'] : '22px',
@@ -550,14 +550,13 @@ class AffiliateX_Product_Table_Styles {
 				'letter-spacing' => isset( $attr['headerTypography']['letter-spacing']['tablet'] ) ? $attr['headerTypography']['letter-spacing']['tablet'] : '0em',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-img-wrapper' => array(
-				'padding-top'      => isset( $attr['imagePadding']['tablet']['top'] ) ? $attr['imagePadding']['tablet']['top'] : '0px',
-				'padding-left'     => isset( $attr['imagePadding']['tablet']['left'] ) ? $attr['imagePadding']['tablet']['left'] : '0px',
-				'padding-right'    => isset( $attr['imagePadding']['tablet']['right'] ) ? $attr['imagePadding']['tablet']['right'] : '0px',
-				'padding-bottom'   => isset( $attr['imagePadding']['tablet']['bottom'] ) ? $attr['imagePadding']['tablet']['bottom'] : '0px',
+				'padding-top'    => isset( $attr['imagePadding']['tablet']['top'] ) ? $attr['imagePadding']['tablet']['top'] : '0px',
+				'padding-left'   => isset( $attr['imagePadding']['tablet']['left'] ) ? $attr['imagePadding']['tablet']['left'] : '0px',
+				'padding-right'  => isset( $attr['imagePadding']['tablet']['right'] ) ? $attr['imagePadding']['tablet']['right'] : '0px',
+				'padding-bottom' => isset( $attr['imagePadding']['tablet']['bottom'] ) ? $attr['imagePadding']['tablet']['bottom'] : '0px',
 			),
 		);
 
 		return $tablet_selectors;
 	}
-
 }

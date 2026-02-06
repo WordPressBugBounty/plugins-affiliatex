@@ -41,9 +41,9 @@ class AffiliateX_Verdict_Styles {
 
 	public static function get_selectors( $attr ) {
 
-		$customization_data     = affx_get_customization_settings();
-		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
-		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
+		$customization_data = affx_get_customization_settings();
+		$global_font_family = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
+		$global_font_color  = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
 
 		$bgType           = isset( $attr['verdictBgType'] ) ? $attr['verdictBgType'] : 'solid';
 		$bgGradient       = isset( $attr['verdictBgColorGradient']['gradient'] ) ? $attr['verdictBgColorGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
@@ -52,7 +52,7 @@ class AffiliateX_Verdict_Styles {
 		$contentVariation = isset( $attr['verdictContentTypography']['variation'] ) ? $attr['verdictContentTypography']['variation'] : 'n4';
 
 		$selectors = array(
-			' .affblk-verdict-wrapper'    => array(
+			' .affblk-verdict-wrapper'                    => array(
 				'border-style'   => isset( $attr['verdictBorder']['style'] ) ? $attr['verdictBorder']['style'] : 'solid',
 				'border-color'   => isset( $attr['verdictBorder']['color']['color'] ) ? $attr['verdictBorder']['color']['color'] : '#E6ECF7',
 				'border-width'   => isset( $attr['verdictBorderWidth']['desktop']['top'] ) && isset( $attr['verdictBorderWidth']['desktop']['right'] ) && isset( $attr['verdictBorderWidth']['desktop']['bottom'] ) && isset( $attr['verdictBorderWidth']['desktop']['left'] ) ? $attr['verdictBorderWidth']['desktop']['top'] . ' ' . $attr['verdictBorderWidth']['desktop']['right'] . ' ' . $attr['verdictBorderWidth']['desktop']['bottom'] . ' ' . $attr['verdictBorderWidth']['desktop']['left'] . ' ' : '1px 1px 1px 1px',
@@ -94,7 +94,7 @@ class AffiliateX_Verdict_Styles {
 				'font-style'      => AffiliateX_Helpers::get_font_style( $contentVariation ),
 			),
 
-			' .verdict-user-rating-wrapper'    => array(
+			' .verdict-user-rating-wrapper'               => array(
 				'color' => isset( $attr['verdictContentColor'] ) ? $attr['verdictContentColor'] : $global_font_color,
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-2.display-arrow .affx-btn-inner .affiliatex-button::after' => array(
@@ -106,8 +106,8 @@ class AffiliateX_Verdict_Styles {
 				'background-color' => isset( $attr['scoreBgTopColor'] ) ? $attr['scoreBgTopColor'] : '#2670FF',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .main-text-holder' => array(
-				'flex-direction' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] != 'left' ? 'row' : 'row-reverse',
-				'justify-content' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] != 'left' ? 'space-between' : 'flex-end',
+				'flex-direction'  => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] !== 'left' ? 'row' : 'row-reverse',
+				'justify-content' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] !== 'left' ? 'space-between' : 'flex-end',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .affx-verdict-rating-number' => array(
 				'color' => isset( $attr['scoreTextColor'] ) ? $attr['scoreTextColor'] : '#FFFFFF',
@@ -117,7 +117,7 @@ class AffiliateX_Verdict_Styles {
 				'background-color' => isset( $attr['scoreBgBotColor'] ) ? $attr['scoreBgBotColor'] : '#262B33',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .rich-content::after' => array(
-				'border-top' => 5 . 'px' . ' solid ' . ( isset( $attr['scoreBgBotColor'] ) ? $attr['scoreBgBotColor'] : '#262B33' ),
+				'border-top' => '5px solid ' . ( isset( $attr['scoreBgBotColor'] ) ? $attr['scoreBgBotColor'] : '#262B33' ),
 			),
 
 		);
@@ -128,7 +128,7 @@ class AffiliateX_Verdict_Styles {
 	public static function get_mobileselectors( $attr ) {
 
 		$mobile_selectors = array(
-			' .affblk-verdict-wrapper'    => array(
+			' .affblk-verdict-wrapper'                    => array(
 				'border-width'   => isset( $attr['verdictBorderWidth']['mobile']['top'] ) && isset( $attr['verdictBorderWidth']['mobile']['right'] ) && isset( $attr['verdictBorderWidth']['mobile']['bottom'] ) && isset( $attr['verdictBorderWidth']['mobile']['left'] ) ? $attr['verdictBorderWidth']['mobile']['top'] . ' ' . $attr['verdictBorderWidth']['mobile']['right'] . ' ' . $attr['verdictBorderWidth']['mobile']['bottom'] . ' ' . $attr['verdictBorderWidth']['mobile']['left'] . ' ' : '1px 1px 1px 1px',
 				'margin-top'     => isset( $attr['margin']['mobile']['top'] ) ? $attr['margin']['mobile']['top'] : '0px',
 				'margin-left'    => isset( $attr['margin']['mobile']['left'] ) ? $attr['margin']['mobile']['left'] : '0px',
@@ -158,7 +158,7 @@ class AffiliateX_Verdict_Styles {
 	public static function get_tabletselectors( $attr ) {
 
 		$tablet_selectors = array(
-			' .affblk-verdict-wrapper'    => array(
+			' .affblk-verdict-wrapper'                    => array(
 				'border-width'   => isset( $attr['verdictBorderWidth']['tablet']['top'] ) && isset( $attr['verdictBorderWidth']['tablet']['right'] ) && isset( $attr['verdictBorderWidth']['tablet']['bottom'] ) && isset( $attr['verdictBorderWidth']['tablet']['left'] ) ? $attr['verdictBorderWidth']['tablet']['top'] . ' ' . $attr['verdictBorderWidth']['tablet']['right'] . ' ' . $attr['verdictBorderWidth']['tablet']['bottom'] . ' ' . $attr['verdictBorderWidth']['tablet']['left'] . ' ' : '1px 1px 1px 1px',
 				'margin-top'     => isset( $attr['margin']['tablet']['top'] ) ? $attr['margin']['tablet']['top'] : '0px',
 				'margin-left'    => isset( $attr['margin']['tablet']['left'] ) ? $attr['margin']['tablet']['left'] : '0px',
@@ -184,5 +184,4 @@ class AffiliateX_Verdict_Styles {
 
 		return $tablet_selectors;
 	}
-
 }

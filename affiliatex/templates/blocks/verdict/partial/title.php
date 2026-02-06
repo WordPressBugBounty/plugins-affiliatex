@@ -1,1 +1,1 @@
-<<?php echo esc_attr($verdictTitleTag) ?> class="verdict-title"><?php echo ($verdictTitle) ?></<?php echo esc_attr($verdictTitleTag) ?>>
+<<?php echo esc_attr( $verdictTitleTag ); ?> class="verdict-title"><?php echo esc_html( $verdictTitle ); ?></<?php echo esc_attr( $verdictTitleTag ); ?>>

@@ -2,136 +2,128 @@
 
 namespace AffiliateX\Helpers;
 
-defined('ABSPATH') or exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * AffiliateX Elementor Helper | Handles template compatibility
  *
  * @package AffiliateX
  */
-class ElementorHelper
-{
-    /**
-     * Generate child field name with prefix and index
-     *
-     * @param array $config
-     * @param string $field_name
-     * @return string
-     */
-    public static function child_field_name(array $config, string $field_name): string
-    {
-        if ($config['index'] === null && $config['is_child'] === true) {
-            return sprintf('%s_%s', $config['name_prefix'], $field_name);
-        } elseif ($config['index'] !== null && $config['is_child'] === true) {
-            return sprintf('%s_%d_%s', $config['name_prefix'], $config['index'], $field_name);
-        }
+class ElementorHelper {
 
-        return $field_name;
-    }
+	/**
+	 * Generate child field name with prefix and index
+	 *
+	 * @param array $config
+	 * @param string $field_name
+	 * @return string
+	 */
+	public static function child_field_name( array $config, string $field_name ): string {
+		if ( $config['index'] === null && $config['is_child'] === true ) {
+			return sprintf( '%s_%s', $config['name_prefix'], $field_name );
+		} elseif ( $config['index'] !== null && $config['is_child'] === true ) {
+			return sprintf( '%s_%d_%s', $config['name_prefix'], $config['index'], $field_name );
+		}
 
-    /**
-     * Generates child section label
-     *
-     * @param array $config
-     * @param string $label
-     * @return string
-     */
-    public static function child_section_label(array $config, string $label): string
-    {
-        if ($config['index'] === null && $config['is_child'] === true) {
-            return sprintf('%s | %s', $config['label_prefix'], $label);
-        } elseif ($config['index'] !== null && $config['is_child'] === true) {
-            return sprintf('%s %d | %s', $config['label_prefix'], $config['index'], $label);
-        }
+		return $field_name;
+	}
 
-        return $label;
-    }
+	/**
+	 * Generates child section label
+	 *
+	 * @param array $config
+	 * @param string $label
+	 * @return string
+	 */
+	public static function child_section_label( array $config, string $label ): string {
+		if ( $config['index'] === null && $config['is_child'] === true ) {
+			return sprintf( '%s | %s', $config['label_prefix'], $label );
+		} elseif ( $config['index'] !== null && $config['is_child'] === true ) {
+			return sprintf( '%s %d | %s', $config['label_prefix'], $config['index'], $label );
+		}
 
-    /**
-     * Generates child section name
-     *
-     * @param array $config
-     * @param string $section_name
-     * @return string
-     */
-    public static function child_section_name(array $config, string $section_name): string
-    {
-        if ($config['index'] !== null && $config['is_child'] === true) {
-            return sprintf('affx_%s_%s', $config['name_prefix'], $section_name);
-        } else
-        if ($config['index'] === null && $config['is_child'] === true) {
-            return sprintf('affx_%s_%d_%s', $config['name_prefix'], $config['index'], $section_name);
-        }
+		return $label;
+	}
 
-        return sprintf('affx_%s_%s', $config['name_prefix'], $section_name);
-    }
+	/**
+	 * Generates child section name
+	 *
+	 * @param array $config
+	 * @param string $section_name
+	 * @return string
+	 */
+	public static function child_section_name( array $config, string $section_name ): string {
+		if ( $config['index'] !== null && $config['is_child'] === true ) {
+			return sprintf( 'affx_%s_%s', $config['name_prefix'], $section_name );
+		} elseif ( $config['index'] === null && $config['is_child'] === true ) {
+			return sprintf( 'affx_%s_%d_%s', $config['name_prefix'], $config['index'], $section_name );
+		}
 
-    public static function apply_child_conditions($config, array $conditions = []): array
-    {
-        if ($config['is_child'] === true && $config['conditions']) {
-            return array_merge($config['conditions'], $conditions);
-        }
+		return sprintf( 'affx_%s_%s', $config['name_prefix'], $section_name );
+	}
 
-        return $conditions;
-    }
+	public static function apply_child_conditions( $config, array $conditions = array() ): array {
+		if ( $config['is_child'] === true && $config['conditions'] ) {
+			return array_merge( $config['conditions'], $conditions );
+		}
 
-    /**
-     * Extracts child attributes from an array by replacing 'dynamic' prefix
-     *
-     * @param array $attributes
-     * @return array
-     */
-    public static function extract_child_attributes(array $attributes, array $config): array
-    {
-        $child_attributes = [];
-        $formatted_prefix = sprintf('%s_%d_', $config['name_prefix'], $config['index']);
+		return $conditions;
+	}
 
-        foreach ($attributes as $key => $value) {
-            if (strpos($key, $formatted_prefix) === 0) {
-                $child_attributes[substr($key, strlen($formatted_prefix))] = $value;
-            }
-        }
+	/**
+	 * Extracts child attributes from an array by replacing 'dynamic' prefix
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	public static function extract_child_attributes( array $attributes, array $config ): array {
+		$child_attributes = array();
+		$formatted_prefix = sprintf( '%s_%d_', $config['name_prefix'], $config['index'] );
 
-        return $child_attributes;
-    }
+		foreach ( $attributes as $key => $value ) {
+			if ( strpos( $key, $formatted_prefix ) === 0 ) {
+				$child_attributes[ substr( $key, strlen( $formatted_prefix ) ) ] = $value;
+			}
+		}
 
-    /**
-     * Extracts list items for template compatibility
-     *
-     * @param array $list_items
-     * @return array
-     */
-    public static function extract_list_items(array $list_items): array
-    {
-        $items = [];
+		return $child_attributes;
+	}
 
-        foreach ($list_items as $list_item) {
-            $items[] = [
-                'type'  => 'li',
-                'props' => [
-                    'children' => [$list_item['content']]
-                ]
-            ];
-        }
+	/**
+	 * Extracts list items for template compatibility
+	 *
+	 * @param array $list_items
+	 * @return array
+	 */
+	public static function extract_list_items( array $list_items ): array {
+		$items = array();
 
-        return $items;
-    }
+		foreach ( $list_items as $list_item ) {
+			$items[] = array(
+				'type'  => 'li',
+				'props' => array(
+					'children' => array( $list_item['content'] ),
+				),
+			);
+		}
 
-    /**
-     * Extracts icon name for template compatibility
-     *
-     * @param array $icon_props
-     * @return array
-     */
-    public static function extract_icon(array $icon_props): array
-    {
-        $prefix    = isset( $icon_props['library'] ) ? explode('-', $icon_props['library'])[0] : '';
-        $icon_name = explode(' ', $icon_props['value'])[1];
-        $icon_name = str_replace($prefix . '-', '', $icon_name);
+		return $items;
+	}
 
-        return [
-            'name'  => $icon_name,
-            'value' => $icon_props['value']
-        ];
-    }
+	/**
+	 * Extracts icon name for template compatibility
+	 *
+	 * @param array $icon_props
+	 * @return array
+	 */
+	public static function extract_icon( array $icon_props ): array {
+		$prefix    = isset( $icon_props['library'] ) ? explode( '-', $icon_props['library'] )[0] : '';
+		$icon_name = explode( ' ', $icon_props['value'] )[1];
+		$icon_name = str_replace( $prefix . '-', '', $icon_name );
+
+		return array(
+			'name'  => $icon_name,
+			'value' => $icon_props['value'],
+		);
+	}
 }

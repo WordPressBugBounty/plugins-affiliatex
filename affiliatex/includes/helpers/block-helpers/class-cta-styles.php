@@ -87,20 +87,20 @@ class AffiliateX_CTA_Styles {
 		}
 		$selectors = array(
 			' .layout-type-1'                         => array(
-				'background-image' => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg' . ')',
+				'background-image' => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg)',
 			),
 			' .layout-type-3'                         => array(
-				'background-image' => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg' . ')',
+				'background-image' => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg)',
 			),
 			' .image-wrapper'                         => array(
-				'background-image'    => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg' . ')',
+				'background-image'    => isset( $attr['imgURL'] ) ? 'url(' . $attr['imgURL'] . ')' : 'url(' . plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'src/images/fallback.jpg)',
 				'background-position' => $position,
 			),
 			' .bg-color'                              => array(
 				'background' => ( ! isset( $attr['ctaBGType'] ) || $attr['ctaBGType'] !== 'image' ) ? ( isset( $attr['ctaBgColorType'] ) && $attr['ctaBgColorType'] === 'gradient' ? $ctaBgGradient : $ctaBGColor ) : 'undefined',
 			),
 
-			'.wp-block-affiliatex-cta > div'               => array(
+			'.wp-block-affiliatex-cta > div'          => array(
 				'background-size'     => 'cover',
 				'background-repeat'   => 'no-repeat',
 				'background-position' => $position,
@@ -120,7 +120,7 @@ class AffiliateX_CTA_Styles {
 
 			),
 
-			'.wp-block-affiliatex-cta .affliatex-cta-title'            => array(
+			'.wp-block-affiliatex-cta .affliatex-cta-title' => array(
 				'color'           => isset( $attr['ctaTitleColor'] ) ? $attr['ctaTitleColor'] : '#262B33',
 				'font-family'     => isset( $attr['ctaTitleTypography']['family'] ) ? $attr['ctaTitleTypography']['family'] : $global_font_family,
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $variation ),
@@ -176,7 +176,7 @@ class AffiliateX_CTA_Styles {
 	public static function get_mobileselectors( $attr ) {
 
 		$mobile_selectors = array(
-			'.wp-block-affiliatex-cta > div'    => array(
+			'.wp-block-affiliatex-cta > div' => array(
 				'letter-spacing' => isset( $attr['ctaTitleTypography']['letter-spacing']['mobile'] ) ? $attr['ctaTitleTypography']['letter-spacing']['mobile'] : '0em',
 				'border-radius'  => isset( $attr['ctaBorderRadius']['mobile']['top'] ) && isset( $attr['ctaBorderRadius']['mobile']['right'] ) && isset( $attr['ctaBorderRadius']['mobile']['bottom'] ) && isset( $attr['ctaBorderRadius']['mobile']['left'] ) ? $attr['ctaBorderRadius']['mobile']['top'] . ' ' . $attr['ctaBorderRadius']['mobile']['right'] . ' ' . $attr['ctaBorderRadius']['mobile']['bottom'] . ' ' . $attr['ctaBorderRadius']['mobile']['left'] . ' ' : '8px 8px 8px 8px',
 				'font-size'      => isset( $attr['ctaTitleTypography']['size']['mobile'] ) ? $attr['ctaTitleTypography']['size']['mobile'] : '40px',
@@ -195,16 +195,10 @@ class AffiliateX_CTA_Styles {
 				'font-size'      => isset( $attr['ctaContentTypography']['size']['mobile'] ) ? $attr['ctaContentTypography']['size']['mobile'] : '18px',
 				'line-height'    => isset( $attr['ctaContentTypography']['line-height']['mobile'] ) ? $attr['ctaContentTypography']['line-height']['mobile'] : '1.5',
 			),
-			'.wp-block-affiliatex-cta h2' => array(
+			'.wp-block-affiliatex-cta h2'    => array(
 				'letter-spacing' => isset( $attr['ctaTitleTypography']['letter-spacing']['mobile'] ) ? $attr['ctaTitleTypography']['letter-spacing']['mobile'] : '0em',
 				'font-size'      => isset( $attr['ctaTitleTypography']['size']['mobile'] ) ? $attr['ctaTitleTypography']['size']['mobile'] : '40px',
 				'line-height'    => isset( $attr['ctaTitleTypography']['line-height']['mobile'] ) ? $attr['ctaTitleTypography']['line-height']['mobile'] : '1.5',
-			),
-
-			'.wp-block-affiliatex-cta .affliatex-cta-content' => array(
-				'letter-spacing' => isset( $attr['ctaContentTypography']['letter-spacing']['mobile'] ) ? $attr['ctaContentTypography']['letter-spacing']['mobile'] : '0em',
-				'font-size'      => isset( $attr['ctaContentTypography']['size']['mobile'] ) ? $attr['ctaContentTypography']['size']['mobile'] : '18px',
-				'line-height'    => isset( $attr['ctaContentTypography']['line-height']['mobile'] ) ? $attr['ctaContentTypography']['line-height']['mobile'] : '1.5',
 			),
 
 			'.wp-block-affiliatex-cta .layout-type-2 .content-wrapper' => array(
@@ -220,7 +214,7 @@ class AffiliateX_CTA_Styles {
 	public static function get_tabletselectors( $attr ) {
 
 		$tablet_selectors = array(
-			'.wp-block-affiliatex-cta > div'    => array(
+			'.wp-block-affiliatex-cta > div' => array(
 				'letter-spacing' => isset( $attr['ctaTitleTypography']['letter-spacing']['tablet'] ) ? $attr['ctaTitleTypography']['letter-spacing']['tablet'] : '0em',
 				'border-radius'  => isset( $attr['ctaBorderRadius']['tablet']['top'] ) && isset( $attr['ctaBorderRadius']['tablet']['right'] ) && isset( $attr['ctaBorderRadius']['tablet']['bottom'] ) && isset( $attr['ctaBorderRadius']['tablet']['left'] ) ? $attr['ctaBorderRadius']['tablet']['top'] . ' ' . $attr['ctaBorderRadius']['tablet']['right'] . ' ' . $attr['ctaBorderRadius']['tablet']['bottom'] . ' ' . $attr['ctaBorderRadius']['tablet']['left'] . ' ' : '8px 8px 8px 8px',
 				'font-size'      => isset( $attr['ctaTitleTypography']['size']['tablet'] ) ? $attr['ctaTitleTypography']['size']['tablet'] : '40px',
@@ -239,16 +233,10 @@ class AffiliateX_CTA_Styles {
 				'font-size'      => isset( $attr['ctaContentTypography']['size']['tablet'] ) ? $attr['ctaContentTypography']['size']['tablet'] : '18px',
 				'line-height'    => isset( $attr['ctaContentTypography']['line-height']['tablet'] ) ? $attr['ctaContentTypography']['line-height']['tablet'] : '1.5',
 			),
-			'.wp-block-affiliatex-cta h2' => array(
+			'.wp-block-affiliatex-cta h2'    => array(
 				'letter-spacing' => isset( $attr['ctaTitleTypography']['letter-spacing']['tablet'] ) ? $attr['ctaTitleTypography']['letter-spacing']['tablet'] : '0em',
 				'font-size'      => isset( $attr['ctaTitleTypography']['size']['tablet'] ) ? $attr['ctaTitleTypography']['size']['tablet'] : '40px',
 				'line-height'    => isset( $attr['ctaTitleTypography']['line-height']['tablet'] ) ? $attr['ctaTitleTypography']['line-height']['tablet'] : '1.5',
-			),
-
-			'.wp-block-affiliatex-cta .affliatex-cta-content' => array(
-				'letter-spacing' => isset( $attr['ctaContentTypography']['letter-spacing']['tablet'] ) ? $attr['ctaContentTypography']['letter-spacing']['tablet'] : '0em',
-				'font-size'      => isset( $attr['ctaContentTypography']['size']['tablet'] ) ? $attr['ctaContentTypography']['size']['tablet'] : '18px',
-				'line-height'    => isset( $attr['ctaContentTypography']['line-height']['tablet'] ) ? $attr['ctaContentTypography']['line-height']['tablet'] : '1.5',
 			),
 
 			'.wp-block-affiliatex-cta .layout-type-2 .content-wrapper' => array(
@@ -260,5 +248,4 @@ class AffiliateX_CTA_Styles {
 		);
 		return $tablet_selectors;
 	}
-
 }

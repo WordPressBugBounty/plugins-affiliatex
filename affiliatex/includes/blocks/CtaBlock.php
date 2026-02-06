@@ -2,7 +2,7 @@
 
 namespace AffiliateX\Blocks;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 use AffiliateX\Traits\CtaRenderTrait;
 
@@ -11,12 +11,11 @@ use AffiliateX\Traits\CtaRenderTrait;
  *
  * @package AffiliateX
  */
-class CtaBlock extends BaseBlock
-{
+class CtaBlock extends BaseBlock {
+
 	use CtaRenderTrait;
 
-	public function render(array $attributes, string $content): string
-	{
-		return $this->render_template($attributes, $content);
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
 	}
 }

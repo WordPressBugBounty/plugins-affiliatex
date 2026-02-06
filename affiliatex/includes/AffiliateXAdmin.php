@@ -47,7 +47,6 @@ class AffiliateXAdmin {
      * Add Block Category
      *
      * @param [type] $categories
-     * @return void
      */
     public function add_block_category( $categories ) {
         // setup category array
@@ -84,6 +83,7 @@ class AffiliateXAdmin {
                 'affx-googlefonts',
                 'https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap',
                 array(),
+                AFFILIATEX_VERSION,
                 null
             );
             $ajax_nonce = wp_create_nonce( 'affiliatex_ajax_nonce' );
@@ -97,7 +97,12 @@ class AffiliateXAdmin {
             ) );
             wp_enqueue_script( 'affiliatex-admin' );
             // Styles.
-            wp_enqueue_style( 'affiliatex-dashboard', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/dashboard.css' );
+            wp_enqueue_style(
+                'affiliatex-dashboard',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/dashboard.css',
+                array(),
+                AFFILIATEX_VERSION
+            );
             // Styles.
             wp_enqueue_style(
                 'affiliatex-options-style-css',
@@ -113,7 +118,12 @@ class AffiliateXAdmin {
                 'all'
             );
         }
-        wp_enqueue_style( 'affiliatex-admin-css', plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/adminCSS.css' );
+        wp_enqueue_style(
+            'affiliatex-admin-css',
+            plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/adminCSS.css',
+            array(),
+            AFFILIATEX_VERSION
+        );
     }
 
     /**
@@ -142,17 +152,20 @@ class AffiliateXAdmin {
         );
         // Add localization vars.
         wp_localize_script( 'affiliatex', 'AffiliateX', array(
-            'customizationData' => affx_get_customization_settings(),
-            'siteURL'           => esc_url( home_url( '/' ) ),
-            'pluginUrl'         => esc_url( plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) ),
-            'proActive'         => ( affiliatex_fs()->is_premium() ? 'true' : 'false' ),
-            'WPVersion'         => version_compare( get_bloginfo( 'version' ), '5.9', '>=' ),
-            'isAmazonActive'    => ( $amazon_config->is_active() ? 'true' : 'false' ),
-            'connectAllButton'  => WidgetHelper::get_connect_all_button_html(),
+            'customizationData'     => affx_get_customization_settings(),
+            'siteURL'               => esc_url( home_url( '/' ) ),
+            'pluginUrl'             => esc_url( plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) ),
+            'proActive'             => ( affiliatex_fs()->is_premium() ? 'true' : 'false' ),
+            'WPVersion'             => version_compare( get_bloginfo( 'version' ), '5.9', '>=' ),
+            'isAmazonActive'        => ( $amazon_config->is_active() ? 'true' : 'false' ),
+            'connectAllButton'      => WidgetHelper::get_connect_all_button_html(),
+            'templateLibraryButton' => WidgetHelper::get_template_library_button_html(),
+            'hasElementorTemplates' => ( \AffiliateXTemplateLibrary::instance()->has_elementor_templates() ? 'true' : 'false' ),
+            'ajax_nonce'            => wp_create_nonce( 'affiliatex_ajax_nonce' ),
         ) );
         wp_enqueue_script( 'affiliatex' );
         wp_enqueue_script( 'affiliatex-block-export' );
-        if ( !affiliatex_fs()->is_premium() && !affx_is_elementor_editor() ) {
+        if ( !affiliatex_fs()->is_premium() ) {
             $pro_blocks_preview_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/proBlocksPreview.asset.php');
             wp_enqueue_script(
                 'affiliatex-pro-blocks-preview',
@@ -195,7 +208,7 @@ class AffiliateXAdmin {
         wp_enqueue_style(
             'affiliatex-editor-css',
             plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/editorCSS.css',
-            [],
+            array(),
             filemtime( AFFILIATEX_PLUGIN_DIR . '/build/editorCSS.css' )
         );
     }
@@ -207,6 +220,7 @@ class AffiliateXAdmin {
      */
     public function add_affiliate_menu() {
         $ADMIN_ICON = base64_encode( '<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0)"><path d="M25 8.73L24 7L4 41.64H6H16H18L31 19.12L25 8.73Z" fill="#69758F"/><path d="M23 8.73L24 7L44 41.64H42H32H30L17 19.12L23 8.73Z" fill="#69758F"/><path d="M23 8.73L17 19.12L24 31.25L31 19.12L25 8.73L24 7L23 8.73Z" fill="#A3ACBF"/></g><defs><clipPath id="clip0"><rect width="40" height="34.64" fill="white" transform="translate(4 7)"/></clipPath></defs></svg>' );
+        // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
         add_menu_page(
             esc_html__( 'AffiliateX', 'affiliatex' ),
             esc_html__( 'AffiliateX', 'affiliatex' ),
@@ -231,7 +245,7 @@ class AffiliateXAdmin {
     }
 
     /**
-     * render options page
+     * Render options page
      *
      * @return void
      */

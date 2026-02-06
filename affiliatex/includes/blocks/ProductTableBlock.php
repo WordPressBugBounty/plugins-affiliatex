@@ -4,7 +4,7 @@ namespace AffiliateX\Blocks;
 
 use AffiliateX\Traits\ProductTableRenderTrait;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
@@ -13,12 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  *
  * @package AffiliateX
  */
-class ProductTableBlock extends BaseBlock
-{
-    use ProductTableRenderTrait;
+class ProductTableBlock extends BaseBlock {
 
-    public function render(array $attributes, string $content): string
-    {
-        return $this->render_template($attributes, $content);
-    }
+	use ProductTableRenderTrait;
+
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
+	}
 }

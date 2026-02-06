@@ -8,6 +8,9 @@
   "supports": {
     "multiple": true
   },
+  "usesContext": [
+    "affiliatex/edFullBlockLink"
+  ],
   "keywords": [
     "Buttons",
     "AffiliateX Buttons",

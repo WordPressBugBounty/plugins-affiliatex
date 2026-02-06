@@ -9,6 +9,9 @@
     "multiple": true,
     "innerBlocks": true
   },
+  "providesContext": {
+    "affiliatex/edFullBlockLink": "edFullBlockLink"
+  },
   "keywords": [
     "Product",
     "Single Product",
@@ -398,6 +401,14 @@
       "type": "string",
       "default": "left"
     },
+    "productImageVerticalAlign": {
+      "type": "string",
+      "default": "top"
+    },
+    "productImageHorizontalAlign": {
+      "type": "string",
+      "default": "center"
+    },
     "productPrice": {
       "type": "string",
       "default": "$59"
@@ -676,9 +687,69 @@
       "type": "string",
       "default": ""
     },
+    "blockRelNoFollow": {
+      "type": "boolean",
+      "default": false
+    },
+    "blockRelSponsored": {
+      "type": "boolean",
+      "default": false
+    },
+    "blockDownload": {
+      "type": "boolean",
+      "default": false
+    },
     "blockOpenInNewTab": {
       "type": "boolean",
       "default": false
+    },
+    "edReadMore": {
+      "type": "boolean",
+      "default": false
+    },
+    "descriptionLength": {
+      "type": "number",
+      "default": 150
+    },
+    "listItemCount": {
+      "type": "number",
+      "default": 3
+    },
+    "readMoreText": {
+      "type": "string",
+      "default": "Read more"
+    },
+    "readLessText": {
+      "type": "string",
+      "default": "Read less"
+    },
+    "readMoreColor": {
+      "type": "string",
+      "default": "#2670FF"
+    },
+    "readMoreTypography": {
+      "type": "object",
+      "default": {
+        "family": "Default",
+        "variation": "n4",
+        "size": {
+          "desktop": "14px",
+          "mobile": "14px",
+          "tablet": "14px"
+        },
+        "line-height": {
+          "desktop": "1.5",
+          "mobile": "1.5",
+          "tablet": "1.5"
+        },
+        "letter-spacing": {
+          "desktop": "0em",
+          "mobile": "0em",
+          "tablet": "0em"
+        },
+        "text-transform": "none",
+        "text-decoration": "none"
+      }
     }
   },
   "example": {

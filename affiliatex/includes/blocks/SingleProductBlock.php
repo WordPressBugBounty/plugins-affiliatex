@@ -12,15 +12,15 @@ use AffiliateX\Traits\SingleProductRenderTrait;
  *
  * @package AffiliateX
  */
-class SingleProductBlock extends BaseBlock
-{
+class SingleProductBlock extends BaseBlock {
+
 	use SingleProductRenderTrait;
-	protected function get_slug(): string
-	{
+
+	protected function get_slug(): string {
 		return 'single-product';
 	}
 
-    public function render(array $attributes, string $content) : string {
-        return $this->render_sp_template($attributes, $content);
-    }
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_sp_template( $attributes, $content );
+	}
 }

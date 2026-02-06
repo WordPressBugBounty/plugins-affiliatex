@@ -13,40 +13,37 @@ use AffiliateX\Blocks\SpecificationsBlock;
 use AffiliateX\Blocks\VerdictBlock;
 use AffiliateX\Blocks\VersusLineBlock;
 
-defined('ABSPATH') || exit;
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Admin class
  *
  * @package AffiliateX
  */
-class AffiliateXBlocks
-{
+class AffiliateXBlocks {
+
 	/**
 	 * Constructor
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->init();
 	}
 
-	public function init()
-	{
-		$blocks = [
-			'ButtonBlock' => ButtonBlock::class,
-			'CtaBlock' => CtaBlock::class,
-			'NoticeBlock' => NoticeBlock::class,
+	public function init() {
+		$blocks = array(
+			'ButtonBlock'            => ButtonBlock::class,
+			'CtaBlock'               => CtaBlock::class,
+			'NoticeBlock'            => NoticeBlock::class,
 			'ProductComparisonBlock' => ProductComparisonBlock::class,
-			'ProductTableBlock' => ProductTableBlock::class,
-			'ProsAndConsBlock' => ProsAndConsBlock::class,
-			'SingleProductBlock' => SingleProductBlock::class,
-			'SpecificationsBlock' => SpecificationsBlock::class,
-			'VerdictBlock' => VerdictBlock::class,
-			'VersusLineBlock' => VersusLineBlock::class,
-		];
+			'ProductTableBlock'      => ProductTableBlock::class,
+			'ProsAndConsBlock'       => ProsAndConsBlock::class,
+			'SingleProductBlock'     => SingleProductBlock::class,
+			'SpecificationsBlock'    => SpecificationsBlock::class,
+			'VerdictBlock'           => VerdictBlock::class,
+			'VersusLineBlock'        => VersusLineBlock::class,
+		);
 
-
-		foreach ($blocks as $class) {
+		foreach ( $blocks as $class ) {
 			new $class();
 		}
 	}

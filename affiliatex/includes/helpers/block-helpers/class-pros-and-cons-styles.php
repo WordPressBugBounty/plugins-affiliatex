@@ -270,7 +270,7 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
 				'color'           => isset( $attr['consListColor'] ) ? $attr['consListColor'] : $global_font_color,
-				'display'         => $contentAlignment != 'left' ? 'block' : 'flex',
+				'display'         => $contentAlignment !== 'left' ? 'block' : 'flex',
 			),
 			' .affiliatex-pros p'                          => array(
 				'font-family'     => isset( $attr['listTypography']['family'] ) ? $attr['listTypography']['family'] : $global_font_family,
@@ -293,15 +293,15 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
 				'color'           => isset( $attr['prosListColor'] ) ? $attr['prosListColor'] : $global_font_color,
-				'display'         => $contentAlignment != 'left' ? 'block' : 'flex',
-			),	
-			' .affiliatex-block-pros i' => array(
-				'font-size' => isset( $attr['prosIconSize'] ) ? $attr['prosIconSize'] . 'px' : '18px',
-				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $prosTextColor,
+				'display'         => $contentAlignment !== 'left' ? 'block' : 'flex',
 			),
-			' .affiliatex-block-cons i' => array(
+			' .affiliatex-block-pros i'                    => array(
+				'font-size' => isset( $attr['prosIconSize'] ) ? $attr['prosIconSize'] . 'px' : '18px',
+				'color'     => isset( $attr['layoutStyle'] ) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $prosTextColor,
+			),
+			' .affiliatex-block-cons i'                    => array(
 				'font-size' => isset( $attr['consIconSize'] ) ? $attr['consIconSize'] . 'px' : '18px',
-				'color' => isset($attr['layoutStyle']) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $consTextColor,
+				'color'     => isset( $attr['layoutStyle'] ) && $attr['layoutStyle'] === 'layout-type-3' ? '' : $consTextColor,
 			),
 			' .affiliatex-pros ul li::before'              => array(
 				'color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
@@ -318,10 +318,10 @@ class AffiliateX_Pros_and_Cons_Styles {
 			' .affiliatex-cons li::marker'                 => array(
 				'color' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
 			),
-			' .affiliatex-pros li i'                      => array(
+			' .affiliatex-pros li i'                       => array(
 				'color' => isset( $attr['prosIconColor'] ) ? $attr['prosIconColor'] : '#24B644',
 			),
-			' .affiliatex-cons li i'                      => array(
+			' .affiliatex-cons li i'                       => array(
 				'color' => isset( $attr['consIconColor'] ) ? $attr['consIconColor'] : '#F13A3A',
 			),
 			' .affiliatex-cons ul.bullet li::before'       => array(
@@ -462,16 +462,16 @@ class AffiliateX_Pros_and_Cons_Styles {
 				'background' => isset( $attr['consListBgType'] ) && $attr['consListBgType'] === 'gradient' ? $consListBgGradient : $consListBgColor,
 			),
 			' .affiliatex-pros ul'                         => array(
-				'list-style' => $contentType == 'list' &&
-				$listType == 'unordered' &&
-				$unorderedType == 'icon'
+				'list-style' => $contentType === 'list' &&
+				$listType === 'unordered' &&
+				$unorderedType === 'icon'
 					? 'none'
 					: '',
 			),
 			' .affiliatex-cons ul'                         => array(
-				'list-style' => $contentType == 'list' &&
-				$listType == 'unordered' &&
-				$unorderedType == 'icon'
+				'list-style' => $contentType === 'list' &&
+				$listType === 'unordered' &&
+				$unorderedType === 'icon'
 					? 'none'
 					: '',
 			),
@@ -839,5 +839,4 @@ class AffiliateX_Pros_and_Cons_Styles {
 		);
 		return $tablet_selector;
 	}
-
 }

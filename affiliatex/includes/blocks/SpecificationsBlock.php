@@ -12,12 +12,11 @@ use AffiliateX\Traits\SpecificationsRenderTrait;
  *
  * @package AffiliateX
  */
-class SpecificationsBlock extends BaseBlock
-{
-    use SpecificationsRenderTrait;
+class SpecificationsBlock extends BaseBlock {
 
-	public function render(array $attributes, string $content) : string
-    {
-        return $this->render_template($attributes, $content);
-    }
+	use SpecificationsRenderTrait;
+
+	public function render( array $attributes, string $content, $block = null ): string {
+		return $this->render_template( $attributes, $content );
+	}
 }
