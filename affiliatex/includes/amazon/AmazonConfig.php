@@ -82,8 +82,74 @@ class AmazonConfig {
 	 * Use External API instead of Amazon API
 	 *
 	 * @var bool
+	 * @deprecated Use api_type instead
 	 */
 	public $use_external_api;
+
+	/**
+	 * API Type (creator, zero, pa_api)
+	 *
+	 * @var string
+	 */
+	public $api_type;
+
+	/**
+	 * Creator API Client ID
+	 *
+	 * @var string
+	 */
+	public $creator_client_id;
+
+	/**
+	 * Creator API Client Secret
+	 *
+	 * @var string
+	 */
+	public $creator_client_secret;
+
+	/**
+	 * Creator API Credential Version (auto-detected from country)
+	 *
+	 * @var string
+	 */
+	public $creator_version;
+
+	/**
+	 * Get Creator API version based on country
+	 *
+	 * @param string $country Country code
+	 * @return string Version (2.1, 2.2, or 2.3)
+	 */
+	public function get_creator_version_for_country( string $country ): string {
+		// North America: US, CA, MX, BR
+		$na_countries = array( 'us', 'ca', 'mx', 'br' );
+		if ( in_array( $country, $na_countries, true ) ) {
+			return '2.1';
+		}
+
+		// Far East: JP, AU, IN, SG
+		$fe_countries = array( 'jp', 'au', 'in', 'sg' );
+		if ( in_array( $country, $fe_countries, true ) ) {
+			return '2.3';
+		}
+
+		// Europe (default): UK, DE, FR, IT, ES, NL, SE, PL, TR, BE, AE, SA, EG
+		return '2.2';
+	}
+
+	/**
+	 * Creator API Access Token (cached)
+	 *
+	 * @var string
+	 */
+	private $creator_access_token;
+
+	/**
+	 * Creator API Token Expiration
+	 *
+	 * @var int
+	 */
+	private $creator_token_expires;
 
 	/**
 	 * Geolocation enabled
@@ -297,19 +363,45 @@ class AmazonConfig {
 	);
 
 	public function __construct() {
-		$configs      = $this->get_option( 'amazon_settings' );
+		$configs = $this->get_option( 'amazon_settings' );
+
+		// Migration: Convert old external_api boolean to api_type
+		if ( ! isset( $configs['api_type'] ) && isset( $configs['external_api'] ) ) {
+			$configs['api_type'] = $configs['external_api'] === true ? 'zero' : 'pa_api';
+			unset( $configs['external_api'] );
+			// Save migrated data
+			$this->set_option( 'amazon_settings', $configs );
+		}
+
 		$country_data = $this->get_country_data( $configs['country'] ?? 'us' );
 
-		$this->api_key               = isset( $configs['api_key'] ) ? $configs['api_key'] : '';
-		$this->api_secret            = isset( $configs['api_secret'] ) ? $configs['api_secret'] : '';
-		$this->tracking_id           = isset( $configs['tracking_id'] ) ? $configs['tracking_id'] : '';
-		$this->country               = isset( $configs['country'] ) ? $configs['country'] : 'us';
-		$this->host                  = $country_data['host'];
-		$this->region                = $country_data['region'];
-		$this->country_name          = $country_data['label'];
-		$this->language              = isset( $configs['language'] ) ? $configs['language'] : 'en_US';
-		$this->update_frequency      = isset( $configs['update_frequency'] ) ? $configs['update_frequency'] : 'daily';
-		$this->use_external_api      = isset( $configs['external_api'] ) ? (bool) $configs['external_api'] : false;
+		// PA API credentials (legacy)
+		$this->api_key    = isset( $configs['api_key'] ) ? $configs['api_key'] : '';
+		$this->api_secret = isset( $configs['api_secret'] ) ? $configs['api_secret'] : '';
+
+		// Common fields
+		$this->tracking_id      = isset( $configs['tracking_id'] ) ? $configs['tracking_id'] : '';
+		$this->country          = isset( $configs['country'] ) ? $configs['country'] : 'us';
+		$this->host             = $country_data['host'];
+		$this->region           = $country_data['region'];
+		$this->country_name     = $country_data['label'];
+		$this->language         = isset( $configs['language'] ) ? $configs['language'] : 'en_US';
+		$this->update_frequency = isset( $configs['update_frequency'] ) ? $configs['update_frequency'] : 'daily';
+
+		// API type field
+		$this->api_type = isset( $configs['api_type'] ) ? $configs['api_type'] : 'creator';
+
+		// Creator API credentials
+		$this->creator_client_id     = isset( $configs['creator_client_id'] ) ? $configs['creator_client_id'] : '';
+		$this->creator_client_secret = isset( $configs['creator_client_secret'] ) ? $configs['creator_client_secret'] : '';
+		$this->creator_version       = $this->get_creator_version_for_country( $this->country );
+		$this->creator_access_token  = isset( $configs['creator_access_token'] ) ? $configs['creator_access_token'] : '';
+		$this->creator_token_expires = isset( $configs['creator_token_expires'] ) ? (int) $configs['creator_token_expires'] : 0;
+
+		// Legacy field for backward compatibility
+		$this->use_external_api = ( $this->api_type === 'zero' );
+
+		// Geolocation
 		$this->geolocation_enabled   = isset( $configs['geolocation'] ) ? (bool) $configs['geolocation'] : false;
 		$this->geolocation_countries = isset( $configs['geolocation_countries'] ) ? $configs['geolocation_countries'] : array();
 	}
@@ -346,29 +438,69 @@ class AmazonConfig {
 	 * @return boolean
 	 */
 	public function is_settings_empty(): bool {
-		if ( $this->is_using_external_api() ) {
-			return empty( $this->country ) || empty( $this->tracking_id );
+		// Common required fields
+		if ( empty( $this->country ) || empty( $this->tracking_id ) ) {
+			return true;
 		}
 
-		return empty( $this->api_key ) || empty( $this->api_secret ) || empty( $this->country ) || empty( $this->tracking_id );
+		// API-type specific required fields
+		switch ( $this->api_type ) {
+			case 'creator':
+				return empty( $this->creator_client_id ) || empty( $this->creator_client_secret );
+			case 'zero':
+				return false; // Only tracking_id and country required (checked above)
+			case 'pa_api':
+				return empty( $this->api_key ) || empty( $this->api_secret );
+			default:
+				return true;
+		}
+	}
+
+	/**
+	 * Check if using Creator API
+	 *
+	 * @return boolean
+	 */
+	public function is_using_creator_api(): bool {
+		return $this->api_type === 'creator';
+	}
+
+	/**
+	 * Check if using Zero API
+	 *
+	 * @return boolean
+	 */
+	public function is_using_zero_api(): bool {
+		return $this->api_type === 'zero';
+	}
+
+	/**
+	 * Check if using PA API (legacy)
+	 *
+	 * @return boolean
+	 */
+	public function is_using_pa_api(): bool {
+		return $this->api_type === 'pa_api';
 	}
 
 	/**
 	 * Check if using external API instead of Amazon API
 	 *
 	 * @return boolean
+	 * @deprecated Use is_using_zero_api() instead
 	 */
 	public function is_using_external_api(): bool {
-		return $this->use_external_api === true;
+		return $this->is_using_zero_api();
 	}
 
 	/**
 	 * Check if using Amazon API directly
 	 *
 	 * @return boolean
+	 * @deprecated Use is_using_pa_api() instead
 	 */
 	public function is_using_amazon_api(): bool {
-		return ! $this->is_using_external_api();
+		return $this->is_using_pa_api();
 	}
 
 	/**
@@ -482,5 +614,101 @@ class AmazonConfig {
 			'https://' . $target_domain,
 			$url
 		);
+	}
+
+	/**
+	 * Get Creator API access token (with auto-refresh)
+	 *
+	 * @return string|false
+	 */
+	public function get_creator_access_token() {
+		// Check if token exists and is not expired
+		if ( ! empty( $this->creator_access_token ) && time() < $this->creator_token_expires ) {
+			return $this->creator_access_token;
+		}
+
+		// Token expired or doesn't exist, fetch new one
+		return $this->refresh_creator_token();
+	}
+
+	/**
+	 * Refresh Creator API OAuth token
+	 *
+	 * @return string|false
+	 */
+	public function refresh_creator_token() {
+		if ( empty( $this->creator_client_id ) || empty( $this->creator_client_secret ) ) {
+			return false;
+		}
+
+		// Get the correct token endpoint for this credential version
+		require_once AFFILIATEX_PLUGIN_DIR . '/includes/amazon/api/AmazonCreatorApi.php';
+		$token_url = \AffiliateX\Amazon\Api\AmazonCreatorApi::get_token_endpoint( $this->creator_version );
+		$is_lwa    = strpos( $this->creator_version, '3.' ) === 0; // v3.x uses Login with Amazon (LwA)
+
+		if ( $is_lwa ) {
+			// v3.x credentials use JSON body
+			$response = wp_remote_post(
+				$token_url,
+				array(
+					'headers' => array(
+						'Content-Type' => 'application/json',
+					),
+					'body'    => wp_json_encode(
+						array(
+							'grant_type'    => 'client_credentials',
+							'client_id'     => $this->creator_client_id,
+							'client_secret' => $this->creator_client_secret,
+							'scope'         => 'creatorsapi::default',
+						)
+					),
+					'timeout' => 30,
+				)
+			);
+		} else {
+			// v2.x credentials use Basic Auth
+			// phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode -- Used for OAuth Basic Authentication header, not code obfuscation
+			$auth_header = 'Basic ' . base64_encode( $this->creator_client_id . ':' . $this->creator_client_secret );
+
+			$response = wp_remote_post(
+				$token_url,
+				array(
+					'headers' => array(
+						'Content-Type'  => 'application/x-www-form-urlencoded',
+						'Authorization' => $auth_header,
+					),
+					'body'    => array(
+						'grant_type' => 'client_credentials',
+						'scope'      => 'creatorsapi/default',
+					),
+					'timeout' => 30,
+				)
+			);
+		}
+
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+
+		$code = wp_remote_retrieve_response_code( $response );
+		$body = wp_remote_retrieve_body( $response );
+
+		$data = json_decode( $body, true );
+
+		if ( ! isset( $data['access_token'] ) || ! isset( $data['expires_in'] ) ) {
+			return false;
+		}
+
+		// Cache the token
+		$this->creator_access_token  = $data['access_token'];
+		$this->creator_token_expires = time() + $data['expires_in'] - 60; // 60 second buffer
+
+		// Save to database
+		$settings                          = $this->get_option( 'amazon_settings', array() );
+		$settings['creator_access_token']  = $this->creator_access_token;
+		$settings['creator_token_expires'] = $this->creator_token_expires;
+		$this->set_option( 'amazon_settings', $settings );
+
+		return $this->creator_access_token;
 	}
 }

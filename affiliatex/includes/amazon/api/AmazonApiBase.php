@@ -134,13 +134,15 @@ abstract class AmazonApiBase {
 	 * @return string
 	 */
 	protected function get_endpoint(): string {
-		if ( $this->configs->is_using_external_api() ) {
+		if ( $this->configs->is_using_zero_api() ) {
+			// Zero API proxy
 			$end_point = sprintf(
 				'%s/wp-json/affiliatex-proxy/v1/amazon-proxy%s',
 				AFFILIATEX_EXTERNAL_API_ENDPOINT,
 				$this->get_path()
 			);
 		} else {
+			// PA API (legacy)
 			$end_point = sprintf(
 				'https://%s%s',
 				$this->configs->host,
@@ -161,8 +163,8 @@ abstract class AmazonApiBase {
 			return false;
 		}
 
-		if ( $this->configs->is_using_external_api() ) {
-			// Get license key and site URL for validation
+		if ( $this->configs->is_using_zero_api() ) {
+			// Zero API logic
 			$license_key = '';
 			$site_url    = site_url();
 
@@ -182,15 +184,13 @@ abstract class AmazonApiBase {
 				'X-Domain'      => $site_url,
 			);
 
-			// Prepare request args based on API type
 			$request_args = array(
 				'method'    => 'POST',
 				'headers'   => $headers,
 				'sslverify' => false,
 				'timeout'   => $this->get_request_timeout(),
+				'body'      => $this->get_payload(),
 			);
-
-			$request_args['body'] = $this->get_payload();
 
 			$response = \wp_remote_post( $this->get_endpoint(), $request_args );
 
@@ -204,6 +204,7 @@ abstract class AmazonApiBase {
 				return false;
 			}
 		} else {
+			// PA API (legacy) logic
 			$signature = $this->get_signature();
 
 			if ( ! $signature ) {

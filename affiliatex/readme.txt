@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affili
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 1.4.1.2
+Stable tag: 1.4.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

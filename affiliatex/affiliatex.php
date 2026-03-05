@@ -8,7 +8,7 @@
  * Author URI:      https://affiliatexblocks.com
  * Text Domain:     affiliatex
  * Domain Path:     /languages
- * Version:         1.4.1.2
+ * Version:         1.4.2
  * Requires at least: 5.8
  * Requires PHP:      7.4
  *
@@ -31,21 +31,22 @@ if ( function_exists( 'affiliatex_fs' ) ) {
                 // Include Freemius SDK.
                 require_once __DIR__ . '/vendor/freemius/wordpress-sdk/start.php';
                 $affiliatex_fs = fs_dynamic_init( array(
-                    'id'             => '15886',
-                    'slug'           => 'affiliatex',
-                    'premium_slug'   => 'affiliatex-pro',
-                    'type'           => 'plugin',
-                    'public_key'     => 'pk_76dcb91998e6cb52401be629fea6f',
-                    'is_premium'     => false,
-                    'premium_suffix' => 'pro',
-                    'has_addons'     => false,
-                    'has_paid_plans' => true,
-                    'menu'           => array(
+                    'id'               => '15886',
+                    'slug'             => 'affiliatex',
+                    'premium_slug'     => 'affiliatex-pro',
+                    'type'             => 'plugin',
+                    'public_key'       => 'pk_76dcb91998e6cb52401be629fea6f',
+                    'is_premium'       => false,
+                    'premium_suffix'   => 'pro',
+                    'has_addons'       => false,
+                    'has_paid_plans'   => true,
+                    'menu'             => array(
                         'slug'    => 'affiliatex_blocks',
                         'support' => false,
                         'contact' => true,
                     ),
-                    'is_live'        => true,
+                    'is_live'          => true,
+                    'is_org_compliant' => true,
                 ) );
             }
             return $affiliatex_fs;
@@ -68,7 +69,7 @@ if ( function_exists( 'affiliatex_fs' ) ) {
         define( 'AFFILIATEX_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
     }
     if ( !defined( 'AFFILIATEX_VERSION' ) ) {
-        define( 'AFFILIATEX_VERSION', '1.4.1.2' );
+        define( 'AFFILIATEX_VERSION', '1.4.2' );
     }
     if ( !defined( 'AFFILIATEX_EXTERNAL_API_ENDPOINT' ) ) {
         define( 'AFFILIATEX_EXTERNAL_API_ENDPOINT', 'https://affiliatexblocks.com' );

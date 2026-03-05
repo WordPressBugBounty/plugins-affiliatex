@@ -6,6 +6,7 @@ defined( 'ABSPATH' ) || exit;
 
 use AffiliateX\Amazon\AmazonConfig;
 use AffiliateX\Amazon\Api\AmazonApiValidator;
+use AffiliateX\Amazon\Api\AmazonCreatorApi;
 use Exception;
 use WP_REST_Request;
 
@@ -98,19 +99,20 @@ class AmazonSettings {
 	private function sanitize_settings_fields( array $params ): array {
 		$attributes = array();
 
-		$attributes['external_api'] = isset( $params['external_api'] ) ? (bool) $params['external_api'] : false;
+		// API Type (creator, zero, pa_api)
+		$attributes['api_type'] = isset( $params['api_type'] ) && in_array( $params['api_type'], array( 'creator', 'zero', 'pa_api' ), true )
+			? $params['api_type']
+			: 'creator';
 
-		// Handle API keys based on external_api setting
-		if ( AmazonConfig::is_external_api_from_settings( $attributes ) ) {
-			// When using external API, save whatever is provided (even empty values)
-			$attributes['api_key']    = isset( $params['api_key'] ) ? sanitize_text_field( $params['api_key'] ) : '';
-			$attributes['api_secret'] = isset( $params['api_secret'] ) ? sanitize_text_field( $params['api_secret'] ) : '';
-		} else {
-			// When using Amazon API, only save if provided and not empty
-			$attributes['api_key']    = isset( $params['api_key'] ) && ! empty( $params['api_key'] ) ? sanitize_text_field( $params['api_key'] ) : '';
-			$attributes['api_secret'] = isset( $params['api_secret'] ) && ! empty( $params['api_secret'] ) ? sanitize_text_field( $params['api_secret'] ) : '';
-		}
+		// Creator API credentials
+		$attributes['creator_client_id']     = isset( $params['creator_client_id'] ) ? sanitize_text_field( $params['creator_client_id'] ) : '';
+		$attributes['creator_client_secret'] = isset( $params['creator_client_secret'] ) ? sanitize_text_field( $params['creator_client_secret'] ) : '';
 
+		// PA API credentials (legacy)
+		$attributes['api_key']    = isset( $params['api_key'] ) ? sanitize_text_field( $params['api_key'] ) : '';
+		$attributes['api_secret'] = isset( $params['api_secret'] ) ? sanitize_text_field( $params['api_secret'] ) : '';
+
+		// Common fields
 		$attributes['country']               = isset( $params['country'] ) && ! empty( $params['country'] ) ? sanitize_text_field( $params['country'] ) : '';
 		$attributes['tracking_id']           = isset( $params['tracking_id'] ) && ! empty( $params['tracking_id'] ) ? sanitize_text_field( $params['tracking_id'] ) : '';
 		$attributes['language']              = isset( $params['language'] ) && ! empty( $params['language'] ) ? sanitize_text_field( $params['language'] ) : '';
@@ -118,43 +120,48 @@ class AmazonSettings {
 		$attributes['geolocation']           = isset( $params['geolocation'] ) ? (bool) $params['geolocation'] : false;
 		$attributes['geolocation_countries'] = isset( $params['geolocation_countries'] ) ? array_map( 'sanitize_text_field', $params['geolocation_countries'] ) : array();
 
-		$has_any_value = ! empty( $attributes['api_key'] ) ||
-						! empty( $attributes['api_secret'] ) ||
-						! empty( $attributes['tracking_id'] );
+		// Validation based on API type
+		switch ( $attributes['api_type'] ) {
+			case 'creator':
+				if ( empty( $attributes['creator_client_id'] ) ) {
+					$this->send_json_error( __( 'Creator API Client ID is required', 'affiliatex' ) );
+				}
+				if ( empty( $attributes['creator_client_secret'] ) ) {
+					$this->send_json_error( __( 'Creator API Client Secret is required', 'affiliatex' ) );
+				}
+				break;
 
-		if ( AmazonConfig::is_external_api_from_settings( $attributes ) ) {
-			if ( empty( $attributes['tracking_id'] ) ) {
-				$this->send_json_error( __( 'Tracking ID is required', 'affiliatex' ) );
-			}
+			case 'zero':
+				// Only tracking_id and country required (checked below)
+				break;
 
-			if ( empty( $attributes['country'] ) ) {
-				$this->send_json_error( __( 'Country is required', 'affiliatex' ) );
-			}
-		} elseif ( $has_any_value ) {
-			if ( empty( $attributes['api_key'] ) ) {
-				$this->send_json_error( __( 'API key is required', 'affiliatex' ) );
-			}
+			case 'pa_api':
+				if ( empty( $attributes['api_key'] ) ) {
+					$this->send_json_error( __( 'PA API Key is required', 'affiliatex' ) );
+				}
+				if ( empty( $attributes['api_secret'] ) ) {
+					$this->send_json_error( __( 'PA API Secret is required', 'affiliatex' ) );
+				}
+				break;
+		}
 
-			if ( empty( $attributes['api_secret'] ) ) {
-				$this->send_json_error( __( 'API secret is required', 'affiliatex' ) );
-			}
+		// Common validations
+		if ( empty( $attributes['tracking_id'] ) ) {
+			$this->send_json_error( __( 'Tracking ID is required', 'affiliatex' ) );
+		}
 
-			if ( empty( $attributes['country'] ) ) {
-				$this->send_json_error( __( 'Country is required', 'affiliatex' ) );
-			}
+		if ( empty( $attributes['country'] ) ) {
+			$this->send_json_error( __( 'Country is required', 'affiliatex' ) );
+		}
 
-			if ( empty( $attributes['tracking_id'] ) ) {
-				$this->send_json_error( __( 'Tracking ID is required', 'affiliatex' ) );
-			}
-
-			if ( $attributes['geolocation'] ) {
-				if ( empty( $attributes['geolocation_countries'] ) ) {
-					$this->send_json_error( __( 'Please setup at least one store for geolocation or disable it.', 'affiliatex' ) );
-				} else {
-					foreach ( $attributes['geolocation_countries'] as $tracking_id ) {
-						if ( empty( $tracking_id ) ) {
-							$this->send_json_error( __( 'Tracking ID is required for all geolocation stores.', 'affiliatex' ) );
-						}
+		// Geolocation validation
+		if ( $attributes['geolocation'] ) {
+			if ( empty( $attributes['geolocation_countries'] ) ) {
+				$this->send_json_error( __( 'Please setup at least one store for geolocation or disable it.', 'affiliatex' ) );
+			} else {
+				foreach ( $attributes['geolocation_countries'] as $tracking_id ) {
+					if ( empty( $tracking_id ) ) {
+						$this->send_json_error( __( 'Tracking ID is required for all geolocation stores.', 'affiliatex' ) );
 					}
 				}
 			}
@@ -174,39 +181,66 @@ class AmazonSettings {
 			$params     = json_decode( $request->get_body(), true );
 			$attributes = $this->sanitize_settings_fields( $params );
 
-			$all_empty = empty( $attributes['api_key'] ) &&
-						empty( $attributes['api_secret'] ) &&
-						empty( $attributes['tracking_id'] );
-
 			$this->set_option( 'amazon_settings', $attributes );
 
-			if ( ! $all_empty ) {
-				if ( AmazonConfig::is_external_api_from_settings( $attributes ) ) {
-					if ( ! empty( $attributes['tracking_id'] ) && ! empty( $attributes['country'] ) ) {
-						$this->set_option( 'amazon_activated', true );
-					} else {
-						$this->set_option( 'amazon_activated', false );
-					}
-				} else {
-					$validator = new AmazonApiValidator();
+			// Validate credentials based on API type
+			if ( $attributes['api_type'] === 'creator' ) {
+				// Get credential version based on country
+				$config  = new AmazonConfig();
+				$version = $config->get_creator_version_for_country( $attributes['country'] ?? 'us' );
+				$country = $attributes['country'] ?? 'us';
 
-					if ( ! $validator->is_credentials_valid() ) {
-						$errors = $validator->get_errors();
+				// Validate Creator API credentials with actual API test call
+				$validation = AmazonCreatorApi::validate_credentials(
+					$attributes['creator_client_id'],
+					$attributes['creator_client_secret'],
+					$version,
+					$country
+				);
 
-						$this->set_option( 'amazon_activated', false );
-						$this->send_json_error(
-							__( 'Invalid credentials', 'affiliatex' ),
-							array(
-								'invalid_api_key' => true,
-								'errors'          => $errors,
-							)
-						);
-					}
-
-					$this->set_option( 'amazon_activated', true );
+				if ( ! $validation['valid'] ) {
+					$this->set_option( 'amazon_activated', false );
+					$this->send_json_error(
+						__( 'Invalid Creator API credentials', 'affiliatex' ),
+						array(
+							'invalid_api_key' => true,
+							'errors'          => array(
+								array(
+									'Code'    => $validation['error_code'] ?? 'InvalidCredentials',
+									'Message' => $validation['error'],
+								),
+							),
+						)
+					);
 				}
-			} else {
-				$this->set_option( 'amazon_activated', false );
+
+				$this->set_option( 'amazon_activated', true );
+
+			} elseif ( $attributes['api_type'] === 'zero' ) {
+				// Zero API just needs tracking_id and country
+				if ( ! empty( $attributes['tracking_id'] ) && ! empty( $attributes['country'] ) ) {
+					$this->set_option( 'amazon_activated', true );
+				} else {
+					$this->set_option( 'amazon_activated', false );
+				}
+			} else { // pa_api
+				// Validate PA API credentials
+				$validator = new AmazonApiValidator();
+
+				if ( ! $validator->is_credentials_valid() ) {
+					$errors = $validator->get_errors();
+
+					$this->set_option( 'amazon_activated', false );
+					$this->send_json_error(
+						__( 'Invalid credentials', 'affiliatex' ),
+						array(
+							'invalid_api_key' => true,
+							'errors'          => $errors,
+						)
+					);
+				}
+
+				$this->set_option( 'amazon_activated', true );
 			}
 
 			$this->send_json_success( __( 'Settings saved successfully', 'affiliatex' ) );
@@ -223,18 +257,29 @@ class AmazonSettings {
 	public function get_settings(): void {
 		try {
 			$defaults = array(
+				'api_type'              => 'creator',
+				'creator_client_id'     => '',
+				'creator_client_secret' => '',
 				'api_key'               => '',
 				'api_secret'            => '',
 				'tracking_id'           => '',
 				'country'               => 'us',
 				'language'              => 'en_US',
 				'update_frequency'      => 'daily',
-				'external_api'          => false,
 				'geolocation'           => false,
 				'geolocation_countries' => array(),
 			);
 
 			$settings = $this->get_option( 'amazon_settings', array() );
+
+			// Migration: Convert old external_api boolean to api_type
+			if ( ! isset( $settings['api_type'] ) && isset( $settings['external_api'] ) ) {
+				$settings['api_type'] = $settings['external_api'] === true ? 'zero' : 'pa_api';
+				unset( $settings['external_api'] );
+				// Save migrated data
+				$this->set_option( 'amazon_settings', $settings );
+			}
+
 			$settings = wp_parse_args( $settings, $defaults );
 
 			$this->send_json_plain_success( $settings );
