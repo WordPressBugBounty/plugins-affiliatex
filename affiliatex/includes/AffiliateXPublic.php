@@ -7,6 +7,8 @@
 
 namespace AffiliateX;
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
 /**

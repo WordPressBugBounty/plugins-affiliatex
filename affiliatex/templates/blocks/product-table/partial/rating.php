@@ -1,4 +1,4 @@
-<?php if ( $edRating && ! empty( $product['rating'] ) ) : ?>
+<?php defined( 'ABSPATH' ) || exit; if ( $edRating && ! empty( $product['rating'] ) ) : ?>
 	<?php if ( $layoutStyle === 'layoutOne' ) : ?>
 		<span class="star-rating-single-wrap"><?php echo wp_kses_post( $product['rating'] ); ?></span>
 	<?php elseif ( $layoutStyle === 'layoutTwo' ) : ?>

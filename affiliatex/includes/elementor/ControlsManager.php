@@ -1,6 +1,9 @@
 <?php
 namespace AffiliateX\Elementor;
 
+defined( 'ABSPATH' ) || exit;
+
+
 use AffiliateX\Elementor\Controls\TextControl;
 use AffiliateX\Elementor\Controls\TextAreaControl;
 

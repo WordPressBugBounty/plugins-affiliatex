@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="affx-pros-cons-inner-wrapper <?php echo esc_attr( $inner_wrapper_classes ); ?>">
 		<div class="affx-pros-inner">

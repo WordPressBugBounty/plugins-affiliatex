@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="affx-specification-block-container">
 		<table class="affx-specification-table <?php echo esc_attr( $styleClasses ); ?>">

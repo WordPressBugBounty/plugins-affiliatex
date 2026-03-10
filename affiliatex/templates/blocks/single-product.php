@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<<?php echo esc_attr( $tag ) . ' ' . wp_kses_post( $inner_wrapper_attributes ); ?>>
 		<div class="affx-sp-inner affx-amazon-item__border">

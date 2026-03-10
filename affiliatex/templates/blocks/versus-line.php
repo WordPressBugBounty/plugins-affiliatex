@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="affx-versus-table-wrap">
 		<table class="affx-product-versus-table">

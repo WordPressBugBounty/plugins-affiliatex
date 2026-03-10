@@ -38,7 +38,7 @@ class ReviewNotice extends NoticeBase {
 			array(
 				'title'      => __( 'Ok, you deserve it', 'affiliatex' ),
 				'attributes' => array(
-					'href'   => esc_url( 'https://wordpress.org/support/plugin/affiliatex/reviews/?filter=5#new-post' ),
+					'href'   => esc_url( 'https://wordpress.org/support/plugin/affiliatex/reviews/#new-post' ),
 					'class'  => 'affx-notice__button',
 					'target' => '_blank',
 				),

@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="notice is-dismissible notice-affiliatex-plugin" data-notice="<?php echo esc_attr( $this->get_name() ); ?>">
 	<div class="affx-notice">
 		<span class="affx-notice__icon">

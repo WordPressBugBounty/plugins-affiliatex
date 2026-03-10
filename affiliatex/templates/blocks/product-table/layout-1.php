@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <tr>
 	<?php if ( $edImage ) : ?>
 	<td class="affx-img-col">

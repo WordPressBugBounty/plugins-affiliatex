@@ -195,7 +195,8 @@ class AmazonSettings {
 					$attributes['creator_client_id'],
 					$attributes['creator_client_secret'],
 					$version,
-					$country
+					$country,
+					$attributes['tracking_id'] ?? ''
 				);
 
 				if ( ! $validation['valid'] ) {
@@ -207,6 +208,23 @@ class AmazonSettings {
 							'errors'          => array(
 								array(
 									'Code'    => $validation['error_code'] ?? 'InvalidCredentials',
+									'Message' => $validation['error'],
+								),
+							),
+						)
+					);
+				}
+
+				// Check for AssociateNotEligible error even when credentials are valid
+				if ( isset( $validation['error_code'] ) && $validation['error_code'] === 'AssociateNotEligible' ) {
+					$this->set_option( 'amazon_activated', false );
+					$this->send_json_error(
+						__( 'Amazon Associate Account Not Eligible', 'affiliatex' ),
+						array(
+							'invalid_api_key' => true,
+							'errors'          => array(
+								array(
+									'Code'    => 'AssociateNotEligible',
 									'Message' => $validation['error'],
 								),
 							),

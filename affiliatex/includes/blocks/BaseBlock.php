@@ -75,6 +75,31 @@ abstract class BaseBlock {
 	}
 
 	/**
+	 * Fix malformed Unicode escapes in content
+	 * WordPress saves HTML in block attributes with Unicode escapes, but sometimes
+	 * they appear without backslashes (u003c instead of \u003c)
+	 *
+	 * @param mixed $value The value to fix
+	 * @return mixed The fixed value
+	 */
+	protected function fix_unicode_escapes( $value ) {
+		if ( ! is_string( $value ) || empty( $value ) || strpos( $value, 'u003' ) === false ) {
+			return $value;
+		}
+
+		// Add backslashes and decode
+		$fixed = str_replace(
+			array( 'u003c', 'u003e', 'u0026', 'u0022', 'u0027' ),
+			array( '\u003c', '\u003e', '\u0026', '\u0022', '\u0027' ),
+			$value
+		);
+
+		$decoded = json_decode( '"' . $fixed . '"' );
+
+		return json_last_error() === JSON_ERROR_NONE ? $decoded : $value;
+	}
+
+	/**
 	 * Parse block attributes
 	 *
 	 * @param array $attributes
@@ -85,7 +110,34 @@ abstract class BaseBlock {
 		$attributes = AffiliateX_Customization_Helper::apply_customizations( $attributes );
 		$attributes = wp_parse_args( $attributes, $fields );
 
+		// Fix Unicode escapes in all string attributes
+		foreach ( $attributes as $key => $value ) {
+			if ( is_string( $value ) ) {
+				$attributes[ $key ] = $this->fix_unicode_escapes( $value );
+			} elseif ( is_array( $value ) ) {
+				// Recursively fix arrays (for nested attributes)
+				$attributes[ $key ] = $this->fix_unicode_array( $value );
+			}
+		}
+
 		return $attributes;
+	}
+
+	/**
+	 * Recursively fix Unicode escapes in array values
+	 *
+	 * @param array $array The array to fix
+	 * @return array The fixed array
+	 */
+	private function fix_unicode_array( array $array ): array {
+		foreach ( $array as $key => $value ) {
+			if ( is_string( $value ) ) {
+				$array[ $key ] = $this->fix_unicode_escapes( $value );
+			} elseif ( is_array( $value ) ) {
+				$array[ $key ] = $this->fix_unicode_array( $value );
+			}
+		}
+		return $array;
 	}
 
 	/**

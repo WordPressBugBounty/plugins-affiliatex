@@ -1,4 +1,4 @@
-<?php if ( $edPrice ) : ?>
+<?php defined( 'ABSPATH' ) || exit; if ( $edPrice ) : ?>
 	<div class="affx-pdt-price-wrap">
 		<?php if ( ! empty( $product['offerPrice'] ) ) : ?>
 			<span class="affx-pdt-offer-price"><?php echo wp_kses_post( $product['offerPrice'] ); ?></span>

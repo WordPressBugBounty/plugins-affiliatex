@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="<?php echo esc_attr( $classes ); ?>" <?php echo ( $ctaLayout === 'layoutOne' && ! empty( $inlineImageWrapperStyles ) ) ? esc_html( $inlineImageWrapperStyles ) : ''; ?>>
 		<div class="content-wrapper">

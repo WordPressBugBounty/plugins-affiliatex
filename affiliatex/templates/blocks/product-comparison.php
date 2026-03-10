@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 ?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>

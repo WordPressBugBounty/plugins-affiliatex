@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div <?php echo wp_kses_post( $wrapper_attributes ); ?>>
 	<div class="affx-notice-inner-wrapper <?php echo esc_attr( $layoutStyle ); ?>">
 		<div class="affx-notice-inner">

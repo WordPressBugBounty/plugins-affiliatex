@@ -185,10 +185,5 @@ final class AffiliateX {
 
 		unload_textdomain( 'affiliatex' );
 		load_textdomain( 'affiliatex', WP_LANG_DIR . '/affiliatex/affiliatex-' . $locale . '.mo' );
-		load_plugin_textdomain(
-			'affiliatex',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
 	}
 }

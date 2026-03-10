@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="affx-sp-content <?php echo esc_attr( $imageAlign ); ?> <?php echo esc_attr( $imageClass ); ?>">
 	<?php require 'partial/ribbon.php'; ?>
 	<?php require 'partial/image.php'; ?>

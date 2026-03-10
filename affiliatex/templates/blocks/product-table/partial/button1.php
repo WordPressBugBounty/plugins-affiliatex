@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) || exit;
 if ( ! $edButton1 || empty( $product['button1'] ) ) {
 	return;
 }

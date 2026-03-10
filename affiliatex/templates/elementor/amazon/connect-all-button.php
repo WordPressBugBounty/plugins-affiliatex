@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="affx-connect-all-wrapper">
 	<button class="affx-action-button affx-action-button__amazon affx-action-button__amazon affx-amazon-inspector-btn" label="Connect">
 		<div class="affx-action-button__icon-wrapper">

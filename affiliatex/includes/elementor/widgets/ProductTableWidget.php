@@ -709,6 +709,16 @@ class ProductTableWidget extends ElementorBase {
 							'edButton1' => 'true',
 						),
 					),
+					'button1BorderHoverColor'    => array(
+						'label'     => __( 'Border Hover Color', 'affiliatex' ),
+						'type'      => Controls_Manager::COLOR,
+						'selectors' => array(
+							$this->select_element( 'primary-button:hover' ) => 'border-color: {{VALUE}};',
+						),
+						'condition' => array(
+							'edButton1' => 'true',
+						),
+					),
 					'button1Radius'              => array(
 						'label'      => __( 'Border Radius', 'affiliatex' ),
 						'type'       => Controls_Manager::DIMENSIONS,
@@ -787,6 +797,16 @@ class ProductTableWidget extends ElementorBase {
 						),
 						'separator'      => 'before',
 						'condition'      => array(
+							'edButton2' => 'true',
+						),
+					),
+					'button2BorderHoverColor'    => array(
+						'label'     => __( 'Border Hover Color', 'affiliatex' ),
+						'type'      => Controls_Manager::COLOR,
+						'selectors' => array(
+							$this->select_element( 'secondary-button:hover' ) => 'border-color: {{VALUE}};',
+						),
+						'condition' => array(
 							'edButton2' => 'true',
 						),
 					),

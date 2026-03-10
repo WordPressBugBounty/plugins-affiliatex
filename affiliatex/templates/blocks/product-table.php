@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) || exit;
 ob_start();
 
 foreach ( $productTable as $index => $product ) {

@@ -185,9 +185,10 @@ class AmazonCreatorApi {
 	 * @param string $client_secret Credential Secret
 	 * @param string $version Credential Version (2.1, 2.2, 2.3, 3.1, 3.2, or 3.3)
 	 * @param string $country Country code for marketplace (default: 'us')
+	 * @param string $tracking_id Partner/Tracking ID (optional, used for test API call)
 	 * @return array ['valid' => bool, 'error' => string|null, 'error_code' => string|null]
 	 */
-	public static function validate_credentials( string $client_id, string $client_secret, string $version = '2.1', string $country = 'us' ): array {
+	public static function validate_credentials( string $client_id, string $client_secret, string $version = '2.1', string $country = 'us', string $tracking_id = '' ): array {
 		// Step 1: Get OAuth token
 		$token_result = self::get_access_token( $client_id, $client_secret, $version );
 
@@ -205,15 +206,19 @@ class AmazonCreatorApi {
 		$endpoint    = self::get_endpoint() . '/searchItems';
 		$marketplace = self::get_marketplace( $country );
 
-		$payload = wp_json_encode(
-			array(
-				'keywords'              => 'test',
-				'itemCount'             => 1,
-				'marketplace'           => $marketplace,
-				'resources'             => array( 'itemInfo.title' ),
-				'languagesOfPreference' => array( 'en_US' ),
-			)
+		$payload_data = array(
+			'keywords'              => 'test',
+			'itemCount'             => 1,
+			'marketplace'           => $marketplace,
+			'resources'             => array( 'itemInfo.title' ),
+			'languagesOfPreference' => array( 'en_US' ),
 		);
+
+		if ( ! empty( $tracking_id ) ) {
+			$payload_data['partnerTag'] = $tracking_id;
+		}
+
+		$payload = wp_json_encode( $payload_data );
 
 		$headers = array(
 			'Authorization' => 'Bearer ' . $access_token . ', Version ' . $version,
@@ -241,18 +246,19 @@ class AmazonCreatorApi {
 		$code = wp_remote_retrieve_response_code( $response );
 		$body = wp_remote_retrieve_body( $response );
 
-		// Parse response (even for error codes like 403, body may contain error details)
 		$data = json_decode( $body, true );
 
-		// phpcs:disable Squiz.PHP.CommentedOutCode.Found -- This is documentation of the API error format, not commented code
-		// Creator API error format: {"message":"...","reason":"AssociateNotEligible","type":"AccessDeniedException"}
-		// Also check for array format: {"errors":[{"code":"...","message":"..."}]}
-		// phpcs:enable Squiz.PHP.CommentedOutCode.Found
-		// Check for errors first (works for both 403 and 200 responses with errors)
 		if ( isset( $data['reason'] ) || isset( $data['type'] ) ) {
-			// Single error format (Creator API) - typical for 403 responses
 			$error_code = $data['reason'] ?? $data['type'] ?? 'UnknownError';
 			$error_msg  = $data['message'] ?? 'Unknown error occurred';
+
+			if ( $error_code === 'AssociateNotEligible' ) {
+				return array(
+					'valid'      => true,
+					'error'      => $error_msg . ' Learn more: https://affiliatexblocks.com/docs/how-to-fix-amazon-api-associatenoteligible-error/',
+					'error_code' => $error_code,
+				);
+			}
 
 			return array(
 				'valid'      => false,
@@ -260,7 +266,6 @@ class AmazonCreatorApi {
 				'error_code' => $error_code,
 			);
 		} elseif ( isset( $data['errors'] ) && is_array( $data['errors'] ) && count( $data['errors'] ) > 0 ) {
-			// Array error format
 			$error      = $data['errors'][0];
 			$error_code = $error['code'] ?? 'UnknownError';
 			$error_msg  = $error['message'] ?? 'Unknown error occurred';
@@ -272,7 +277,6 @@ class AmazonCreatorApi {
 			);
 		}
 
-		// Check for successful response (200 with searchResult)
 		if ( $code === 200 && isset( $data['searchResult'] ) ) {
 			return array(
 				'valid'      => true,
@@ -281,7 +285,6 @@ class AmazonCreatorApi {
 			);
 		}
 
-		// If we get here, something unexpected happened
 		return array(
 			'valid'      => false,
 			'error'      => 'Unexpected API response format',

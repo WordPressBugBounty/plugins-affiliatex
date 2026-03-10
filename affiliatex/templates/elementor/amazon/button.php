@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <button class="affx-action-button affx-action-button__amazon is-connected affx-amazon-inspector-btn" label="Change Amazon Product">
 	<div class="affx-action-button__icon-wrapper">
 		<span class="affx-action-button__secondary-icon">

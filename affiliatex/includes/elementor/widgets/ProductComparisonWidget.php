@@ -1250,6 +1250,20 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_control(
+			'buttonBorderHoverColor',
+			array(
+				'label'     => __( 'Border Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( 'button:hover' ) => 'border-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
 		$this->add_responsive_control(
 			'buttonRadius',
 			array(

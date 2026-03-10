@@ -240,13 +240,20 @@ trait ButtonRenderTrait {
 				'label'  => __( 'Border', 'affiliatex' ),
 				'tab'    => Controls_Manager::TAB_STYLE,
 				'fields' => array(
-					'buttonBorder' => array(
+					'buttonBorder'           => array(
 						'label'      => __( 'Button Border', 'affiliatex' ),
 						'type'       => Group_Control_Border::get_type(),
 						'responsive' => true,
 						'selector'   => '{{WRAPPER}} .affx-btn-inner a',
 					),
-					'buttonRadius' => array(
+					'buttonBorderHoverColor' => array(
+						'label'     => __( 'Border Hover Color', 'affiliatex' ),
+						'type'      => Controls_Manager::COLOR,
+						'selectors' => array(
+							'{{WRAPPER}} .affx-btn-inner a:hover' => 'border-color: {{VALUE}};',
+						),
+					),
+					'buttonRadius'           => array(
 						'label'      => __( 'Border Radius', 'affiliatex' ),
 						'type'       => Controls_Manager::DIMENSIONS,
 						'size_units' => array( 'px', '%', 'em' ),
@@ -263,7 +270,7 @@ trait ButtonRenderTrait {
 							'{{WRAPPER}} .affx-btn-inner a .price-tag' => '--border-top-right-radius: {{RIGHT}}{{UNIT}}; --border-bottom-right-radius: {{BOTTOM}}{{UNIT}};',
 						),
 					),
-					'buttonShadow' => array(
+					'buttonShadow'           => array(
 						'label'    => __( 'Box Shadow', 'affiliatex' ),
 						'type'     => Group_Control_Box_Shadow::get_type(),
 						'selector' => '{{WRAPPER}} .affx-btn-inner a',

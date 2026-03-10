@@ -1,4 +1,4 @@
-<?php if ( $edRatings && $PricingType === 'picture' ) : ?>
+<?php defined( 'ABSPATH' ) || exit; if ( $edRatings && $PricingType === 'picture' ) : ?>
 	<div class="affx-sp-pricing-pic rating-align-<?php echo esc_attr( $productStarRatingAlign ); ?>">
 		<?php echo \AffiliateX\Helpers\AffiliateX_Helpers::kses( $this->render_pb_stars( $ratings, $productRatingColor, $ratingInactiveColor, $ratingStarSize ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>

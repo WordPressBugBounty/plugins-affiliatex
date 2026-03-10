@@ -118,23 +118,20 @@ class AmazonConfig {
 	 * Get Creator API version based on country
 	 *
 	 * @param string $country Country code
-	 * @return string Version (2.1, 2.2, or 2.3)
+	 * @return string Version (3.1, 3.2, or 3.3)
 	 */
 	public function get_creator_version_for_country( string $country ): string {
-		// North America: US, CA, MX, BR
 		$na_countries = array( 'us', 'ca', 'mx', 'br' );
 		if ( in_array( $country, $na_countries, true ) ) {
-			return '2.1';
+			return '3.1';
 		}
 
-		// Far East: JP, AU, IN, SG
 		$fe_countries = array( 'jp', 'au', 'in', 'sg' );
 		if ( in_array( $country, $fe_countries, true ) ) {
-			return '2.3';
+			return '3.3';
 		}
 
-		// Europe (default): UK, DE, FR, IT, ES, NL, SE, PL, TR, BE, AE, SA, EG
-		return '2.2';
+		return '3.2';
 	}
 
 	/**

@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 	<<?php echo esc_html( $listTag ); ?> class="<?php echo esc_attr( implode( ' ', $wrapperClasses ) ); ?>">
 	<?php if ( ! empty( $listItems ) && is_array( $listItems ) ) : ?>
 		<?php foreach ( $listItems as $item ) : ?>

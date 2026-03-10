@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="affx-elementor-control affx-elementor-text-control" data-setting="{{ data.name }}" data-repeater-name="{{ data.repeater_name }}"  data-inner-repeater-name="{{ data.inner_repeater_name }}">
 	<div class="elementor-control-field">
 		<# if ( data.label ) {#>

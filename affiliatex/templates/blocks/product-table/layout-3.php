@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="affx-pdt-table-single">
 	<?php if ( $edImage ) : ?>
 			<?php include 'partial/image.php'; ?>

@@ -1,4 +1,4 @@
-<?php if ( $edRibbon ) : ?>
+<?php defined( 'ABSPATH' ) || exit; if ( $edRibbon ) : ?>
 	<div class="affx-sp-ribbon<?php echo esc_attr( $ribbonLayout ); ?>
 	<?php
 	if ( $ribbonAlign !== 3 ) {

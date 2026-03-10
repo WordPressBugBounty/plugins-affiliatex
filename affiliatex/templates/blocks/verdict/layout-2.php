@@ -1,3 +1,6 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
 <div class="main-text-holder">
 	<div class="content-wrapper">
 		<?php require 'partial/title.php'; ?>

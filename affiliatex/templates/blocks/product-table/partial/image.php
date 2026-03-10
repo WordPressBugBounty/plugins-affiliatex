@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) || exit;
 use AffiliateX\Helpers\AffiliateX_Helpers;
 ?>
 <div class="affx-pdt-img-wrapper">
