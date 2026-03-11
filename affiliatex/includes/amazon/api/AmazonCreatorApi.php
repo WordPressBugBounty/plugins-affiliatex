@@ -58,6 +58,41 @@ class AmazonCreatorApi {
 	}
 
 	/**
+	 * Get default language for marketplace validation
+	 * Returns the primary language code for each country's marketplace
+	 *
+	 * @param string $country Country code
+	 * @return string Language code (e.g. 'en_US', 'pt_BR')
+	 */
+	public static function get_marketplace_language( string $country ): string {
+		$languages = array(
+			'us' => 'en_US',
+			'uk' => 'en_GB',
+			'de' => 'de_DE',
+			'fr' => 'fr_FR',
+			'it' => 'it_IT',
+			'es' => 'es_ES',
+			'ca' => 'en_CA',
+			'jp' => 'ja_JP',
+			'au' => 'en_AU',
+			'in' => 'en_IN',
+			'mx' => 'es_MX',
+			'br' => 'pt_BR',
+			'nl' => 'nl_NL',
+			'sg' => 'en_SG',
+			'ae' => 'en_AE',
+			'sa' => 'en_AE',
+			'se' => 'sv_SE',
+			'pl' => 'pl_PL',
+			'tr' => 'tr_TR',
+			'be' => 'nl_BE',
+			'eg' => 'en_AE',
+		);
+
+		return isset( $languages[ $country ] ) ? $languages[ $country ] : 'en_US';
+	}
+
+	/**
 	 * Get OAuth token endpoint based on credential version
 	 *
 	 * @param string $version Credential Version (2.1, 2.2, 2.3, 3.1, 3.2, or 3.3)
@@ -205,13 +240,14 @@ class AmazonCreatorApi {
 		// Step 2: Make a test API call to verify account eligibility
 		$endpoint    = self::get_endpoint() . '/searchItems';
 		$marketplace = self::get_marketplace( $country );
+		$language    = self::get_marketplace_language( $country );
 
 		$payload_data = array(
 			'keywords'              => 'test',
 			'itemCount'             => 1,
 			'marketplace'           => $marketplace,
 			'resources'             => array( 'itemInfo.title' ),
-			'languagesOfPreference' => array( 'en_US' ),
+			'languagesOfPreference' => array( $language ),
 		);
 
 		if ( ! empty( $tracking_id ) ) {
