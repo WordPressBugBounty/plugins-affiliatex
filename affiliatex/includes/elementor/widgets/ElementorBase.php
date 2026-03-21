@@ -119,6 +119,10 @@ abstract class ElementorBase extends \Elementor\Widget_Base {
 		$attributes                  = wp_parse_args( $attributes, $fields );
 		$attributes['wrapper_class'] = WidgetHelper::get_wrapper_class( $this->get_slug() );
 
+		if ( empty( $attributes['block_id'] ) ) {
+			$attributes['block_id'] = 'elementor-' . $this->get_id();
+		}
+
 		return $attributes;
 	}
 

@@ -33,6 +33,11 @@ class AffiliateXTemplateLibrary {
 	const ELEMENTOR_TEMPLATE_OPTION_KEY = 'affiliatex_elementor_template_library';
 
 	/**
+	 * Option name for storing user templates
+	 */
+	const USER_TEMPLATES_KEY = 'affiliatex_user_templates';
+
+	/**
 	 * Domain for template library
 	 */
 	const TEMPLATE_LIBRARY_DOMAIN = 'https://affiliatexblocks.com';
@@ -64,6 +69,11 @@ class AffiliateXTemplateLibrary {
 
 		// Elementor template endpoints
 		add_action( 'wp_ajax_get_elementor_template_library', array( $this, 'get_elementor_template_library' ) );
+
+		// User template endpoints
+		add_action( 'wp_ajax_affx_save_user_template', array( $this, 'save_user_template' ) );
+		add_action( 'wp_ajax_affx_get_user_templates', array( $this, 'get_user_templates' ) );
+		add_action( 'wp_ajax_affx_delete_user_template', array( $this, 'delete_user_template' ) );
 	}
 
 	/**
@@ -131,12 +141,11 @@ class AffiliateXTemplateLibrary {
 	 * @param string $update_method The method name to call if templates are empty
 	 */
 	private function get_templates_ajax( $option_key, $update_method ) {
-		check_ajax_referer( 'affiliatex_ajax_nonce', 'nonce' );
+		check_ajax_referer( 'affiliatex_ajax_nonce', 'security' );
 
 		$templates = get_option( $option_key, array() );
 
 		if ( empty( $templates ) ) {
-			// If no templates in database, try to fetch them
 			$this->$update_method();
 			$templates = get_option( $option_key, array() );
 		}
@@ -179,6 +188,139 @@ class AffiliateXTemplateLibrary {
 	public function has_elementor_templates() {
 		$templates = get_option( self::ELEMENTOR_TEMPLATE_OPTION_KEY, array() );
 		return ! empty( $templates );
+	}
+
+	/**
+	 * Validate AJAX request with nonce and capability check
+	 */
+	private function validate_ajax_request() {
+		check_ajax_referer( 'affiliatex_ajax_nonce', 'security' );
+
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => 'Insufficient permissions' ) );
+		}
+	}
+
+	/**
+	 * Filter templates by editor type
+	 *
+	 * @param array  $templates   Array of templates
+	 * @param string $editor_type Editor type to filter by
+	 * @return array Filtered templates
+	 */
+	private function filter_templates_by_editor( $templates, $editor_type ) {
+		$filtered = array_filter(
+			$templates,
+			function ( $template ) use ( $editor_type ) {
+				return isset( $template['editorType'] ) && $template['editorType'] === $editor_type;
+			}
+		);
+
+		return array_values( $filtered );
+	}
+
+	/**
+	 * Save user template
+	 */
+	public function save_user_template() {
+		$this->validate_ajax_request(); // Nonce verified here
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified in validate_ajax_request()
+		if ( ! isset( $_POST['name'] ) || ! isset( $_POST['blockType'] ) || ! isset( $_POST['content'] ) || ! isset( $_POST['editorType'] ) ) {
+			wp_send_json_error( array( 'message' => 'Missing required fields' ) );
+		}
+
+		$name        = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$block_type  = sanitize_text_field( wp_unslash( $_POST['blockType'] ) );
+		$editor_type = sanitize_text_field( wp_unslash( $_POST['editorType'] ) );
+
+		// Sanitize content based on editor type
+		if ( $editor_type === 'elementor' ) {
+			// Elementor stores JSON - validate and sanitize
+			$content = sanitize_textarea_field( wp_unslash( $_POST['content'] ) );
+			if ( json_decode( $content ) === null && json_last_error() !== JSON_ERROR_NONE ) {
+				wp_send_json_error( array( 'message' => 'Invalid template data' ) );
+			}
+		} else {
+			// Gutenberg blocks
+			$content = wp_kses_post( wp_unslash( $_POST['content'] ) );
+		}
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+
+		$templates = get_option( self::USER_TEMPLATES_KEY, array() );
+
+		if ( count( $templates ) >= 100 ) {
+			wp_send_json_error( array( 'message' => 'Template limit reached (100). Please delete some templates first.' ) );
+		}
+
+		$new_template = array(
+			'id'         => wp_generate_uuid4(),
+			'name'       => $name,
+			'blockType'  => $block_type,
+			'content'    => $content,
+			'editorType' => $editor_type,
+			'timestamp'  => time(),
+		);
+
+		$templates[] = $new_template;
+
+		update_option( self::USER_TEMPLATES_KEY, $templates, 'no' );
+
+		wp_send_json_success(
+			array(
+				'message'  => 'Template saved successfully',
+				'template' => $new_template,
+			)
+		);
+	}
+
+	/**
+	 * Get user templates
+	 */
+	public function get_user_templates() {
+		$this->validate_ajax_request(); // Nonce verified here
+
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in validate_ajax_request()
+		$editor_type   = isset( $_POST['editorType'] ) ? sanitize_text_field( wp_unslash( $_POST['editorType'] ) ) : 'gutenberg';
+		$all_templates = get_option( self::USER_TEMPLATES_KEY, array() );
+
+		$filtered_templates = $this->filter_templates_by_editor( $all_templates, $editor_type );
+
+		wp_send_json_success( $filtered_templates );
+	}
+
+	/**
+	 * Delete user template
+	 */
+	public function delete_user_template() {
+		$this->validate_ajax_request(); // Nonce verified here
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified in validate_ajax_request()
+		if ( ! isset( $_POST['templateId'] ) ) {
+			wp_send_json_error( array( 'message' => 'Template ID is required' ) );
+		}
+
+		$template_id = sanitize_text_field( wp_unslash( $_POST['templateId'] ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
+		$templates = get_option( self::USER_TEMPLATES_KEY, array() );
+
+		$templates = array_filter(
+			$templates,
+			function ( $template ) use ( $template_id ) {
+				return $template['id'] !== $template_id;
+			}
+		);
+
+		$templates = array_values( $templates );
+
+		update_option( self::USER_TEMPLATES_KEY, $templates, 'no' );
+
+		wp_send_json_success(
+			array(
+				'message'   => 'Template deleted successfully',
+				'templates' => $templates,
+			)
+		);
 	}
 }
 

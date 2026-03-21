@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import TemplateLibraryModalBase from '../blocks/ui-components/TemplateLibraryModalBase';
+import SaveTemplateModal from '../blocks/ui-components/SaveTemplateModal';
 
 const TemplateLibraryModalElementor = () => {
 	const [ isOpen, setIsOpen ] = useState( false );
@@ -11,7 +12,6 @@ const TemplateLibraryModalElementor = () => {
 
 	const isPremium = window.AffiliateX && window.AffiliateX.proActive === 'true';
 
-	// Get AffiliateX widgets from Elementor
 	const getAffiliateXWidgets = () => {
 		if ( ! window.elementor || ! window.elementor.widgetsCache ) {
 			return [];
@@ -31,14 +31,11 @@ const TemplateLibraryModalElementor = () => {
 		return widgets;
 	};
 
-	// Initialize widgets including Pro blocks
 	useEffect( () => {
 		let allWidgets = getAffiliateXWidgets();
 
-		// Add Pro widgets in free version
 		if ( ! isPremium && window.proBlocks ) {
 			const proWidgets = window.proBlocks.map( ( block ) => {
-				// Convert block name to widget name (affiliatex/coupon-grid -> affiliatex-coupon-grid)
 				const widgetName = block.name.replace( 'affiliatex/', 'affiliatex-' );
 				return {
 					name: widgetName,
@@ -54,7 +51,6 @@ const TemplateLibraryModalElementor = () => {
 	}, [ isPremium ] );
 
 	useEffect( () => {
-		// Expose functions globally
 		window.AffiliateXElementorTemplateLibrary = {
 			open: ( widgetType, widgetModel ) => {
 				if ( widgetType ) {
@@ -77,12 +73,20 @@ const TemplateLibraryModalElementor = () => {
 	}, [] );
 
 	const insertTemplate = ( template ) => {
+		let templateData;
+		try {
+			templateData = typeof template.content === 'string' ? JSON.parse( template.content ) : template;
+		} catch ( e ) {
+			console.error( 'AffiliateX: Failed to parse template content', e );
+			return;
+		}
+
 		const widgetData = {
 			id: generateUniqueId(),
 			elType: 'widget',
 			widgetType: `affiliatex-${ selectedWidget || getWidgetTypeFromTemplate( template ) }`,
-			settings: template.settings || {},
-			elements: template.elements || []
+			settings: templateData.settings || template.settings || {},
+			elements: templateData.elements || template.elements || []
 		};
 
 		insertElementorWidget( widgetData );
@@ -124,6 +128,14 @@ const TemplateLibraryModalElementor = () => {
 			return;
 		}
 
+		let templateData;
+		try {
+			templateData = typeof template.content === 'string' ? JSON.parse( template.content ) : template;
+		} catch ( e ) {
+			console.error( 'AffiliateX: Failed to parse template content', e );
+			return;
+		}
+
 		const widgetType = editingWidget.get( 'widgetType' );
 		const parent = container.parent;
 		const index = container.view._index;
@@ -131,10 +143,9 @@ const TemplateLibraryModalElementor = () => {
 		const newWidgetData = {
 			elType: 'widget',
 			widgetType,
-			settings: template.settings || {}
+			settings: templateData.settings || template.settings || {}
 		};
 
-		// Delete old widget and create new one
 		$e.run( 'document/elements/delete', { container } );
 		$e.run( 'document/elements/create', {
 			container: parent,
@@ -142,13 +153,11 @@ const TemplateLibraryModalElementor = () => {
 			options: { at: index }
 		} );
 
-		// Wait for the widget to be created in the DOM
 		const waitForWidget = () => {
 			const newWidget = parent.children[ index ];
 			if ( newWidget ) {
 				focusWidget( newWidget );
 			} else {
-				// If widget not ready, try again on next frame
 				requestAnimationFrame( waitForWidget );
 			}
 		};
@@ -191,7 +200,6 @@ const TemplateLibraryModalElementor = () => {
 			options: { at: sectionIndex }
 		} );
 
-		// Wait for the widget to be created in the DOM
 		const waitForWidget = () => {
 			const newSection = documentContainer.children[ sectionIndex ];
 			const column = newSection?.children?.[ 0 ];
@@ -213,24 +221,23 @@ const TemplateLibraryModalElementor = () => {
 		setEditingWidgetType( null );
 	};
 
-	const canReplace = () => {
-		return editingWidget && editingWidgetType && selectedWidget === editingWidgetType;
-	};
-
 	return (
-		<TemplateLibraryModalBase
-			isOpen={ isOpen }
-			onClose={ handleClose }
-			widgets={ affxWidgets }
-			selectedWidget={ selectedWidget }
-			onWidgetSelect={ setSelectedWidget }
-			ajaxAction="get_elementor_template_library"
-			ajaxNonce={ window.AffiliateX?.ajax_nonce || '' }
-			onInsertTemplate={ insertTemplate }
-			onReplaceTemplate={ replaceTemplate }
-			canReplace={ canReplace() }
-			editorType="elementor"
-		/>
+		<>
+			<TemplateLibraryModalBase
+				isOpen={ isOpen }
+				onClose={ handleClose }
+				widgets={ affxWidgets }
+				selectedWidget={ selectedWidget }
+				onWidgetSelect={ setSelectedWidget }
+				ajaxAction="get_elementor_template_library"
+				ajaxNonce={ window.AffiliateX?.ajax_nonce || '' }
+				onInsertTemplate={ insertTemplate }
+				onReplaceTemplate={ replaceTemplate }
+				editingWidgetType={ editingWidgetType }
+				editorType="elementor"
+			/>
+			<SaveTemplateModal />
+		</>
 	);
 };
 

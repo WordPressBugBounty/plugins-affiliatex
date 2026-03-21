@@ -32,6 +32,7 @@ class AffiliateXAdmin {
      */
     public function init() {
         add_action( 'enqueue_block_editor_assets', array($this, 'editor_assets') );
+        add_action( 'enqueue_block_assets', array($this, 'enqueue_block_styles') );
         add_action( 'elementor/editor/after_enqueue_scripts', array($this, 'editor_assets'), 9 );
         add_filter( 'block_categories_all', array($this, 'add_block_category') );
         add_action( 'admin_enqueue_scripts', array($this, 'enqueue_admin_scripts') );
@@ -124,6 +125,22 @@ class AffiliateXAdmin {
             array(),
             AFFILIATEX_VERSION
         );
+    }
+
+    /**
+     * Enqueue block styles in editor iframe and frontend.
+     *
+     * @return void
+     */
+    public function enqueue_block_styles() {
+        if ( is_admin() ) {
+            wp_enqueue_style(
+                'affiliatex-block-styles',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/admin.css',
+                array(),
+                AFFILIATEX_VERSION
+            );
+        }
     }
 
     /**
