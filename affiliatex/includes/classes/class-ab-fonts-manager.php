@@ -319,7 +319,8 @@ class AB_Fonts_Manager {
 	/**
 	 * Get Blocks Fonts.
 	 *
-	 * @param object $block The block object.
+	 * @param object $block        The block object.
+	 * @param bool   $css_js_only  Whether to only return CSS/JS.
 	 * @since 1.0.0
 	 */
 	public function get_block_fonts( $block, $css_js_only = false ) {

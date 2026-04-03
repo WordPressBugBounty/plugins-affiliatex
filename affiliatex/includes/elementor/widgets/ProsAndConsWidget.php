@@ -1472,6 +1472,7 @@ class ProsAndConsWidget extends ElementorBase {
 	/**
 	 * Render for Elementor
 	 *
+	 * @param array $attributes Widget attributes.
 	 * @return void
 	 */
 	public function render( $attributes = array() ) {

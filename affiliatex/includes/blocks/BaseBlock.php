@@ -150,6 +150,9 @@ abstract class BaseBlock {
 	/**
 	 * Extract block attributes and render from template
 	 *
+	 * @param array       $attributes Block attributes.
+	 * @param string      $content    Block content.
+	 * @param object|null $block      Block instance.
 	 * @return string
 	 */
 	abstract public function render( array $attributes, string $content, $block = null ): string;

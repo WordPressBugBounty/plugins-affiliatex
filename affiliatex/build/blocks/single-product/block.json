@@ -127,6 +127,55 @@
       "type": "string",
       "default": ""
     },
+    "useMultipleImages": {
+      "type": "boolean",
+      "default": false
+    },
+    "galleryImages": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "url": {
+            "type": "string"
+          },
+          "alt": {
+            "type": "string"
+          },
+          "shortcode": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "sliderShowPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "sliderShowArrows": {
+      "type": "boolean",
+      "default": true
+    },
+    "sliderArrowColor": {
+      "type": "string",
+      "default": "#000000"
+    },
+    "sliderArrowHoverColor": {
+      "type": "string",
+      "default": "#333333"
+    },
+    "sliderAutoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "sliderAutoplaySpeed": {
+      "type": "number",
+      "default": 3000
+    },
     "productSubTitle": {
       "type": "string",
       "default": "Subtitle"

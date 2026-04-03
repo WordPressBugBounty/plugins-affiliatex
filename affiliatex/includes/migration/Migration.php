@@ -59,6 +59,8 @@ abstract class Migration {
 
 	/**
 	 * Update the plugin version saved in the database.
+	 *
+	 * @param string $version Version string.
 	 */
 	protected static function update_db_version( $version ) {
 		update_option( 'affiliatex_db_version', $version );

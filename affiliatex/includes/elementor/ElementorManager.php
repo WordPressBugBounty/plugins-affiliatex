@@ -47,6 +47,8 @@ class ElementorManager {
 
 	/**
 	 * Add custom icons tab to Elementor icon picker
+	 *
+	 * @param array $tabs Existing icon tabs.
 	 */
 	public function add_custom_icons_tab( $tabs ) {
 		$tabs['affiliatex-icons'] = array(

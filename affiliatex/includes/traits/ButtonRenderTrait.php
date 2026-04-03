@@ -537,6 +537,8 @@ trait ButtonRenderTrait {
 
 	/**
 	 * Generate button class names based on attributes
+	 *
+	 * @param array $attributes Block attributes.
 	 */
 	protected function get_button_classes( $attributes ) {
 		$classNames = array(
@@ -556,6 +558,8 @@ trait ButtonRenderTrait {
 
 	/**
 	 * Prepare attributes for template
+	 *
+	 * @param array $attributes Block attributes.
 	 */
 	protected function prepare_template_attributes( $attributes ) {
 		// Create wrapper attributes differently based on context

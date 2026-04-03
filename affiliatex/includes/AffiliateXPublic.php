@@ -76,6 +76,15 @@ class AffiliateXPublic {
 				AFFILIATEX_VERSION,
 				false
 			);
+
+			if ( has_block( 'affiliatex/single-product' ) ) {
+				wp_enqueue_style(
+					'affiliatex-glide',
+					plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/glideCSS.css',
+					array(),
+					AFFILIATEX_VERSION
+				);
+			}
 		}
 	}
 

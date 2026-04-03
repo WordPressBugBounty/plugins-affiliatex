@@ -206,7 +206,8 @@ class ChildHelper {
 	/**
 	 * Extracts child attributes from an array by replacing 'dynamic' prefix
 	 *
-	 * @param array $attributes
+	 * @param array $attributes Widget attributes.
+	 * @param array $config     Extraction config.
 	 * @return array
 	 */
 	public static function extract_attributes( array $attributes, array $config ): array {

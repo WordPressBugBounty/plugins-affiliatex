@@ -70,6 +70,7 @@ return array(
     'AffiliateX\\Traits\\ProductTableRenderTrait' => $baseDir . '/includes/traits/ProductTableRenderTrait.php',
     'AffiliateX\\Traits\\ProsAndConsRenderTrait' => $baseDir . '/includes/traits/ProsAndConsRenderTrait.php',
     'AffiliateX\\Traits\\SingleProductRenderTrait' => $baseDir . '/includes/traits/SingleProductRenderTrait.php',
+    'AffiliateX\\Traits\\SliderRenderTrait' => $baseDir . '/includes/traits/SliderRenderTrait.php',
     'AffiliateX\\Traits\\SpecificationsRenderTrait' => $baseDir . '/includes/traits/SpecificationsRenderTrait.php',
     'AffiliateX\\Traits\\VerdictRenderTrait' => $baseDir . '/includes/traits/VerdictRenderTrait.php',
     'AffiliateX\\Traits\\VersusLineRenderTrait' => $baseDir . '/includes/traits/VersusLineRenderTrait.php',

@@ -14,6 +14,8 @@ class MigrationHelper {
 
 	/**
 	 * Get all Elementor posts.
+	 *
+	 * @param array $meta_query Meta query arguments.
 	 */
 	public static function get_elementor_posts( $meta_query = array() ) {
 		$args = array(
@@ -43,6 +45,8 @@ class MigrationHelper {
 
 	/**
 	 * Get the Elementor data for a post.
+	 *
+	 * @param int $post_id Post ID.
 	 */
 	public static function get_elementor_data( $post_id ) {
 		$elementor_data = get_post_meta( $post_id, '_elementor_data', true );
@@ -63,6 +67,9 @@ class MigrationHelper {
 
 	/**
 	 * Update the Elementor data for a post.
+	 *
+	 * @param int   $post_id       Post ID.
+	 * @param array $elementor_data Elementor data array.
 	 */
 	public static function update_elementor_data( $post_id, $elementor_data ) {
 		return update_post_meta( $post_id, '_elementor_data', wp_slash( wp_json_encode( $elementor_data ) ) );
@@ -146,6 +153,8 @@ class MigrationHelper {
 
 	/**
 	 * Get all posts that use Gutenberg blocks
+	 *
+	 * @param string $query Search query.
 	 */
 	public static function get_gutenberg_posts( $query = '' ) {
 		$args = array(
@@ -162,6 +171,10 @@ class MigrationHelper {
 
 	/**
 	 * Migrate Gutenberg block attribute in post content
+	 *
+	 * @param string $content     Post content.
+	 * @param array  $configs     Migration configs.
+	 * @param bool   $has_changes Whether changes were made.
 	 */
 	public static function migrate_gutenberg_block_attribute( $content, $configs, &$has_changes ) {
 		$blocks = parse_blocks( $content );
@@ -216,6 +229,9 @@ class MigrationHelper {
 
 	/**
 	 * Update Gutenberg data
+	 *
+	 * @param object $post    Post object.
+	 * @param string $content Post content.
 	 */
 	public static function update_gutenberg_data( $post, $content ) {
 		return wp_update_post(

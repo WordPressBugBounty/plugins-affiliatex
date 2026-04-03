@@ -68,6 +68,7 @@ class AffiliateXAdmin {
     /**
      * Admin Enqueue Scripts
      *
+     * @param string $hook Current admin page hook.
      * @return void
      */
     public function enqueue_admin_scripts( $hook ) {

@@ -66,6 +66,7 @@ function affx_wp_parse_args( &$args, $defaults = '' ) {
 /**
  * AffiliateX get block settings.
  *
+ * @param bool $encode Whether to JSON encode the result.
  * @return array
  */
 function affx_get_block_settings( $encode = false ) {
@@ -106,6 +107,8 @@ function affx_get_block_settings( $encode = false ) {
 /**
  * AffiliateX get customization settings.
  *
+ * @param bool $encode        Whether to JSON encode the result.
+ * @param bool $parse_default Whether to parse defaults.
  * @return array
  */
 function affx_get_customization_settings( $encode = false, $parse_default = true ) {

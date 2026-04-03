@@ -214,6 +214,7 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\Traits\\ProductTableRenderTrait' => __DIR__ . '/../..' . '/includes/traits/ProductTableRenderTrait.php',
         'AffiliateX\\Traits\\ProsAndConsRenderTrait' => __DIR__ . '/../..' . '/includes/traits/ProsAndConsRenderTrait.php',
         'AffiliateX\\Traits\\SingleProductRenderTrait' => __DIR__ . '/../..' . '/includes/traits/SingleProductRenderTrait.php',
+        'AffiliateX\\Traits\\SliderRenderTrait' => __DIR__ . '/../..' . '/includes/traits/SliderRenderTrait.php',
         'AffiliateX\\Traits\\SpecificationsRenderTrait' => __DIR__ . '/../..' . '/includes/traits/SpecificationsRenderTrait.php',
         'AffiliateX\\Traits\\VerdictRenderTrait' => __DIR__ . '/../..' . '/includes/traits/VerdictRenderTrait.php',
         'AffiliateX\\Traits\\VersusLineRenderTrait' => __DIR__ . '/../..' . '/includes/traits/VersusLineRenderTrait.php',

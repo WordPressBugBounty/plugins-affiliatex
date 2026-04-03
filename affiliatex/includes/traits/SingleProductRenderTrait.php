@@ -21,6 +21,7 @@ use AffiliateX\Blocks\AffiliateX_Customization_Helper;
 trait SingleProductRenderTrait {
 
 	use ButtonRenderTrait;
+	use SliderRenderTrait;
 
 	protected function get_elements(): array {
 		return array(
@@ -87,63 +88,66 @@ trait SingleProductRenderTrait {
 	 * @return array
 	 */
 	protected function get_fields(): array {
-		return array(
-			'block_id'                    => '',
-			'productLayout'               => 'layoutOne',
-			'productTitle'                => 'Title',
-			'productTitleTag'             => 'h2',
-			'productContent'              => 'You can have short product description here. It can be added as and enable/disable toggle option from which user can have control on it.',
-			'productSubTitle'             => 'Subtitle',
-			'productSubTitleTag'          => 'h3',
-			'productContentType'          => 'paragraph',
-			'ContentListType'             => 'unordered',
-			'productContentList'          => array(),
-			'productImageAlign'           => 'left',
-			'productImageVerticalAlign'   => 'top',
-			'productImageHorizontalAlign' => 'center',
-			'productSalePrice'            => '$49',
-			'productPrice'                => '$59',
-			'productIconList'             => array(
-				'name'  => 'check-circle-outline',
-				'value' => 'far fa-check-circle',
+		return array_merge(
+			array(
+				'block_id'                    => '',
+				'productLayout'               => 'layoutOne',
+				'productTitle'                => 'Title',
+				'productTitleTag'             => 'h2',
+				'productContent'              => 'You can have short product description here. It can be added as and enable/disable toggle option from which user can have control on it.',
+				'productSubTitle'             => 'Subtitle',
+				'productSubTitleTag'          => 'h3',
+				'productContentType'          => 'paragraph',
+				'ContentListType'             => 'unordered',
+				'productContentList'          => array(),
+				'productImageAlign'           => 'left',
+				'productImageVerticalAlign'   => 'top',
+				'productImageHorizontalAlign' => 'center',
+				'productSalePrice'            => '$49',
+				'productPrice'                => '$59',
+				'productIconList'             => array(
+					'name'  => 'check-circle-outline',
+					'value' => 'far fa-check-circle',
+				),
+				'ratings'                     => 5,
+				'edRatings'                   => false,
+				'edTitle'                     => true,
+				'edSubTitle'                  => false,
+				'edContent'                   => true,
+				'edPricing'                   => false,
+				'PricingType'                 => 'picture',
+				'productRatingColor'          => '#FFB800',
+				'ratingInactiveColor'         => '#808080',
+				'ratingContent'               => 'Our Score',
+				'ratingStarSize'              => 25,
+				'edButton'                    => false,
+				'edProductImage'              => false,
+				'edRibbon'                    => false,
+				'productRibbonLayout'         => 'one',
+				'ribbonText'                  => 'Sale',
+				'ribbonAlign'                 => 'left',
+				'ImgUrl'                      => '',
+				'numberRatings'               => '8.5',
+				'edFullBlockLink'             => false,
+				'blockUrl'                    => '',
+				'blockRelNoFollow'            => false,
+				'blockRelSponsored'           => false,
+				'blockDownload'               => false,
+				'blockOpenInNewTab'           => false,
+				'productRatingAlign'          => 'right',
+				'productStarRatingAlign'      => 'left',
+				'productImageType'            => 'default',
+				'productImageExternal'        => '',
+				'productImageSiteStripe'      => '',
+				'productPricingAlign'         => 'left',
+				'edReadMore'                  => false,
+				'descriptionLength'           => 150,
+				'listItemCount'               => 3,
+				'readMoreText'                => __( 'Read more', 'affiliatex' ),
+				'readLessText'                => __( 'Read less', 'affiliatex' ),
+				'readMoreColor'               => '#2670FF',
 			),
-			'ratings'                     => 5,
-			'edRatings'                   => false,
-			'edTitle'                     => true,
-			'edSubTitle'                  => false,
-			'edContent'                   => true,
-			'edPricing'                   => false,
-			'PricingType'                 => 'picture',
-			'productRatingColor'          => '#FFB800',
-			'ratingInactiveColor'         => '#808080',
-			'ratingContent'               => 'Our Score',
-			'ratingStarSize'              => 25,
-			'edButton'                    => false,
-			'edProductImage'              => false,
-			'edRibbon'                    => false,
-			'productRibbonLayout'         => 'one',
-			'ribbonText'                  => 'Sale',
-			'ribbonAlign'                 => 'left',
-			'ImgUrl'                      => '',
-			'numberRatings'               => '8.5',
-			'edFullBlockLink'             => false,
-			'blockUrl'                    => '',
-			'blockRelNoFollow'            => false,
-			'blockRelSponsored'           => false,
-			'blockDownload'               => false,
-			'blockOpenInNewTab'           => false,
-			'productRatingAlign'          => 'right',
-			'productStarRatingAlign'      => 'left',
-			'productImageType'            => 'default',
-			'productImageExternal'        => '',
-			'productImageSiteStripe'      => '',
-			'productPricingAlign'         => 'left',
-			'edReadMore'                  => false,
-			'descriptionLength'           => 150,
-			'listItemCount'               => 3,
-			'readMoreText'                => __( 'Read more', 'affiliatex' ),
-			'readLessText'                => __( 'Read less', 'affiliatex' ),
-			'readMoreColor'               => '#2670FF',
+			$this->get_slider_defaults()
 		);
 	}
 
@@ -192,6 +196,8 @@ trait SingleProductRenderTrait {
 
 	/**
 	 * Elementor controls array.
+	 *
+	 * @param array $config Elementor control config.
 	 */
 	public function get_sp_elementor_controls( $config = array() ) {
 		$defaults = $this->get_fields();
@@ -467,8 +473,9 @@ trait SingleProductRenderTrait {
 								'url' => \Elementor\Utils::get_placeholder_image_src(),
 							),
 							'condition' => array(
-								'edProductImage'   => 'true',
-								'productImageType' => 'default',
+								'edProductImage'    => 'true',
+								'productImageType'  => 'default',
+								'useMultipleImages' => '',
 							),
 						),
 						'productImageExternal'        => array(
@@ -489,7 +496,7 @@ trait SingleProductRenderTrait {
 								'productImageType' => 'sitestripe',
 							),
 						),
-					),
+					) + $this->get_slider_elementor_controls( 'edProductImage' ),
 				),
 
 				'affx_sp_link_settings'     => array(
@@ -1898,14 +1905,12 @@ trait SingleProductRenderTrait {
 								array(
 									'field'      => 'images',
 									'blockField' => array(
-										'name'       => 'productImageExternal',
-										'type'       => 'image',
-										'defaults'   => array(
-											'productImageExternal' => $defaults['productImageExternal'],
-											'productImageType' => 'default',
-										),
-										'conditions' => array(
-											'productImageType' => 'external',
+										'name'             => 'ImgUrl',
+										'type'             => 'image',
+										'galleryField'     => 'galleryImages',
+										'useMultipleField' => 'useMultipleImages',
+										'defaults'         => array(
+											'ImgUrl' => '',
 										),
 									),
 									'type'       => 'image',
@@ -2099,11 +2104,27 @@ trait SingleProductRenderTrait {
 		$isSiteStripe             = 'sitestripe' === $productImageType && '' !== $productImageSiteStripe ? true : false;
 		$productImage             = AffiliateX_Helpers::affiliatex_get_media_image_html( $ImgID ?? 0, $ImageURL, $ImgAlt ?? '', $isSiteStripe, $productImageSiteStripe );
 
+		$slider_data  = $this->build_slider_data(
+			$useMultipleImages,
+			$galleryImages,
+			$sliderShowArrows,
+			$sliderShowPagination,
+			$sliderArrowColor,
+			$sliderArrowHoverColor,
+			$sliderAutoplay,
+			$sliderAutoplaySpeed
+		);
+		$useSlider    = $slider_data['use_slider'];
+		$sliderImages = $slider_data['slider_images'];
+		$sliderConfig = $slider_data['slider_config'];
+
 		$buttonDirection = $buttonDirection ?? 'column';
 		$buttonsGap      = $buttonsGap ?? 10;
 
-		$imageVerticalAlignClass   = isset( $productImageVerticalAlign ) ? 'img-valign-' . $productImageVerticalAlign : '';
-		$imageHorizontalAlignClass = isset( $productImageHorizontalAlign ) ? 'img-halign-' . $productImageHorizontalAlign : '';
+		$valid_valigns             = array( 'top', 'middle', 'bottom' );
+		$valid_haligns             = array( 'left', 'center', 'right' );
+		$imageVerticalAlignClass   = isset( $productImageVerticalAlign ) && in_array( $productImageVerticalAlign, $valid_valigns, true ) ? 'img-valign-' . $productImageVerticalAlign : '';
+		$imageHorizontalAlignClass = isset( $productImageHorizontalAlign ) && in_array( $productImageHorizontalAlign, $valid_haligns, true ) ? 'img-halign-' . $productImageHorizontalAlign : '';
 
 		$list = '';
 

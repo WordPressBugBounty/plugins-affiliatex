@@ -201,11 +201,12 @@ class AffiliateX_Helpers {
 	/**
 	 * This function handles both media library images and images with url
 	 *
-	 * @param int       $image_id    The WordPress media library image ID
-	 * @param string    $image_url   The image URL
-	 * @param string    $image_alt   The image alt text
+	 * @param int       $image_id      The WordPress media library image ID
+	 * @param string    $image_url     The image URL
+	 * @param string    $image_alt     The image alt text
 	 * @param bool      $is_sitestripe Whether to show sitestripe
-	 * @param string    $sitestripe  The sitestripe HTML content
+	 * @param string    $sitestripe    The sitestripe HTML content
+	 * @param string    $size          The image size.
 	 * @return string   The image HTML or empty string if no image available
 	 */
 	public static function affiliatex_get_media_image_html( $image_id = 0, $image_url = '', $image_alt = '', $is_sitestripe = false, $sitestripe = '', $size = 'full' ) {
