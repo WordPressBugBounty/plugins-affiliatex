@@ -107,6 +107,10 @@
       "type": "string",
       "default": "#060c0e"
     },
+    "imageAspectRatio": {
+      "type": "string",
+      "default": "auto"
+    },
     "productImageWidth": {
       "type": "string",
       "default": "inherit"

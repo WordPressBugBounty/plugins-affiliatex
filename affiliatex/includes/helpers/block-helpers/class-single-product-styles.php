@@ -385,6 +385,8 @@ class AffiliateX_Single_Product_Styles {
 			),
 			' .affx-single-product-wrapper .affx-sp-img-wrapper img' => array(
 				'border-radius' => isset( $attr['productImageBorderRadius']['desktop']['top'] ) && isset( $attr['productImageBorderRadius']['desktop']['right'] ) && isset( $attr['productImageBorderRadius']['desktop']['bottom'] ) && isset( $attr['productImageBorderRadius']['desktop']['left'] ) ? $attr['productImageBorderRadius']['desktop']['top'] . ' ' . $attr['productImageBorderRadius']['desktop']['right'] . ' ' . $attr['productImageBorderRadius']['desktop']['bottom'] . ' ' . $attr['productImageBorderRadius']['desktop']['left'] . ' ' : '0px 0px 0px 0px',
+				'aspect-ratio'  => isset( $attr['imageAspectRatio'] ) && 'auto' !== $attr['imageAspectRatio'] ? $attr['imageAspectRatio'] : '',
+				'object-fit'    => isset( $attr['imageAspectRatio'] ) && 'auto' !== $attr['imageAspectRatio'] ? 'contain' : '',
 			),
 		);
 

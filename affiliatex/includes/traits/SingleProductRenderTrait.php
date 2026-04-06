@@ -146,6 +146,7 @@ trait SingleProductRenderTrait {
 				'readMoreText'                => __( 'Read more', 'affiliatex' ),
 				'readLessText'                => __( 'Read less', 'affiliatex' ),
 				'readMoreColor'               => '#2670FF',
+				'imageAspectRatio'            => 'auto',
 			),
 			$this->get_slider_defaults()
 		);
