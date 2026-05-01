@@ -40,8 +40,8 @@ class AffiliateX_Button_Styles {
 
 		$customization_data     = affx_get_customization_settings();
 		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
-		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#2670FF';
-		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
+		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#00B0B0';
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#00454A';
 
 		$bgType                = isset( $attr['buttonBGType'] ) ? $attr['buttonBGType'] : 'solid';
 		$bgHoverType           = isset( $attr['buttonHoverBGType'] ) ? $attr['buttonHoverBGType'] : 'solid';
@@ -100,7 +100,7 @@ class AffiliateX_Button_Styles {
 				'color' => isset( $attr['buttonIconHoverColor'] ) ? $attr['buttonIconHoverColor'] : '#ffffff',
 			),
 			' .affiliatex-button .price-tag'         => array(
-				'color'                        => isset( $attr['priceTextColor'] ) ? $attr['priceTextColor'] : '#2670FF',
+				'color'                        => isset( $attr['priceTextColor'] ) ? $attr['priceTextColor'] : '#00B0B0',
 				'background-color'             => isset( $attr['priceBackgroundColor'] ) ? $attr['priceBackgroundColor'] : '#ffff',
 				'--border-top-left-radius'     => isset( $attr['buttonRadius']['desktop']['top'] ) ? $attr['buttonRadius']['desktop']['top'] : '0px',
 				'--border-top-right-radius'    => isset( $attr['buttonRadius']['desktop']['right'] ) ? $attr['buttonRadius']['desktop']['right'] : '0px',

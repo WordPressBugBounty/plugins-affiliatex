@@ -57,7 +57,7 @@ class AffiliateX_CTA_Styles {
 		);
 		$ctaBgGradient      = isset( $attr['ctaBgGradient']['gradient'] ) ? $attr['ctaBgGradient']['gradient'] : '';
 		$ctaBGColor         = isset( $attr['ctaBGColor'] ) ? $attr['ctaBGColor'] : '#fff';
-		$buttonBGColor      = isset( $attr['buttonBGColor'] ) ? $attr['buttonBGColor'] : '#2670FF';
+		$buttonBGColor      = isset( $attr['buttonBGColor'] ) ? $attr['buttonBGColor'] : '#00B0B0';
 		$variation          = isset( $attr['ctaTitleTypography']['variation'] ) ? $attr['ctaTitleTypography']['variation'] : 'n5';
 		$content_variation  = isset( $attr['ctaContentTypography']['variation'] ) ? $attr['ctaContentTypography']['variation'] : 'n5';
 		$position           = 'center';

@@ -100,10 +100,10 @@ class AffiliateX_Notice_Styles {
 				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '18px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title i' => array(
-				'color' => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#084ACA',
+				'color' => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#00454A',
 			),
 			' .affiliatex-notice-icon'                     => array(
-				'color'     => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#084ACA',
+				'color'     => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#00454A',
 				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '18px',
 			),
 			' .affiliatex-notice-content'                  => array(
@@ -161,7 +161,7 @@ class AffiliateX_Notice_Styles {
 				'background'     => isset( $attr['noticeBgTwoType'] ) && $attr['noticeBgTwoType'] === 'gradient' ? $bg2Gradient : $bg2Color,
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title' => array(
-				'color'          => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#084ACA',
+				'color'          => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#00454A',
 				'padding-top'    => '0px',
 				'padding-left'   => '0px',
 				'padding-right'  => '0px',
@@ -171,7 +171,7 @@ class AffiliateX_Notice_Styles {
 				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:before' => array(
-				'color'     => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#084ACA',
+				'color'     => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#00454A',
 				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-content' => array(

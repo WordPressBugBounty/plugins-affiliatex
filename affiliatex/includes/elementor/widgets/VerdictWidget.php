@@ -803,7 +803,8 @@ class VerdictWidget extends ElementorBase {
 		} elseif ( 'layoutTwo' === $verdictLayout ) {
 			$button_child = '';
 
-			$child_attributes = ChildHelper::extract_attributes( $attributes, self::$inner_button_config );
+			$child_attributes                      = ChildHelper::extract_attributes( $attributes, self::$inner_button_config );
+			$child_attributes['parent_attributes'] = array( 'blockName' => 'verdict' );
 
 			ob_start();
 			$this->render_button( $child_attributes );

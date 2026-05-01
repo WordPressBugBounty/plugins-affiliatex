@@ -115,7 +115,8 @@ trait CtaRenderTrait {
 		$button2 = '';
 
 		if ( isset( $attributes['edButtons'] ) && $attributes['edButtons'] === true ) {
-			$child_attributes = ChildHelper::extract_attributes( $attributes, self::$button1_config );
+			$child_attributes                      = ChildHelper::extract_attributes( $attributes, self::$button1_config );
+			$child_attributes['parent_attributes'] = array( 'blockName' => 'cta' );
 
 			ob_start();
 			$this->render_button( $child_attributes );
@@ -123,7 +124,8 @@ trait CtaRenderTrait {
 		}
 
 		if ( isset( $attributes['edButtons'] ) && isset( $attributes['edButtonTwo'] ) && $attributes['edButtonTwo'] === true ) {
-			$child_attributes = ChildHelper::extract_attributes( $attributes, self::$button2_config );
+			$child_attributes                      = ChildHelper::extract_attributes( $attributes, self::$button2_config );
+			$child_attributes['parent_attributes'] = array( 'blockName' => 'cta' );
 
 			ob_start();
 			$this->render_button( $child_attributes );

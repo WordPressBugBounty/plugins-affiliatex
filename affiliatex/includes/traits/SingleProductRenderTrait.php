@@ -145,7 +145,7 @@ trait SingleProductRenderTrait {
 				'listItemCount'               => 3,
 				'readMoreText'                => __( 'Read more', 'affiliatex' ),
 				'readLessText'                => __( 'Read less', 'affiliatex' ),
-				'readMoreColor'               => '#2670FF',
+				'readMoreColor'               => '#00B0B0',
 				'imageAspectRatio'            => 'auto',
 			),
 			$this->get_slider_defaults()
@@ -179,7 +179,7 @@ trait SingleProductRenderTrait {
 		for ( $i = 1; $i <= 5; $i++ ) {
 			$color  = ( $i <= $ratings ) ? $productRatingColor : $ratingInactiveColor;
 			$stars .= sprintf(
-				'<span style="color:%s;width:%dpx;height:%dpx;display:inline-flex;">
+				'<span class="affx-star" style="color:%s;width:%dpx;height:%dpx;">
                     <svg fill="currentColor" width="%d" height="%d" viewBox="0 0 24 24">
                         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
                     </svg>
@@ -1143,7 +1143,7 @@ trait SingleProductRenderTrait {
 						'readMoreColor'             => array(
 							'label'     => __( 'Read More Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
-							'default'   => '#2670FF',
+							'default'   => '#00B0B0',
 							'selectors' => array(
 								$this->select_element( 'readmore' ) . ' .affx-readmore-btn' => 'color: {{VALUE}};',
 							),
@@ -1249,7 +1249,7 @@ trait SingleProductRenderTrait {
 						'productRateNumBgColor'     => array(
 							'label'     => __( 'Score Box Background Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
-							'default'   => '#2670FF',
+							'default'   => '#00B0B0',
 							'selectors' => array(
 								$this->select_element( 'wrapper' ) . ' .affx-rating-box .num' => 'background-color: {{VALUE}}',
 							),
@@ -2003,6 +2003,7 @@ trait SingleProductRenderTrait {
 			// Pass parent block clickable state to button for server-side rendering
 			$child_attributes['parent_attributes'] = array(
 				'edFullBlockLink' => isset( $attributes['edFullBlockLink'] ) ? $attributes['edFullBlockLink'] : false,
+				'blockName'       => 'single-product',
 			);
 
 			ob_start();

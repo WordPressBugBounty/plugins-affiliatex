@@ -77,6 +77,29 @@ class AffiliateXPublic {
 				false
 			);
 
+			if ( get_option( 'affiliatex_tracking_enabled', true ) ) {
+				$page_id    = (int) get_the_ID();
+				$page_title = get_the_title();
+
+				if ( ! $page_id ) {
+					$queried_id = get_queried_object_id();
+					if ( $queried_id ) {
+						$page_id    = (int) $queried_id;
+						$page_title = $page_title ? $page_title : wp_get_document_title();
+					}
+				}
+
+				wp_localize_script(
+					'affiliatex-frontend',
+					'affxAnalytics',
+					array(
+						'pageId'    => $page_id,
+						'pageTitle' => $page_title ? $page_title : wp_get_document_title(),
+						'endpoint'  => rest_url( 'affiliatex/v1/analytics/track' ),
+					)
+				);
+			}
+
 			if ( has_block( 'affiliatex/single-product' ) ) {
 				wp_enqueue_style(
 					'affiliatex-glide',

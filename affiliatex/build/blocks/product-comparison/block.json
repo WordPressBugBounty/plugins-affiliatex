@@ -340,12 +340,12 @@
     },
     "buttonBgColor": {
       "type": "string",
-      "default": "#2670FF",
+      "default": "#00B0B0",
       "customizationKey": "btnColor"
     },
     "buttonBgHoverColor": {
       "type": "string",
-      "default": "#084ACA",
+      "default": "#00454A",
       "customizationKey": "btnHoverColor"
     },
     "titleTypography": {

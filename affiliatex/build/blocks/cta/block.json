@@ -9,6 +9,9 @@
     "multiple": true,
     "align": true
   },
+  "providesContext": {
+    "affiliatex/parentBlockName": "parentBlockName"
+  },
   "keywords": [
     "CTA",
     "affliatex"
@@ -19,6 +22,10 @@
   "attributes": {
     "block_id": {
       "type": "string"
+    },
+    "parentBlockName": {
+      "type": "string",
+      "default": "cta"
     },
     "ctaTitle": {
       "type": "string",
@@ -63,7 +70,7 @@
     "ctaBgGradient": {
       "type": "object",
       "default": {
-        "gradient": "linear-gradient(270deg, #8615CB 0%, #084ACA 100%)"
+        "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
       }
     },
     "ctaBGColor": {

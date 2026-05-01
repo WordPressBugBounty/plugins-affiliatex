@@ -39,8 +39,8 @@ trait ProductComparisonRenderTrait {
 	}
 
 	private function render_pc_stars( $rating, $starColor, $starInactiveColor ) {
-		$full_star  = '<span style="color:' . esc_attr( $starColor ) . ';width:25px;height:25px;display:inline-flex"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>';
-		$empty_star = '<span style="color:' . esc_attr( $starInactiveColor ) . ';width:25px;height:25px;display:inline-flex"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>';
+		$full_star  = '<span class="affx-star" style="color:' . esc_attr( $starColor ) . ';width:25px;height:25px;"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>';
+		$empty_star = '<span class="affx-star" style="color:' . esc_attr( $starInactiveColor ) . ';width:25px;height:25px;"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>';
 
 		$stars = '';
 		for ( $i = 0; $i < 5; $i++ ) {

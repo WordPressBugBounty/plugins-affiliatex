@@ -15,18 +15,33 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             'AffiliateX_Pro\\Updater\\' => 23,
             'AffiliateX_Pro\\Traits\\' => 22,
+            'AffiliateX_Pro\\Platforms\\Ebay\\' => 30,
+            'AffiliateX_Pro\\Platforms\\Dynamic_Listing\\' => 41,
+            'AffiliateX_Pro\\Platforms\\Cron\\' => 30,
+            'AffiliateX_Pro\\Platforms\\Api\\Ebay\\' => 34,
+            'AffiliateX_Pro\\Platforms\\Api\\Amazon\\' => 36,
+            'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\' => 40,
+            'AffiliateX_Pro\\Platforms\\Api\\' => 29,
+            'AffiliateX_Pro\\Platforms\\Amazon\\' => 32,
+            'AffiliateX_Pro\\Platforms\\AliExpress\\' => 36,
+            'AffiliateX_Pro\\Platforms\\Admin\\' => 31,
+            'AffiliateX_Pro\\Platforms\\' => 25,
             'AffiliateX_Pro\\Helpers\\' => 23,
+            'AffiliateX_Pro\\EmailReports\\' => 28,
             'AffiliateX_Pro\\Elementor\\Widgets\\' => 33,
             'AffiliateX_Pro\\Elementor\\' => 25,
+            'AffiliateX_Pro\\BrokenLinks\\' => 27,
             'AffiliateX_Pro\\Blocks\\' => 22,
-            'AffiliateX_Pro\\Amazon\\Dynamic_Listing\\' => 38,
-            'AffiliateX_Pro\\Amazon\\Cron\\' => 27,
-            'AffiliateX_Pro\\Amazon\\Api\\' => 26,
-            'AffiliateX_Pro\\Amazon\\Admin\\' => 28,
-            'AffiliateX_Pro\\Amazon\\' => 22,
             'AffiliateX_Pro\\' => 15,
             'AffiliateX\\Traits\\' => 18,
+            'AffiliateX\\Platforms\\Api\\Ebay\\' => 30,
+            'AffiliateX\\Platforms\\Api\\Amazon\\' => 32,
+            'AffiliateX\\Platforms\\Api\\AliExpress\\' => 36,
+            'AffiliateX\\Platforms\\Api\\' => 25,
+            'AffiliateX\\Platforms\\Admin\\' => 27,
+            'AffiliateX\\Platforms\\' => 21,
             'AffiliateX\\Notice\\' => 18,
+            'AffiliateX\\Modules\\' => 19,
             'AffiliateX\\Migration\\Migrations\\' => 32,
             'AffiliateX\\Migration\\' => 21,
             'AffiliateX\\Helpers\\Elementor\\' => 29,
@@ -34,10 +49,9 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
             'AffiliateX\\Elementor\\Widgets\\' => 29,
             'AffiliateX\\Elementor\\Controls\\' => 30,
             'AffiliateX\\Elementor\\' => 21,
+            'AffiliateX\\BrokenLinks\\' => 23,
             'AffiliateX\\Blocks\\' => 18,
-            'AffiliateX\\Amazon\\Api\\' => 22,
-            'AffiliateX\\Amazon\\Admin\\' => 24,
-            'AffiliateX\\Amazon\\' => 18,
+            'AffiliateX\\Analytics\\' => 21,
             'AffiliateX\\' => 11,
         ),
     );
@@ -51,9 +65,57 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/traits',
         ),
+        'AffiliateX_Pro\\Platforms\\Ebay\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/ebay',
+        ),
+        'AffiliateX_Pro\\Platforms\\Dynamic_Listing\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/dynamic-listing',
+        ),
+        'AffiliateX_Pro\\Platforms\\Cron\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/cron',
+        ),
+        'AffiliateX_Pro\\Platforms\\Api\\Ebay\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/api/ebay',
+        ),
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon',
+        ),
+        'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress',
+        ),
+        'AffiliateX_Pro\\Platforms\\Api\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/api',
+        ),
+        'AffiliateX_Pro\\Platforms\\Amazon\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/amazon',
+        ),
+        'AffiliateX_Pro\\Platforms\\AliExpress\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/aliexpress',
+        ),
+        'AffiliateX_Pro\\Platforms\\Admin\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms/admin',
+        ),
+        'AffiliateX_Pro\\Platforms\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/platforms',
+        ),
         'AffiliateX_Pro\\Helpers\\' =>
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/helpers',
+        ),
+        'AffiliateX_Pro\\EmailReports\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/email-reports',
         ),
         'AffiliateX_Pro\\Elementor\\Widgets\\' =>
         array (
@@ -63,29 +125,13 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/elementor',
         ),
+        'AffiliateX_Pro\\BrokenLinks\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/pro/includes/broken-links',
+        ),
         'AffiliateX_Pro\\Blocks\\' =>
         array (
             0 => __DIR__ . '/../..' . '/pro/includes/blocks',
-        ),
-        'AffiliateX_Pro\\Amazon\\Dynamic_Listing\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/pro/includes/amazon/dynamic-listing',
-        ),
-        'AffiliateX_Pro\\Amazon\\Cron\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/pro/includes/amazon/cron',
-        ),
-        'AffiliateX_Pro\\Amazon\\Api\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/pro/includes/amazon/api',
-        ),
-        'AffiliateX_Pro\\Amazon\\Admin\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/pro/includes/amazon/admin',
-        ),
-        'AffiliateX_Pro\\Amazon\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/pro/includes/amazon',
         ),
         'AffiliateX_Pro\\' =>
         array (
@@ -95,9 +141,37 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             0 => __DIR__ . '/../..' . '/includes/traits',
         ),
+        'AffiliateX\\Platforms\\Api\\Ebay\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms/api/ebay',
+        ),
+        'AffiliateX\\Platforms\\Api\\Amazon\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms/api/amazon',
+        ),
+        'AffiliateX\\Platforms\\Api\\AliExpress\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms/api/aliexpress',
+        ),
+        'AffiliateX\\Platforms\\Api\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms/api',
+        ),
+        'AffiliateX\\Platforms\\Admin\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms/admin',
+        ),
+        'AffiliateX\\Platforms\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/platforms',
+        ),
         'AffiliateX\\Notice\\' =>
         array (
             0 => __DIR__ . '/../..' . '/includes/notice',
+        ),
+        'AffiliateX\\Modules\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/modules',
         ),
         'AffiliateX\\Migration\\Migrations\\' =>
         array (
@@ -127,21 +201,17 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         array (
             0 => __DIR__ . '/../..' . '/includes/elementor',
         ),
+        'AffiliateX\\BrokenLinks\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/includes/broken-links',
+        ),
         'AffiliateX\\Blocks\\' =>
         array (
             0 => __DIR__ . '/../..' . '/includes/blocks',
         ),
-        'AffiliateX\\Amazon\\Api\\' =>
+        'AffiliateX\\Analytics\\' =>
         array (
-            0 => __DIR__ . '/../..' . '/includes/amazon/api',
-        ),
-        'AffiliateX\\Amazon\\Admin\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/includes/amazon/admin',
-        ),
-        'AffiliateX\\Amazon\\' =>
-        array (
-            0 => __DIR__ . '/../..' . '/includes/amazon',
+            0 => __DIR__ . '/../..' . '/includes/analytics',
         ),
         'AffiliateX\\' =>
         array (
@@ -155,13 +225,10 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\AffiliateXBlocks' => __DIR__ . '/../..' . '/includes/AffiliateXBlocks.php',
         'AffiliateX\\AffiliateXPublic' => __DIR__ . '/../..' . '/includes/AffiliateXPublic.php',
         'AffiliateX\\AffiliateXWidgets' => __DIR__ . '/../..' . '/includes/AffiliateXWidgets.php',
-        'AffiliateX\\Amazon\\Admin\\AmazonSettings' => __DIR__ . '/../..' . '/includes/amazon/admin/AmazonSettings.php',
-        'AffiliateX\\Amazon\\AmazonConfig' => __DIR__ . '/../..' . '/includes/amazon/AmazonConfig.php',
-        'AffiliateX\\Amazon\\AmazonController' => __DIR__ . '/../..' . '/includes/amazon/AmazonController.php',
-        'AffiliateX\\Amazon\\Api\\AmazonApiBase' => __DIR__ . '/../..' . '/includes/amazon/api/AmazonApiBase.php',
-        'AffiliateX\\Amazon\\Api\\AmazonApiSignature' => __DIR__ . '/../..' . '/includes/amazon/api/AmazonApiSignature.php',
-        'AffiliateX\\Amazon\\Api\\AmazonApiValidator' => __DIR__ . '/../..' . '/includes/amazon/api/AmazonApiValidator.php',
-        'AffiliateX\\Amazon\\Api\\AmazonCreatorApi' => __DIR__ . '/../..' . '/includes/amazon/api/AmazonCreatorApi.php',
+        'AffiliateX\\Analytics\\AnalyticsAPI' => __DIR__ . '/../..' . '/includes/analytics/AnalyticsAPI.php',
+        'AffiliateX\\Analytics\\AnalyticsCleanup' => __DIR__ . '/../..' . '/includes/analytics/AnalyticsCleanup.php',
+        'AffiliateX\\Analytics\\AnalyticsController' => __DIR__ . '/../..' . '/includes/analytics/AnalyticsController.php',
+        'AffiliateX\\Analytics\\AnalyticsHelper' => __DIR__ . '/../..' . '/includes/analytics/AnalyticsHelper.php',
         'AffiliateX\\Blocks\\BaseBlock' => __DIR__ . '/../..' . '/includes/blocks/BaseBlock.php',
         'AffiliateX\\Blocks\\ButtonBlock' => __DIR__ . '/../..' . '/includes/blocks/ButtonBlock.php',
         'AffiliateX\\Blocks\\CtaBlock' => __DIR__ . '/../..' . '/includes/blocks/CtaBlock.php',
@@ -173,6 +240,9 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\Blocks\\SpecificationsBlock' => __DIR__ . '/../..' . '/includes/blocks/SpecificationsBlock.php',
         'AffiliateX\\Blocks\\VerdictBlock' => __DIR__ . '/../..' . '/includes/blocks/VerdictBlock.php',
         'AffiliateX\\Blocks\\VersusLineBlock' => __DIR__ . '/../..' . '/includes/blocks/VersusLineBlock.php',
+        'AffiliateX\\BrokenLinks\\BrokenLinkAPI' => __DIR__ . '/../..' . '/includes/broken-links/BrokenLinkAPI.php',
+        'AffiliateX\\BrokenLinks\\BrokenLinkController' => __DIR__ . '/../..' . '/includes/broken-links/BrokenLinkController.php',
+        'AffiliateX\\BrokenLinks\\BrokenLinkScanner' => __DIR__ . '/../..' . '/includes/broken-links/BrokenLinkScanner.php',
         'AffiliateX\\Elementor\\ControlsManager' => __DIR__ . '/../..' . '/includes/elementor/ControlsManager.php',
         'AffiliateX\\Elementor\\Controls\\TextAreaControl' => __DIR__ . '/../..' . '/includes/elementor/controls/TextAreaControl.php',
         'AffiliateX\\Elementor\\Controls\\TextControl' => __DIR__ . '/../..' . '/includes/elementor/controls/TextControl.php',
@@ -189,6 +259,7 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\Elementor\\Widgets\\SpecificationsWidget' => __DIR__ . '/../..' . '/includes/elementor/widgets/SpecificationsWidget.php',
         'AffiliateX\\Elementor\\Widgets\\VerdictWidget' => __DIR__ . '/../..' . '/includes/elementor/widgets/VerdictWidget.php',
         'AffiliateX\\Elementor\\Widgets\\VersusLineWidget' => __DIR__ . '/../..' . '/includes/elementor/widgets/VersusLineWidget.php',
+        'AffiliateX\\Helpers\\CurrencyHelper' => __DIR__ . '/../..' . '/includes/helpers/CurrencyHelper.php',
         'AffiliateX\\Helpers\\ElementorChildHelper' => __DIR__ . '/../..' . '/includes/helpers/ElementorChildHelper.php',
         'AffiliateX\\Helpers\\ElementorHelper' => __DIR__ . '/../..' . '/includes/helpers/ElementorHelper.php',
         'AffiliateX\\Helpers\\Elementor\\ChildHelper' => __DIR__ . '/../..' . '/includes/helpers/elementor/ChildHelper.php',
@@ -196,17 +267,29 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\Helpers\\Elementor\\WidgetHelper' => __DIR__ . '/../..' . '/includes/helpers/elementor/WidgetHelper.php',
         'AffiliateX\\Helpers\\MigrationHelper' => __DIR__ . '/../..' . '/includes/helpers/MigrationHelper.php',
         'AffiliateX\\Helpers\\OptionsHelper' => __DIR__ . '/../..' . '/includes/helpers/OptionsHelper.php',
+        'AffiliateX\\Helpers\\QueryBuilder' => __DIR__ . '/../..' . '/includes/helpers/QueryBuilder.php',
         'AffiliateX\\Helpers\\ResponseHelper' => __DIR__ . '/../..' . '/includes/helpers/ResponseHelper.php',
         'AffiliateX\\Migration\\Migration' => __DIR__ . '/../..' . '/includes/migration/Migration.php',
         'AffiliateX\\Migration\\MigrationManager' => __DIR__ . '/../..' . '/includes/migration/MigrationManager.php',
         'AffiliateX\\Migration\\Migrations\\ClearOldCronJobs' => __DIR__ . '/../..' . '/includes/migration/migrations/ClearOldCronJobs.php',
         'AffiliateX\\Migration\\Migrations\\RemoveNoticeLayout3' => __DIR__ . '/../..' . '/includes/migration/migrations/RemoveNoticeLayout3.php',
+        'AffiliateX\\Modules\\ModulesAPI' => __DIR__ . '/../..' . '/includes/modules/ModulesAPI.php',
         'AffiliateX\\Notice\\AdminNoticeManager' => __DIR__ . '/../..' . '/includes/notice/AdminNoticeManager.php',
         'AffiliateX\\Notice\\CampaignNotice' => __DIR__ . '/../..' . '/includes/notice/CampaignNotice.php',
         'AffiliateX\\Notice\\CampaignNoticeHandler' => __DIR__ . '/../..' . '/includes/notice/CampaignNoticeHandler.php',
         'AffiliateX\\Notice\\NoticeBase' => __DIR__ . '/../..' . '/includes/notice/NoticeBase.php',
         'AffiliateX\\Notice\\NoticeHandler' => __DIR__ . '/../..' . '/includes/notice/NoticeHandler.php',
         'AffiliateX\\Notice\\ReviewNotice' => __DIR__ . '/../..' . '/includes/notice/ReviewNotice.php',
+        'AffiliateX\\Platforms\\Admin\\PlatformSettings' => __DIR__ . '/../..' . '/includes/platforms/admin/PlatformSettings.php',
+        'AffiliateX\\Platforms\\Api\\AliExpress\\AliExpressConfig' => __DIR__ . '/../..' . '/includes/platforms/api/aliexpress/AliExpressConfig.php',
+        'AffiliateX\\Platforms\\Api\\AliExpress\\AliExpressSignature' => __DIR__ . '/../..' . '/includes/platforms/api/aliexpress/AliExpressSignature.php',
+        'AffiliateX\\Platforms\\Api\\Amazon\\AmazonApiSignature' => __DIR__ . '/../..' . '/includes/platforms/api/amazon/AmazonApiSignature.php',
+        'AffiliateX\\Platforms\\Api\\Amazon\\AmazonApiValidator' => __DIR__ . '/../..' . '/includes/platforms/api/amazon/AmazonApiValidator.php',
+        'AffiliateX\\Platforms\\Api\\Amazon\\AmazonCreatorApi' => __DIR__ . '/../..' . '/includes/platforms/api/amazon/AmazonCreatorApi.php',
+        'AffiliateX\\Platforms\\Api\\Ebay\\EbayConfig' => __DIR__ . '/../..' . '/includes/platforms/api/ebay/EbayConfig.php',
+        'AffiliateX\\Platforms\\Api\\PlatformApiBase' => __DIR__ . '/../..' . '/includes/platforms/api/PlatformApiBase.php',
+        'AffiliateX\\Platforms\\PlatformConfig' => __DIR__ . '/../..' . '/includes/platforms/PlatformConfig.php',
+        'AffiliateX\\Platforms\\PlatformController' => __DIR__ . '/../..' . '/includes/platforms/PlatformController.php',
         'AffiliateX\\Traits\\ButtonRenderTrait' => __DIR__ . '/../..' . '/includes/traits/ButtonRenderTrait.php',
         'AffiliateX\\Traits\\CtaRenderTrait' => __DIR__ . '/../..' . '/includes/traits/CtaRenderTrait.php',
         'AffiliateX\\Traits\\NoticeRenderTrait' => __DIR__ . '/../..' . '/includes/traits/NoticeRenderTrait.php',
@@ -223,26 +306,6 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX_Pro\\AffiliateX_Pro_Blocks' => __DIR__ . '/../..' . '/pro/includes/AffiliateX_Pro_Blocks.php',
         'AffiliateX_Pro\\AffiliateX_Pro_Public' => __DIR__ . '/../..' . '/pro/includes/AffiliateX_Pro_Public.php',
         'AffiliateX_Pro\\AffiliateX_Pro_Widgets' => __DIR__ . '/../..' . '/pro/includes/AffiliateX_Pro_Widgets.php',
-        'AffiliateX_Pro\\Amazon\\Admin\\AffiliatexProductController' => __DIR__ . '/../..' . '/pro/includes/amazon/admin/AffiliatexProductController.php',
-        'AffiliateX_Pro\\Amazon\\Admin\\AffiliatexProductTable' => __DIR__ . '/../..' . '/pro/includes/amazon/admin/AffiliatexProductTable.php',
-        'AffiliateX_Pro\\Amazon\\Admin\\AmazonProductAPI' => __DIR__ . '/../..' . '/pro/includes/amazon/admin/AmazonProductAPI.php',
-        'AffiliateX_Pro\\Amazon\\AmazonGeolocation' => __DIR__ . '/../..' . '/pro/includes/amazon/AmazonGeolocation.php',
-        'AffiliateX_Pro\\Amazon\\AmazonProController' => __DIR__ . '/../..' . '/pro/includes/amazon/AmazonProController.php',
-        'AffiliateX_Pro\\Amazon\\AmazonProduct' => __DIR__ . '/../..' . '/pro/includes/amazon/AmazonProduct.php',
-        'AffiliateX_Pro\\Amazon\\AmazonProductListing' => __DIR__ . '/../..' . '/pro/includes/amazon/AmazonProductListing.php',
-        'AffiliateX_Pro\\Amazon\\AmazonShortcodeRender' => __DIR__ . '/../..' . '/pro/includes/amazon/AmazonShortcodeRender.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonApiFactory' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonApiFactory.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonApiProduct' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonApiProduct.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonApiSearch' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonApiSearch.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonCreatorApiProduct' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonCreatorApiProduct.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonCreatorApiResponseNormalizer' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonCreatorApiResponseNormalizer.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonCreatorApiSearch' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonCreatorApiSearch.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonPaApiProduct' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonPaApiProduct.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonPaApiSearch' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonPaApiSearch.php',
-        'AffiliateX_Pro\\Amazon\\Api\\AmazonSearchIndex' => __DIR__ . '/../..' . '/pro/includes/amazon/api/AmazonSearchIndex.php',
-        'AffiliateX_Pro\\Amazon\\Cron\\AmazonCleanupController' => __DIR__ . '/../..' . '/pro/includes/amazon/cron/AmazonCleanupController.php',
-        'AffiliateX_Pro\\Amazon\\Cron\\AmazonSyncController' => __DIR__ . '/../..' . '/pro/includes/amazon/cron/AmazonSyncController.php',
-        'AffiliateX_Pro\\Amazon\\Dynamic_Listing\\Geolocation' => __DIR__ . '/../..' . '/pro/includes/amazon/dynamic-listing/Geolocation.php',
         'AffiliateX_Pro\\Blocks\\BaseProBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/BaseProBlock.php',
         'AffiliateX_Pro\\Blocks\\CouponGridBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/CouponGridBlock.php',
         'AffiliateX_Pro\\Blocks\\CouponListingBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/CouponListingBlock.php',
@@ -255,6 +318,9 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX_Pro\\Blocks\\SingleProductProsAndConsBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/SingleProductProsAndConsBlock.php',
         'AffiliateX_Pro\\Blocks\\TopProductsBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/TopProductsBlock.php',
         'AffiliateX_Pro\\Blocks\\VersusBlock' => __DIR__ . '/../..' . '/pro/includes/blocks/VersusBlock.php',
+        'AffiliateX_Pro\\BrokenLinks\\BrokenLinkAPI' => __DIR__ . '/../..' . '/pro/includes/broken-links/BrokenLinkAPI.php',
+        'AffiliateX_Pro\\BrokenLinks\\BrokenLinkController' => __DIR__ . '/../..' . '/pro/includes/broken-links/BrokenLinkController.php',
+        'AffiliateX_Pro\\BrokenLinks\\BrokenLinkEmailTemplate' => __DIR__ . '/../..' . '/pro/includes/broken-links/BrokenLinkEmailTemplate.php',
         'AffiliateX_Pro\\Elementor\\Widgets\\CouponGridWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/CouponGridWidget.php',
         'AffiliateX_Pro\\Elementor\\Widgets\\CouponListingWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/CouponListingWidget.php',
         'AffiliateX_Pro\\Elementor\\Widgets\\DynamicListingWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/DynamicListingWidget.php',
@@ -265,9 +331,44 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX_Pro\\Elementor\\Widgets\\SingleProductProsAndConsWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/SingleProductProsAndConsWidget.php',
         'AffiliateX_Pro\\Elementor\\Widgets\\TopProductsWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/TopProductsWidget.php',
         'AffiliateX_Pro\\Elementor\\Widgets\\VersusWidget' => __DIR__ . '/../..' . '/pro/includes/elementor/widgets/VersusWidget.php',
-        'AffiliateX_Pro\\Helpers\\AmazonHelper' => __DIR__ . '/../..' . '/pro/includes/helpers/AmazonHelper.php',
+        'AffiliateX_Pro\\EmailReports\\EmailBaseTemplate' => __DIR__ . '/../..' . '/pro/includes/email-reports/EmailBaseTemplate.php',
+        'AffiliateX_Pro\\EmailReports\\EmailReportController' => __DIR__ . '/../..' . '/pro/includes/email-reports/EmailReportController.php',
+        'AffiliateX_Pro\\EmailReports\\EmailReportGenerator' => __DIR__ . '/../..' . '/pro/includes/email-reports/EmailReportGenerator.php',
+        'AffiliateX_Pro\\EmailReports\\EmailReportTemplate' => __DIR__ . '/../..' . '/pro/includes/email-reports/EmailReportTemplate.php',
         'AffiliateX_Pro\\Helpers\\DbHelper' => __DIR__ . '/../..' . '/pro/includes/helpers/DbHelper.php',
+        'AffiliateX_Pro\\Helpers\\PlatformHelper' => __DIR__ . '/../..' . '/pro/includes/helpers/PlatformHelper.php',
         'AffiliateX_Pro\\Helpers\\ShortcodeBuilderHelper' => __DIR__ . '/../..' . '/pro/includes/helpers/ShortcodeBuilderHelper.php',
+        'AffiliateX_Pro\\Platforms\\Admin\\AffiliatexProductController' => __DIR__ . '/../..' . '/pro/includes/platforms/admin/AffiliatexProductController.php',
+        'AffiliateX_Pro\\Platforms\\Admin\\AffiliatexProductTable' => __DIR__ . '/../..' . '/pro/includes/platforms/admin/AffiliatexProductTable.php',
+        'AffiliateX_Pro\\Platforms\\Admin\\ProductAPI' => __DIR__ . '/../..' . '/pro/includes/platforms/admin/ProductAPI.php',
+        'AffiliateX_Pro\\Platforms\\AliExpress\\AliExpressPlatform' => __DIR__ . '/../..' . '/pro/includes/platforms/aliexpress/AliExpressPlatform.php',
+        'AffiliateX_Pro\\Platforms\\Amazon\\AmazonGeolocation' => __DIR__ . '/../..' . '/pro/includes/platforms/amazon/AmazonGeolocation.php',
+        'AffiliateX_Pro\\Platforms\\Amazon\\AmazonPlatform' => __DIR__ . '/../..' . '/pro/includes/platforms/amazon/AmazonPlatform.php',
+        'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress/AliExpressProduct.php',
+        'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressResponseNormalizer' => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress/AliExpressResponseNormalizer.php',
+        'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressSearch' => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress/AliExpressSearch.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonApiProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonApiProduct.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonCreatorApiProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonCreatorApiProduct.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonCreatorApiResponseNormalizer' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonCreatorApiResponseNormalizer.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonCreatorApiSearch' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonCreatorApiSearch.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonPaApiProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonPaApiProduct.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonPaApiSearch' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonPaApiSearch.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonSearch' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonSearch.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Amazon\\AmazonSearchIndex' => __DIR__ . '/../..' . '/pro/includes/platforms/api/amazon/AmazonSearchIndex.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Ebay\\EbayProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/ebay/EbayProduct.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Ebay\\EbayResponseNormalizer' => __DIR__ . '/../..' . '/pro/includes/platforms/api/ebay/EbayResponseNormalizer.php',
+        'AffiliateX_Pro\\Platforms\\Api\\Ebay\\EbaySearch' => __DIR__ . '/../..' . '/pro/includes/platforms/api/ebay/EbaySearch.php',
+        'AffiliateX_Pro\\Platforms\\Api\\PlatformApiFactory' => __DIR__ . '/../..' . '/pro/includes/platforms/api/PlatformApiFactory.php',
+        'AffiliateX_Pro\\Platforms\\Cron\\CleanupController' => __DIR__ . '/../..' . '/pro/includes/platforms/cron/CleanupController.php',
+        'AffiliateX_Pro\\Platforms\\Cron\\SyncController' => __DIR__ . '/../..' . '/pro/includes/platforms/cron/SyncController.php',
+        'AffiliateX_Pro\\Platforms\\Dynamic_Listing\\Geolocation' => __DIR__ . '/../..' . '/pro/includes/platforms/dynamic-listing/Geolocation.php',
+        'AffiliateX_Pro\\Platforms\\Ebay\\EbayPlatform' => __DIR__ . '/../..' . '/pro/includes/platforms/ebay/EbayPlatform.php',
+        'AffiliateX_Pro\\Platforms\\PlatformInterface' => __DIR__ . '/../..' . '/pro/includes/platforms/PlatformInterface.php',
+        'AffiliateX_Pro\\Platforms\\PlatformProController' => __DIR__ . '/../..' . '/pro/includes/platforms/PlatformProController.php',
+        'AffiliateX_Pro\\Platforms\\PlatformRegistry' => __DIR__ . '/../..' . '/pro/includes/platforms/PlatformRegistry.php',
+        'AffiliateX_Pro\\Platforms\\Product' => __DIR__ . '/../..' . '/pro/includes/platforms/Product.php',
+        'AffiliateX_Pro\\Platforms\\ProductListing' => __DIR__ . '/../..' . '/pro/includes/platforms/ProductListing.php',
+        'AffiliateX_Pro\\Platforms\\ShortcodeRender' => __DIR__ . '/../..' . '/pro/includes/platforms/ShortcodeRender.php',
         'AffiliateX_Pro\\Traits\\CouponGridRenderTrait' => __DIR__ . '/../..' . '/pro/includes/traits/CouponGridRenderTrait.php',
         'AffiliateX_Pro\\Traits\\CouponListingRenderTrait' => __DIR__ . '/../..' . '/pro/includes/traits/CouponListingRenderTrait.php',
         'AffiliateX_Pro\\Traits\\DynamicListingRenderTrait' => __DIR__ . '/../..' . '/pro/includes/traits/DynamicListingRenderTrait.php',

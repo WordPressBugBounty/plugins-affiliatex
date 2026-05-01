@@ -426,7 +426,7 @@
     },
     "tableHeaderBgColor": {
       "type": "string",
-      "default": "#084ACA"
+      "default": "#00454A"
     },
     "priceColor": {
       "type": "string",
@@ -490,12 +490,12 @@
     },
     "button1BgColor": {
       "type": "string",
-      "default": "#2670FF",
+      "default": "#00B0B0",
       "customizationKey": "btnColor"
     },
     "button1BgHoverColor": {
       "type": "string",
-      "default": "#084ACA",
+      "default": "#00454A",
       "customizationKey": "btnHoverColor"
     },
     "button2TextColor": {
@@ -512,7 +512,7 @@
     },
     "button2BgHoverColor": {
       "type": "string",
-      "default": "#084ACA"
+      "default": "#00454A"
     },
     "margin": {
       "type": "object",

@@ -164,7 +164,7 @@ class AffiliateX_Single_Product_Styles {
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content .affx-readmore-btn' => array(
-				'color'           => isset( $attr['readMoreColor'] ) ? $attr['readMoreColor'] : '#2670FF',
+				'color'           => isset( $attr['readMoreColor'] ) ? $attr['readMoreColor'] : '#00B0B0',
 				'font-family'     => isset( $attr['readMoreTypography']['family'] ) ? $attr['readMoreTypography']['family'] : 'Default',
 				'font-weight'     => isset( $attr['readMoreTypography']['variation'] ) ? AffiliateX_Helpers::get_fontweight_variation( $attr['readMoreTypography']['variation'] ) : '400',
 				'font-style'      => isset( $attr['readMoreTypography']['variation'] ) ? AffiliateX_Helpers::get_font_style( $attr['readMoreTypography']['variation'] ) : 'normal',
@@ -332,7 +332,7 @@ class AffiliateX_Single_Product_Styles {
 			),
 
 			' .affx-rating-number'                     => array(
-				'background'      => isset( $attr['productRateNumBgColor'] ) ? $attr['productRateNumBgColor'] : '#2670FF',
+				'background'      => isset( $attr['productRateNumBgColor'] ) ? $attr['productRateNumBgColor'] : '#00B0B0',
 				'color'           => isset( $attr['productRateNumberColor'] ) ? $attr['productRateNumberColor'] : '#ffffff',
 				'font-family'     => isset( $attr['numRatingTypography']['family'] ) ? $attr['numRatingTypography']['family'] : 'Default',
 				'font-weight'     => AffiliateX_Helpers::get_fontweight_variation( $rating_variation ),
@@ -345,7 +345,7 @@ class AffiliateX_Single_Product_Styles {
 			),
 
 			' .affx-rating-number .num'                => array(
-				'background' => isset( $attr['productRateNumBgColor'] ) ? $attr['productRateNumBgColor'] : '#2670FF',
+				'background' => isset( $attr['productRateNumBgColor'] ) ? $attr['productRateNumBgColor'] : '#00B0B0',
 				'color'      => isset( $attr['productRateNumberColor'] ) ? $attr['productRateNumberColor'] : '#ffffff',
 			),
 

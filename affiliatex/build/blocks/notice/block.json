@@ -275,7 +275,7 @@
     },
     "noticeIconTwoColor": {
       "type": "string",
-      "default": "#084ACA"
+      "default": "#00454A"
     },
     "noticeTextColor": {
       "type": "string",
@@ -283,7 +283,7 @@
     },
     "noticeTextTwoColor": {
       "type": "string",
-      "default": "#084ACA"
+      "default": "#00454A"
     },
     "noticeListColor": {
       "type": "string",

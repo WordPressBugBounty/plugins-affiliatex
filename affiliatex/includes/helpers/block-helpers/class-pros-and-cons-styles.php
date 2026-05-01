@@ -44,8 +44,8 @@ class AffiliateX_Pros_and_Cons_Styles {
 		$customization_data     = affx_get_customization_settings();
 		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
 		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
-		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#2670FF';
-		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
+		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#00B0B0';
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#00454A';
 		$title_variation        = isset( $attr['titleTypography']['variation'] ) ? $attr['titleTypography']['variation'] : 'n5';
 		$variation              = isset( $attr['contentTypography']['variation'] ) ? $attr['contentTypography']['variation'] : 'n4';
 		$list_variation         = isset( $attr['listTypography']['variation'] ) ? $attr['listTypography']['variation'] : 'n4';

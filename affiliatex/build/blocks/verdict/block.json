@@ -9,6 +9,9 @@
     "multiple": true,
     "align": true
   },
+  "providesContext": {
+    "affiliatex/parentBlockName": "parentBlockName"
+  },
   "keywords": [
     "verdict",
     "AffiliateX"
@@ -19,6 +22,10 @@
   "attributes": {
     "block_id": {
       "type": "string"
+    },
+    "parentBlockName": {
+      "type": "string",
+      "default": "verdict"
     },
     "verdictTitle": {
       "type": "string",
@@ -278,7 +285,7 @@
     },
     "scoreBgTopColor": {
       "type": "string",
-      "default": "#2670FF"
+      "default": "#00B0B0"
     },
     "scoreBgBotColor": {
       "type": "string",
@@ -290,7 +297,7 @@
     },
     "verdictArrowColor": {
       "type": "string",
-      "default": "#2670FF"
+      "default": "#00B0B0"
     },
     "verdictTitleColor": {
       "type": "string",

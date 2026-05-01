@@ -18,7 +18,7 @@ trait ResponseHelper {
 	 * @param array $data
 	 * @return void
 	 */
-	private function send_json_success( string $message, array $data = array() ): void {
+	protected function send_json_success( string $message, array $data = array() ): void {
 		wp_send_json_success(
 			array_merge(
 				array( 'message' => $message ),
@@ -33,7 +33,7 @@ trait ResponseHelper {
 	 * @param array $data
 	 * @return void
 	 */
-	private function send_json_plain_success( array $data = array() ): void {
+	protected function send_json_plain_success( array $data = array() ): void {
 		wp_send_json_success( $data );
 	}
 
@@ -44,7 +44,7 @@ trait ResponseHelper {
 	 * @param array $data
 	 * @return void
 	 */
-	private function send_json_error( string $message, array $data = array() ): void {
+	protected function send_json_error( string $message, array $data = array() ): void {
 		wp_send_json_error(
 			array_merge(
 				array( 'message' => $message ),
@@ -59,7 +59,7 @@ trait ResponseHelper {
 	 * @param array $data
 	 * @return void
 	 */
-	private function send_json_plain_error( array $data = array() ): void {
+	protected function send_json_plain_error( array $data = array() ): void {
 		wp_send_json_error( $data );
 	}
 }

@@ -23,7 +23,7 @@ trait ProductTableRenderTrait {
 		for ( $i = 0; $i < 5; $i++ ) {
 			$color   = $i < $rating ? $starColor : $starInactiveColor;
 			$output .= sprintf(
-				'<span style="color:%s;width:25px;height:25px;display:inline-flex;"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>',
+				'<span class="affx-star" style="color:%s;width:25px;height:25px;"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>',
 				esc_attr( $color )
 			);
 		}
@@ -155,7 +155,7 @@ trait ProductTableRenderTrait {
 			'counterColor'            => '#FFFFFF',
 			'counterBgColor'          => '#24B644',
 			'tableHeaderColor'        => '#FFFFFF',
-			'tableHeaderBgColor'      => '#084ACA',
+			'tableHeaderBgColor'      => '#00454A',
 			'priceColor'              => '#262B33',
 			'ratingColor'             => '#FFFFFF',
 			'ratingBgColor'           => '#24B644',
@@ -170,12 +170,12 @@ trait ProductTableRenderTrait {
 			),
 			'button1TextColor'        => '#fff',
 			'button1TextHoverColor'   => '#fff',
-			'button1BgColor'          => '#2670FF',
-			'button1BgHoverColor'     => '#084ACA',
+			'button1BgColor'          => '#00B0B0',
+			'button1BgHoverColor'     => '#00454A',
 			'button2TextColor'        => '#fff',
 			'button2TextHoverColor'   => '#fff',
 			'button2BgColor'          => '#FFB800',
-			'button2BgHoverColor'     => '#084ACA',
+			'button2BgHoverColor'     => '#00454A',
 			'productIconColor'        => '#24B644',
 		);
 	}

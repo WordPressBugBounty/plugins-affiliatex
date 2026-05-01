@@ -51,8 +51,8 @@ class AffiliateX_Product_Table_Styles {
 		$customization_data     = affx_get_customization_settings();
 		$global_font_family     = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
 		$global_font_color      = isset( $customization_data['fontColor'] ) ? $customization_data['fontColor'] : '#292929';
-		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#2670FF';
-		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
+		$global_btn_color       = isset( $customization_data['btnColor'] ) ? $customization_data['btnColor'] : '#00B0B0';
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#00454A';
 
 		$bgType           = isset( $attr['bgType'] ) ? $attr['bgType'] : 'solid';
 		$bgGradient       = isset( $attr['bgColorGradient']['gradient'] ) ? $attr['bgColorGradient']['gradient'] : 'linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)';
@@ -249,7 +249,7 @@ class AffiliateX_Product_Table_Styles {
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
-				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#00454A',
 				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
@@ -264,8 +264,8 @@ class AffiliateX_Product_Table_Styles {
 				'font-style'      => AffiliateX_Helpers::get_font_style( $priceVariation ),
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-table thead td' => array(
-				'background'      => isset( $attr['tableHeaderBgColor'] ) ? $attr['tableHeaderBgColor'] : '#084ACA',
-				'border-color'    => isset( $attr['tableHeaderBgColor'] ) ? $attr['tableHeaderBgColor'] : '#084ACA',
+				'background'      => isset( $attr['tableHeaderBgColor'] ) ? $attr['tableHeaderBgColor'] : '#00454A',
+				'border-color'    => isset( $attr['tableHeaderBgColor'] ) ? $attr['tableHeaderBgColor'] : '#00454A',
 				'color'           => isset( $attr['tableHeaderColor'] ) ? $attr['tableHeaderColor'] : '#FFFFFF',
 				'font-family'     => isset( $attr['headerTypography']['family'] ) ? $attr['headerTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['headerTypography']['size']['desktop'] ) ? $attr['headerTypography']['size']['desktop'] : '18px',
@@ -295,7 +295,7 @@ class AffiliateX_Product_Table_Styles {
 	}
 
 	public static function get_mobileselectors( $attr ) {
-		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#00454A';
 
 		$mobile_selectors = array(
 			' .affx-pdt-table-wrapper'                    => array(
@@ -403,7 +403,7 @@ class AffiliateX_Product_Table_Styles {
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
-				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#00454A',
 				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(
@@ -428,7 +428,7 @@ class AffiliateX_Product_Table_Styles {
 	}
 
 	public static function get_tabletselectors( $attr ) {
-		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#084ACA';
+		$global_btn_hover_color = isset( $customization_data['btnHoverColor'] ) ? $customization_data['btnHoverColor'] : '#00454A';
 
 		$tablet_selectors = array(
 			' .affx-pdt-table-wrapper'                    => array(
@@ -536,7 +536,7 @@ class AffiliateX_Product_Table_Styles {
 			),
 			' .affx-pdt-table-wrapper .affiliatex-button.secondary:hover' => array(
 				'color'            => isset( $attr['button2TextHoverColor'] ) ? $attr['button2TextHoverColor'] : '#FFFFFF',
-				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#084ACA',
+				'background-color' => isset( $attr['button2BgHoverColor'] ) ? $attr['button2BgHoverColor'] : '#00454A',
 				'border-color'     => isset( $attr['button2borderHoverColor'] ) ? $attr['button2borderHoverColor'] : '#ffffff',
 			),
 			' .affx-pdt-table-wrapper .affx-pdt-price-wrap' => array(

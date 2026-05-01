@@ -10,7 +10,8 @@
     "innerBlocks": true
   },
   "providesContext": {
-    "affiliatex/edFullBlockLink": "edFullBlockLink"
+    "affiliatex/edFullBlockLink": "edFullBlockLink",
+    "affiliatex/parentBlockName": "parentBlockName"
   },
   "keywords": [
     "Product",
@@ -23,6 +24,10 @@
   "attributes": {
     "block_id": {
       "type": "string"
+    },
+    "parentBlockName": {
+      "type": "string",
+      "default": "single-product"
     },
     "productLayout": {
       "type": "string",
@@ -562,7 +567,7 @@
     "productBgGradient": {
       "type": "object",
       "default": {
-        "gradient": "linear-gradient(270deg, #8615CB 0%, #084ACA 100%)"
+        "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
       }
     },
     "productBGColor": {
@@ -584,7 +589,7 @@
     "ribbonBgGradient": {
       "type": "object",
       "default": {
-        "gradient": "linear-gradient(270deg, #8615CB 0%, #084ACA 100%)"
+        "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
       }
     },
     "ribbonBgHoverType": {
@@ -594,7 +599,7 @@
     "ribbonBgHoverGradient": {
       "type": "object",
       "default": {
-        "gradient": "linear-gradient(270deg, #8615CB 0%, #084ACA 100%)"
+        "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
       }
     },
     "edRibbon": {
@@ -669,7 +674,7 @@
     },
     "productRateNumBgColor": {
       "type": "string",
-      "default": "#2670FF"
+      "default": "#00B0B0"
     },
     "productRateContentBgColor": {
       "type": "string",
@@ -778,7 +783,7 @@
     },
     "readMoreColor": {
       "type": "string",
-      "default": "#2670FF"
+      "default": "#00B0B0"
     },
     "readMoreTypography": {
       "type": "object",

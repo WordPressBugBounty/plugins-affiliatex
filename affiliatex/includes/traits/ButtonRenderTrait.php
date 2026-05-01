@@ -322,7 +322,7 @@ trait ButtonRenderTrait {
 							),
 							'color'          => array(
 								'label'   => __( 'Background Color', 'affiliatex' ),
-								'default' => AffiliateX_Customization_Helper::get_value( 'btnColor', '#2670FF' ),
+								'default' => AffiliateX_Customization_Helper::get_value( 'btnColor', '#00B0B0' ),
 							),
 							'color_b'        => array(
 								'default' => '#A9B8C3',
@@ -365,7 +365,7 @@ trait ButtonRenderTrait {
 							),
 							'color'          => array(
 								'label'     => __( 'Background Hover Color', 'affiliatex' ),
-								'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#084ACA' ),
+								'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#00454A' ),
 								'selectors' => array(
 									'{{WRAPPER}} .affiliatex-button:hover' => 'background-color: {{VALUE}}; background-image: none;',
 								),
@@ -398,7 +398,7 @@ trait ButtonRenderTrait {
 					'priceTagTextColor'        => array(
 						'label'     => __( 'Text Color', 'affiliatex' ),
 						'type'      => Controls_Manager::COLOR,
-						'default'   => '#2670FF',
+						'default'   => '#00B0B0',
 						'condition' => array(
 							'layoutStyle' => 'layout-type-2',
 						),
@@ -728,16 +728,22 @@ trait ButtonRenderTrait {
 
 		$tag = $parent_block_clickable ? 'div' : 'a';
 
+		// Determine block type for analytics tracking
+		$block_type   = $attributes['parent_attributes']['blockName'] ?? 'buttons';
+		$resolved_url = do_shortcode( $buttonURL ?? '' );
+		$track_attrs  = \AffiliateX\Analytics\AnalyticsHelper::get_tracking_attributes( $resolved_url, $block_type, 'button' );
+
 		if ( isset( $elementorLinkAttributes ) ) {
-			$link_attributes = $elementorLinkAttributes;
+			$link_attributes = $elementorLinkAttributes . ' ' . $track_attrs;
 		} elseif ( $tag === 'a' ) {
 			$link_attributes = sprintf(
-				'href="%s" class="%s" rel="%s" %s %s',
-				apply_filters( 'affiliatex_button_url', esc_url( do_shortcode( $buttonURL ?? '' ) ) ),
+				'href="%s" class="%s" rel="%s" %s %s %s',
+				apply_filters( 'affiliatex_button_url', esc_url( $resolved_url ) ),
 				esc_attr( $classNames ),
 				esc_attr( $rel ),
 				esc_html( $target ),
-				esc_html( $download ? ' download' : '' )
+				esc_html( $download ? ' download' : '' ),
+				$track_attrs
 			);
 		} else {
 			$link_attributes = sprintf(

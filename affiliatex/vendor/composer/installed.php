@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpcenter/affiliatex',
-        'pretty_version' => '1.4.4.2',
-        'version' => '1.4.4.2',
-        'reference' => '3abc3ce59ee62dd08b90c91582323ce479ba27d0',
+        'pretty_version' => '2.0',
+        'version' => '2.0.0.0',
+        'reference' => 'e4dc0ee98e40435e78fe9ad0932f4f53bb863a43',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.13.0',
-            'version' => '2.13.0.0',
-            'reference' => '3cbe98b5bd0b0fb5ca4df97b8088592737ea4375',
+            'pretty_version' => '2.13.1',
+            'version' => '2.13.1.0',
+            'reference' => '7376c0eca1ae7f92aaba9d3b550bd10affe797ff',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'wpcenter/affiliatex' => array(
-            'pretty_version' => '1.4.4.2',
-            'version' => '1.4.4.2',
-            'reference' => '3abc3ce59ee62dd08b90c91582323ce479ba27d0',
+            'pretty_version' => '2.0',
+            'version' => '2.0.0.0',
+            'reference' => 'e4dc0ee98e40435e78fe9ad0932f4f53bb863a43',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -30,6 +30,7 @@ class ButtonBlock extends BaseBlock {
 			$context                         = $block->context;
 			$attributes['parent_attributes'] = array(
 				'edFullBlockLink' => $context['affiliatex/edFullBlockLink'] ?? false,
+				'blockName'       => $context['affiliatex/parentBlockName'] ?? 'buttons',
 			);
 		}
 

@@ -98,12 +98,12 @@ class AffiliateX_Verdict_Styles {
 				'color' => isset( $attr['verdictContentColor'] ) ? $attr['verdictContentColor'] : $global_font_color,
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-2.display-arrow .affx-btn-inner .affiliatex-button::after' => array(
-				'background' => isset( $attr['verdictArrowColor'] ) ? $attr['verdictArrowColor'] : '#2670FF',
+				'background' => isset( $attr['verdictArrowColor'] ) ? $attr['verdictArrowColor'] : '#00B0B0',
 			),
 
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .num' => array(
 				'color'            => isset( $attr['scoreTextColor'] ) ? $attr['scoreTextColor'] : '#FFFFFF',
-				'background-color' => isset( $attr['scoreBgTopColor'] ) ? $attr['scoreBgTopColor'] : '#2670FF',
+				'background-color' => isset( $attr['scoreBgTopColor'] ) ? $attr['scoreBgTopColor'] : '#00B0B0',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .main-text-holder' => array(
 				'flex-direction'  => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] !== 'left' ? 'row' : 'row-reverse',

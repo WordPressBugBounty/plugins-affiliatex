@@ -3,11 +3,14 @@
 namespace AffiliateX;
 
 defined( 'ABSPATH' ) || exit;
-use AffiliateX\Amazon\AmazonConfig;
-use AffiliateX\Amazon\AmazonController;
+use AffiliateX\Platforms\PlatformConfig;
+use AffiliateX\Platforms\PlatformController;
 use AffiliateX\Helpers\Elementor\WidgetHelper;
 use AffiliateX\Elementor\ControlsManager;
 use AffiliateX\Elementor\ElementorManager;
+use AffiliateX\Analytics\AnalyticsController;
+use AffiliateX\Modules\ModulesAPI;
+use AffiliateX\BrokenLinks\BrokenLinkController;
 /**
  * Admin class, handles admin screen functionality
  *
@@ -19,7 +22,10 @@ class AffiliateXAdmin {
      */
     public function __construct() {
         $this->init();
-        new AmazonController();
+        new PlatformController();
+        new AnalyticsController();
+        new BrokenLinkController();
+        add_action( 'rest_api_init', array(new ModulesAPI(), 'register_routes') );
         new Notice\AdminNoticeManager();
         new ControlsManager();
         new ElementorManager();
@@ -96,6 +102,8 @@ class AffiliateXAdmin {
                 'ajax_nonce'        => $ajax_nonce,
                 'licenseActive'     => ( affiliatex_fs()->is_premium() ? 'true' : 'false' ),
                 'ajax_url'          => admin_url( 'admin-ajax.php' ),
+                'features'          => apply_filters( 'affiliatex_admin_features', array() ),
+                'version'           => AFFILIATEX_VERSION,
             ) );
             wp_enqueue_script( 'affiliatex-admin' );
             // Styles.
@@ -153,7 +161,7 @@ class AffiliateXAdmin {
         global $wp_customize;
         $blocks_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blocks.asset.php');
         $blocks_export_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/blockComponents.asset.php');
-        $amazon_config = new AmazonConfig();
+        $amazon_config = new PlatformConfig();
         wp_register_script(
             'affiliatex',
             plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/blocks.js',

@@ -520,7 +520,7 @@ class NoticeWidget extends ElementorBase {
 			array(
 				'label'     => __( 'Title Color', 'affiliatex' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#084ACA',
+				'default'   => '#00454A',
 				'selectors' => array(
 					$this->select_element( 'layout-2-wrapper' ) . ' .affiliatex-notice-title' => 'color: {{VALUE}} !important;',
 				),
@@ -660,7 +660,7 @@ class NoticeWidget extends ElementorBase {
 			array(
 				'label'     => __( 'Title Icon Color', 'affiliatex' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => '#084ACA',
+				'default'   => '#00454A',
 				'selectors' => array(
 					$this->select_element( 'layout-2-wrapper' ) . ' .affiliatex-notice-title > i' => 'color: {{VALUE}} !important;',
 				),

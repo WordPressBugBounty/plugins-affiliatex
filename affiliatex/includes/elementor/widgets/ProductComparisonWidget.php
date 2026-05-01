@@ -824,7 +824,7 @@ class ProductComparisonWidget extends ElementorBase {
 			array(
 				'label'     => __( 'Button Background Color', 'affiliatex' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => AffiliateX_Customization_Helper::get_value( 'btnColor', '#2670FF' ),
+				'default'   => AffiliateX_Customization_Helper::get_value( 'btnColor', '#00B0B0' ),
 				'selectors' => array(
 					$this->select_element( 'button' ) => 'background-color: {{VALUE}};',
 				),
@@ -839,7 +839,7 @@ class ProductComparisonWidget extends ElementorBase {
 			array(
 				'label'     => __( 'Button Background Hover Color', 'affiliatex' ),
 				'type'      => Controls_Manager::COLOR,
-				'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#084ACA' ),
+				'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#00454A' ),
 				'selectors' => array(
 					$this->select_element( 'button:hover' ) => 'background-color: {{VALUE}};',
 				),
