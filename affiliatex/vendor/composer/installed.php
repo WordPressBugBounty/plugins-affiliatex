@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'wpcenter/affiliatex',
-        'pretty_version' => '2.0.1',
-        'version' => '2.0.1.0',
-        'reference' => 'bac4ca0db439edd4d96e133758ae5e37dad9e5cf',
+        'pretty_version' => '2.0.2',
+        'version' => '2.0.2.0',
+        'reference' => 'aa34550972f7e404022576fac54abb82e9add34a',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'wpcenter/affiliatex' => array(
-            'pretty_version' => '2.0.1',
-            'version' => '2.0.1.0',
-            'reference' => 'bac4ca0db439edd4d96e133758ae5e37dad9e5cf',
+            'pretty_version' => '2.0.2',
+            'version' => '2.0.2.0',
+            'reference' => 'aa34550972f7e404022576fac54abb82e9add34a',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

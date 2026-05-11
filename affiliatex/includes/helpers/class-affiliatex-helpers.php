@@ -358,6 +358,21 @@ class AffiliateX_Helpers {
 	}
 
 	/**
+	 * Remove inline <a> tags while keeping their inner content. Used for
+	 * RichText fields rendered inside a wrapper anchor, where nested anchors
+	 * are invalid HTML5 and the browser parser silently breaks the layout.
+	 *
+	 * @param string $content
+	 * @return string
+	 */
+	public static function strip_anchor_tags( $content ) {
+		if ( ! is_string( $content ) || $content === '' ) {
+			return $content;
+		}
+		return preg_replace( '#</?a\b[^>]*>#i', '', $content );
+	}
+
+	/**
 	 * Escape HTML content while allowing SVG elements.
 	 *
 	 * @param string $content The content to escape.

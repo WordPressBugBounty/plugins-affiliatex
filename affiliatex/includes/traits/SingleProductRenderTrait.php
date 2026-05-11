@@ -2154,6 +2154,19 @@ trait SingleProductRenderTrait {
 			$inner_wrapper_config['attributes']
 		);
 
+		// When the wrapper renders as <a>, inline anchors inside RichText fields
+		// produce invalid nested anchors that browsers silently reflow, breaking
+		// the layout. Strip them so the wrapper link wins.
+		if ( $tag === 'a' ) {
+			$productTitle     = AffiliateX_Helpers::strip_anchor_tags( $productTitle );
+			$productSubTitle  = AffiliateX_Helpers::strip_anchor_tags( $productSubTitle );
+			$ribbonText       = AffiliateX_Helpers::strip_anchor_tags( $ribbonText ?? '' );
+			$productContent   = AffiliateX_Helpers::strip_anchor_tags( $productContent );
+			$productSalePrice = AffiliateX_Helpers::strip_anchor_tags( $productSalePrice );
+			$productPrice     = AffiliateX_Helpers::strip_anchor_tags( $productPrice );
+			$list             = AffiliateX_Helpers::strip_anchor_tags( $list );
+		}
+
 		$readmore_config = array(
 			'edReadMore'         => $edReadMore,
 			'productContentType' => $productContentType,
