@@ -1,11 +1,11 @@
 === AffiliateX – Amazon Affiliate Plugin ===
 Contributors: wpcenter, cagdasdag
 Plugin link: https://affiliatexblocks.com
-Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, affiliate blocks
+Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, click tracking
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional af
 
 == Description ==
 
-### Best Amazon Affiliate Block Plugin for WordPress
+### Best Amazon Affiliate Plugin for WordPress
 
 AffiliateX is the [best affiliate block plugin for WordPress](https://affiliatexblocks.com/?utm_source=wporg&utm_medium=pluginlisting&utm_campaign=pluginfirstheading). You can create highly effective Amazon affiliate marketing blogs with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
 
