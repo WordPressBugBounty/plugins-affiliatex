@@ -60,6 +60,7 @@ return array(
     'AffiliateX\\Migration\\Migrations\\ClearOldCronJobs' => $baseDir . '/includes/migration/migrations/ClearOldCronJobs.php',
     'AffiliateX\\Migration\\Migrations\\RemoveNoticeLayout3' => $baseDir . '/includes/migration/migrations/RemoveNoticeLayout3.php',
     'AffiliateX\\Modules\\ModulesAPI' => $baseDir . '/includes/modules/ModulesAPI.php',
+    'AffiliateX\\Modules\\WelcomeAPI' => $baseDir . '/includes/modules/WelcomeAPI.php',
     'AffiliateX\\Notice\\AdminNoticeManager' => $baseDir . '/includes/notice/AdminNoticeManager.php',
     'AffiliateX\\Notice\\CampaignNotice' => $baseDir . '/includes/notice/CampaignNotice.php',
     'AffiliateX\\Notice\\CampaignNoticeHandler' => $baseDir . '/includes/notice/CampaignNoticeHandler.php',

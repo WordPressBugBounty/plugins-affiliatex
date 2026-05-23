@@ -10,6 +10,7 @@ use AffiliateX\Elementor\ControlsManager;
 use AffiliateX\Elementor\ElementorManager;
 use AffiliateX\Analytics\AnalyticsController;
 use AffiliateX\Modules\ModulesAPI;
+use AffiliateX\Modules\WelcomeAPI;
 use AffiliateX\BrokenLinks\BrokenLinkController;
 /**
  * Admin class, handles admin screen functionality
@@ -26,9 +27,20 @@ class AffiliateXAdmin {
         new AnalyticsController();
         new BrokenLinkController();
         add_action( 'rest_api_init', array(new ModulesAPI(), 'register_routes') );
+        add_action( 'rest_api_init', array(new WelcomeAPI(), 'register_routes') );
         new Notice\AdminNoticeManager();
         new ControlsManager();
         new ElementorManager();
+        affiliatex_fs()->add_filter( 'after_connect_url', array($this, 'freemius_after_action_redirect') );
+        affiliatex_fs()->add_filter( 'after_skip_url', array($this, 'freemius_after_action_redirect') );
+        affiliatex_fs()->add_filter( 'after_pending_connect_url', array($this, 'freemius_after_action_redirect') );
+    }
+
+    public function freemius_after_action_redirect( $url ) {
+        if ( affiliatex_fs()->is_premium() ) {
+            return $url;
+        }
+        return admin_url( 'admin.php?page=affiliatex_getting_started' );
     }
 
     /**
@@ -46,6 +58,7 @@ class AffiliateXAdmin {
         add_action( 'admin_enqueue_scripts', array($this, 'set_script_translations'), 99999999999 );
         // Register pages
         add_action( 'admin_menu', array($this, 'add_affiliate_menu') );
+        add_action( 'admin_menu', array($this, 'add_getting_started_menu'), 999 );
         add_filter( 'plugin_action_links_' . plugin_basename( AFFILIATEX_PLUGIN_FILE ), array($this, 'affiliatex_add_action_links') );
         add_filter( 'network_admin_plugin_action_links_' . plugin_basename( AFFILIATEX_PLUGIN_FILE ), array($this, 'affiliatex_add_action_links') );
     }
@@ -78,7 +91,7 @@ class AffiliateXAdmin {
      * @return void
      */
     public function enqueue_admin_scripts( $hook ) {
-        if ( 'toplevel_page_affiliatex_blocks' === $hook ) {
+        if ( in_array( $hook, array('toplevel_page_affiliatex_blocks', 'affiliatex_page_affiliatex_getting_started'), true ) ) {
             $admin_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/adminJS.asset.php');
             wp_register_script(
                 'affiliatex-admin',
@@ -256,6 +269,41 @@ class AffiliateXAdmin {
             'data:image/svg+xml;base64,' . $ADMIN_ICON,
             40
         );
+        add_submenu_page(
+            'affiliatex_blocks',
+            esc_html__( 'Dashboard', 'affiliatex' ),
+            esc_html__( 'Dashboard', 'affiliatex' ),
+            'manage_options',
+            'affiliatex_blocks',
+            array($this, 'render_options_page')
+        );
+    }
+
+    /**
+     * Add Getting Started submenu.
+     * Hooked at a later admin_menu priority so it appears below the
+     * Freemius-injected Account / Contact Us entries.
+     *
+     * @return void
+     */
+    public function add_getting_started_menu() {
+        add_submenu_page(
+            'affiliatex_blocks',
+            esc_html__( 'Getting Started', 'affiliatex' ),
+            esc_html__( 'Getting Started', 'affiliatex' ),
+            'manage_options',
+            'affiliatex_getting_started',
+            array($this, 'render_getting_started_page')
+        );
+    }
+
+    /**
+     * Render the standalone Getting Started page.
+     *
+     * @return void
+     */
+    public function render_getting_started_page() {
+        echo '<div id="affiliatexWelcomePageRoot"></div>';
     }
 
     /**

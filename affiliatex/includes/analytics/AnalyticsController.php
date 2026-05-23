@@ -38,6 +38,16 @@ class AnalyticsController {
 		$clicks_table      = $wpdb->prefix . 'affiliatex_clicks';
 		$impressions_table = $wpdb->prefix . 'affiliatex_impressions';
 
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		$clicks_exists      = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $clicks_table ) );
+		$impressions_exists = (bool) $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $impressions_table ) );
+		// phpcs:enable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+
+		if ( $clicks_exists && $impressions_exists ) {
+			update_option( $db_version_key, $current_version );
+			return;
+		}
+
 		$clicks_sql = "CREATE TABLE {$clicks_table} (
 			id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
 			url varchar(2048) NOT NULL,

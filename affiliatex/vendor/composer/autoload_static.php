@@ -274,6 +274,7 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX\\Migration\\Migrations\\ClearOldCronJobs' => __DIR__ . '/../..' . '/includes/migration/migrations/ClearOldCronJobs.php',
         'AffiliateX\\Migration\\Migrations\\RemoveNoticeLayout3' => __DIR__ . '/../..' . '/includes/migration/migrations/RemoveNoticeLayout3.php',
         'AffiliateX\\Modules\\ModulesAPI' => __DIR__ . '/../..' . '/includes/modules/ModulesAPI.php',
+        'AffiliateX\\Modules\\WelcomeAPI' => __DIR__ . '/../..' . '/includes/modules/WelcomeAPI.php',
         'AffiliateX\\Notice\\AdminNoticeManager' => __DIR__ . '/../..' . '/includes/notice/AdminNoticeManager.php',
         'AffiliateX\\Notice\\CampaignNotice' => __DIR__ . '/../..' . '/includes/notice/CampaignNotice.php',
         'AffiliateX\\Notice\\CampaignNoticeHandler' => __DIR__ . '/../..' . '/includes/notice/CampaignNoticeHandler.php',
