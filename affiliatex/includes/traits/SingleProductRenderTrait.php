@@ -13,6 +13,8 @@ use AffiliateX\Traits\ButtonRenderTrait;
 use Elementor\Group_Control_Background;
 use AffiliateX\Blocks\AffiliateX_Customization_Helper;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * This trait is a channel for share rendering methods between Gutenberg and Elementor
  *
@@ -2079,7 +2081,7 @@ trait SingleProductRenderTrait {
 			$layoutClass = ' product-layout-3';
 		}
 
-		if ( str_contains( $content, $layoutClass ) ) {
+		if ( strpos( $content, $layoutClass ) !== false ) {
 			return str_replace( 'app/src/images/fallback', 'src/images/fallback', $content );
 		}
 

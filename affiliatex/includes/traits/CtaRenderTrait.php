@@ -185,7 +185,7 @@ trait CtaRenderTrait {
 			$bgClass = ' bg-color';
 		}
 
-		if ( str_contains( $content, $layoutClass ) ) {
+		if ( strpos( $content, $layoutClass ) !== false ) {
 			return $content;
 		}
 

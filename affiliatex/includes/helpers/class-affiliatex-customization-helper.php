@@ -7,6 +7,10 @@
 
 namespace AffiliateX\Blocks;
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'AffiliateX_Customization_Helper' ) ) {
 
 	/**

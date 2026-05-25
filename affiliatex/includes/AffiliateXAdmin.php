@@ -162,6 +162,12 @@ class AffiliateXAdmin {
                 array(),
                 AFFILIATEX_VERSION
             );
+            wp_enqueue_style(
+                'fontawesome',
+                plugin_dir_url( AFFILIATEX_PLUGIN_FILE ) . 'build/fontawesome.css',
+                array(),
+                AFFILIATEX_VERSION
+            );
         }
     }
 

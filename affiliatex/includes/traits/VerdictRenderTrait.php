@@ -4,6 +4,8 @@ namespace AffiliateX\Traits;
 
 use AffiliateX\Helpers\AffiliateX_Helpers;
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * This trait is a channel for share rendering methods between Gutenberg and Elementor
  *
@@ -161,7 +163,7 @@ trait VerdictRenderTrait {
 			$layoutClass = ' verdict-layout-2';
 		}
 
-		if ( str_contains( $content, $layoutClass ) ) {
+		if ( strpos( $content, $layoutClass ) !== false ) {
 			return $content;
 		}
 

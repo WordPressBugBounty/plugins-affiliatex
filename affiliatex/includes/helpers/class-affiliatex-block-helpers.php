@@ -5,6 +5,10 @@
  * @package AFFILIATE
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 if ( ! class_exists( 'AffiliateX_Block_Helper' ) ) {
 
 	/**
