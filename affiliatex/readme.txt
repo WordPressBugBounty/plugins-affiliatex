@@ -5,7 +5,7 @@ Tags: affiliate, affiliate plugin, affiliate marketing, amazon affiliate, click 
 Requires at least: 5.8
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.7
+Stable tag: 2.0.8
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,7 +17,7 @@ AffiliateX is the best WordPress Amazon Affiliate Plugin. Create professional af
 
 AffiliateX is the [best affiliate block plugin for WordPress](https://affiliatexblocks.com/?utm_source=wporg&utm_medium=pluginlisting&utm_campaign=pluginfirstheading). You can create highly effective Amazon affiliate marketing blogs with AffiliateX blocks, increasing the conversion rate and boosting your affiliate income.
 
-**[AffiliateX Pro ⭐](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Demos](https://affiliatexblocks.com/demo/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Documentation](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Contact Us](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)**
+**[AffiliateX Pro ⭐](https://affiliatexblocks.com/pricing/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Blocks](https://affiliatexblocks.com/blocks/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Documentation](https://affiliatexblocks.com/docs/?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)** | **[Contact Us](https://affiliatexblocks.com/contact//?utm_source=wporg&utm_medium=affiliatex&utm_campaign=landing-page)**
 
 AffiliateX has several blocks suitable for creating affiliate marketing blogs such as Single Product, Product Comparison Table, Pros and Cons, Notice, Call to Action, Specification, Button and more. Each of these blocks is highly customizable so that you can give it a unique look and feel.
 

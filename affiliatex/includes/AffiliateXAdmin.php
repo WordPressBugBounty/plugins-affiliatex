@@ -11,6 +11,7 @@ use AffiliateX\Elementor\ElementorManager;
 use AffiliateX\Analytics\AnalyticsController;
 use AffiliateX\Modules\ModulesAPI;
 use AffiliateX\Modules\WelcomeAPI;
+use AffiliateX\Modules\PricingAPI;
 use AffiliateX\BrokenLinks\BrokenLinkController;
 /**
  * Admin class, handles admin screen functionality
@@ -28,6 +29,7 @@ class AffiliateXAdmin {
         new BrokenLinkController();
         add_action( 'rest_api_init', array(new ModulesAPI(), 'register_routes') );
         add_action( 'rest_api_init', array(new WelcomeAPI(), 'register_routes') );
+        add_action( 'rest_api_init', array(new PricingAPI(), 'register_routes') );
         new Notice\AdminNoticeManager();
         new ControlsManager();
         new ElementorManager();
@@ -59,6 +61,7 @@ class AffiliateXAdmin {
         // Register pages
         add_action( 'admin_menu', array($this, 'add_affiliate_menu') );
         add_action( 'admin_menu', array($this, 'add_getting_started_menu'), 999 );
+        add_action( 'admin_menu', array($this, 'override_pricing_page'), PHP_INT_MAX );
         add_filter( 'plugin_action_links_' . plugin_basename( AFFILIATEX_PLUGIN_FILE ), array($this, 'affiliatex_add_action_links') );
         add_filter( 'network_admin_plugin_action_links_' . plugin_basename( AFFILIATEX_PLUGIN_FILE ), array($this, 'affiliatex_add_action_links') );
     }
@@ -91,7 +94,8 @@ class AffiliateXAdmin {
      * @return void
      */
     public function enqueue_admin_scripts( $hook ) {
-        if ( in_array( $hook, array('toplevel_page_affiliatex_blocks', 'affiliatex_page_affiliatex_getting_started'), true ) ) {
+        $is_upgrade_page = 'affiliatex_page_affiliatex_blocks-pricing' === $hook;
+        if ( $is_upgrade_page || in_array( $hook, array('toplevel_page_affiliatex_blocks', 'affiliatex_page_affiliatex_getting_started'), true ) ) {
             $admin_deps = (include_once plugin_dir_path( AFFILIATEX_PLUGIN_FILE ) . '/build/adminJS.asset.php');
             wp_register_script(
                 'affiliatex-admin',
@@ -119,6 +123,20 @@ class AffiliateXAdmin {
                 'version'           => AFFILIATEX_VERSION,
             ) );
             wp_enqueue_script( 'affiliatex-admin' );
+            if ( $is_upgrade_page ) {
+                wp_enqueue_script(
+                    'freemius-checkout',
+                    'https://checkout.freemius.com/js/v1/',
+                    array(),
+                    AFFILIATEX_VERSION,
+                    true
+                );
+                wp_localize_script( 'affiliatex-admin', 'AffiliateXUpgrade', array(
+                    'productId'  => (string) affiliatex_fs()->get_id(),
+                    'publicKey'  => affiliatex_fs()->get_public_key(),
+                    'accountUrl' => esc_url( affiliatex_fs()->get_account_url() ),
+                ) );
+            }
             // Styles.
             wp_enqueue_style(
                 'affiliatex-dashboard',
@@ -310,6 +328,36 @@ class AffiliateXAdmin {
      */
     public function render_getting_started_page() {
         echo '<div id="affiliatexWelcomePageRoot"></div>';
+    }
+
+    /**
+     * Render our Upgrade page on the Freemius pricing slug, keeping its menu item and checkout.
+     *
+     * @return void
+     */
+    public function override_pricing_page() {
+        $hook = get_plugin_page_hookname( 'affiliatex_blocks-pricing', 'affiliatex_blocks' );
+        if ( affiliatex_fs()->is_premium() ) {
+            remove_submenu_page( 'affiliatex_blocks', 'affiliatex_blocks-pricing' );
+            if ( !empty( $hook ) ) {
+                remove_all_actions( $hook );
+            }
+            return;
+        }
+        if ( empty( $hook ) ) {
+            return;
+        }
+        remove_all_actions( $hook );
+        add_action( $hook, array($this, 'render_upgrade_page') );
+    }
+
+    /**
+     * Render the custom Upgrade page.
+     *
+     * @return void
+     */
+    public function render_upgrade_page() {
+        echo '<div id="affiliatexUpgradePageRoot"></div>';
     }
 
     /**
