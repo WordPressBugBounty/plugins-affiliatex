@@ -132,6 +132,7 @@ return array(
     'AffiliateX_Pro\\Platforms\\Admin\\ProductAPI' => $baseDir . '/pro/includes/platforms/admin/ProductAPI.php',
     'AffiliateX_Pro\\Platforms\\AliExpress\\AliExpressPlatform' => $baseDir . '/pro/includes/platforms/aliexpress/AliExpressPlatform.php',
     'AffiliateX_Pro\\Platforms\\Amazon\\AmazonGeolocation' => $baseDir . '/pro/includes/platforms/amazon/AmazonGeolocation.php',
+    'AffiliateX_Pro\\Platforms\\Amazon\\AmazonGuestTracking' => $baseDir . '/pro/includes/platforms/amazon/AmazonGuestTracking.php',
     'AffiliateX_Pro\\Platforms\\Amazon\\AmazonPlatform' => $baseDir . '/pro/includes/platforms/amazon/AmazonPlatform.php',
     'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressProduct' => $baseDir . '/pro/includes/platforms/api/aliexpress/AliExpressProduct.php',
     'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressResponseNormalizer' => $baseDir . '/pro/includes/platforms/api/aliexpress/AliExpressResponseNormalizer.php',

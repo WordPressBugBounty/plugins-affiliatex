@@ -346,6 +346,7 @@ class ComposerStaticInitbaf257c2fbfecedf60a5e860eb462120
         'AffiliateX_Pro\\Platforms\\Admin\\ProductAPI' => __DIR__ . '/../..' . '/pro/includes/platforms/admin/ProductAPI.php',
         'AffiliateX_Pro\\Platforms\\AliExpress\\AliExpressPlatform' => __DIR__ . '/../..' . '/pro/includes/platforms/aliexpress/AliExpressPlatform.php',
         'AffiliateX_Pro\\Platforms\\Amazon\\AmazonGeolocation' => __DIR__ . '/../..' . '/pro/includes/platforms/amazon/AmazonGeolocation.php',
+        'AffiliateX_Pro\\Platforms\\Amazon\\AmazonGuestTracking' => __DIR__ . '/../..' . '/pro/includes/platforms/amazon/AmazonGuestTracking.php',
         'AffiliateX_Pro\\Platforms\\Amazon\\AmazonPlatform' => __DIR__ . '/../..' . '/pro/includes/platforms/amazon/AmazonPlatform.php',
         'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressProduct' => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress/AliExpressProduct.php',
         'AffiliateX_Pro\\Platforms\\Api\\AliExpress\\AliExpressResponseNormalizer' => __DIR__ . '/../..' . '/pro/includes/platforms/api/aliexpress/AliExpressResponseNormalizer.php',

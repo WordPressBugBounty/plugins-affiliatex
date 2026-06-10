@@ -37,6 +37,13 @@ class PlatformConfig {
 	public $tracking_id;
 
 	/**
+	 * Guest Tracking ID used on output links instead of the API tracking ID.
+	 *
+	 * @var string
+	 */
+	public $tracking_id_guest;
+
+	/**
 	 * Amazon Country code
 	 *
 	 * @var string
@@ -377,13 +384,14 @@ class PlatformConfig {
 		$this->api_secret = isset( $configs['api_secret'] ) ? $configs['api_secret'] : '';
 
 		// Common fields
-		$this->tracking_id      = isset( $configs['tracking_id'] ) ? $configs['tracking_id'] : '';
-		$this->country          = isset( $configs['country'] ) ? $configs['country'] : 'us';
-		$this->host             = $country_data['host'];
-		$this->region           = $country_data['region'];
-		$this->country_name     = $country_data['label'];
-		$this->language         = isset( $configs['language'] ) ? $configs['language'] : 'en_US';
-		$this->update_frequency = isset( $configs['update_frequency'] ) ? $configs['update_frequency'] : 'daily';
+		$this->tracking_id       = isset( $configs['tracking_id'] ) ? $configs['tracking_id'] : '';
+		$this->tracking_id_guest = isset( $configs['tracking_id_guest'] ) ? $configs['tracking_id_guest'] : '';
+		$this->country           = isset( $configs['country'] ) ? $configs['country'] : 'us';
+		$this->host              = $country_data['host'];
+		$this->region            = $country_data['region'];
+		$this->country_name      = $country_data['label'];
+		$this->language          = isset( $configs['language'] ) ? $configs['language'] : 'en_US';
+		$this->update_frequency  = isset( $configs['update_frequency'] ) ? $configs['update_frequency'] : 'daily';
 
 		// API type field
 		$this->api_type = isset( $configs['api_type'] ) ? $configs['api_type'] : 'creator';
@@ -408,6 +416,13 @@ class PlatformConfig {
 	 */
 	public function get_country(): string {
 		return $this->country;
+	}
+
+	/**
+	 * Returns the guest tracking ID used on output links, if set.
+	 */
+	public function get_guest_tracking_id(): string {
+		return $this->tracking_id_guest;
 	}
 
 	/**

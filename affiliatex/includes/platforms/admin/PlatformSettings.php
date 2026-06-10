@@ -178,6 +178,7 @@ class PlatformSettings {
 		// Common fields
 		$attributes['country']               = isset( $params['country'] ) && ! empty( $params['country'] ) ? sanitize_text_field( $params['country'] ) : '';
 		$attributes['tracking_id']           = isset( $params['tracking_id'] ) && ! empty( $params['tracking_id'] ) ? sanitize_text_field( $params['tracking_id'] ) : '';
+		$attributes['tracking_id_guest']     = isset( $params['tracking_id_guest'] ) ? sanitize_text_field( $params['tracking_id_guest'] ) : '';
 		$attributes['language']              = isset( $params['language'] ) && ! empty( $params['language'] ) ? sanitize_text_field( $params['language'] ) : '';
 		$attributes['update_frequency']      = isset( $params['update_frequency'] ) ? sanitize_text_field( $params['update_frequency'] ) : '';
 		$attributes['geolocation']           = isset( $params['geolocation'] ) ? (bool) $params['geolocation'] : false;
@@ -346,6 +347,7 @@ class PlatformSettings {
 				'api_key'               => '',
 				'api_secret'            => '',
 				'tracking_id'           => '',
+				'tracking_id_guest'     => '',
 				'country'               => 'us',
 				'language'              => 'en_US',
 				'update_frequency'      => 'daily',
@@ -541,13 +543,11 @@ class PlatformSettings {
 	 * @return void
 	 */
 	public function save_ebay_settings( WP_REST_Request $request ): void {
-		$params   = json_decode( $request->get_body(), true );
-		$existing = get_option( 'affiliatex_ebay_settings', array() );
+		$params = json_decode( $request->get_body(), true );
 
-		$submitted_secret = isset( $params['client_secret'] ) ? sanitize_text_field( $params['client_secret'] ) : '';
-		$attributes       = array(
+		$attributes = array(
 			'client_id'      => isset( $params['client_id'] ) ? sanitize_text_field( $params['client_id'] ) : '',
-			'client_secret'  => '' !== $submitted_secret ? $submitted_secret : ( $existing['client_secret'] ?? '' ),
+			'client_secret'  => isset( $params['client_secret'] ) ? sanitize_text_field( $params['client_secret'] ) : '',
 			'campaign_id'    => isset( $params['campaign_id'] ) ? sanitize_text_field( $params['campaign_id'] ) : '',
 			'marketplace_id' => isset( $params['marketplace_id'] ) ? sanitize_text_field( $params['marketplace_id'] ) : 'EBAY_US',
 		);
@@ -580,9 +580,9 @@ class PlatformSettings {
 		$this->send_json_plain_success(
 			array(
 				'client_id'      => $settings['client_id'] ?? '',
+				'client_secret'  => $settings['client_secret'] ?? '',
 				'campaign_id'    => $settings['campaign_id'] ?? '',
 				'marketplace_id' => $settings['marketplace_id'] ?? 'EBAY_US',
-				'has_secret'     => ! empty( $settings['client_secret'] ),
 			)
 		);
 	}
@@ -594,13 +594,11 @@ class PlatformSettings {
 	 * @return void
 	 */
 	public function save_aliexpress_settings( WP_REST_Request $request ): void {
-		$params   = json_decode( $request->get_body(), true );
-		$existing = get_option( 'affiliatex_aliexpress_settings', array() );
+		$params = json_decode( $request->get_body(), true );
 
-		$submitted_secret = isset( $params['app_secret'] ) ? sanitize_text_field( $params['app_secret'] ) : '';
-		$attributes       = array(
+		$attributes = array(
 			'app_key'     => isset( $params['app_key'] ) ? sanitize_text_field( $params['app_key'] ) : '',
-			'app_secret'  => '' !== $submitted_secret ? $submitted_secret : ( $existing['app_secret'] ?? '' ),
+			'app_secret'  => isset( $params['app_secret'] ) ? sanitize_text_field( $params['app_secret'] ) : '',
 			'tracking_id' => isset( $params['tracking_id'] ) ? sanitize_text_field( $params['tracking_id'] ) : '',
 		);
 
@@ -648,8 +646,8 @@ class PlatformSettings {
 		$this->send_json_plain_success(
 			array(
 				'app_key'     => $settings['app_key'] ?? '',
+				'app_secret'  => $settings['app_secret'] ?? '',
 				'tracking_id' => $settings['tracking_id'] ?? '',
-				'has_secret'  => ! empty( $settings['app_secret'] ),
 			)
 		);
 	}
