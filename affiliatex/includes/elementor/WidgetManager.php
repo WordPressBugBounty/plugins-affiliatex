@@ -95,10 +95,16 @@ class WidgetManager {
 			AFFILIATEX_VERSION
 		);
 
+		$frontend_deps = array( 'jquery' );
+
+		if ( wp_script_is( 'elementor-frontend', 'registered' ) ) {
+			$frontend_deps[] = 'elementor-frontend';
+		}
+
 		wp_enqueue_script(
 			'affiliatex-frontend',
 			AFFILIATEX_PLUGIN_URL . 'build/frontendJs.js',
-			array( 'jquery', 'elementor-frontend' ),
+			$frontend_deps,
 			AFFILIATEX_VERSION,
 			true
 		);
