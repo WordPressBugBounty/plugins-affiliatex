@@ -14,6 +14,8 @@ defined( 'ABSPATH' ) || exit;
  */
 trait NoticeRenderTrait {
 
+	use ElementorVisibilityTrait;
+
 	protected function get_slug(): string {
 		return 'notice';
 	}
@@ -60,6 +62,8 @@ trait NoticeRenderTrait {
 		$attributes             = $this->get_settings_for_display();
 		$attributes             = $this->parse_attributes( $attributes );
 		$attributes             = WidgetHelper::process_attributes( $attributes );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_notice_title', 'titleHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_notice_content', 'contentHideOn' );
 		$attributes['block_id'] = $this->get_id();
 
 		if ( ! empty( $attributes['noticeListItems'] ) ) {
@@ -104,6 +108,9 @@ trait NoticeRenderTrait {
 		}
 
 		$titleTag1 = AffiliateX_Helpers::validate_tag( $titleTag1, 'h2' );
+
+		$titleHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$contentHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['contentHideOn'] ?? null );
 
 		if ( $noticeContentType === 'list' || $noticeContentType === 'amazon' ) {
 			$listTag = $noticeListType === 'unordered' ? 'ul' : 'ol';

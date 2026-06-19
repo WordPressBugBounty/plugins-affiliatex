@@ -136,7 +136,9 @@ class WidgetHelper {
 			);
 
 			foreach ( $section_fields as $field_id => $field ) {
-				if ( self::is_group_control( $field ) ) {
+				if ( self::is_tab_marker( $field ) ) {
+					self::handle_tab_marker( $controller, $field_id, $field );
+				} elseif ( self::is_group_control( $field ) ) {
 					// Handle Group Controls.
 					$type = $field['type'];
 
@@ -165,6 +167,40 @@ class WidgetHelper {
 			}
 
 			$controller->end_controls_section();
+		}
+	}
+
+	/**
+	 * Checks if field is a tabs structure marker
+	 *
+	 * @param array $field
+	 * @return boolean
+	 */
+	public static function is_tab_marker( array $field ): bool {
+		return in_array( $field['type'], array( 'tabs_start', 'tab_start', 'tab_end', 'tabs_end' ), true );
+	}
+
+	/**
+	 * Maps tabs structure markers to native Elementor tab calls
+	 *
+	 * @param ElementorBase $controller
+	 * @param string $field_id
+	 * @param array $field
+	 * @return void
+	 */
+	public static function handle_tab_marker( $controller, string $field_id, array $field ): void {
+		$type = $field['type'];
+
+		unset( $field['type'] );
+
+		if ( 'tabs_start' === $type ) {
+			$controller->start_controls_tabs( $field_id, $field );
+		} elseif ( 'tab_start' === $type ) {
+			$controller->start_controls_tab( $field_id, $field );
+		} elseif ( 'tab_end' === $type ) {
+			$controller->end_controls_tab();
+		} elseif ( 'tabs_end' === $type ) {
+			$controller->end_controls_tabs();
 		}
 	}
 

@@ -8,6 +8,8 @@ defined( 'ABSPATH' ) || exit;
 
 trait VersusLineRenderTrait {
 
+	use ElementorVisibilityTrait;
+
 	protected function get_slug(): string {
 		return 'versus-line';
 	}
@@ -51,6 +53,8 @@ trait VersusLineRenderTrait {
 	public function render(): void {
 		$attributes             = $this->get_settings_for_display();
 		$attributes             = WidgetHelper::process_attributes( $attributes );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_vl_title', 'titleHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_vl_vs', 'vsHideOn' );
 		$attributes['block_id'] = $this->get_id();
 
 		echo wp_kses_post( $this->render_template( $attributes ) );
@@ -80,6 +84,9 @@ trait VersusLineRenderTrait {
 		}
 
 		$versusTitleTag = AffiliateX_Helpers::validate_tag( $attributes['versusTitleTag'], 'p' );
+
+		$titleHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$vsHideClass    = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['vsHideOn'] ?? null );
 
 		ob_start();
 		include $this->get_template_path();

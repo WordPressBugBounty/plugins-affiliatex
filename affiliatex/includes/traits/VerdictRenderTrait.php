@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 trait VerdictRenderTrait {
 
 	use ButtonRenderTrait;
+	use ElementorVisibilityTrait;
 
 	protected function get_slug(): string {
 		return 'verdict';
@@ -155,6 +156,12 @@ trait VerdictRenderTrait {
 		}
 
 		$verdictTitleTag = AffiliateX_Helpers::validate_tag( $verdictTitleTag, 'h2' );
+
+		$ratingAlignment = AffiliateX_Helpers::get_responsive_value( $ratingAlignment );
+
+		$titleHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$contentHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['contentHideOn'] ?? null );
+		$ratingHideClass  = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['ratingHideOn'] ?? null );
 
 		$layoutClass = '';
 		if ( $verdictLayout === 'layoutOne' ) {

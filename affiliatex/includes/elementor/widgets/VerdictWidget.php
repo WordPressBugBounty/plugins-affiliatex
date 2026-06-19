@@ -56,6 +56,9 @@ class VerdictWidget extends ElementorBase {
 	protected function register_controls() {
 		$defaults = $this->get_fields();
 
+		$hover_transition = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease;';
+		$font_transition  = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, font-size .15s ease, letter-spacing .15s ease;';
+
 		//
 		// Content Tab
 		//
@@ -122,6 +125,8 @@ class VerdictWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_verdict_title' );
+
 		$this->add_control(
 			'verdictContent',
 			array(
@@ -130,6 +135,8 @@ class VerdictWidget extends ElementorBase {
 				'default' => $defaults['verdictContent'],
 			)
 		);
+
+		$this->add_visibility_controls( 'affx_verdict_content' );
 
 		$this->add_control(
 			'contentAlignment',
@@ -273,6 +280,8 @@ class VerdictWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_verdict_rating', array( 'edverdictTotalScore' => 'true' ) );
+
 		$this->end_controls_section();
 
 		//
@@ -287,6 +296,13 @@ class VerdictWidget extends ElementorBase {
 				'label' => __( 'Border Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_verdict_border_tabs' );
+
+		$this->start_controls_tab(
+			'affx_verdict_border_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -360,6 +376,64 @@ class VerdictWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_verdict_border_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'           => 'verdictHoverBorder',
+				'label'          => __( 'Border', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'color' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'verdictHoverBorderRadius',
+			array(
+				'label'      => __( 'Border Radius', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'custom' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'           => 'verdictHoverShadow',
+				'label'          => __( 'Box Shadow', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'box_shadow' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -371,6 +445,13 @@ class VerdictWidget extends ElementorBase {
 				'label' => __( 'Colors', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_verdict_colors_tabs' );
+
+		$this->start_controls_tab(
+			'affx_verdict_colors_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_control(
@@ -512,6 +593,146 @@ class VerdictWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_verdict_colors_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_control(
+			'verdictTitleHoverColor',
+			array(
+				'label'     => __( 'Title Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'title', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'title' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'verdictContentHoverColor',
+			array(
+				'label'     => __( 'Content Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'content', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'content' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'scoreTextHoverColor',
+			array(
+				'label'     => __( 'Score Text Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover .num' ) ) => 'color: {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover .rich-content' ) ) => 'color: {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number' ) ) => $hover_transition,
+					$this->select_element( array( 'layout-1', ' .num' ) ) => $hover_transition,
+					$this->select_element( array( 'layout-1', ' .rich-content' ) ) => $hover_transition,
+				),
+				'condition' => array(
+					'verdictLayout'       => 'layoutOne',
+					'edverdictTotalScore' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'scoreBgTopHoverColor',
+			array(
+				'label'     => __( 'Score Top Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover .num' ) ) => 'background-color: {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .num' ) ) => $hover_transition,
+				),
+				'condition' => array(
+					'verdictLayout'       => 'layoutOne',
+					'edverdictTotalScore' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'scoreBgBotHoverColor',
+			array(
+				'label'     => __( 'Score Bottom Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover .rich-content' ) ) => 'background-color: {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .affx-verdict-rating-number:hover .rich-content::after' ) ) => 'border-top: 5px solid {{VALUE}};',
+					$this->select_element( array( 'layout-1', ' .rich-content' ) ) => $hover_transition,
+				),
+				'condition' => array(
+					'verdictLayout'       => 'layoutOne',
+					'edverdictTotalScore' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'verdictArrowHoverColor',
+			array(
+				'label'     => __( 'Arrow Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element(
+						array( 'layout-2', '.display-arrow .affx-btn-inner .affiliatex-button:hover::after' )
+					) => 'background: {{VALUE}};',
+					$this->select_element(
+						array( 'layout-2', '.display-arrow .affx-btn-inner .affiliatex-button::after' )
+					) => $hover_transition,
+				),
+				'condition' => array(
+					'verdictLayout'  => 'layoutTwo',
+					'edRatingsArrow' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'           => 'verdictBgHover',
+				'types'          => array( 'classic', 'gradient' ),
+				'exclude'        => array( 'image' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'background' => array(
+						'label'   => __( 'Background Hover Type', 'affiliatex' ),
+						'options' => array(
+							'classic'  => array(
+								'title' => esc_html__( 'Solid Color', 'affiliatex' ),
+								'icon'  => 'eicon-paint-brush',
+							),
+							'gradient' => array(
+								'title' => esc_html__( 'Gradient', 'affiliatex' ),
+								'icon'  => 'eicon-barcode',
+							),
+						),
+					),
+					'color'      => array(
+						'label'     => __( 'Background Hover Color', 'affiliatex' ),
+						'selectors' => array(
+							'{{SELECTOR}}' => 'background-color: {{VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -523,6 +744,13 @@ class VerdictWidget extends ElementorBase {
 				'label' => __( 'Typography', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_verdict_typography_tabs' );
+
+		$this->start_controls_tab(
+			'affx_verdict_typography_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -613,6 +841,63 @@ class VerdictWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_verdict_typography_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'verdictTitleHoverTypography',
+				'label'          => __( 'Title Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'title', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'verdictContentHoverTypography',
+				'label'          => __( 'Content Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'content', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'content' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'content' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -624,6 +909,13 @@ class VerdictWidget extends ElementorBase {
 				'label' => __( 'Spacing', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_verdict_spacing_tabs' );
+
+		$this->start_controls_tab(
+			'affx_verdict_spacing_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_responsive_control(
@@ -665,6 +957,43 @@ class VerdictWidget extends ElementorBase {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_verdict_spacing_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_responsive_control(
+			'verdictHoverPadding',
+			array(
+				'label'      => __( 'Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'verdictHoverMargin',
+			array(
+				'label'      => __( 'Margin', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, margin .15s ease;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		// Amazon Attributes Configuration
 		$this->add_control(
@@ -786,6 +1115,9 @@ class VerdictWidget extends ElementorBase {
 
 		$attributes = $this->parse_attributes( $settings );
 		$attributes = WidgetHelper::process_attributes( $attributes );
+		$attributes = $this->map_visibility_attribute( $attributes, 'affx_verdict_title', 'titleHideOn' );
+		$attributes = $this->map_visibility_attribute( $attributes, 'affx_verdict_content', 'contentHideOn' );
+		$attributes = $this->map_visibility_attribute( $attributes, 'affx_verdict_rating', 'ratingHideOn' );
 
 		extract( $attributes );
 

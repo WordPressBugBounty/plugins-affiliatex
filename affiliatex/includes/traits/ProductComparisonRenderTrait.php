@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || exit;
  */
 trait ProductComparisonRenderTrait {
 
+	use ElementorVisibilityTrait;
+
 	protected function get_elements(): array {
 		return array(
 			'wrapper'                       => 'wp-block-affiliatex-product-comparison',
@@ -132,6 +134,8 @@ trait ProductComparisonRenderTrait {
 		$attributes             = $this->get_settings_for_display();
 		$attributes             = $this->parse_attributes( $attributes );
 		$attributes             = WidgetHelper::process_attributes( $attributes );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_pc_title', 'titleHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_pc_button', 'buttonHideOn' );
 		$attributes['block_id'] = $this->get_id();
 
 		if ( ! empty( $attributes['productComparisonTable'] ) ) {
@@ -189,6 +193,9 @@ trait ProductComparisonRenderTrait {
 		}
 
 		$pcTitleTag = AffiliateX_Helpers::validate_tag( $pcTitleTag, 'h2' );
+
+		$titleHideClass  = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$buttonHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['buttonHideOn'] ?? null );
 
 		ob_start();
 		include $this->get_template_path();

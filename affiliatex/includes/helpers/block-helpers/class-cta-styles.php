@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * CTA Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_CTA_Styles {
+class AffiliateX_CTA_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -17,29 +26,184 @@ class AffiliateX_CTA_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Per-device rules for the promoted attributes, mirrors styling.js. Scalars keep the legacy desktop-only output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			if ( HoverStyles::is_responsive( $attr['contentAlignment'] ?? null ) ) {
+				$align = AffiliateX_Helpers::get_responsive_value( $attr['contentAlignment'], $device );
 
-		$m_selectors = self::get_mobileselectors( $attr );
+				if ( is_string( $align ) && '' !== $align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-cta .affliatex-cta-title', array( 'text-align' => $align ) );
+					HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-cta .affliatex-cta-content', array( 'text-align' => $align ) );
+				}
+			}
 
-		$t_selectors = self::get_tabletselectors( $attr );
+			if ( HoverStyles::is_responsive( $attr['overlayOpacity'] ?? null ) ) {
+				$overlay = AffiliateX_Helpers::get_responsive_value( $attr['overlayOpacity'], $device );
 
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-style-' . $id );
+				if ( is_numeric( $overlay ) || ( is_string( $overlay ) && '' !== $overlay ) ) {
+					HoverStyles::merge_selector( $buckets[ $device ], ' .img-opacity::before', array( 'opacity' => $overlay ) );
+				}
+			}
 
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-style-' . $id );
+			if ( HoverStyles::is_responsive( $attr['ctaButtonAlignment'] ?? null ) ) {
+				$button_align = AffiliateX_Helpers::get_responsive_value( $attr['ctaButtonAlignment'], $device );
 
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-style-' . $id );
+				if ( is_string( $button_align ) && '' !== $button_align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], ' .button-wrapper', array( 'justify-content' => $button_align ) );
+				}
+			}
+		}
+	}
 
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+	/**
+	 * Hover rules for the wave-3 hover attributes, mirrors cta/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$typos  = array( $attr['ctaTitleHoverTypography'] ?? null, $attr['ctaContentHoverTypography'] ?? null );
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['ctaHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['ctaHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		if ( ! empty( $attr['ctaTitleHoverColor'] ) && is_string( $attr['ctaTitleHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				'.wp-block-affiliatex-cta .affliatex-cta-title:hover',
+				array( 'color' => $attr['ctaTitleHoverColor'] ),
+				array( '.wp-block-affiliatex-cta .affliatex-cta-title' )
+			);
+		}
+
+		if ( ! empty( $attr['ctaTextHoverColor'] ) && is_string( $attr['ctaTextHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				'.wp-block-affiliatex-cta .affliatex-cta-content:hover',
+				array( 'color' => $attr['ctaTextHoverColor'] ),
+				array( '.wp-block-affiliatex-cta .affliatex-cta-content' )
+			);
+		}
+
+		$bg_hover = HoverStyles::get_background_styles(
+			$attr['ctaBgHoverType'] ?? '',
+			$attr['ctaBgColorType'] ?? '',
+			$attr['ctaBGHoverColor'] ?? '',
+			$attr['ctaBgHoverGradient'] ?? ''
 		);
 
-		return $generated_css;
+		if ( ! empty( $bg_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .bg-color:hover', $bg_hover, array( ' .bg-color' ) );
+			self::set_hover( $buckets, $transition, '.wp-block-affiliatex-cta .layout-type-2:hover .content-wrapper', $bg_hover, array( '.wp-block-affiliatex-cta .layout-type-2 .content-wrapper' ) );
+		}
+
+		$container_hover = HoverStyles::get_border_styles( $attr['ctaHoverBorder'] ?? null );
+		$container_hover = array_merge( $container_hover, HoverStyles::get_shadow_styles( $attr['ctaHoverShadow'] ?? null ) );
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['ctaHoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$container_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $container_hover ) ) {
+			self::set_hover( $buckets, $transition, '.wp-block-affiliatex-cta > div:hover', $container_hover, array( '.wp-block-affiliatex-cta > div' ) );
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['ctaHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-cta > div:hover', array( 'border-radius' => $radius ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			HoverStyles::merge_selector(
+				$buckets[ $device ],
+				'.wp-block-affiliatex-cta > div:hover',
+				HoverStyles::get_spacing_styles( $attr['ctaHoverMargin'] ?? null, $device, 'margin' )
+			);
+
+			$padding_hover = HoverStyles::get_spacing_styles( $attr['ctaHoverPadding'] ?? null, $device, 'padding' );
+
+			HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-cta > div.layout-type-1:hover', $padding_hover );
+			HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-cta .layout-type-2:hover .content-wrapper', $padding_hover );
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['ctaHoverMargin'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], '.wp-block-affiliatex-cta > div', array( 'transition' => $transition ) );
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['ctaHoverPadding'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], '.wp-block-affiliatex-cta > div', array( 'transition' => $transition ) );
+			HoverStyles::merge_selector( $buckets['desktop'], '.wp-block-affiliatex-cta .layout-type-2 .content-wrapper', array( 'transition' => $transition ) );
+		}
+
+		$typography_rules = array(
+			array(
+				'typography' => $attr['ctaTitleHoverTypography'] ?? null,
+				'base'       => '.wp-block-affiliatex-cta .affliatex-cta-title',
+				'hover'      => '.wp-block-affiliatex-cta .affliatex-cta-title:hover',
+			),
+			array(
+				'typography' => $attr['ctaContentHoverTypography'] ?? null,
+				'base'       => '.wp-block-affiliatex-cta .affliatex-cta-content',
+				'hover'      => '.wp-block-affiliatex-cta .affliatex-cta-content:hover',
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( empty( $styles ) ) {
+					continue;
+				}
+
+				$has_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {
+
+		$content_align_desktop = isset( $attr['contentAlignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['contentAlignment'] ) : null;
+		$button_align_desktop  = isset( $attr['ctaButtonAlignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['ctaButtonAlignment'] ) : null;
+		$overlay_desktop       = isset( $attr['overlayOpacity'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['overlayOpacity'] ) : null;
 
 		$customization_data = affx_get_customization_settings();
 		$global_font_family = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
@@ -130,7 +294,7 @@ class AffiliateX_CTA_Styles {
 				'text-transform'  => isset( $attr['ctaTitleTypography']['text-transform'] ) ? $attr['ctaTitleTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['ctaTitleTypography']['text-decoration'] ) ? $attr['ctaTitleTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['ctaTitleTypography']['letter-spacing']['desktop'] ) ? $attr['ctaTitleTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['contentAlignment'] ) ? $attr['contentAlignment'] : 'center',
+				'text-align'      => null !== $content_align_desktop ? $content_align_desktop : 'center',
 
 			),
 
@@ -144,11 +308,11 @@ class AffiliateX_CTA_Styles {
 				'text-transform'  => isset( $attr['ctaContentTypography']['text-transform'] ) ? $attr['ctaContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['ctaContentTypography']['text-decoration'] ) ? $attr['ctaContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['ctaContentTypography']['letter-spacing']['desktop'] ) ? $attr['ctaContentTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['contentAlignment'] ) ? $attr['contentAlignment'] : 'center',
+				'text-align'      => null !== $content_align_desktop ? $content_align_desktop : 'center',
 			),
 
 			' .img-opacity::before'                   => array(
-				'opacity' => isset( $attr['overlayOpacity'] ) ? $attr['overlayOpacity'] : 0.1,
+				'opacity' => null !== $overlay_desktop ? $overlay_desktop : 0.1,
 			),
 
 			'.wp-block-affiliatex-cta .layout-type-2' => array(
@@ -166,7 +330,7 @@ class AffiliateX_CTA_Styles {
 				'padding-bottom' => isset( $attr['ctaBoxPadding']['desktop']['bottom'] ) ? $attr['ctaBoxPadding']['desktop']['bottom'] : '60px',
 			),
 			' .button-wrapper'                        => array(
-				'justify-content' => isset( $attr['ctaButtonAlignment'] ) ? $attr['ctaButtonAlignment'] : 'center',
+				'justify-content' => null !== $button_align_desktop ? $button_align_desktop : 'center',
 			),
 		);
 

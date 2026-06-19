@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Button Block Styles
@@ -8,32 +13,136 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Button_Styles {
+class AffiliateX_Button_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-blocks-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array( 'buttonTypography' => isset( $attr['buttonTypography'] ) ? $attr['buttonTypography'] : array() );
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
-
-		$m_selectors = self::get_mobileselectors( $attr );
-
-		$t_selectors = self::get_tabletselectors( $attr );
-
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-blocks-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-blocks-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-blocks-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+	/**
+	 * Per-device rules for the promoted attributes, mirrors styling.js. Scalars keep the legacy desktop-only output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		$promoted = array(
+			'buttonFixWidth'  => array( ' .btn-is-fixed', 'max-width' ),
+			'buttonAlignment' => array( ' .affx-btn-inner', 'justify-content' ),
+			'buttonIconSize'  => array( ' .button-icon', 'font-size' ),
 		);
 
-		return $generated_css;
+		foreach ( $promoted as $key => $rule ) {
+			if ( ! HoverStyles::is_responsive( $attr[ $key ] ?? null ) ) {
+				continue;
+			}
+
+			list( $selector, $property ) = $rule;
+
+			foreach ( array( 'tablet', 'mobile' ) as $device ) {
+				$value = AffiliateX_Helpers::get_responsive_value( $attr[ $key ], $device );
+
+				if ( is_string( $value ) && '' !== $value ) {
+					HoverStyles::merge_selector( $buckets[ $device ], $selector, array( $property => $value ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Hover rules for the wave-2 hover attributes, mirrors styling.js. The transition stays conditional so unset hover attributes emit nothing.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( array( $attr['buttonHoverTypography'] ?? null ), 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( array( $attr['buttonHoverTypography'] ?? null ), 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['buttonHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['buttonHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		$button_hover = array_merge(
+			HoverStyles::get_border_styles( $attr['buttonHoverBorder'] ?? null, false ),
+			HoverStyles::get_shadow_styles( $attr['buttonHoverShadow'] ?? null )
+		);
+
+		$has_hover_styles = ! empty( $button_hover );
+
+		HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button:hover', $button_hover );
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['buttonHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				$has_hover_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-button:hover', array( 'border-radius' => $radius ) );
+			}
+
+			$spacing_hover = array_merge(
+				HoverStyles::get_spacing_styles( $attr['buttonHoverMargin'] ?? null, $device, 'margin' ),
+				HoverStyles::get_spacing_styles( $attr['buttonHoverPadding'] ?? null, $device, 'padding' )
+			);
+
+			if ( ! empty( $spacing_hover ) ) {
+				$has_hover_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-button:hover', $spacing_hover );
+			}
+
+			$typography_hover = HoverStyles::get_typography_styles( $attr['buttonHoverTypography'] ?? null, $device );
+
+			if ( ! empty( $typography_hover ) ) {
+				$has_hover_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-button:hover', $typography_hover );
+			}
+		}
+
+		$price_tag_hover = array();
+
+		if ( ! empty( $attr['priceTextHoverColor'] ) && is_string( $attr['priceTextHoverColor'] ) ) {
+			$price_tag_hover['color'] = $attr['priceTextHoverColor'];
+		}
+
+		$price_bg_hover = ! empty( $attr['priceBackgroundHoverColor'] ) && is_string( $attr['priceBackgroundHoverColor'] ) ? $attr['priceBackgroundHoverColor'] : '';
+
+		if ( '' !== $price_bg_hover ) {
+			$price_tag_hover['background-color'] = $price_bg_hover;
+		}
+
+		if ( ! empty( $price_tag_hover ) ) {
+			$has_hover_styles = true;
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button:hover .price-tag', $price_tag_hover );
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button .price-tag', array( 'transition' => $transition ) );
+		}
+
+		if ( '' !== $price_bg_hover ) {
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button:hover .price-tag::before', array( 'background-color' => $price_bg_hover ) );
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button .price-tag::before', array( 'transition' => $transition ) );
+		}
+
+		if ( $has_hover_styles ) {
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-button', array( 'transition' => $transition ) );
+		}
 	}
 
 	public static function get_selectors( $attr ) {
@@ -81,11 +190,11 @@ class AffiliateX_Button_Styles {
 
 			),
 			' .btn-is-fixed'                         => array(
-				'max-width' => isset( $attr['buttonFixWidth'] ) ? $attr['buttonFixWidth'] : '100px',
+				'max-width' => isset( $attr['buttonFixWidth'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['buttonFixWidth'] ) : '100px',
 				'width'     => '100%',
 			),
 			' .affx-btn-inner'                       => array(
-				'justify-content' => isset( $attr['buttonAlignment'] ) ? $attr['buttonAlignment'] : 'flex-start',
+				'justify-content' => isset( $attr['buttonAlignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['buttonAlignment'] ) : 'flex-start',
 			),
 			' .affiliatex-button:hover'              => array(
 				'color'        => isset( $attr['buttonTextHoverColor'] ) ? $attr['buttonTextHoverColor'] : '#ffffff',
@@ -93,7 +202,7 @@ class AffiliateX_Button_Styles {
 				'border-color' => isset( $attr['buttonborderHoverColor'] ) ? $attr['buttonborderHoverColor'] : '#ffffff',
 			),
 			' .button-icon'                          => array(
-				'font-size' => isset( $attr['buttonIconSize'] ) ? $attr['buttonIconSize'] : '18px',
+				'font-size' => isset( $attr['buttonIconSize'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['buttonIconSize'] ) : '18px',
 				'color'     => isset( $attr['buttonIconColor'] ) ? $attr['buttonIconColor'] : '#ffffff',
 			),
 			' .affiliatex-button:hover .button-icon' => array(

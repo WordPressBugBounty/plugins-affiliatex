@@ -70,7 +70,10 @@
       "default": "h2"
     },
     "pcTitleAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "center"
     },
     "titleColor": {
@@ -574,6 +577,122 @@
     "matchCardHeights": {
       "type": "boolean",
       "default": false
+    },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "buttonHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "ribbonHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "ribbonTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "titleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "priceHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "contentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "tableRowBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "titleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "ribbonHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "priceHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "imageHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverShadow": {
+      "type": "object",
+      "default": {}
     },
     "preview": {
       "type": "boolean",

@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit; if ( $edProductImage ) : ?>
-<div class="affx-sp-img-wrapper <?php echo esc_attr( $imageVerticalAlignClass ?? '' ); ?> <?php echo esc_attr( $imageHorizontalAlignClass ?? '' ); ?>">
+<div class="affx-sp-img-wrapper <?php echo esc_attr( $imageVerticalAlignClass ?? '' ); ?> <?php echo esc_attr( $imageHorizontalAlignClass ?? '' ); ?> <?php echo esc_attr( $imageHideClass ?? '' ); ?>">
 	<?php if ( ! empty( $useSlider ) && ! empty( $sliderImages ) ) : ?>
 		<?php include AFFILIATEX_PLUGIN_DIR . '/templates/partials/slider.php'; ?>
 	<?php else : ?>

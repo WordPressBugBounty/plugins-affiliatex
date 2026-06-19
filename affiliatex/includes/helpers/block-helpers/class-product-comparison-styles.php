@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Product Comparison Block Styles
@@ -8,7 +13,23 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Product_Comparison_Styles {
+class AffiliateX_Product_Comparison_Styles extends AffiliateX_Block_Styles_Base {
+
+	private const CONTAINER   = ' .affx-product-comparison-block-container';
+	private const TITLE       = ' .affx-comparison-title';
+	private const RIBBON      = ' .affx-versus-table-wrap .affx-pc-ribbon';
+	private const PRICE       = ' .affx-versus-table-wrap .affx-price';
+	private const TD          = ' .affx-versus-table-wrap td';
+	private const TH          = ' .affx-versus-table-wrap th';
+	private const CONTENT_TD  = ' .affx-versus-table-wrap .affx-product-versus-table td';
+	private const IMG         = ' .affx-versus-table-wrap .affx-versus-product-img';
+	private const BUTTON      = ' .affx-versus-table-wrap .affiliatex-button.affx-winner-button';
+	private const BUTTON_FONT = ' .affx-versus-table-wrap .affiliatex-button';
+	private const ROW_BG      = ' .affx-versus-table-wrap .affx-product-versus-table tbody tr:hover td:not(.affx-specification-add-col):not(.affx-specification-remove-col)';
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-product-comparison-blocks-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -20,26 +41,252 @@ class AffiliateX_Product_Comparison_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Per-device rules for the promoted attributes, mirrors styling.js. Scalars keep the legacy desktop output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			if ( HoverStyles::is_responsive( $attr['pcTitleAlign'] ?? null ) ) {
+				$align = AffiliateX_Helpers::get_responsive_value( $attr['pcTitleAlign'], $device );
 
-		$m_selectors = self::get_mobileselectors( $attr );
+				if ( is_string( $align ) && '' !== $align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], self::TITLE, array( 'text-align' => $align ) );
+				}
+			}
+		}
+	}
 
-		$t_selectors = self::get_tabletselectors( $attr );
-
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-product-comparison-blocks-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-product-comparison-blocks-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-product-comparison-blocks-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+	/**
+	 * Hover rules for the wave-3 hover attributes, mirrors product-comparison/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$typos = array(
+			$attr['titleHoverTypography'] ?? null,
+			$attr['ribbonHoverTypography'] ?? null,
+			$attr['priceHoverTypography'] ?? null,
+			$attr['buttonHoverTypography'] ?? null,
+			$attr['contentHoverTypography'] ?? null,
 		);
 
-		return $generated_css;
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['hoverMargin'] ?? null ) || HoverStyles::has_spacing_value( $attr['buttonHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['hoverPadding'] ?? null ) || HoverStyles::has_spacing_value( $attr['imageHoverPadding'] ?? null ) || HoverStyles::has_spacing_value( $attr['buttonHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		if ( ! empty( $attr['titleHoverColor'] ) && is_string( $attr['titleHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::TITLE . ':hover', array( 'color' => $attr['titleHoverColor'] ), array( self::TITLE ) );
+		}
+
+		if ( ! empty( $attr['ribbonTextHoverColor'] ) && is_string( $attr['ribbonTextHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::RIBBON . ':hover', array( 'color' => $attr['ribbonTextHoverColor'] ), array( self::RIBBON ) );
+		}
+
+		if ( ! empty( $attr['ribbonHoverColor'] ) && is_string( $attr['ribbonHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::RIBBON . ':hover', array( 'background' => $attr['ribbonHoverColor'] ), array( self::RIBBON ) );
+			HoverStyles::merge_selector( $buckets['desktop'], self::RIBBON . ':hover::before', array( 'background' => $attr['ribbonHoverColor'] ) );
+			HoverStyles::merge_selector( $buckets['desktop'], self::RIBBON . ':hover::after', array( 'background' => $attr['ribbonHoverColor'] ) );
+		}
+
+		if ( ! empty( $attr['priceHoverColor'] ) && is_string( $attr['priceHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::PRICE . ':hover', array( 'color' => $attr['priceHoverColor'] ), array( self::PRICE ) );
+		}
+
+		if ( ! empty( $attr['contentHoverColor'] ) && is_string( $attr['contentHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::CONTENT_TD . ':hover', array( 'color' => $attr['contentHoverColor'] ), array( self::TD ) );
+		}
+
+		if ( ! empty( $attr['tableRowBgHoverColor'] ) && is_string( $attr['tableRowBgHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, self::ROW_BG, array( 'background' => $attr['tableRowBgHoverColor'] ), array( self::TD ) );
+		}
+
+		self::apply_container_hover( $buckets, $attr, $transition );
+		self::apply_button_hover( $buckets, $attr, $transition );
+		self::apply_typography_hover( $buckets, $attr, $transition );
+	}
+
+	/**
+	 * Container :hover (background/border/shadow/radius/margin) plus per-device cell padding, mirrors styling.js.
+	 *
+	 * @param array  $buckets Buckets keyed by device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $transition Transition shorthand.
+	 * @return void
+	 */
+	private static function apply_container_hover( array &$buckets, array $attr, string $transition ): void {
+		$container_hover = HoverStyles::get_background_styles(
+			$attr['bgHoverType'] ?? '',
+			$attr['bgType'] ?? '',
+			$attr['bgHoverColor'] ?? '',
+			$attr['bgHoverGradient'] ?? ''
+		);
+
+		$container_hover = array_merge( $container_hover, HoverStyles::get_border_styles( $attr['hoverBorder'] ?? null ) );
+		$container_hover = array_merge( $container_hover, HoverStyles::get_shadow_styles( $attr['hoverShadow'] ?? null ) );
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['hoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$container_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $container_hover ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], self::CONTAINER . ':hover', $container_hover );
+			HoverStyles::merge_selector( $buckets['desktop'], self::CONTAINER, array( 'transition' => $transition ) );
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['hoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], self::CONTAINER . ':hover', array( 'border-radius' => $radius ) );
+				HoverStyles::merge_selector( $buckets['desktop'], self::CONTAINER, array( 'transition' => $transition ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$margin_hover = HoverStyles::get_spacing_styles( $attr['hoverMargin'] ?? null, $device, 'margin' );
+
+			if ( ! empty( $margin_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], self::CONTAINER . ':hover', $margin_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], self::CONTAINER, array( 'transition' => $transition ) );
+			}
+
+			$padding_hover = HoverStyles::get_spacing_styles( $attr['hoverPadding'] ?? null, $device, 'padding' );
+
+			if ( ! empty( $padding_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], self::CONTAINER . ':hover' . self::TD, $padding_hover );
+				HoverStyles::merge_selector( $buckets[ $device ], self::CONTAINER . ':hover' . self::TH, $padding_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], self::TD, array( 'transition' => $transition ) );
+				HoverStyles::merge_selector( $buckets['desktop'], self::TH, array( 'transition' => $transition ) );
+			}
+
+			$image_padding_hover = HoverStyles::get_spacing_styles( $attr['imageHoverPadding'] ?? null, $device, 'padding' );
+
+			if ( ! empty( $image_padding_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], self::IMG . ':hover', $image_padding_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], self::IMG, array( 'transition' => $transition ) );
+			}
+		}
+	}
+
+	/**
+	 * Winner button :hover (border/shadow/radius/spacing), mirrors styling.js.
+	 *
+	 * @param array  $buckets Buckets keyed by device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $transition Transition shorthand.
+	 * @return void
+	 */
+	private static function apply_button_hover( array &$buckets, array $attr, string $transition ): void {
+		$button_hover = HoverStyles::get_border_styles( $attr['buttonHoverBorder'] ?? null, false );
+		$button_hover = array_merge( $button_hover, HoverStyles::get_shadow_styles( $attr['buttonHoverShadow'] ?? null ) );
+
+		$has_button_hover = ! empty( $button_hover );
+
+		HoverStyles::merge_selector( $buckets['desktop'], self::BUTTON . ':hover', $button_hover );
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['buttonHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				$has_button_hover = true;
+				HoverStyles::merge_selector( $buckets[ $device ], self::BUTTON . ':hover', array( 'border-radius' => $radius ) );
+			}
+
+			$spacing_hover = array_merge(
+				HoverStyles::get_spacing_styles( $attr['buttonHoverMargin'] ?? null, $device, 'margin' ),
+				HoverStyles::get_spacing_styles( $attr['buttonHoverPadding'] ?? null, $device, 'padding' )
+			);
+
+			if ( ! empty( $spacing_hover ) ) {
+				$has_button_hover = true;
+				HoverStyles::merge_selector( $buckets[ $device ], self::BUTTON . ':hover', $spacing_hover );
+			}
+		}
+
+		if ( $has_button_hover ) {
+			HoverStyles::merge_selector( $buckets['desktop'], self::BUTTON, array( 'transition' => $transition ) );
+		}
+	}
+
+	/**
+	 * Per-element hover typography, mirrors styling.js.
+	 *
+	 * @param array  $buckets Buckets keyed by device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $transition Transition shorthand.
+	 * @return void
+	 */
+	private static function apply_typography_hover( array &$buckets, array $attr, string $transition ): void {
+		$rules = array(
+			array(
+				'typography' => $attr['titleHoverTypography'] ?? null,
+				'base'       => self::TITLE,
+				'hover'      => self::TITLE . ':hover',
+			),
+			array(
+				'typography' => $attr['ribbonHoverTypography'] ?? null,
+				'base'       => self::RIBBON,
+				'hover'      => self::RIBBON . ':hover',
+			),
+			array(
+				'typography' => $attr['priceHoverTypography'] ?? null,
+				'base'       => self::PRICE,
+				'hover'      => self::PRICE . ':hover',
+			),
+			array(
+				'typography' => $attr['buttonHoverTypography'] ?? null,
+				'base'       => self::BUTTON_FONT,
+				'hover'      => self::BUTTON_FONT . ':hover',
+			),
+			array(
+				'typography' => $attr['contentHoverTypography'] ?? null,
+				'base'       => self::TD,
+				'hover'      => self::CONTENT_TD . ':hover',
+			),
+		);
+
+		foreach ( $rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( empty( $styles ) ) {
+					continue;
+				}
+
+				$has_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {

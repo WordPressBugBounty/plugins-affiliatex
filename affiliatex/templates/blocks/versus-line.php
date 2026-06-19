@@ -9,14 +9,14 @@ defined( 'ABSPATH' ) || exit;
 					<?php foreach ( $versusTable as $item ) : ?>
 						<tr>
 							<td class="data-label">
-								<<?php echo esc_attr( $versusTitleTag ); ?> class="affx-versus-title">
+								<<?php echo esc_attr( $versusTitleTag ); ?> class="affx-versus-title<?php echo '' !== ( $titleHideClass ?? '' ) ? ' ' . esc_attr( $titleHideClass ) : ''; ?>">
 									<?php echo wp_kses_post( $item['versusTitle'] ); ?>
 								</<?php echo esc_attr( $versusTitleTag ); ?>>
 								<span class="data-info"><?php echo wp_kses_post( $item['versusSubTitle'] ); ?></span>
 							</td>
 							<td><?php echo wp_kses_post( $item['versusValue1'] ); ?></td>
 							<td>
-								<span class="affx-vs-icon"><?php echo wp_kses_post( $vsLabel ); ?></span>
+								<span class="affx-vs-icon<?php echo '' !== ( $vsHideClass ?? '' ) ? ' ' . esc_attr( $vsHideClass ) : ''; ?>"><?php echo wp_kses_post( $vsLabel ); ?></span>
 							</td>
 							<td><?php echo wp_kses_post( $item['versusValue2'] ); ?></td>
 						</tr>

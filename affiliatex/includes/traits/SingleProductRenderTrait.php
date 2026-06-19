@@ -25,19 +25,27 @@ trait SingleProductRenderTrait {
 	use ButtonRenderTrait;
 	use SliderRenderTrait;
 
+	/**
+	 * Elements supporting per-device visibility
+	 *
+	 * @var array
+	 */
+	protected static $hideable_elements = array( 'ribbon', 'image', 'title', 'subtitle', 'rating', 'pricing', 'content', 'button' );
+
 	protected function get_elements(): array {
 		return array(
-			'wrapper'      => 'affx-single-product-wrapper',
-			'title'        => 'affx-single-product-title',
-			'subtitle'     => 'affx-single-product-subtitle',
-			'content'      => 'affx-single-product-content',
-			'image'        => 'affx-sp-img-wrapper',
-			'ribbon'       => 'affx-sp-ribbon-title',
-			'price'        => 'affx-sp-price',
-			'price-marked' => 'affx-sp-marked-price',
-			'price-sale'   => 'affx-sp-sale-price',
-			'list'         => 'affiliatex-list',
-			'readmore'     => 'affx-readmore',
+			'wrapper'       => 'affx-single-product-wrapper',
+			'title'         => 'affx-single-product-title',
+			'subtitle'      => 'affx-single-product-subtitle',
+			'content'       => 'affx-single-product-content',
+			'image'         => 'affx-sp-img-wrapper',
+			'ribbon'        => 'affx-sp-ribbon-title',
+			'price'         => 'affx-sp-price',
+			'price-marked'  => 'affx-sp-marked-price',
+			'price-sale'    => 'affx-sp-sale-price',
+			'list'          => 'affiliatex-list',
+			'readmore'      => 'affx-readmore',
+			'rating-number' => 'affx-rating-number',
 		);
 	}
 
@@ -150,8 +158,28 @@ trait SingleProductRenderTrait {
 				'readMoreColor'               => '#00B0B0',
 				'imageAspectRatio'            => 'auto',
 			),
+			$this->get_hide_on_defaults(),
 			$this->get_slider_defaults()
 		);
+	}
+
+	/**
+	 * Default {element}HideOn attributes, all visible
+	 *
+	 * @return array
+	 */
+	protected function get_hide_on_defaults(): array {
+		$defaults = array();
+
+		foreach ( self::$hideable_elements as $element ) {
+			$defaults[ $element . 'HideOn' ] = array(
+				'desktop' => false,
+				'tablet'  => false,
+				'mobile'  => false,
+			);
+		}
+
+		return $defaults;
 	}
 
 	/**
@@ -177,24 +205,126 @@ trait SingleProductRenderTrait {
 	 */
 	private function render_pb_stars( $ratings, $productRatingColor, $ratingInactiveColor, $ratingStarSize ): string {
 		$stars = '';
+		$size  = is_numeric( $ratingStarSize ) ? (int) $ratingStarSize : 25;
+
+		// Elementor has no per-device generated CSS for star size, keep the inline size there only.
+		$inline_size = self::IS_ELEMENTOR ? sprintf( 'width:%dpx;height:%dpx;', $size, $size ) : '';
 
 		for ( $i = 1; $i <= 5; $i++ ) {
-			$color  = ( $i <= $ratings ) ? $productRatingColor : $ratingInactiveColor;
-			$stars .= sprintf(
-				'<span class="affx-star" style="color:%s;width:%dpx;height:%dpx;">
+			$is_active = $i <= $ratings;
+			$color     = $is_active ? $productRatingColor : $ratingInactiveColor;
+			$stars    .= sprintf(
+				'<span class="%s" style="color:%s;%s">
                     <svg fill="currentColor" width="%d" height="%d" viewBox="0 0 24 24">
                         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
                     </svg>
                 </span>',
+				esc_attr( $is_active ? 'affx-star' : 'affx-star affx-star-inactive' ),
 				esc_attr( $color ),
-				esc_attr( $ratingStarSize ),
-				esc_attr( $ratingStarSize ),
-				esc_attr( $ratingStarSize ),
-				esc_attr( $ratingStarSize )
+				esc_attr( $inline_size ),
+				esc_attr( $size ),
+				esc_attr( $size )
 			);
 		}
 
 		return $stars;
+	}
+
+	/**
+	 * Visibility switcher controls for an element
+	 *
+	 * @param string $element Element key, e.g. 'title'.
+	 * @param array  $condition Display condition, e.g. element enable switch.
+	 * @return array
+	 */
+	protected function get_sp_visibility_controls( string $element, array $condition ): array {
+		$devices = array(
+			'desktop' => __( 'Hide On Desktop', 'affiliatex' ),
+			'tablet'  => __( 'Hide On Tablet', 'affiliatex' ),
+			'mobile'  => __( 'Hide On Mobile', 'affiliatex' ),
+		);
+
+		$controls = array(
+			"affx_sp_{$element}_visibility_heading" => array(
+				'label'     => __( 'Visibility', 'affiliatex' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => $condition,
+			),
+		);
+
+		foreach ( $devices as $device => $label ) {
+			$controls[ "affx_sp_{$element}_hide_{$device}" ] = array(
+				'label'        => $label,
+				'type'         => Controls_Manager::SWITCHER,
+				'label_on'     => __( 'Yes', 'affiliatex' ),
+				'label_off'    => __( 'No', 'affiliatex' ),
+				'return_value' => 'true',
+				'default'      => '',
+				'condition'    => $condition,
+			);
+		}
+
+		return $controls;
+	}
+
+	/**
+	 * Shared hover transition declaration for Elementor selectors
+	 *
+	 * @param array $extras Extra transitioned properties, e.g. 'font-size'.
+	 * @return string
+	 */
+	protected function get_sp_hover_transition( array $extras = array() ): string {
+		$transition = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease';
+
+		foreach ( $extras as $property ) {
+			$transition .= ', ' . $property . ' .15s ease';
+		}
+
+		return $transition . ';';
+	}
+
+	/**
+	 * Field options for a hover typography group: adds the font transition to the base selector.
+	 *
+	 * @param string $base_selector Non-hover element selector.
+	 * @return array
+	 */
+	protected function get_sp_hover_typography_options( string $base_selector ): array {
+		$transition = $this->get_sp_hover_transition( array( 'font-size', 'letter-spacing' ) );
+
+		return array(
+			'font_size'      => array(
+				'selectors' => array(
+					'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+					$base_selector => $transition,
+				),
+			),
+			'letter_spacing' => array(
+				'selectors' => array(
+					'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+					$base_selector => $transition,
+				),
+			),
+		);
+	}
+
+	/**
+	 * Map Elementor visibility switchers to the shared {element}HideOn attributes
+	 *
+	 * @param array $attributes
+	 * @return array
+	 */
+	protected function map_sp_visibility_attributes( array $attributes ): array {
+		foreach ( self::$hideable_elements as $element ) {
+			$attributes[ $element . 'HideOn' ] = array(
+				'desktop' => ! empty( $attributes[ "affx_sp_{$element}_hide_desktop" ] ),
+				'tablet'  => ! empty( $attributes[ "affx_sp_{$element}_hide_tablet" ] ),
+				'mobile'  => ! empty( $attributes[ "affx_sp_{$element}_hide_mobile" ] ),
+			);
+		}
+
+		return $attributes;
 	}
 
 	/**
@@ -203,7 +333,8 @@ trait SingleProductRenderTrait {
 	 * @param array $config Elementor control config.
 	 */
 	public function get_sp_elementor_controls( $config = array() ) {
-		$defaults = $this->get_fields();
+		$defaults         = $this->get_fields();
+		$hover_transition = $this->get_sp_hover_transition();
 
 		$layoutSettings = array(
 			'affx_sp_layout_settings' => array(
@@ -295,7 +426,8 @@ trait SingleProductRenderTrait {
 									'edRibbon' => 'true',
 								),
 							),
-						)
+						),
+						$this->get_sp_visibility_controls( 'ribbon', array( 'edRibbon' => 'true' ) )
 					),
 				),
 
@@ -499,7 +631,9 @@ trait SingleProductRenderTrait {
 								'productImageType' => 'sitestripe',
 							),
 						),
-					) + $this->get_slider_elementor_controls( 'edProductImage' ),
+					) + $this->get_slider_elementor_controls( 'edProductImage' )
+						+ $this->get_sp_visibility_controls( 'image', array( 'edProductImage' => 'true' ) )
+						+ $this->get_sp_visibility_controls( 'button', array( 'edButton' => 'true' ) ),
 				),
 
 				'affx_sp_link_settings'     => array(
@@ -632,7 +766,7 @@ trait SingleProductRenderTrait {
 								$this->select_element( 'title' ) => 'text-align: {{VALUE}};',
 							),
 						),
-					),
+					) + $this->get_sp_visibility_controls( 'title', array( 'edTitle' => 'true' ) ),
 				),
 
 				'affx_sp_subtitle_settings' => array(
@@ -699,7 +833,7 @@ trait SingleProductRenderTrait {
 								'edSubtitle' => 'true',
 							),
 						),
-					),
+					) + $this->get_sp_visibility_controls( 'subtitle', array( 'edSubtitle' => 'true' ) ),
 				),
 
 				'affx_sp_rating_settings'   => array(
@@ -833,7 +967,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
-					),
+					) + $this->get_sp_visibility_controls( 'rating', array( 'edRatings' => 'true' ) ),
 				),
 
 				'affx_sp_pricing_settings'  => array(
@@ -891,7 +1025,7 @@ trait SingleProductRenderTrait {
 								'edPricing' => 'true',
 							),
 						),
-					),
+					) + $this->get_sp_visibility_controls( 'pricing', array( 'edPricing' => 'true' ) ),
 				),
 
 				'affx_sp_content_settings'  => array(
@@ -1084,14 +1218,21 @@ trait SingleProductRenderTrait {
 								'edReadMore' => 'true',
 							),
 						),
-					),
+					) + $this->get_sp_visibility_controls( 'content', array( 'edContent' => 'true' ) ),
 				),
 
 				'affx_sp_style_general'     => array(
 					'label'  => __( 'Colors', 'affiliatex' ),
 					'tab'    => Controls_Manager::TAB_STYLE,
 					'fields' => array(
-						'productTitleColor'         => array(
+						'affx_sp_colors_tabs'            => array(
+							'type' => 'tabs_start',
+						),
+						'affx_sp_colors_tab_normal'      => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Normal', 'affiliatex' ),
+						),
+						'productTitleColor'              => array(
 							'label'     => __( 'Title Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#060c0e',
@@ -1102,7 +1243,7 @@ trait SingleProductRenderTrait {
 								'edTitle' => 'true',
 							),
 						),
-						'productSubtitleColor'      => array(
+						'productSubtitleColor'           => array(
 							'label'     => __( 'Subtitle Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#A3ACBF',
@@ -1113,7 +1254,7 @@ trait SingleProductRenderTrait {
 								'edSubtitle' => 'true',
 							),
 						),
-						'productContentColor'       => array(
+						'productContentColor'            => array(
 							'label'     => __( 'Content Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => AffiliateX_Customization_Helper::get_value( 'fontColor', '#292929' ),
@@ -1130,7 +1271,7 @@ trait SingleProductRenderTrait {
 								'edContent' => 'true',
 							),
 						),
-						'iconColor'                 => array(
+						'iconColor'                      => array(
 							'label'     => __( 'Icon Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#24B644',
@@ -1142,7 +1283,7 @@ trait SingleProductRenderTrait {
 								'productContentType' => array( 'list', 'amazon' ),
 							),
 						),
-						'readMoreColor'             => array(
+						'readMoreColor'                  => array(
 							'label'     => __( 'Read More Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#00B0B0',
@@ -1154,7 +1295,7 @@ trait SingleProductRenderTrait {
 								'edReadMore' => 'true',
 							),
 						),
-						'productBackground'         => array(
+						'productBackground'              => array(
 							'type'           => Group_Control_Background::get_type(),
 							'name'           => 'productBackground',
 							'label'          => __( 'Background', 'affiliatex' ),
@@ -1186,7 +1327,7 @@ trait SingleProductRenderTrait {
 								),
 							),
 						),
-						'affx_sp_style_pricing'     => array(
+						'affx_sp_style_pricing'          => array(
 							'label'     => esc_html__( 'Pricing', 'affiliatex' ),
 							'type'      => Controls_Manager::HEADING,
 							'separator' => 'before',
@@ -1194,7 +1335,7 @@ trait SingleProductRenderTrait {
 								'edPricing' => 'true',
 							),
 						),
-						'pricingHoverColor'         => array(
+						'pricingHoverColor'              => array(
 							'label'     => __( 'Sale Price Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#A3ACBF',
@@ -1205,7 +1346,7 @@ trait SingleProductRenderTrait {
 								'edPricing' => 'true',
 							),
 						),
-						'pricingColor'              => array(
+						'pricingColor'                   => array(
 							'label'     => __( 'Marked Price Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#262B33',
@@ -1216,7 +1357,7 @@ trait SingleProductRenderTrait {
 								'edPricing' => 'true',
 							),
 						),
-						'affx_sp_style_ratings'     => array(
+						'affx_sp_style_ratings'          => array(
 							'label'     => esc_html__( 'Ratings', 'affiliatex' ),
 							'type'      => Controls_Manager::HEADING,
 							'separator' => 'before',
@@ -1224,7 +1365,7 @@ trait SingleProductRenderTrait {
 								'edRatings' => 'true',
 							),
 						),
-						'productRateNumberColor'    => array(
+						'productRateNumberColor'         => array(
 							'label'     => __( 'Score Box Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#ffffff',
@@ -1236,7 +1377,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
-						'productRateContentColor'   => array(
+						'productRateContentColor'        => array(
 							'label'     => __( 'Content Rating Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#ffffff',
@@ -1248,7 +1389,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
-						'productRateNumBgColor'     => array(
+						'productRateNumBgColor'          => array(
 							'label'     => __( 'Score Box Background Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#00B0B0',
@@ -1260,7 +1401,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
-						'productRateContentBgColor' => array(
+						'productRateContentBgColor'      => array(
 							'label'     => __( 'Content Rating Background Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#262B33',
@@ -1273,7 +1414,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
-						'productRatingColor'        => array(
+						'productRatingColor'             => array(
 							'label'     => __( 'Rating Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#FFB800',
@@ -1282,7 +1423,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'picture',
 							),
 						),
-						'ratingInactiveColor'       => array(
+						'ratingInactiveColor'            => array(
 							'label'     => __( 'Inactive Rating Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#808080',
@@ -1291,7 +1432,7 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'picture',
 							),
 						),
-						'affx_sp_style_ribbon'      => array(
+						'affx_sp_style_ribbon'           => array(
 							'label'     => esc_html__( 'Ribbon', 'affiliatex' ),
 							'type'      => Controls_Manager::HEADING,
 							'separator' => 'before',
@@ -1299,7 +1440,7 @@ trait SingleProductRenderTrait {
 								'edRibbon' => 'true',
 							),
 						),
-						'ribbonColor'               => array(
+						'ribbonColor'                    => array(
 							'label'     => __( 'Ribbon Text Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#fff',
@@ -1310,7 +1451,7 @@ trait SingleProductRenderTrait {
 								'edRibbon' => 'true',
 							),
 						),
-						'ribbonBGColor'             => array(
+						'ribbonBGColor'                  => array(
 							'label'     => __( 'Ribbon Background Color', 'affiliatex' ),
 							'type'      => Controls_Manager::COLOR,
 							'default'   => '#ff0000',
@@ -1323,6 +1464,255 @@ trait SingleProductRenderTrait {
 								'edRibbon' => 'true',
 							),
 						),
+						'affx_sp_colors_tab_normal_end'  => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_colors_tab_hover'       => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Hover', 'affiliatex' ),
+						),
+						'productTitleHoverColor'         => array(
+							'label'     => __( 'Title Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'title', ':hover' ) ) => 'color: {{VALUE}}',
+								$this->select_element( 'title' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edTitle' => 'true',
+							),
+						),
+						'productSubtitleHoverColor'      => array(
+							'label'     => __( 'Subtitle Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'subtitle', ':hover' ) ) => 'color: {{VALUE}}',
+								$this->select_element( 'subtitle' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edSubtitle' => 'true',
+							),
+						),
+						'productContentHoverColor'       => array(
+							'label'     => __( 'Content Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_elements(
+									array(
+										array( 'content', ':hover' ),
+										array( 'content', ':hover p' ),
+										array( 'content', ':hover li' ),
+									)
+								) => 'color: {{VALUE}}',
+								$this->select_elements(
+									array(
+										'content',
+										array( 'content', ' p' ),
+										array( 'content', ' li' ),
+									)
+								) => $hover_transition,
+							),
+							'condition' => array(
+								'edContent' => 'true',
+							),
+						),
+						'iconHoverColor'                 => array(
+							'label'     => __( 'Icon Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'list' ) . ' li:hover::before' => 'color: {{VALUE}}',
+								$this->select_element( 'list' ) . ' li:hover > i' => 'color: {{VALUE}}',
+								$this->select_element( 'list' ) . ' li::before' => $hover_transition,
+								$this->select_element( 'list' ) . ' li > i' => $hover_transition,
+							),
+							'condition' => array(
+								'productContentType' => array( 'list', 'amazon' ),
+							),
+						),
+						'readMoreHoverColor'             => array(
+							'label'     => __( 'Read More Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'readmore' ) . ' .affx-readmore-btn:hover' => 'color: {{VALUE}};',
+								$this->select_element( 'readmore' ) . ' .affx-readmore-btn' => $hover_transition,
+							),
+							'condition' => array(
+								'edContent'  => 'true',
+								'edReadMore' => 'true',
+							),
+						),
+						'productHoverBackground'         => array(
+							'type'           => Group_Control_Background::get_type(),
+							'name'           => 'productHoverBackground',
+							'label'          => __( 'Background', 'affiliatex' ),
+							'types'          => array( 'classic', 'gradient' ),
+							'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+							'exclude'        => array( 'image' ),
+							'fields_options' => array(
+								'background' => array(
+									'options' => array(
+										'classic'  => array(
+											'title' => esc_html__( 'Color', 'affiliatex' ),
+											'icon'  => 'eicon-paint-brush',
+										),
+										'gradient' => array(
+											'title' => esc_html__( 'Gradient', 'affiliatex' ),
+											'icon'  => 'eicon-barcode',
+										),
+									),
+								),
+								'color'      => array(
+									'label'     => __( 'Background Hover Color', 'affiliatex' ),
+									'selectors' => array(
+										'{{SELECTOR}}' => 'background-color: {{VALUE}};',
+										$this->select_element( 'wrapper' ) => $hover_transition,
+									),
+								),
+								'image'      => array(
+									'label' => __( 'Background Image', 'affiliatex' ),
+								),
+							),
+						),
+						'affx_sp_style_pricing_hover'    => array(
+							'label'     => esc_html__( 'Pricing', 'affiliatex' ),
+							'type'      => Controls_Manager::HEADING,
+							'separator' => 'before',
+							'condition' => array(
+								'edPricing' => 'true',
+							),
+						),
+						'productPriceHoverColor'         => array(
+							'label'     => __( 'Sale Price Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'price-marked', ':hover' ) ) => 'color: {{VALUE}}',
+								$this->select_element( 'price-marked' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edPricing' => 'true',
+							),
+						),
+						'productSalePriceHoverColor'     => array(
+							'label'     => __( 'Marked Price Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'price-sale', ':hover' ) ) => 'color: {{VALUE}}',
+								$this->select_element( 'price-sale' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edPricing' => 'true',
+							),
+						),
+						'affx_sp_style_ratings_hover'    => array(
+							'label'     => esc_html__( 'Ratings', 'affiliatex' ),
+							'type'      => Controls_Manager::HEADING,
+							'separator' => 'before',
+							'condition' => array(
+								'edRatings' => 'true',
+							),
+						),
+						'productRateNumberHoverColor'    => array(
+							'label'     => __( 'Score Box Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box:hover span.num' => 'color: {{VALUE}}',
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box span.num' => $hover_transition,
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'number',
+							),
+						),
+						'productRateContentHoverColor'   => array(
+							'label'     => __( 'Content Rating Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box:hover span.label' => 'color: {{VALUE}}',
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box span.label' => $hover_transition,
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'number',
+							),
+						),
+						'productRateNumBgHoverColor'     => array(
+							'label'     => __( 'Score Box Background Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box:hover .num' => 'background-color: {{VALUE}}',
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box .num' => $hover_transition,
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'number',
+							),
+						),
+						'productRateContentBgHoverColor' => array(
+							'label'     => __( 'Content Rating Background Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box:hover span.label' => 'background-color: {{VALUE}}',
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box:hover span.label::before' => 'border-bottom-color: {{VALUE}}',
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box span.label' => $hover_transition,
+								$this->select_element( 'wrapper' ) . ' .affx-rating-box span.label::before' => $hover_transition,
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'number',
+							),
+						),
+						'ratingHoverColor'               => array(
+							'label'     => __( 'Rating Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-sp-pricing-pic:hover svg path' => 'fill: {{VALUE}}',
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'picture',
+							),
+						),
+						'ratingInactiveHoverColor'       => array(
+							'label'     => __( 'Inactive Rating Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( 'wrapper' ) . ' .affx-sp-pricing-pic:hover .affx-star-inactive svg path' => 'fill: {{VALUE}}',
+							),
+							'condition' => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'picture',
+							),
+						),
+						'ribbonHoverColor'               => array(
+							'label'     => __( 'Ribbon Text Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'ribbon', ':hover' ) ) => 'color: {{VALUE}}',
+								$this->select_element( 'ribbon' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edRibbon' => 'true',
+							),
+						),
+						'ribbonBGHoverColor'             => array(
+							'label'     => __( 'Ribbon Background Hover Color', 'affiliatex' ),
+							'type'      => Controls_Manager::COLOR,
+							'selectors' => array(
+								$this->select_element( array( 'ribbon', ':hover' ) ) => 'background-color: {{VALUE}}',
+								$this->select_element( 'ribbon' ) . ':hover::before' => 'border-bottom-color: {{VALUE}}!important;',
+								$this->select_element( 'wrapper' ) . ' .ribbon-align-right .affx-sp-ribbon-title:hover::before' => 'border-right-color: {{VALUE}}!important',
+								$this->select_element( 'ribbon' ) => $hover_transition,
+							),
+							'condition' => array(
+								'edRibbon' => 'true',
+							),
+						),
+						'affx_sp_colors_tab_hover_end'   => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_colors_tabs_end'        => array(
+							'type' => 'tabs_end',
+						),
 					),
 				),
 
@@ -1330,7 +1720,14 @@ trait SingleProductRenderTrait {
 					'label'  => __( 'Typography', 'affiliatex' ),
 					'tab'    => Controls_Manager::TAB_STYLE,
 					'fields' => array(
-						'productTitleTypography'    => array(
+						'affx_sp_typography_tabs'          => array(
+							'type' => 'tabs_start',
+						),
+						'affx_sp_typography_tab_normal'    => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Normal', 'affiliatex' ),
+						),
+						'productTitleTypography'           => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Product Title', 'affiliatex' ),
 							'selector'       => $this->select_element( 'title' ),
@@ -1373,7 +1770,7 @@ trait SingleProductRenderTrait {
 								'edTitle' => 'true',
 							),
 						),
-						'productSubtitleTypography' => array(
+						'productSubtitleTypography'        => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Product Subtitle', 'affiliatex' ),
 							'selector'       => $this->select_element( 'subtitle' ),
@@ -1416,7 +1813,7 @@ trait SingleProductRenderTrait {
 								'edSubtitle' => 'true',
 							),
 						),
-						'pricingTypography'         => array(
+						'pricingTypography'                => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Product Price', 'affiliatex' ),
 							'selector'       => $this->select_element( 'price' ),
@@ -1459,7 +1856,7 @@ trait SingleProductRenderTrait {
 								'edPricing' => 'true',
 							),
 						),
-						'productContentTypography'  => array(
+						'productContentTypography'         => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Product Content', 'affiliatex' ),
 							'selector'       => $this->select_element( 'content' ),
@@ -1502,7 +1899,7 @@ trait SingleProductRenderTrait {
 								'edContent' => 'true',
 							),
 						),
-						'readMoreTypography'        => array(
+						'readMoreTypography'               => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Read More', 'affiliatex' ),
 							'selector'       => $this->select_element( 'readmore' ) . ' .affx-readmore-btn',
@@ -1546,7 +1943,7 @@ trait SingleProductRenderTrait {
 								'edReadMore' => 'true',
 							),
 						),
-						'ribbonContentTypography'   => array(
+						'ribbonContentTypography'          => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Product Ribbon', 'affiliatex' ),
 							'selector'       => $this->select_element( 'ribbon' ),
@@ -1589,7 +1986,7 @@ trait SingleProductRenderTrait {
 								'edRibbon' => 'true',
 							),
 						),
-						'numRatingTypography'       => array(
+						'numRatingTypography'              => array(
 							'type'           => Group_Control_Typography::get_type(),
 							'label'          => __( 'Score Box', 'affiliatex' ),
 							'selector'       => $this->select_element( 'rating-number' ),
@@ -1633,6 +2030,91 @@ trait SingleProductRenderTrait {
 								'PricingType' => 'number',
 							),
 						),
+						'affx_sp_typography_tab_normal_end' => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_typography_tab_hover'     => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Hover', 'affiliatex' ),
+						),
+						'productTitleHoverTypography'      => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Product Title', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'title', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'title' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edTitle' => 'true',
+							),
+						),
+						'productSubtitleHoverTypography'   => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Product Subtitle', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'subtitle', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'subtitle' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edSubtitle' => 'true',
+							),
+						),
+						'pricingHoverTypography'           => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Product Price', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'price', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'price' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edPricing' => 'true',
+							),
+						),
+						'productContentHoverTypography'    => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Product Content', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'content', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'content' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edContent' => 'true',
+							),
+						),
+						'readMoreHoverTypography'          => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Read More', 'affiliatex' ),
+							'selector'       => $this->select_element( 'readmore' ) . ' .affx-readmore-btn:hover',
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'readmore' ) . ' .affx-readmore-btn' ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edContent'  => 'true',
+								'edReadMore' => 'true',
+							),
+						),
+						'ribbonContentHoverTypography'     => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Product Ribbon', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'ribbon', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'ribbon' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edRibbon' => 'true',
+							),
+						),
+						'numRatingHoverTypography'         => array(
+							'type'           => Group_Control_Typography::get_type(),
+							'label'          => __( 'Score Box', 'affiliatex' ),
+							'selector'       => $this->select_element( array( 'rating-number', ':hover' ) ),
+							'fields_options' => $this->get_sp_hover_typography_options( $this->select_element( 'rating-number' ) ),
+							'exclude'        => array( 'text_decoration' ),
+							'condition'      => array(
+								'edRatings'   => 'true',
+								'PricingType' => 'number',
+							),
+						),
+						'affx_sp_typography_tab_hover_end' => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_typography_tabs_end'      => array(
+							'type' => 'tabs_end',
+						),
 					),
 				),
 
@@ -1640,7 +2122,14 @@ trait SingleProductRenderTrait {
 					'label'  => __( 'Spacing', 'affiliatex' ),
 					'tab'    => Controls_Manager::TAB_STYLE,
 					'fields' => array(
-						'imagePadding'   => array(
+						'affx_sp_spacing_tabs'           => array(
+							'type' => 'tabs_start',
+						),
+						'affx_sp_spacing_tab_normal'     => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Normal', 'affiliatex' ),
+						),
+						'imagePadding'                   => array(
 							'label'      => __( 'Image Padding', 'affiliatex' ),
 							'type'       => Controls_Manager::DIMENSIONS,
 							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
@@ -1656,7 +2145,7 @@ trait SingleProductRenderTrait {
 								$this->select_element( 'image' ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 							),
 						),
-						'contentMargin'  => array(
+						'contentMargin'                  => array(
 							'label'      => __( 'Margin', 'affiliatex' ),
 							'type'       => Controls_Manager::DIMENSIONS,
 							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
@@ -1672,7 +2161,7 @@ trait SingleProductRenderTrait {
 								$this->select_element( 'wrapper' ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 							),
 						),
-						'contentSpacing' => array(
+						'contentSpacing'                 => array(
 							'label'      => __( 'Padding', 'affiliatex' ),
 							'type'       => Controls_Manager::DIMENSIONS,
 							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
@@ -1692,6 +2181,54 @@ trait SingleProductRenderTrait {
 								$this->select_element( 'wrapper' ) . '.product-layout-3 .affx-sp-inner' => 'padding-top: {{TOP}}{{UNIT}}; padding-right: {{RIGHT}}{{UNIT}}; padding-bottom: {{BOTTOM}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
 							),
 						),
+						'affx_sp_spacing_tab_normal_end' => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_spacing_tab_hover'      => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Hover', 'affiliatex' ),
+						),
+						'imageHoverPadding'              => array(
+							'label'      => __( 'Image Padding', 'affiliatex' ),
+							'type'       => Controls_Manager::DIMENSIONS,
+							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+							'selectors'  => array(
+								$this->select_element( array( 'wrapper', ':hover' ) ) . ' .affx-sp-img-wrapper' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+								$this->select_element( 'image' ) => $this->get_sp_hover_transition( array( 'padding' ) ),
+							),
+						),
+						'contentHoverMargin'             => array(
+							'label'      => __( 'Margin', 'affiliatex' ),
+							'type'       => Controls_Manager::DIMENSIONS,
+							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+							'selectors'  => array(
+								$this->select_element( array( 'wrapper', ':hover' ) ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) => $this->get_sp_hover_transition( array( 'margin' ) ),
+							),
+						),
+						'contentHoverSpacing'            => array(
+							'label'      => __( 'Padding', 'affiliatex' ),
+							'type'       => Controls_Manager::DIMENSIONS,
+							'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+							'selectors'  => array(
+								$this->select_element( 'wrapper' ) . '.product-layout-1:hover .affx-sp-content-wrapper' => 'padding-top: {{TOP}}{{UNIT}}; padding-right: {{RIGHT}}{{UNIT}}; padding-bottom: {{BOTTOM}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) . '.product-layout-2:hover .title-wrapper' => 'padding-top: {{TOP}}{{UNIT}}; padding-right: {{RIGHT}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) . '.product-layout-2:hover .affx-single-product-content' => 'padding-right: {{RIGHT}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) . '.product-layout-2:hover .button-wrapper' => 'padding-bottom: {{BOTTOM}}{{UNIT}}; padding-right: {{RIGHT}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) . '.product-layout-3:hover .affx-sp-inner' => 'padding-top: {{TOP}}{{UNIT}}; padding-right: {{RIGHT}}{{UNIT}}; padding-bottom: {{BOTTOM}}{{UNIT}}; padding-left: {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) . '.product-layout-1 .affx-sp-content-wrapper' => $this->get_sp_hover_transition( array( 'padding' ) ),
+								$this->select_element( 'wrapper' ) . '.product-layout-2 .title-wrapper' => $this->get_sp_hover_transition( array( 'padding' ) ),
+								$this->select_element( 'wrapper' ) . '.product-layout-2 .affx-single-product-content' => $this->get_sp_hover_transition( array( 'padding' ) ),
+								$this->select_element( 'wrapper' ) . '.product-layout-2 .button-wrapper' => $this->get_sp_hover_transition( array( 'padding' ) ),
+								$this->select_element( 'wrapper' ) . '.product-layout-3 .affx-sp-inner' => $this->get_sp_hover_transition( array( 'padding' ) ),
+							),
+						),
+						'affx_sp_spacing_tab_hover_end'  => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_spacing_tabs_end'       => array(
+							'type' => 'tabs_end',
+						),
 					),
 				),
 
@@ -1699,7 +2236,14 @@ trait SingleProductRenderTrait {
 					'label'  => __( 'Border', 'affiliatex' ),
 					'tab'    => Controls_Manager::TAB_STYLE,
 					'fields' => array(
-						'productBorder'            => array(
+						'affx_sp_border_tabs'           => array(
+							'type' => 'tabs_start',
+						),
+						'affx_sp_border_tab_normal'     => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Normal', 'affiliatex' ),
+						),
+						'productBorder'                 => array(
 							'type'           => \Elementor\Group_Control_Border::get_type(),
 							'name'           => 'productBorder',
 							'responsive'     => true,
@@ -1723,7 +2267,7 @@ trait SingleProductRenderTrait {
 								),
 							),
 						),
-						'productBorderRadius'      => array(
+						'productBorderRadius'           => array(
 							'label'      => esc_html__( 'Border Radius', 'affiliatex' ),
 							'type'       => Controls_Manager::DIMENSIONS,
 							'size_units' => array( 'px', '%', 'em', 'rem', 'custom' ),
@@ -1739,7 +2283,7 @@ trait SingleProductRenderTrait {
 								$this->select_element( 'wrapper' ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 							),
 						),
-						'productImageBorderRadius' => array(
+						'productImageBorderRadius'      => array(
 							'label'      => esc_html__( 'Image Border Radius', 'affiliatex' ),
 							'type'       => Controls_Manager::DIMENSIONS,
 							'size_units' => array( 'px', '%' ),
@@ -1759,7 +2303,7 @@ trait SingleProductRenderTrait {
 								'edProductImage' => 'true',
 							),
 						),
-						'productShadow'            => array(
+						'productShadow'                 => array(
 							'type'          => \Elementor\Group_Control_Box_Shadow::get_type(),
 							'name'          => 'productShadow',
 							'selector'      => $this->select_element( 'wrapper' ),
@@ -1778,6 +2322,54 @@ trait SingleProductRenderTrait {
 									),
 								),
 							),
+						),
+						'affx_sp_border_tab_normal_end' => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_border_tab_hover'      => array(
+							'type'  => 'tab_start',
+							'label' => __( 'Hover', 'affiliatex' ),
+						),
+						'productHoverBorder'            => array(
+							'type'           => \Elementor\Group_Control_Border::get_type(),
+							'name'           => 'productHoverBorder',
+							'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+							'fields_options' => array(
+								'color' => array(
+									'selectors' => array(
+										'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+										$this->select_element( 'wrapper' ) => $hover_transition,
+									),
+								),
+							),
+						),
+						'productHoverBorderRadius'      => array(
+							'label'      => esc_html__( 'Border Radius', 'affiliatex' ),
+							'type'       => Controls_Manager::DIMENSIONS,
+							'size_units' => array( 'px', '%', 'em', 'rem', 'custom' ),
+							'selectors'  => array(
+								$this->select_element( array( 'wrapper', ':hover' ) ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+								$this->select_element( 'wrapper' ) => $hover_transition,
+							),
+						),
+						'productHoverShadow'            => array(
+							'type'           => \Elementor\Group_Control_Box_Shadow::get_type(),
+							'name'           => 'productHoverShadow',
+							'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+							'fields_options' => array(
+								'box_shadow' => array(
+									'selectors' => array(
+										'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+										$this->select_element( 'wrapper' ) => $hover_transition,
+									),
+								),
+							),
+						),
+						'affx_sp_border_tab_hover_end'  => array(
+							'type' => 'tab_end',
+						),
+						'affx_sp_border_tabs_end'       => array(
+							'type' => 'tabs_end',
 						),
 					),
 				),
@@ -1981,6 +2573,7 @@ trait SingleProductRenderTrait {
 		}
 
 		$attributes                   = WidgetHelper::process_attributes( $attributes );
+		$attributes                   = $this->map_sp_visibility_attributes( $attributes );
 		$attributes['block_id']       = $this->get_id();
 		$attributes['ImgUrl']         = $settings['ImgUrl']['url'] ?? $settings['ImgUrl'];
 		$attributes['ratingStarSize'] = $attributes['ratingStarSize']['size'] ?? 25;
@@ -2026,6 +2619,17 @@ trait SingleProductRenderTrait {
 	public function render_sp_template( array $attributes, string $content = '' ): string {
 		$attributes = $this->parse_attributes( $attributes );
 		extract( $attributes );
+
+		// Markup classes always reflect the desktop value, per-device overrides come from the generated CSS.
+		$productImageAlign           = AffiliateX_Helpers::get_responsive_value( $productImageAlign ?? 'left' );
+		$productImageVerticalAlign   = AffiliateX_Helpers::get_responsive_value( $productImageVerticalAlign ?? 'top' );
+		$productImageHorizontalAlign = AffiliateX_Helpers::get_responsive_value( $productImageHorizontalAlign ?? 'center' );
+		$productStarRatingAlign      = AffiliateX_Helpers::get_responsive_value( $productStarRatingAlign ?? 'left' );
+		$productRatingAlign          = AffiliateX_Helpers::get_responsive_value( $productRatingAlign ?? 'right' );
+		$productPricingAlign         = AffiliateX_Helpers::get_responsive_value( $productPricingAlign ?? 'left' );
+		$ribbonAlign                 = AffiliateX_Helpers::get_responsive_value( $ribbonAlign ?? 'left' );
+		$ratingStarSize              = AffiliateX_Helpers::get_responsive_value( $ratingStarSize ?? 25 );
+		$buttonsGap                  = AffiliateX_Helpers::get_responsive_value( $buttonsGap ?? 10 );
 
 		if ( is_array( $productContentList ) && count( $productContentList ) > 0 && isset( $productContentList[0]['list'] ) && is_string( $productContentList[0]['list'] ) && has_shortcode( $productContentList[0]['list'], 'affiliatex-product' ) ) {
 			$shortcode_content = $productContentList[0]['list'];
@@ -2125,6 +2729,9 @@ trait SingleProductRenderTrait {
 		$buttonDirection = $buttonDirection ?? 'column';
 		$buttonsGap      = $buttonsGap ?? 10;
 
+		// Gutenberg gets per-device --button-gap from generated CSS, Elementor keeps the inline fallback.
+		$useInlineButtonGap = self::IS_ELEMENTOR;
+
 		$valid_valigns             = array( 'top', 'middle', 'bottom' );
 		$valid_haligns             = array( 'left', 'center', 'right' );
 		$imageVerticalAlignClass   = isset( $productImageVerticalAlign ) && in_array( $productImageVerticalAlign, $valid_valigns, true ) ? 'img-valign-' . $productImageVerticalAlign : '';
@@ -2178,6 +2785,16 @@ trait SingleProductRenderTrait {
 
 		$readmore_attrs = AffiliateX_Helpers::get_readmore_attrs( $readmore_config );
 		$readmore_btn   = AffiliateX_Helpers::get_readmore_btn( $edReadMore, $readMoreText ?? 'Read more', $readLessText ?? 'Read less' );
+
+		// Per-device visibility classes consumed by the layout partials.
+		$ribbonHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $ribbonHideOn ?? null );
+		$imageHideClass    = AffiliateX_Helpers::get_responsive_hide_classes( $imageHideOn ?? null );
+		$titleHideClass    = AffiliateX_Helpers::get_responsive_hide_classes( $titleHideOn ?? null );
+		$subtitleHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $subtitleHideOn ?? null );
+		$ratingHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $ratingHideOn ?? null );
+		$pricingHideClass  = AffiliateX_Helpers::get_responsive_hide_classes( $pricingHideOn ?? null );
+		$contentHideClass  = AffiliateX_Helpers::get_responsive_hide_classes( $contentHideOn ?? null );
+		$buttonHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $buttonHideOn ?? null );
 
 		ob_start();
 		// Directly include the template file instead of get_template_path() to make it work as child widget.

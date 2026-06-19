@@ -911,6 +911,146 @@
         }
       }
     },
+    "prosTitleHideOn": {
+      "type": "object",
+      "default": {}
+    },
+    "consTitleHideOn": {
+      "type": "object",
+      "default": {}
+    },
+    "prosContentHideOn": {
+      "type": "object",
+      "default": {}
+    },
+    "consContentHideOn": {
+      "type": "object",
+      "default": {}
+    },
+    "prosTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "consTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "prosListHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "consListHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "prosIconHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "consIconHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "prosBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "prosBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "prosBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "consBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "consBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "consBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "prosListBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "prosListBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "prosListBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "consListBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "consListBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "consListBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "titleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "listHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "titleHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "titleHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "prosHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "consHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "prosContentHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "consContentHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverShadow": {
+      "type": "object",
+      "default": {}
+    },
     "preview": {
       "type": "boolean",
       "default": false

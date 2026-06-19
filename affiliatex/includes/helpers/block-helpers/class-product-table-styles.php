@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Product Table Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Product_Table_Styles {
+class AffiliateX_Product_Table_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-pdt-table-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -24,26 +33,277 @@ class AffiliateX_Product_Table_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
-
-		$m_selectors = self::get_mobileselectors( $attr );
-
-		$t_selectors = self::get_tabletselectors( $attr );
-
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-pdt-table-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-pdt-table-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-pdt-table-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+	/**
+	 * Hover rules for the wave-4 hover attributes, mirrors product-table/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$typos = array(
+			$attr['ribbonHoverTypography'] ?? null,
+			$attr['counterHoverTypography'] ?? null,
+			$attr['priceHoverTypography'] ?? null,
+			$attr['buttonHoverTypography'] ?? null,
+			$attr['headerHoverTypography'] ?? null,
+			$attr['titleHoverTypography'] ?? null,
+			$attr['contentHoverTypography'] ?? null,
 		);
 
-		return $generated_css;
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['hoverMargin'] ?? null ) || HoverStyles::has_spacing_value( $attr['button1HoverMargin'] ?? null ) || HoverStyles::has_spacing_value( $attr['button2HoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['hoverPadding'] ?? null ) || HoverStyles::has_spacing_value( $attr['imageHoverPadding'] ?? null ) || HoverStyles::has_spacing_value( $attr['button1HoverPadding'] ?? null ) || HoverStyles::has_spacing_value( $attr['button2HoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		$ribbon_hover = array();
+
+		if ( ! empty( $attr['ribbonHoverColor'] ) && is_string( $attr['ribbonHoverColor'] ) ) {
+			$ribbon_hover['color'] = $attr['ribbonHoverColor'];
+		}
+
+		if ( ! empty( $attr['ribbonBgHoverColor'] ) && is_string( $attr['ribbonBgHoverColor'] ) ) {
+			$ribbon_hover['background'] = $attr['ribbonBgHoverColor'];
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper .affx-pdt-ribbon:hover::before', array( 'background' => $attr['ribbonBgHoverColor'] ) );
+		}
+
+		if ( ! empty( $ribbon_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper .affx-pdt-ribbon:hover', $ribbon_hover, array( ' .affx-pdt-table-wrapper .affx-pdt-ribbon' ) );
+		}
+
+		$counter_hover = array();
+
+		if ( ! empty( $attr['counterHoverColor'] ) && is_string( $attr['counterHoverColor'] ) ) {
+			$counter_hover['color'] = $attr['counterHoverColor'];
+		}
+
+		if ( ! empty( $attr['counterBgHoverColor'] ) && is_string( $attr['counterBgHoverColor'] ) ) {
+			$counter_hover['background'] = $attr['counterBgHoverColor'];
+		}
+
+		if ( ! empty( $counter_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper .affx-pdt-counter:hover', $counter_hover, array( ' .affx-pdt-table-wrapper .affx-pdt-counter' ) );
+		}
+
+		if ( ! empty( $attr['priceHoverColor'] ) && is_string( $attr['priceHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper .affx-pdt-price-wrap:hover', array( 'color' => $attr['priceHoverColor'] ), array( ' .affx-pdt-table-wrapper .affx-pdt-price-wrap' ) );
+		}
+
+		$header_hover = array();
+
+		if ( ! empty( $attr['tableHeaderHoverColor'] ) && is_string( $attr['tableHeaderHoverColor'] ) ) {
+			$header_hover['color'] = $attr['tableHeaderHoverColor'];
+		}
+
+		if ( ! empty( $attr['tableHeaderBgHoverColor'] ) && is_string( $attr['tableHeaderBgHoverColor'] ) ) {
+			$header_hover['background']   = $attr['tableHeaderBgHoverColor'];
+			$header_hover['border-color'] = $attr['tableHeaderBgHoverColor'];
+		}
+
+		if ( ! empty( $header_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper .affx-pdt-table thead td:hover', $header_hover, array( ' .affx-pdt-table-wrapper .affx-pdt-table thead td' ) );
+		}
+
+		if ( ! empty( $attr['titleHoverColor'] ) && is_string( $attr['titleHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper .affx-pdt-name:hover', array( 'color' => $attr['titleHoverColor'] ), array( ' .affx-pdt-table-wrapper .affx-pdt-name' ) );
+		}
+
+		if ( ! empty( $attr['contentHoverColor'] ) && is_string( $attr['contentHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper p:hover', array( 'color' => $attr['contentHoverColor'] ), array( ' .affx-pdt-table-wrapper p' ) );
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper li:hover', array( 'color' => $attr['contentHoverColor'] ), array( ' .affx-pdt-table-wrapper li' ) );
+		}
+
+		$container_bg_hover = HoverStyles::get_background_styles(
+			$attr['bgHoverType'] ?? '',
+			$attr['bgType'] ?? '',
+			$attr['bgHoverColor'] ?? '',
+			$attr['bgHoverGradient'] ?? ''
+		);
+
+		$container_hover = $container_bg_hover;
+		$container_hover = array_merge( $container_hover, HoverStyles::get_border_styles( $attr['hoverBorder'] ?? null ) );
+		$container_hover = array_merge( $container_hover, HoverStyles::get_shadow_styles( $attr['hoverShadow'] ?? null ) );
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['hoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$container_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $container_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-wrapper:hover', $container_hover, array( ' .affx-pdt-table-wrapper' ) );
+			self::set_hover( $buckets, $transition, ' .affx-pdt-table-single:hover', $container_hover, array( ' .affx-pdt-table-single' ) );
+
+			if ( ! empty( $container_bg_hover ) ) {
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper:hover .affx-pdt-table', $container_bg_hover );
+			}
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['hoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-wrapper:hover', array( 'border-radius' => $radius ) );
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-single:hover', array( 'border-radius' => $radius ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper', array( 'transition' => $transition ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-single', array( 'transition' => $transition ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$margin_hover = HoverStyles::get_spacing_styles( $attr['hoverMargin'] ?? null, $device, 'margin' );
+
+			if ( ! empty( $margin_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-wrapper:hover', $margin_hover );
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-single:hover', $margin_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper', array( 'transition' => $transition ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-single', array( 'transition' => $transition ) );
+			}
+
+			$padding_hover = HoverStyles::get_spacing_styles( $attr['hoverPadding'] ?? null, $device, 'padding' );
+
+			if ( ! empty( $padding_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-wrapper:hover td', $padding_hover );
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-wrapper:hover th', $padding_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper td', array( 'transition' => $transition ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper th', array( 'transition' => $transition ) );
+			}
+
+			$image_padding_hover = HoverStyles::get_spacing_styles( $attr['imageHoverPadding'] ?? null, $device, 'padding' );
+
+			if ( ! empty( $image_padding_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-pdt-table-wrapper .affx-pdt-img-container:hover', $image_padding_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-pdt-table-wrapper .affx-pdt-img-container', array( 'transition' => $transition ) );
+			}
+		}
+
+		$button_hover_rules = array(
+			array(
+				'selector'      => ' .affx-pdt-table-wrapper .affiliatex-button.primary',
+				'hover_border'  => $attr['button1HoverBorder'] ?? null,
+				'hover_radius'  => $attr['button1HoverBorderRadius'] ?? null,
+				'hover_shadow'  => $attr['button1HoverShadow'] ?? null,
+				'hover_margin'  => $attr['button1HoverMargin'] ?? null,
+				'hover_padding' => $attr['button1HoverPadding'] ?? null,
+			),
+			array(
+				'selector'      => ' .affx-pdt-table-wrapper .affiliatex-button.secondary',
+				'hover_border'  => $attr['button2HoverBorder'] ?? null,
+				'hover_radius'  => $attr['button2HoverBorderRadius'] ?? null,
+				'hover_shadow'  => $attr['button2HoverShadow'] ?? null,
+				'hover_margin'  => $attr['button2HoverMargin'] ?? null,
+				'hover_padding' => $attr['button2HoverPadding'] ?? null,
+			),
+		);
+
+		foreach ( $button_hover_rules as $button ) {
+			$button_hover = HoverStyles::get_border_styles( $button['hover_border'], false );
+			$button_hover = array_merge( $button_hover, HoverStyles::get_shadow_styles( $button['hover_shadow'] ) );
+
+			$has_button_hover = ! empty( $button_hover );
+
+			HoverStyles::merge_selector( $buckets['desktop'], $button['selector'] . ':hover', $button_hover );
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$radius = HoverStyles::get_radius_value( $button['hover_radius'], $device );
+
+				if ( '' !== $radius ) {
+					$has_button_hover = true;
+					HoverStyles::merge_selector( $buckets[ $device ], $button['selector'] . ':hover', array( 'border-radius' => $radius ) );
+				}
+
+				$spacing_hover = array_merge(
+					HoverStyles::get_spacing_styles( $button['hover_margin'], $device, 'margin' ),
+					HoverStyles::get_spacing_styles( $button['hover_padding'], $device, 'padding' )
+				);
+
+				if ( ! empty( $spacing_hover ) ) {
+					$has_button_hover = true;
+					HoverStyles::merge_selector( $buckets[ $device ], $button['selector'] . ':hover', $spacing_hover );
+				}
+			}
+
+			if ( $has_button_hover ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $button['selector'], array( 'transition' => $transition ) );
+			}
+		}
+
+		$typography_rules = array(
+			array(
+				'typography' => $attr['ribbonHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affx-pdt-ribbon',
+				'hover'      => ' .affx-pdt-table-wrapper .affx-pdt-ribbon:hover',
+			),
+			array(
+				'typography' => $attr['counterHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affx-pdt-counter',
+				'hover'      => ' .affx-pdt-table-wrapper .affx-pdt-counter:hover',
+			),
+			array(
+				'typography' => $attr['priceHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affx-pdt-price-wrap',
+				'hover'      => ' .affx-pdt-table-wrapper .affx-pdt-price-wrap:hover',
+			),
+			array(
+				'typography' => $attr['buttonHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affiliatex-button',
+				'hover'      => ' .affx-pdt-table-wrapper .affiliatex-button:hover',
+			),
+			array(
+				'typography' => $attr['headerHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affx-pdt-table thead td',
+				'hover'      => ' .affx-pdt-table-wrapper .affx-pdt-table thead td:hover',
+			),
+			array(
+				'typography' => $attr['titleHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper .affx-pdt-name',
+				'hover'      => ' .affx-pdt-table-wrapper .affx-pdt-name:hover',
+			),
+			array(
+				'typography' => $attr['contentHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper p',
+				'hover'      => ' .affx-pdt-table-wrapper p:hover',
+			),
+			array(
+				'typography' => $attr['contentHoverTypography'] ?? null,
+				'base'       => ' .affx-pdt-table-wrapper li',
+				'hover'      => ' .affx-pdt-table-wrapper li:hover',
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( empty( $styles ) ) {
+					continue;
+				}
+
+				$has_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {

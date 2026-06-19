@@ -81,6 +81,11 @@ trait ProsAndConsRenderTrait {
 		$attributes = $this->parse_attributes( $attributes );
 		extract( $attributes );
 
+		$prosTitleHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['prosTitleHideOn'] ?? null );
+		$consTitleHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['consTitleHideOn'] ?? null );
+		$prosContentHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['prosContentHideOn'] ?? null );
+		$consContentHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['consContentHideOn'] ?? null );
+
 		if ( self::IS_ELEMENTOR ) {
 			// Elementor Context.
 			$wrapper_attributes = sprintf(

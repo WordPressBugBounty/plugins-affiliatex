@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit; if ( $edPricing ) : ?>
-	<div class="affx-sp-price pricing-align-<?php echo esc_attr( $productPricingAlign ); ?>">
+	<div class="affx-sp-price pricing-align-<?php echo esc_attr( $productPricingAlign ); ?> <?php echo esc_attr( $pricingHideClass ?? '' ); ?>">
 		<div class="affx-sp-marked-price">
 			<?php echo wp_kses_post( $productSalePrice ); ?>
 		</div>

@@ -15,6 +15,8 @@ defined( 'ABSPATH' ) || exit;
  */
 trait CtaRenderTrait {
 
+	use ElementorVisibilityTrait;
+
 	/**
 	 * Child button 1 config
 	 *
@@ -109,6 +111,10 @@ trait CtaRenderTrait {
 	protected function render(): void {
 		$attributes             = $this->get_settings_for_display();
 		$attributes             = WidgetHelper::process_attributes( $attributes );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_cta_title', 'titleHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_cta_content', 'contentHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_cta_buttons', 'buttonsHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_cta_image', 'imageHideOn' );
 		$attributes['block_id'] = $this->get_id();
 
 		$button1 = '';
@@ -195,6 +201,13 @@ trait CtaRenderTrait {
 		} elseif ( isset( $attributes['useExternalImage'] ) && $attributes['useExternalImage'] && ! empty( $attributes['ctaExternalBgImage'] ) ) {
 			$inlineImageWrapperStyles = 'style="background-image: url(' . esc_url( $attributes['ctaExternalBgImage'] ) . ')"';
 		}
+
+		$ctaButtonAlignment = AffiliateX_Helpers::get_responsive_value( $ctaButtonAlignment ?? 'center' );
+
+		$titleHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$contentHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['contentHideOn'] ?? null );
+		$buttonsHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['buttonsHideOn'] ?? null );
+		$imageHideClass   = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['imageHideOn'] ?? null );
 
 		$classes = implode( ' ', array( esc_attr( $layoutClass ), esc_attr( $ctaAlignment ), esc_attr( $columnReverseClass ), esc_attr( $bgClass ) ) );
 

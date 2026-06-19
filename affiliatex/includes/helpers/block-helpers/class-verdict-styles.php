@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Verdict Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Verdict_Styles {
+class AffiliateX_Verdict_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-verdict-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -17,26 +26,187 @@ class AffiliateX_Verdict_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Per-device rules for the promoted attributes, mirrors styling.js. Scalars keep the legacy desktop-only output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			if ( HoverStyles::is_responsive( $attr['contentAlignment'] ?? null ) ) {
+				$align = AffiliateX_Helpers::get_responsive_value( $attr['contentAlignment'], $device );
 
-		$m_selectors = self::get_mobileselectors( $attr );
+				if ( is_string( $align ) && '' !== $align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], '.wp-block-affiliatex-verdict .verdict-layout-2', array( 'text-align' => $align ) );
+				}
+			}
 
-		$t_selectors = self::get_tabletselectors( $attr );
+			if ( HoverStyles::is_responsive( $attr['ratingAlignment'] ?? null ) ) {
+				$rating_align = AffiliateX_Helpers::get_responsive_value( $attr['ratingAlignment'], $device );
 
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-verdict-style-' . $id );
+				HoverStyles::merge_selector(
+					$buckets[ $device ],
+					'.wp-block-affiliatex-verdict .verdict-layout-1 .main-text-holder',
+					array(
+						'flex-direction'  => 'left' === $rating_align ? 'row-reverse' : 'row',
+						'justify-content' => 'left' === $rating_align ? 'flex-end' : 'space-between',
+					)
+				);
+			}
+		}
+	}
 
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-verdict-style-' . $id );
+	/**
+	 * Hover rules for the wave-3 hover attributes, mirrors verdict/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$wrap      = ' .affblk-verdict-wrapper';
+		$score_box = '.wp-block-affiliatex-verdict .verdict-layout-1 .affx-verdict-rating-number';
 
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-verdict-style-' . $id );
+		$typos  = array( $attr['verdictTitleHoverTypography'] ?? null, $attr['verdictContentHoverTypography'] ?? null );
+		$extras = array();
 
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['verdictHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['verdictHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		if ( ! empty( $attr['verdictTitleHoverColor'] ) && is_string( $attr['verdictTitleHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				'.wp-block-affiliatex-verdict .verdict-title:hover',
+				array( 'color' => $attr['verdictTitleHoverColor'] ),
+				array( '.wp-block-affiliatex-verdict .verdict-title' )
+			);
+		}
+
+		if ( ! empty( $attr['verdictContentHoverColor'] ) && is_string( $attr['verdictContentHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				'.wp-block-affiliatex-verdict .verdict-content:hover',
+				array( 'color' => $attr['verdictContentHoverColor'] ),
+				array( '.wp-block-affiliatex-verdict .verdict-content' )
+			);
+		}
+
+		if ( ! empty( $attr['verdictArrowHoverColor'] ) && is_string( $attr['verdictArrowHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				'.wp-block-affiliatex-verdict .verdict-layout-2.display-arrow .affx-btn-inner .affiliatex-button:hover::after',
+				array( 'background' => $attr['verdictArrowHoverColor'] ),
+				array( '.wp-block-affiliatex-verdict .verdict-layout-2.display-arrow .affx-btn-inner .affiliatex-button::after' )
+			);
+		}
+
+		if ( ! empty( $attr['scoreTextHoverColor'] ) && is_string( $attr['scoreTextHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, $score_box . ':hover', array( 'color' => $attr['scoreTextHoverColor'] ), array( $score_box ) );
+			self::set_hover( $buckets, $transition, $score_box . ':hover .num', array( 'color' => $attr['scoreTextHoverColor'] ), array( '.wp-block-affiliatex-verdict .verdict-layout-1 .num' ) );
+			self::set_hover( $buckets, $transition, $score_box . ':hover .rich-content', array( 'color' => $attr['scoreTextHoverColor'] ), array( '.wp-block-affiliatex-verdict .verdict-layout-1 .rich-content' ) );
+		}
+
+		if ( ! empty( $attr['scoreBgTopHoverColor'] ) && is_string( $attr['scoreBgTopHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, $score_box . ':hover .num', array( 'background-color' => $attr['scoreBgTopHoverColor'] ), array( '.wp-block-affiliatex-verdict .verdict-layout-1 .num' ) );
+		}
+
+		if ( ! empty( $attr['scoreBgBotHoverColor'] ) && is_string( $attr['scoreBgBotHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, $score_box . ':hover .rich-content', array( 'background-color' => $attr['scoreBgBotHoverColor'] ), array( '.wp-block-affiliatex-verdict .verdict-layout-1 .rich-content' ) );
+			self::set_hover( $buckets, $transition, $score_box . ':hover .rich-content::after', array( 'border-top' => '5px solid ' . $attr['scoreBgBotHoverColor'] ), array() );
+		}
+
+		$wrapper_hover = HoverStyles::get_background_styles(
+			$attr['verdictBgHoverType'] ?? '',
+			$attr['verdictBgType'] ?? '',
+			$attr['verdictBgHoverColor'] ?? '',
+			$attr['verdictBgHoverGradient'] ?? ''
 		);
 
-		return $generated_css;
+		$wrapper_hover = array_merge( $wrapper_hover, HoverStyles::get_border_styles( $attr['verdictHoverBorder'] ?? null ) );
+		$wrapper_hover = array_merge( $wrapper_hover, HoverStyles::get_shadow_styles( $attr['verdictHoverShadow'] ?? null ) );
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['verdictHoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$wrapper_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $wrapper_hover ) ) {
+			self::set_hover( $buckets, $transition, $wrap . ':hover', $wrapper_hover, array( $wrap ) );
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['verdictHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], $wrap . ':hover', array( 'border-radius' => $radius ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$spacing_hover = array_merge(
+				HoverStyles::get_spacing_styles( $attr['verdictHoverPadding'] ?? null, $device, 'padding' ),
+				HoverStyles::get_spacing_styles( $attr['verdictHoverMargin'] ?? null, $device, 'margin' )
+			);
+
+			HoverStyles::merge_selector( $buckets[ $device ], $wrap . ':hover', $spacing_hover );
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['verdictHoverMargin'] ?? null ) || HoverStyles::has_spacing_value( $attr['verdictHoverPadding'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], $wrap, array( 'transition' => $transition ) );
+		}
+
+		$typography_rules = array(
+			array(
+				'typography' => $attr['verdictTitleHoverTypography'] ?? null,
+				'base'       => '.wp-block-affiliatex-verdict .verdict-title',
+				'hover'      => '.wp-block-affiliatex-verdict .verdict-title:hover',
+			),
+			array(
+				'typography' => $attr['verdictContentHoverTypography'] ?? null,
+				'base'       => '.wp-block-affiliatex-verdict .verdict-content',
+				'hover'      => '.wp-block-affiliatex-verdict .verdict-content:hover',
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( empty( $styles ) ) {
+					continue;
+				}
+
+				$has_styles = true;
+				HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {
@@ -69,7 +239,7 @@ class AffiliateX_Verdict_Styles {
 				'background'     => $bgType && $bgType === 'solid' ? $bgColor : $bgGradient,
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-2' => array(
-				'text-align' => isset( $attr['contentAlignment'] ) ? $attr['contentAlignment'] : 'center',
+				'text-align' => isset( $attr['contentAlignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['contentAlignment'] ) : 'center',
 			),
 			'.wp-block-affiliatex-verdict .verdict-title' => array(
 				'color'           => isset( $attr['verdictTitleColor'] ) ? $attr['verdictTitleColor'] : '#060C0E',
@@ -106,8 +276,8 @@ class AffiliateX_Verdict_Styles {
 				'background-color' => isset( $attr['scoreBgTopColor'] ) ? $attr['scoreBgTopColor'] : '#00B0B0',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .main-text-holder' => array(
-				'flex-direction'  => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] !== 'left' ? 'row' : 'row-reverse',
-				'justify-content' => isset( $attr['ratingAlignment'] ) && $attr['ratingAlignment'] !== 'left' ? 'space-between' : 'flex-end',
+				'flex-direction'  => isset( $attr['ratingAlignment'] ) && AffiliateX_Helpers::get_responsive_value( $attr['ratingAlignment'] ) !== 'left' ? 'row' : 'row-reverse',
+				'justify-content' => isset( $attr['ratingAlignment'] ) && AffiliateX_Helpers::get_responsive_value( $attr['ratingAlignment'] ) !== 'left' ? 'space-between' : 'flex-end',
 			),
 			'.wp-block-affiliatex-verdict .verdict-layout-1 .affx-verdict-rating-number' => array(
 				'color' => isset( $attr['scoreTextColor'] ) ? $attr['scoreTextColor'] : '#FFFFFF',

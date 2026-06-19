@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Pros and Cons Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Pros_and_Cons_Styles {
+class AffiliateX_Pros_and_Cons_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-pros-cons-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -17,26 +26,90 @@ class AffiliateX_Pros_and_Cons_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Hover rules for the wave-5 hover attributes, mirrors pros-and-cons/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$hover_root = ' .affx-pros-cons-inner-wrapper:hover';
 
-		$m_selectors = self::get_mobileselectors( $attr );
+		$color_rule = static function ( string $selector, $value ) use ( &$buckets ): void {
+			if ( is_string( $value ) && '' !== $value ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $selector, array( 'color' => $value ) );
+			}
+		};
 
-		$t_selectors = self::get_tabletselectors( $attr );
+		$color_rule( $hover_root . ' .affiliatex-block-pros .affiliatex-title', $attr['prosTextHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-block-cons .affiliatex-title', $attr['consTextHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-pros p', $attr['prosListHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-pros li', $attr['prosListHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-cons p', $attr['consListHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-cons li', $attr['consListHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-block-pros > i', $attr['prosIconHoverColor'] ?? '' );
+		$color_rule( $hover_root . ' .affiliatex-block-cons > i', $attr['consIconHoverColor'] ?? '' );
 
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-pros-cons-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-pros-cons-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-pros-cons-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+		HoverStyles::merge_selector(
+			$buckets['desktop'],
+			$hover_root . ' .affiliatex-block-pros',
+			HoverStyles::get_background_styles( $attr['prosBgHoverType'] ?? '', $attr['prosBgType'] ?? '', $attr['prosBgHoverColor'] ?? '', $attr['prosBgHoverGradient'] ?? '' )
+		);
+		HoverStyles::merge_selector(
+			$buckets['desktop'],
+			$hover_root . ' .affiliatex-block-cons',
+			HoverStyles::get_background_styles( $attr['consBgHoverType'] ?? '', $attr['consBgType'] ?? '', $attr['consBgHoverColor'] ?? '', $attr['consBgHoverGradient'] ?? '' )
+		);
+		HoverStyles::merge_selector(
+			$buckets['desktop'],
+			$hover_root . ' .affiliatex-pros',
+			HoverStyles::get_background_styles( $attr['prosListBgHoverType'] ?? '', $attr['prosListBgType'] ?? '', $attr['prosListBgHoverColor'] ?? '', $attr['prosListBgHoverGradient'] ?? '' )
+		);
+		HoverStyles::merge_selector(
+			$buckets['desktop'],
+			$hover_root . ' .affiliatex-cons',
+			HoverStyles::get_background_styles( $attr['consListBgHoverType'] ?? '', $attr['consListBgType'] ?? '', $attr['consListBgHoverColor'] ?? '', $attr['consListBgHoverGradient'] ?? '' )
 		);
 
-		return $generated_css;
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$title_typo = HoverStyles::get_typography_styles( $attr['titleHoverTypography'] ?? null, $device );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-pros .affiliatex-title', $title_typo );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-cons .affiliatex-title', $title_typo );
+
+			$list_typo = HoverStyles::get_typography_styles( $attr['listHoverTypography'] ?? null, $device );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-pros p', $list_typo );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-pros li', $list_typo );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-cons p', $list_typo );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-cons li', $list_typo );
+
+			$title_margin  = HoverStyles::get_spacing_styles( $attr['titleHoverMargin'] ?? null, $device, 'margin' );
+			$title_padding = HoverStyles::get_spacing_styles( $attr['titleHoverPadding'] ?? null, $device, 'padding' );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-pros', $title_margin );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-cons', $title_margin );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-pros', $title_padding );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-block-cons', $title_padding );
+
+			$content_margin  = HoverStyles::get_spacing_styles( $attr['contentHoverMargin'] ?? null, $device, 'margin' );
+			$content_padding = HoverStyles::get_spacing_styles( $attr['contentHoverPadding'] ?? null, $device, 'padding' );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-pros', $content_margin );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-cons', $content_margin );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-pros', $content_padding );
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root . ' .affiliatex-cons', $content_padding );
+
+			$wrapper_spacing = array_merge(
+				HoverStyles::get_spacing_styles( $attr['hoverMargin'] ?? null, $device, 'margin' ),
+				HoverStyles::get_spacing_styles( $attr['hoverPadding'] ?? null, $device, 'padding' )
+			);
+			HoverStyles::merge_selector( $buckets[ $device ], $hover_root, $wrapper_spacing );
+		}
+
+		HoverStyles::merge_selector( $buckets['desktop'], $hover_root . ' .affiliatex-block-pros', HoverStyles::get_border_styles( $attr['prosHoverBorder'] ?? null ) );
+		HoverStyles::merge_selector( $buckets['desktop'], $hover_root . ' .affiliatex-block-cons', HoverStyles::get_border_styles( $attr['consHoverBorder'] ?? null ) );
+		HoverStyles::merge_selector( $buckets['desktop'], $hover_root . ' .affiliatex-pros', HoverStyles::get_border_styles( $attr['prosContentHoverBorder'] ?? null ) );
+		HoverStyles::merge_selector( $buckets['desktop'], $hover_root . ' .affiliatex-cons', HoverStyles::get_border_styles( $attr['consContentHoverBorder'] ?? null ) );
+
+		HoverStyles::merge_selector( $buckets['desktop'], $hover_root, HoverStyles::get_shadow_styles( $attr['hoverShadow'] ?? null ) );
 	}
 
 	public static function get_selectors( $attr ) {

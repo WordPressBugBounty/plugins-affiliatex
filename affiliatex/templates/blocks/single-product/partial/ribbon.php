@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) || exit; if ( $edRibbon ) : ?>
-	<div class="affx-sp-ribbon<?php echo esc_attr( $ribbonLayout ); ?>
+	<div class="affx-sp-ribbon<?php echo esc_attr( $ribbonLayout ); ?> <?php echo esc_attr( $ribbonHideClass ?? '' ); ?>
 	<?php
 	if ( $ribbonAlign !== 3 ) {
 		echo 'ribbon-align-' . esc_attr( $ribbonAlign ); }

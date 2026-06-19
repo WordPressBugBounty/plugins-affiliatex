@@ -150,6 +150,7 @@ class AffiliateX_Helpers {
 			'unorderedType' => 'icon',
 			'listItems'     => array(),
 			'iconName'      => '',
+			'wrapperClass'  => '',
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -158,6 +159,10 @@ class AffiliateX_Helpers {
 		$wrapperClasses    = array( 'affiliatex-list' );
 		$wrapperClasses[] .= 'affiliatex-list-type-' . $listType;
 		$wrapperClasses[] .= $unorderedType === 'icon' ? 'afx-icon-list' : 'bullet';
+
+		if ( is_string( $wrapperClass ) && '' !== $wrapperClass ) {
+			$wrapperClasses[] = $wrapperClass;
+		}
 
 		// Parse Amazon shortcode if listItems is a string.
 		if ( is_string( $listItems ) ) {
@@ -468,5 +473,66 @@ class AffiliateX_Helpers {
 			esc_attr( $read_less_text ),
 			esc_html( $read_more_text )
 		);
+	}
+
+	/**
+	 * Resolve a responsive attribute value for a device, legacy scalars pass through.
+	 *
+	 * Cascade: empty tablet inherits desktop, empty mobile inherits tablet.
+	 *
+	 * @param mixed  $value Scalar or {desktop,tablet,mobile} object.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return mixed
+	 */
+	public static function get_responsive_value( $value, string $device = 'desktop' ) {
+		if ( ! is_array( $value ) || ! array_key_exists( 'desktop', $value ) ) {
+			return $value;
+		}
+
+		$desktop = $value['desktop'];
+		$tablet  = self::is_empty_device_value( $value['tablet'] ?? null ) ? $desktop : $value['tablet'];
+		$mobile  = self::is_empty_device_value( $value['mobile'] ?? null ) ? $tablet : $value['mobile'];
+
+		if ( 'tablet' === $device ) {
+			return $tablet;
+		}
+
+		if ( 'mobile' === $device ) {
+			return $mobile;
+		}
+
+		return $desktop;
+	}
+
+	/**
+	 * Whether a per-device value should inherit from the larger device.
+	 *
+	 * @param mixed $value Device value.
+	 * @return bool
+	 */
+	private static function is_empty_device_value( $value ): bool {
+		return null === $value || '' === $value;
+	}
+
+	/**
+	 * Build affx-hide-* classes from a {desktop,tablet,mobile} visibility attribute.
+	 *
+	 * @param mixed $hide_on Visibility attribute value, may be missing on old content.
+	 * @return string Space separated classes, empty string when nothing is hidden.
+	 */
+	public static function get_responsive_hide_classes( $hide_on ): string {
+		if ( ! is_array( $hide_on ) ) {
+			return '';
+		}
+
+		$classes = array();
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			if ( ! empty( $hide_on[ $device ] ) && 'false' !== $hide_on[ $device ] ) {
+				$classes[] = 'affx-hide-' . $device;
+			}
+		}
+
+		return implode( ' ', $classes );
 	}
 }

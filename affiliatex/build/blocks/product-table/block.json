@@ -908,6 +908,170 @@
         }
       }
     },
+    "productNameHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "button1HideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "button2HideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "ribbonHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "ribbonBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "counterHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "counterBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "priceHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "tableHeaderHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "tableHeaderBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "titleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "contentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "bgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "ribbonHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "counterHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "priceHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "headerHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "titleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "imageHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "button1HoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "button1HoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "button2HoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "button2HoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "hoverShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "button1HoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "button1HoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "button1HoverShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "button2HoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "button2HoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "button2HoverShadow": {
+      "type": "object",
+      "default": {}
+    },
     "preview": {
       "type": "boolean",
       "default": false

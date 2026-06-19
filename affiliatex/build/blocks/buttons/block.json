@@ -224,7 +224,10 @@
       }
     },
     "buttonAlignment": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "flex-start"
     },
     "buttonShadow": {
@@ -242,7 +245,10 @@
       }
     },
     "buttonIconSize": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "18px"
     },
     "buttonIconColor": {
@@ -258,7 +264,10 @@
       "default": false
     },
     "buttonFixWidth": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "100px"
     },
     "ButtonIcon": {
@@ -287,6 +296,62 @@
     "priceBackgroundColor": {
       "type": "string",
       "default": "#ffff"
+    },
+    "priceTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "priceBackgroundHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "buttonHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "buttonHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "iconHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "priceTagHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
     },
     "preview": {
       "type": "boolean",

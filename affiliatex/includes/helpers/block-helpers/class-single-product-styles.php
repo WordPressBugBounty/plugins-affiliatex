@@ -10,6 +10,8 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
 
 class AffiliateX_Single_Product_Styles {
 
+	private const HOVER_TRANSITION = 'color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease';
+
 	public static function block_fonts( $attr ) {
 		return array(
 			'productTitleTypography'    => isset( $attr['productTitleTypography'] ) ? $attr['productTitleTypography'] : array(),
@@ -28,6 +30,24 @@ class AffiliateX_Single_Product_Styles {
 		$m_selectors = self::get_mobileselectors( $attr );
 
 		$t_selectors = self::get_tabletselectors( $attr );
+
+		self::apply_responsive_selectors( $selectors, $attr, 'desktop' );
+		self::apply_responsive_selectors( $t_selectors, $attr, 'tablet' );
+		self::apply_responsive_selectors( $m_selectors, $attr, 'mobile' );
+
+		$hover_transition = self::get_hover_transition_value( $attr );
+
+		self::apply_hover_selectors( $selectors, $attr, $hover_transition );
+		self::apply_hover_radius( $t_selectors, $attr, 'tablet' );
+		self::apply_hover_radius( $m_selectors, $attr, 'mobile' );
+
+		self::apply_hover_typography( $selectors, $attr, 'desktop', $hover_transition );
+		self::apply_hover_typography( $t_selectors, $attr, 'tablet', $hover_transition );
+		self::apply_hover_typography( $m_selectors, $attr, 'mobile', $hover_transition );
+
+		self::apply_hover_spacing( $selectors, $attr, 'desktop', $hover_transition );
+		self::apply_hover_spacing( $t_selectors, $attr, 'tablet', $hover_transition );
+		self::apply_hover_spacing( $m_selectors, $attr, 'mobile', $hover_transition );
 
 		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-single-product-style-' . $id );
 
@@ -99,7 +119,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productTitleTypography']['text-transform'] ) ? $attr['productTitleTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productTitleTypography']['text-decoration'] ) ? $attr['productTitleTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productTitleTypography']['letter-spacing']['desktop'] ) ? $attr['productTitleTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productTitleAlign'] ) ? $attr['productTitleAlign'] : 'left',
 				'color'           => isset( $attr['productTitleColor'] ) ? $attr['productTitleColor'] : '#060c0e',
 
 			),
@@ -112,7 +131,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productSubtitleTypography']['text-transform'] ) ? $attr['productSubtitleTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productSubtitleTypography']['text-decoration'] ) ? $attr['productSubtitleTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productSubtitleTypography']['letter-spacing']['desktop'] ) ? $attr['productSubtitleTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productSubtitleAlign'] ) ? $attr['productSubtitleAlign'] : 'left',
 				'color'           => isset( $attr['productSubtitleColor'] ) ? $attr['productSubtitleColor'] : '#A3ACBF',
 			),
 			' .affx-single-product-content'            => array(
@@ -124,7 +142,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content p'          => array(
@@ -136,7 +153,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content ul li'      => array(
@@ -148,7 +164,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content ol li'      => array(
@@ -160,7 +175,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['productContentTypography']['text-transform'] ) ? $attr['productContentTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['productContentTypography']['text-decoration'] ) ? $attr['productContentTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['productContentTypography']['letter-spacing']['desktop'] ) ? $attr['productContentTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content' => isset( $attr['productContentAlign'] ) ? $attr['productContentAlign'] : 'left',
 				'color'           => isset( $attr['productContentColor'] ) ? $attr['productContentColor'] : $global_font_color,
 			),
 			' .affx-single-product-content .affx-readmore-btn' => array(
@@ -193,12 +207,6 @@ class AffiliateX_Single_Product_Styles {
 				'text-transform'  => isset( $attr['pricingTypography']['text-transform'] ) ? $attr['pricingTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['pricingTypography']['text-decoration'] ) ? $attr['pricingTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['pricingTypography']['letter-spacing']['desktop'] ) ? $attr['pricingTypography']['letter-spacing']['desktop'] : '0em',
-			),
-			' .affx-single-product-wrapper.product-layout-1 .affx-sp-img-wrapper' => array(
-				'flex' => isset( $attr['productImageWidth'] ) && $attr['productImageWidth'] === 'custom' && isset( $attr['productImageCustomWidth'] ) ? '0 0 ' . $attr['productImageCustomWidth'] . '%' : '',
-			),
-			' .affx-single-product-wrapper.product-layout-3 .affx-sp-img-wrapper' => array(
-				'flex' => isset( $attr['productImageWidth'] ) && $attr['productImageWidth'] === 'custom' && isset( $attr['productImageCustomWidth'] ) ? '0 0 ' . $attr['productImageCustomWidth'] . '%' : '',
 			),
 			' .affx-single-product-wrapper.product-layout-3 .affx-sp-content-wrapper' => array(
 				'padding' => '0 0 0 0',
@@ -619,5 +627,791 @@ class AffiliateX_Single_Product_Styles {
 			),
 		);
 		return $tablet_selectors;
+	}
+
+	/**
+	 * Merge styles into a selector bucket without dropping existing properties.
+	 *
+	 * @param array  $selectors Selector bucket, by reference.
+	 * @param string $selector CSS selector key.
+	 * @param array  $styles Property => value pairs.
+	 * @return void
+	 */
+	private static function merge_selector( array &$selectors, string $selector, array $styles ): void {
+		$selectors[ $selector ] = array_merge( $selectors[ $selector ] ?? array(), $styles );
+	}
+
+	/**
+	 * Map alignment keywords to flexbox values, mirrors FLEX_ALIGN_MAP in styling.js.
+	 *
+	 * @param mixed $value Alignment keyword.
+	 * @return string
+	 */
+	private static function get_flex_align( $value ): string {
+		$map = array(
+			'left'   => 'flex-start',
+			'top'    => 'flex-start',
+			'center' => 'center',
+			'middle' => 'center',
+			'right'  => 'flex-end',
+			'bottom' => 'flex-end',
+		);
+
+		return is_string( $value ) && isset( $map[ $value ] ) ? $map[ $value ] : '';
+	}
+
+	/**
+	 * Per-device rules for the responsive attributes, mirrors applyResponsiveStyles in styling.js.
+	 *
+	 * @param array  $selectors Selector bucket for the device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return void
+	 */
+	private static function apply_responsive_selectors( array &$selectors, array $attr, string $device ): void {
+		$title_align    = AffiliateX_Helpers::get_responsive_value( $attr['productTitleAlign'] ?? 'left', $device );
+		$subtitle_align = AffiliateX_Helpers::get_responsive_value( $attr['productSubtitleAlign'] ?? 'left', $device );
+		$content_align  = AffiliateX_Helpers::get_responsive_value( $attr['productContentAlign'] ?? 'left', $device );
+		$pricing_align  = AffiliateX_Helpers::get_responsive_value( $attr['productPricingAlign'] ?? 'left', $device );
+		$star_align     = AffiliateX_Helpers::get_responsive_value( $attr['productStarRatingAlign'] ?? 'left', $device );
+		$score_align    = AffiliateX_Helpers::get_responsive_value( $attr['productRatingAlign'] ?? 'right', $device );
+
+		self::merge_selector( $selectors, ' .affx-single-product-title', array( 'text-align' => $title_align ) );
+		self::merge_selector( $selectors, ' .affx-single-product-subtitle', array( 'text-align' => $subtitle_align ) );
+		self::merge_selector( $selectors, ' .affx-single-product-content', array( 'justify-content' => $content_align ) );
+		self::merge_selector( $selectors, ' .affx-single-product-content p', array( 'text-align' => $content_align ) );
+		self::merge_selector( $selectors, ' .affx-single-product-content ul li', array( 'justify-content' => $content_align ) );
+		self::merge_selector( $selectors, ' .affx-single-product-content ol li', array( 'justify-content' => $content_align ) );
+		self::merge_selector( $selectors, ' .affx-sp-price', array( 'text-align' => $pricing_align ) );
+		self::merge_selector( $selectors, ' .affx-sp-pricing-pic', array( 'text-align' => $star_align ) );
+
+		$is_score_left = 'left' === $score_align;
+		self::merge_selector( $selectors, ' .title-wrapper.affx-number-rating', array( 'flex-direction' => $is_score_left ? 'row-reverse' : 'row' ) );
+		self::merge_selector(
+			$selectors,
+			' .title-wrapper.affx-number-rating .affx-rating-number',
+			array(
+				'margin-left'  => $is_score_left ? '0px' : '15px',
+				'margin-right' => $is_score_left ? '15px' : '0px',
+			)
+		);
+
+		$buttons_gap = AffiliateX_Helpers::get_responsive_value( $attr['buttonsGap'] ?? 10, $device );
+		self::merge_selector( $selectors, ' .button-wrapper', array( '--button-gap' => is_numeric( $buttons_gap ) ? $buttons_gap . 'px' : '' ) );
+
+		$star_size     = AffiliateX_Helpers::get_responsive_value( $attr['ratingStarSize'] ?? 25, $device );
+		$star_size_css = array(
+			'width'  => is_numeric( $star_size ) ? $star_size . 'px' : '',
+			'height' => is_numeric( $star_size ) ? $star_size . 'px' : '',
+		);
+		self::merge_selector( $selectors, ' .affx-sp-pricing-pic svg', $star_size_css );
+		self::merge_selector( $selectors, ' .affx-sp-pricing-pic .affx-star', $star_size_css );
+
+		$image_width  = AffiliateX_Helpers::get_responsive_value( $attr['productImageWidth'] ?? 'inherit', $device );
+		$custom_width = AffiliateX_Helpers::get_responsive_value( $attr['productImageCustomWidth'] ?? '33', $device );
+		$image_flex   = 'custom' === $image_width && is_numeric( $custom_width ) ? '0 0 ' . $custom_width . '%' : '';
+		self::merge_selector( $selectors, ' .affx-single-product-wrapper.product-layout-1 .affx-sp-img-wrapper', array( 'flex' => $image_flex ) );
+		self::merge_selector( $selectors, ' .affx-single-product-wrapper.product-layout-3 .affx-sp-img-wrapper', array( 'flex' => $image_flex ) );
+
+		$product_layout = $attr['productLayout'] ?? 'layoutOne';
+
+		if ( $attr['edProductImage'] ?? true ) {
+			$image_align = AffiliateX_Helpers::get_responsive_value( $attr['productImageAlign'] ?? 'left', $device );
+
+			if ( 'layoutTwo' !== $product_layout && 'mobile' !== $device ) {
+				self::merge_selector( $selectors, ' .affx-sp-content', array( 'flex-direction' => 'right' === $image_align ? 'row-reverse' : 'row' ) );
+			}
+
+			self::merge_selector(
+				$selectors,
+				' .affx-single-product-wrapper .affx-sp-img-wrapper',
+				array(
+					'align-items'     => self::get_flex_align( AffiliateX_Helpers::get_responsive_value( $attr['productImageHorizontalAlign'] ?? 'center', $device ) ),
+					'justify-content' => self::get_flex_align( AffiliateX_Helpers::get_responsive_value( $attr['productImageVerticalAlign'] ?? 'top', $device ) ),
+				)
+			);
+		}
+
+		if ( ! empty( $attr['edRibbon'] ) ) {
+			$ribbon_align  = AffiliateX_Helpers::get_responsive_value( $attr['ribbonAlign'] ?? 'left', $device );
+			$ribbon_styles = self::get_ribbon_align_selectors( $attr, 'right' === $ribbon_align ? 'right' : 'left' );
+
+			foreach ( $ribbon_styles as $selector => $styles ) {
+				self::merge_selector( $selectors, $selector, $styles );
+			}
+		}
+	}
+
+	/**
+	 * Ribbon offset rules per alignment; the rendered class reflects the desktop value, mirrors styling.js.
+	 *
+	 * @param array  $attr Block attributes.
+	 * @param string $align Resolved alignment for the device, 'left' or 'right'.
+	 * @return array
+	 */
+	private static function get_ribbon_align_selectors( array $attr, string $align ): array {
+		$product_layout = $attr['productLayout'] ?? 'layoutOne';
+		$ribbon_layout  = $attr['productRibbonLayout'] ?? 'one';
+		$desktop_align  = 'right' === AffiliateX_Helpers::get_responsive_value( $attr['ribbonAlign'] ?? 'left' ) ? 'right' : 'left';
+		$ribbon_bg      = isset( $attr['ribbonBgColorType'] ) && 'gradient' === $attr['ribbonBgColorType']
+			? ( $attr['ribbonBgGradient']['gradient'] ?? '' )
+			: ( $attr['ribbonBGColor'] ?? '#ff0000' );
+
+		$rendered_ribbon = sprintf( ' .affx-sp-ribbon.ribbon-layout-%s.ribbon-align-%s', $ribbon_layout, $desktop_align );
+		$is_right        = 'right' === $align;
+		$styles          = array();
+
+		if ( 'layoutTwo' === $product_layout ) {
+			$styles[ $rendered_ribbon ] = $is_right
+				? array(
+					'text-align' => 'right',
+					'right'      => '-25px',
+					'left'       => 'auto',
+				)
+				: array(
+					'text-align' => 'left',
+					'left'       => '-25px',
+					'right'      => 'auto',
+				);
+
+			$styles[ $rendered_ribbon . ' .affx-sp-ribbon-title' ] = $is_right
+				? array(
+					'margin-left'  => 'auto',
+					'margin-right' => '0px',
+				)
+				: array(
+					'margin-right' => 'auto',
+					'margin-left'  => '0px',
+				);
+
+			return $styles;
+		}
+
+		$is_ribbon_layout_two = 'two' === $ribbon_layout;
+		$offset               = $is_ribbon_layout_two
+			? array(
+				'left'  => 'layoutThree' === $product_layout ? '-12px' : '-13px',
+				'right' => 'layoutThree' === $product_layout ? '-12px' : '-15px',
+			)
+			: array(
+				'left'  => '0px',
+				'right' => '0px',
+			);
+
+		$styles[ $rendered_ribbon ] = array( 'text-align' => $is_right ? 'right' : 'left' );
+
+		$styles[ $rendered_ribbon . ' .affx-sp-ribbon-title' ] = $is_right
+			? array(
+				'right' => $offset['right'],
+				'left'  => 'auto',
+			)
+			: array(
+				'left'  => $offset['left'],
+				'right' => 'auto',
+			);
+
+		if ( $is_ribbon_layout_two ) {
+			$styles[ $rendered_ribbon . ' .affx-sp-ribbon-title:before' ] = $is_right
+				? array(
+					'right'               => '1px',
+					'left'                => 'auto',
+					'top'                 => '33px',
+					'bottom'              => 'auto',
+					'transform'           => 'rotate(-180deg) translate(-5%, -28%)',
+					'border-right-color'  => $ribbon_bg,
+					'border-bottom-color' => 'transparent',
+				)
+				: array(
+					'left'                => '12px',
+					'right'               => 'auto',
+					'bottom'              => '-10px',
+					'top'                 => 'auto',
+					'transform'           => 'rotate(45deg) translate(-48%, 28%)',
+					'border-bottom-color' => $ribbon_bg,
+					'border-right-color'  => 'transparent',
+				);
+		}
+
+		return $styles;
+	}
+
+	/**
+	 * Hover color attribute map: rules to emit and elements receiving the transition.
+	 *
+	 * @return array
+	 */
+	private static function get_hover_color_map(): array {
+		return array(
+			'productTitleHoverColor'         => array(
+				'rules'      => array( ' .affx-single-product-title:hover' => 'color' ),
+				'transition' => array( ' .affx-single-product-title' ),
+			),
+			'productSubtitleHoverColor'      => array(
+				'rules'      => array( ' .affx-single-product-subtitle:hover' => 'color' ),
+				'transition' => array( ' .affx-single-product-subtitle' ),
+			),
+			'productContentHoverColor'       => array(
+				'rules'      => array(
+					' .affx-single-product-content:hover' => 'color',
+					' .affx-single-product-content:hover p' => 'color',
+					' .affx-single-product-content:hover ul li' => 'color',
+					' .affx-single-product-content:hover ol li' => 'color',
+				),
+				'transition' => array(
+					' .affx-single-product-content',
+					' .affx-single-product-content p',
+					' .affx-single-product-content ul li',
+					' .affx-single-product-content ol li',
+				),
+			),
+			'iconHoverColor'                 => array(
+				'rules'      => array(
+					' .affx-single-product-content li:hover:before' => 'color',
+					' .affx-single-product-content li:hover i' => 'color',
+				),
+				'transition' => array(
+					' .affx-single-product-content li:before',
+					' .affx-single-product-content i',
+				),
+			),
+			'readMoreHoverColor'             => array(
+				'rules'      => array( ' .affx-single-product-content .affx-readmore-btn:hover' => 'color' ),
+				'transition' => array( ' .affx-single-product-content .affx-readmore-btn' ),
+			),
+			'productPriceHoverColor'         => array(
+				'rules'      => array( ' .affx-sp-marked-price:hover' => 'color' ),
+				'transition' => array( ' .affx-sp-marked-price' ),
+			),
+			'productSalePriceHoverColor'     => array(
+				'rules'      => array( ' .affx-sp-sale-price:hover' => 'color' ),
+				'transition' => array( ' .affx-sp-sale-price' ),
+			),
+			'ratingHoverColor'               => array(
+				'rules'      => array( ' .affx-sp-pricing-pic:hover svg path' => 'fill' ),
+				'transition' => array(),
+			),
+			'ratingInactiveHoverColor'       => array(
+				'rules'      => array( ' .affx-sp-pricing-pic:hover .affx-star-inactive svg path' => 'fill' ),
+				'transition' => array(),
+			),
+			'productRateNumberHoverColor'    => array(
+				'rules'      => array(
+					' .affx-rating-number:hover'      => 'color',
+					' .affx-rating-number:hover .num' => 'color',
+				),
+				'transition' => array( ' .affx-rating-number', ' .affx-rating-number .num' ),
+			),
+			'productRateContentHoverColor'   => array(
+				'rules'      => array(
+					' .affx-rating-number:hover .label' => 'color',
+					' .affx-rating-input-content:hover input' => 'color',
+				),
+				'transition' => array( ' .affx-rating-number .label', ' .affx-rating-input-content input' ),
+			),
+			'productRateNumBgHoverColor'     => array(
+				'rules'      => array(
+					' .affx-rating-number:hover'      => 'background-color',
+					' .affx-rating-number:hover .num' => 'background-color',
+				),
+				'transition' => array( ' .affx-rating-number', ' .affx-rating-number .num' ),
+			),
+			'productRateContentBgHoverColor' => array(
+				'rules'      => array(
+					' .affx-rating-number:hover .label' => 'background-color',
+					' .affx-rating-number:hover .label::before' => 'border-bottom-color',
+					' .affx-rating-input-content:hover:before' => 'border-bottom-color',
+				),
+				'transition' => array(
+					' .affx-rating-number .label',
+					' .affx-rating-number .label::before',
+					' .affx-rating-input-content:before',
+				),
+			),
+			'ribbonHoverColor'               => array(
+				'rules'      => array( ' .affx-sp-ribbon-title:hover' => 'color' ),
+				'transition' => array( ' .affx-sp-ribbon-title' ),
+			),
+			'ribbonBGHoverColor'             => array(
+				'rules'      => array(
+					' .affx-sp-ribbon-title:hover' => 'background-color',
+					' .affx-sp-ribbon.ribbon-layout-two.ribbon-align-right .affx-sp-ribbon-title:hover:before' => 'border-right-color',
+					' .affx-sp-ribbon.ribbon-layout-two.ribbon-align-left .affx-sp-ribbon-title:hover:before' => 'border-bottom-color',
+				),
+				'transition' => array( ' .affx-sp-ribbon-title' ),
+			),
+		);
+	}
+
+	/**
+	 * Emit :hover rules for set hover attributes, mirrors hover output in styling.js.
+	 *
+	 * @param array  $selectors Desktop selector bucket, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $transition Shared hover transition value.
+	 * @return void
+	 */
+	private static function apply_hover_selectors( array &$selectors, array $attr, string $transition ): void {
+		foreach ( self::get_hover_color_map() as $key => $config ) {
+			$value = $attr[ $key ] ?? '';
+
+			if ( ! is_string( $value ) || '' === $value ) {
+				continue;
+			}
+
+			foreach ( $config['rules'] as $selector => $property ) {
+				self::merge_selector( $selectors, $selector, array( $property => $value ) );
+			}
+
+			self::apply_hover_transition( $selectors, $config['transition'], $transition );
+		}
+
+		$wrapper_hover = array();
+
+		// Background mirrors styling.js: empty hover type inherits the normal type, then gradient wins, else solid color.
+		$hover_type  = $attr['productBgHoverColorType'] ?? '';
+		$bg_type     = is_string( $hover_type ) && '' !== $hover_type ? $hover_type : ( $attr['productBgColorType'] ?? 'solid' );
+		$bg_gradient = $attr['productBgHoverGradient']['gradient'] ?? '';
+		$bg_color    = $attr['productBGHoverColor'] ?? '';
+
+		if ( 'gradient' === $bg_type && is_string( $bg_gradient ) && '' !== $bg_gradient ) {
+			$wrapper_hover['background-image'] = $bg_gradient;
+		} elseif ( is_string( $bg_color ) && '' !== $bg_color ) {
+			$wrapper_hover['background-color'] = $bg_color;
+		}
+
+		$border = $attr['productHoverBorder'] ?? array();
+		if ( is_array( $border ) && ! empty( $border['style'] ) && is_string( $border['style'] ) && 'none' !== $border['style'] ) {
+			$wrapper_hover['border-style'] = $border['style'];
+
+			if ( ! empty( $border['color']['color'] ) && is_string( $border['color']['color'] ) ) {
+				$wrapper_hover['border-color'] = $border['color']['color'];
+			}
+
+			if ( ! empty( $border['width'] ) && is_numeric( $border['width'] ) ) {
+				$wrapper_hover['border-width'] = $border['width'] . 'px';
+			}
+		}
+
+		$shadow = $attr['productHoverShadow'] ?? array();
+		if ( is_array( $shadow ) && ! empty( $shadow['enable'] ) ) {
+			$wrapper_hover['box-shadow'] = AffiliateX_Helpers::get_css_boxshadow( $shadow );
+		}
+
+		$desktop_radius = self::get_hover_radius( $attr, 'desktop' );
+		if ( '' !== $desktop_radius ) {
+			$wrapper_hover['border-radius'] = $desktop_radius;
+		}
+
+		$has_responsive_radius = '' !== self::get_hover_radius( $attr, 'tablet' ) || '' !== self::get_hover_radius( $attr, 'mobile' );
+
+		if ( ! empty( $wrapper_hover ) ) {
+			self::merge_selector( $selectors, ' .affx-single-product-wrapper:hover', $wrapper_hover );
+		}
+
+		if ( ! empty( $wrapper_hover ) || $has_responsive_radius ) {
+			self::apply_hover_transition( $selectors, array( ' .affx-single-product-wrapper' ), $transition );
+		}
+	}
+
+	/**
+	 * Add the shared hover transition to the given base selectors.
+	 *
+	 * @param array  $selectors Selector bucket, by reference.
+	 * @param array  $targets Base selectors to receive the transition.
+	 * @param string $transition Shared hover transition value.
+	 * @return void
+	 */
+	private static function apply_hover_transition( array &$selectors, array $targets, string $transition ): void {
+		foreach ( $targets as $selector ) {
+			self::merge_selector( $selectors, $selector, array( 'transition' => $transition ) );
+		}
+	}
+
+	/**
+	 * Shared transition value, mirrors transitionProperties in styling.js.
+	 *
+	 * @param array $attr Block attributes.
+	 * @return string
+	 */
+	private static function get_hover_transition_value( array $attr ): string {
+		$transition = self::HOVER_TRANSITION;
+
+		if ( self::has_hover_typography_value( $attr, 'size' ) ) {
+			$transition .= ', font-size .15s ease';
+		}
+
+		if ( self::has_hover_typography_value( $attr, 'letter-spacing' ) ) {
+			$transition .= ', letter-spacing .15s ease';
+		}
+
+		if ( self::has_hover_spacing_value( $attr['contentHoverMargin'] ?? array() ) ) {
+			$transition .= ', margin .15s ease';
+		}
+
+		if ( self::has_hover_spacing_value( $attr['imageHoverPadding'] ?? array() ) || self::has_hover_spacing_value( $attr['contentHoverSpacing'] ?? array() ) ) {
+			$transition .= ', padding .15s ease';
+		}
+
+		return $transition;
+	}
+
+	/**
+	 * Hover typography attribute map: hover selectors per device and transition targets.
+	 *
+	 * @return array
+	 */
+	private static function get_hover_typography_map(): array {
+		return array(
+			'productTitleHoverTypography'    => array(
+				'desktop'    => array( ' .affx-single-product-title:hover' ),
+				'responsive' => array( ' .affx-single-product-title:hover' ),
+				'transition' => array( ' .affx-single-product-title' ),
+			),
+			'productSubtitleHoverTypography' => array(
+				'desktop'    => array( ' .affx-single-product-subtitle:hover' ),
+				'responsive' => array( ' .affx-single-product-subtitle:hover' ),
+				'transition' => array( ' .affx-single-product-subtitle' ),
+			),
+			'pricingHoverTypography'         => array(
+				'desktop'    => array( ' .affx-sp-marked-price:hover', ' .affx-sp-sale-price:hover' ),
+				'responsive' => array( ' .affx-sp-marked-price:hover', ' .affx-sp-sale-price:hover' ),
+				'transition' => array( ' .affx-sp-marked-price', ' .affx-sp-sale-price' ),
+			),
+			'productContentHoverTypography'  => array(
+				'desktop'    => array(
+					' .affx-single-product-content:hover',
+					' .affx-single-product-content:hover p',
+					' .affx-single-product-content:hover ul li',
+					' .affx-single-product-content:hover ol li',
+				),
+				'responsive' => array( ' .affx-single-product-content:hover' ),
+				'transition' => array(
+					' .affx-single-product-content',
+					' .affx-single-product-content p',
+					' .affx-single-product-content ul li',
+					' .affx-single-product-content ol li',
+				),
+			),
+			'readMoreHoverTypography'        => array(
+				'desktop'    => array( ' .affx-single-product-content .affx-readmore-btn:hover' ),
+				'responsive' => array(),
+				'transition' => array( ' .affx-single-product-content .affx-readmore-btn' ),
+			),
+			'ribbonContentHoverTypography'   => array(
+				'desktop'    => array( ' .affx-sp-ribbon-title:hover' ),
+				'responsive' => array( ' .affx-sp-ribbon-title:hover' ),
+				'transition' => array( ' .affx-sp-ribbon-title' ),
+			),
+			'numRatingHoverTypography'       => array(
+				'desktop'    => array( ' .affx-rating-number:hover', ' .affx-rating-input-content:hover input' ),
+				'responsive' => array(
+					' .affx-rating-input-number:hover',
+					' .affx-rating-input-number:hover input',
+					' .affx-rating-input-content:hover',
+					' .affx-rating-input-content:hover input',
+				),
+				'transition' => array( ' .affx-rating-number', ' .affx-rating-input-content input' ),
+			),
+		);
+	}
+
+	/**
+	 * Whether a hover typography value is unset, mirrors isUnsetTypographyValue in styling.js.
+	 *
+	 * @param mixed $value Device value.
+	 * @return bool
+	 */
+	private static function is_unset_typography_value( $value ): bool {
+		if ( ! is_string( $value ) && ! is_numeric( $value ) ) {
+			return true;
+		}
+
+		return '' === $value || 'CT_CSS_SKIP_RULE' === $value;
+	}
+
+	/**
+	 * Per-device value from a hover typography key, scalars apply to every device.
+	 *
+	 * @param array  $typo Hover typography attribute value.
+	 * @param string $key Typography key, e.g. 'size'.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return mixed
+	 */
+	private static function get_hover_typography_device_value( array $typo, string $key, string $device ) {
+		$value = $typo[ $key ] ?? '';
+
+		return is_array( $value ) ? ( $value[ $device ] ?? '' ) : $value;
+	}
+
+	/**
+	 * Font rules from a hover typography object, only the keys that are set.
+	 *
+	 * @param array  $typo Hover typography attribute value.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return array
+	 */
+	private static function get_hover_font_styles( array $typo, string $device ): array {
+		$styles = array();
+
+		$responsive_props = array(
+			'size'           => 'font-size',
+			'line-height'    => 'line-height',
+			'letter-spacing' => 'letter-spacing',
+		);
+
+		foreach ( $responsive_props as $key => $property ) {
+			$value = self::get_hover_typography_device_value( $typo, $key, $device );
+
+			if ( ! self::is_unset_typography_value( $value ) ) {
+				$styles[ $property ] = $value;
+			}
+		}
+
+		if ( 'desktop' === $device ) {
+			if ( ! empty( $typo['family'] ) && is_string( $typo['family'] ) && 'Default' !== $typo['family'] ) {
+				$styles['font-family'] = $typo['family'];
+			}
+
+			if ( ! empty( $typo['variation'] ) && is_string( $typo['variation'] ) && 'Default' !== $typo['variation'] ) {
+				$styles['font-weight'] = AffiliateX_Helpers::get_fontweight_variation( $typo['variation'] );
+				$styles['font-style']  = AffiliateX_Helpers::get_font_style( $typo['variation'] );
+			}
+
+			if ( ! empty( $typo['text-transform'] ) && is_string( $typo['text-transform'] ) && 'none' !== $typo['text-transform'] ) {
+				$styles['text-transform'] = $typo['text-transform'];
+			}
+		}
+
+		return $styles;
+	}
+
+	/**
+	 * Whether any hover typography attribute sets the given key on any device.
+	 *
+	 * @param array  $attr Block attributes.
+	 * @param string $key Typography key, e.g. 'size'.
+	 * @return bool
+	 */
+	private static function has_hover_typography_value( array $attr, string $key ): bool {
+		foreach ( array_keys( self::get_hover_typography_map() ) as $attr_key ) {
+			$typo = $attr[ $attr_key ] ?? array();
+
+			if ( ! is_array( $typo ) || empty( $typo[ $key ] ) ) {
+				continue;
+			}
+
+			$values = is_array( $typo[ $key ] ) ? $typo[ $key ] : array( $typo[ $key ] );
+
+			foreach ( $values as $value ) {
+				if ( ! self::is_unset_typography_value( $value ) ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Emit :hover font rules for set hover typography attributes, empty object emits nothing.
+	 *
+	 * @param array  $selectors Selector bucket for the device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @param string $transition Shared hover transition value.
+	 * @return void
+	 */
+	private static function apply_hover_typography( array &$selectors, array $attr, string $device, string $transition ): void {
+		foreach ( self::get_hover_typography_map() as $key => $config ) {
+			$typo = $attr[ $key ] ?? array();
+
+			if ( ! is_array( $typo ) || empty( $typo ) ) {
+				continue;
+			}
+
+			$styles = self::get_hover_font_styles( $typo, $device );
+
+			if ( ! empty( $styles ) ) {
+				$targets = 'desktop' === $device ? $config['desktop'] : $config['responsive'];
+
+				foreach ( $targets as $selector ) {
+					self::merge_selector( $selectors, $selector, $styles );
+				}
+			}
+
+			if ( 'desktop' !== $device ) {
+				continue;
+			}
+
+			$has_styles = ! empty( $styles )
+				|| ! empty( self::get_hover_font_styles( $typo, 'tablet' ) )
+				|| ! empty( self::get_hover_font_styles( $typo, 'mobile' ) );
+
+			if ( $has_styles ) {
+				self::apply_hover_transition( $selectors, $config['transition'], $transition );
+			}
+		}
+	}
+
+	/**
+	 * Hover spacing attribute map: card-hover rules with side subsets, mirrors styling.js.
+	 *
+	 * @return array
+	 */
+	private static function get_hover_spacing_map(): array {
+		$all_sides = array( 'top', 'left', 'right', 'bottom' );
+
+		return array(
+			'imageHoverPadding'   => array(
+				'property'   => 'padding',
+				'rules'      => array(
+					' .affx-single-product-wrapper:hover .affx-sp-img-wrapper' => $all_sides,
+				),
+				'transition' => array( ' .affx-single-product-wrapper .affx-sp-img-wrapper' ),
+			),
+			'contentHoverMargin'  => array(
+				'property'   => 'margin',
+				'rules'      => array(
+					' .affx-single-product-wrapper:hover' => $all_sides,
+				),
+				'transition' => array( ' .affx-single-product-wrapper' ),
+			),
+			'contentHoverSpacing' => array(
+				'property'   => 'padding',
+				'rules'      => array(
+					' .affx-single-product-wrapper:hover .affx-sp-content-wrapper' => $all_sides,
+					' .affx-single-product-wrapper.product-layout-2:hover .title-wrapper' => array( 'top', 'left', 'right' ),
+					' .affx-single-product-wrapper.product-layout-2:hover .affx-sp-price' => array( 'left', 'right' ),
+					' .affx-single-product-wrapper.product-layout-2:hover .button-wrapper' => array( 'left', 'right', 'bottom' ),
+					' .affx-single-product-wrapper.product-layout-2:hover .affx-single-product-content' => array( 'left', 'right' ),
+					' .affx-single-product-wrapper.product-layout-3:hover .affx-sp-inner' => $all_sides,
+				),
+				'transition' => array(
+					' .affx-sp-content-wrapper',
+					' .affx-single-product-wrapper.product-layout-2 .title-wrapper',
+					' .affx-single-product-wrapper.product-layout-2 .affx-sp-price',
+					' .affx-single-product-wrapper.product-layout-2 .button-wrapper',
+					' .affx-single-product-wrapper.product-layout-2 .affx-single-product-content',
+					' .affx-single-product-wrapper.product-layout-3 .affx-sp-inner',
+				),
+			),
+		);
+	}
+
+	/**
+	 * Whether a hover spacing attribute sets any side on any device, mirrors hasHoverSpacingValue in styling.js.
+	 *
+	 * @param mixed $spacing Hover spacing attribute value.
+	 * @return bool
+	 */
+	private static function has_hover_spacing_value( $spacing ): bool {
+		if ( ! is_array( $spacing ) ) {
+			return false;
+		}
+
+		foreach ( $spacing as $sides ) {
+			if ( ! is_array( $sides ) ) {
+				continue;
+			}
+
+			foreach ( $sides as $value ) {
+				if ( ( is_string( $value ) || is_numeric( $value ) ) && '' !== $value ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Emit :hover spacing rules for set hover spacing attributes, empty object emits nothing.
+	 *
+	 * @param array  $selectors Selector bucket for the device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @param string $transition Shared hover transition value.
+	 * @return void
+	 */
+	private static function apply_hover_spacing( array &$selectors, array $attr, string $device, string $transition ): void {
+		foreach ( self::get_hover_spacing_map() as $key => $config ) {
+			$spacing = $attr[ $key ] ?? array();
+
+			if ( ! is_array( $spacing ) || empty( $spacing ) ) {
+				continue;
+			}
+
+			$sides = $spacing[ $device ] ?? array();
+
+			if ( is_array( $sides ) ) {
+				foreach ( $config['rules'] as $selector => $rule_sides ) {
+					$styles = array();
+
+					foreach ( $rule_sides as $side ) {
+						$value = $sides[ $side ] ?? '';
+
+						if ( ( is_string( $value ) || is_numeric( $value ) ) && '' !== $value ) {
+							$styles[ $config['property'] . '-' . $side ] = $value;
+						}
+					}
+
+					if ( ! empty( $styles ) ) {
+						self::merge_selector( $selectors, $selector, $styles );
+					}
+				}
+			}
+
+			if ( 'desktop' === $device && self::has_hover_spacing_value( $spacing ) ) {
+				self::apply_hover_transition( $selectors, $config['transition'], $transition );
+			}
+		}
+	}
+
+	/**
+	 * Per-device wrapper :hover border-radius for productHoverBorderRadius.
+	 *
+	 * @param array  $selectors Selector bucket for the device, by reference.
+	 * @param array  $attr Block attributes.
+	 * @param string $device One of 'tablet', 'mobile'.
+	 * @return void
+	 */
+	private static function apply_hover_radius( array &$selectors, array $attr, string $device ): void {
+		$radius = self::get_hover_radius( $attr, $device );
+
+		if ( '' !== $radius ) {
+			self::merge_selector( $selectors, ' .affx-single-product-wrapper:hover', array( 'border-radius' => $radius ) );
+		}
+	}
+
+	/**
+	 * Resolve the hover border-radius shorthand for a device, empty when unset.
+	 *
+	 * @param array  $attr Block attributes.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return string
+	 */
+	private static function get_hover_radius( array $attr, string $device ): string {
+		$sides = $attr['productHoverBorderRadius'][ $device ] ?? array();
+
+		if ( ! is_array( $sides ) || empty( $sides ) ) {
+			return '';
+		}
+
+		$values    = array();
+		$has_value = false;
+
+		foreach ( array( 'top', 'right', 'bottom', 'left' ) as $side ) {
+			$value = $sides[ $side ] ?? '';
+			$value = is_string( $value ) || is_numeric( $value ) ? (string) $value : '';
+			$value = '' === $value ? '0' : $value;
+
+			if ( (float) $value > 0 ) {
+				$has_value = true;
+			}
+
+			$values[] = $value;
+		}
+
+		return $has_value ? implode( ' ', $values ) : '';
 	}
 }

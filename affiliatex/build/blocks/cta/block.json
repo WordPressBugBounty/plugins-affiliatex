@@ -56,7 +56,11 @@
       "default": ""
     },
     "overlayOpacity": {
-      "type": "number",
+      "type": [
+        "number",
+        "string",
+        "object"
+      ],
       "default": 0.1
     },
     "imagePosition": {
@@ -86,11 +90,17 @@
       "default": "center"
     },
     "contentAlignment": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "center"
     },
     "ctaButtonAlignment": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "center"
     },
     "ctaTitleTypography": {
@@ -282,6 +292,86 @@
           "color": "rgba(210,213,218,0.2)"
         }
       }
+    },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "contentHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "buttonsHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "imageHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "ctaTitleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaBGHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "ctaTitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaContentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "ctaHoverShadow": {
+      "type": "object",
+      "default": {}
     },
     "preview": {
       "type": "boolean",

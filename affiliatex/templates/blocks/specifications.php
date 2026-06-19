@@ -5,7 +5,7 @@ defined( 'ABSPATH' ) || exit;
 	<div class="affx-specification-block-container">
 		<table class="affx-specification-table <?php echo esc_attr( $styleClasses ); ?>">
 			<?php if ( $edSpecificationTitle ) : ?>
-				<thead>
+				<thead<?php echo '' !== ( $titleHideClass ?? '' ) ? ' class="' . esc_attr( $titleHideClass ) . '"' : ''; ?>>
 					<tr>
 						<th class="affx-spec-title" colspan="2">
 							<<?php echo esc_attr( $specificationTitleTag ); ?> class="affx-specification-title">
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 					</tr>
 				</thead>
 			<?php endif; ?>
-			<tbody>
+			<tbody<?php echo '' !== ( $rowsHideClass ?? '' ) ? ' class="' . esc_attr( $rowsHideClass ) . '"' : ''; ?>>
 				<?php foreach ( $specificationTable as $specification ) : ?>
 					<tr>
 						<td class="affx-spec-label"><?php echo wp_kses_post( $specification['specificationLabel'] ); ?></td>

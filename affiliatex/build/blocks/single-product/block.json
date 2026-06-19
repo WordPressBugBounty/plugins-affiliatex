@@ -63,19 +63,31 @@
       "default": "h2"
     },
     "productTitleAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productPricingAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productStarRatingAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productRatingAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "right"
     },
     "productTitleTypography": {
@@ -112,16 +124,26 @@
       "type": "string",
       "default": "#060c0e"
     },
+    "productTitleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
     "imageAspectRatio": {
       "type": "string",
       "default": "auto"
     },
     "productImageWidth": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "inherit"
     },
     "productImageCustomWidth": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "33"
     },
     "productImageType": {
@@ -194,7 +216,10 @@
       "default": "h6"
     },
     "productSubtitleAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productSubtitleTypography": {
@@ -231,6 +256,10 @@
       "type": "string",
       "default": "#A3ACBF"
     },
+    "productSubtitleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
     "productIconList": {
       "type": "object",
       "default": {
@@ -260,7 +289,10 @@
       "default": []
     },
     "productContentAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productContentTypography": {
@@ -298,9 +330,17 @@
       "default": "#292929",
       "customizationKey": "fontColor"
     },
+    "productContentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
     "productRatingColor": {
       "type": "string",
       "default": "#FFB800"
+    },
+    "ratingHoverColor": {
+      "type": "string",
+      "default": ""
     },
     "pricingColor": {
       "type": "string",
@@ -455,16 +495,73 @@
         }
       }
     },
+    "productHoverShadow": {
+      "type": "object",
+      "default": {}
+    },
+    "productHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "productTitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "productSubtitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "pricingHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "productContentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "readMoreHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "ribbonContentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "numRatingHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "imageHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "contentHoverSpacing": {
+      "type": "object",
+      "default": {}
+    },
     "productImageAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "productImageVerticalAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "top"
     },
     "productImageHorizontalAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "center"
     },
     "productPrice": {
@@ -514,6 +611,10 @@
         }
       }
     },
+    "productHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
     "productDivider": {
       "type": "object",
       "default": {
@@ -533,7 +634,11 @@
       "default": "8.5"
     },
     "ratingStarSize": {
-      "type": "number",
+      "type": [
+        "number",
+        "string",
+        "object"
+      ],
       "default": 25
     },
     "ratingContent": {
@@ -544,21 +649,61 @@
       "type": "boolean",
       "default": false
     },
+    "ratingHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "edTitle": {
       "type": "boolean",
       "default": true
+    },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
     },
     "edSubtitle": {
       "type": "boolean",
       "default": false
     },
+    "subtitleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "edPricing": {
       "type": "boolean",
       "default": false
     },
+    "pricingHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "edContent": {
       "type": "boolean",
       "default": true
+    },
+    "contentHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
     },
     "productBgColorType": {
       "type": "string",
@@ -574,6 +719,46 @@
       "type": "string",
       "default": "#fff"
     },
+    "productBGHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productBgHoverColorType": {
+      "type": "string",
+      "default": ""
+    },
+    "productBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "ratingInactiveHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productRateNumberHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productRateContentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productRateNumBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productRateContentBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productPriceHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "productSalePriceHoverColor": {
+      "type": "string",
+      "default": ""
+    },
     "ribbonText": {
       "type": "string",
       "default": "Sale"
@@ -586,17 +771,11 @@
       "type": "string",
       "default": "#ff0000"
     },
-    "ribbonBgGradient": {
-      "type": "object",
-      "default": {
-        "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
-      }
-    },
-    "ribbonBgHoverType": {
+    "ribbonBGHoverColor": {
       "type": "string",
-      "default": "solid"
+      "default": ""
     },
-    "ribbonBgHoverGradient": {
+    "ribbonBgGradient": {
       "type": "object",
       "default": {
         "gradient": "linear-gradient(270deg, #8615CB 0%, #00454A 100%)"
@@ -606,9 +785,21 @@
       "type": "boolean",
       "default": false
     },
+    "ribbonHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "ribbonColor": {
       "type": "string",
       "default": "#fff"
+    },
+    "ribbonHoverColor": {
+      "type": "string",
+      "default": ""
     },
     "ribbonContentTypography": {
       "type": "object",
@@ -641,7 +832,10 @@
       ]
     },
     "ribbonAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "buttonDirection": {
@@ -649,20 +843,44 @@
       "default": "column"
     },
     "buttonsGap": {
-      "type": "number",
+      "type": [
+        "number",
+        "string",
+        "object"
+      ],
       "default": 10
     },
     "edButton": {
       "type": "boolean",
       "default": true
     },
+    "buttonHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "edProductImage": {
       "type": "boolean",
       "default": true
     },
+    "imageHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "iconColor": {
       "type": "string",
       "default": "#24B644"
+    },
+    "iconHoverColor": {
+      "type": "string",
+      "default": ""
     },
     "productRateNumberColor": {
       "type": "string",
@@ -784,6 +1002,10 @@
     "readMoreColor": {
       "type": "string",
       "default": "#00B0B0"
+    },
+    "readMoreHoverColor": {
+      "type": "string",
+      "default": ""
     },
     "readMoreTypography": {
       "type": "object",

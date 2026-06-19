@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Specifications Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Specifications_Styles {
+class AffiliateX_Specifications_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-specification-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -18,26 +27,190 @@ class AffiliateX_Specifications_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
-
-		$m_selectors = self::get_mobileselectors( $attr );
-
-		$t_selectors = self::get_tabletselectors( $attr );
-
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-specification-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-specification-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-specification-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+	/**
+	 * Per-device text-align for the promoted align attributes, mirrors styling.js. Scalars keep the legacy desktop-only output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		$promoted = array(
+			'specificationTitleAlign' => ' .affx-specification-table th .affx-specification-title',
+			'specificationLabelAlign' => ' .affx-specification-table td.affx-spec-label',
+			'specificationValueAlign' => ' .affx-specification-table td.affx-spec-value',
 		);
 
-		return $generated_css;
+		foreach ( $promoted as $key => $selector ) {
+			if ( ! HoverStyles::is_responsive( $attr[ $key ] ?? null ) ) {
+				continue;
+			}
+
+			foreach ( array( 'tablet', 'mobile' ) as $device ) {
+				$value = AffiliateX_Helpers::get_responsive_value( $attr[ $key ], $device );
+
+				if ( is_string( $value ) && '' !== $value ) {
+					HoverStyles::merge_selector( $buckets[ $device ], $selector, array( 'text-align' => $value ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Hover rules for the wave-2 hover attributes, mirrors specifications/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$typos = array(
+			$attr['specificationTitleHoverTypography'] ?? null,
+			$attr['specificationLabelHoverTypography'] ?? null,
+			$attr['specificationValueHoverTypography'] ?? null,
+		);
+
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['specificationHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['specificationHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		$hover_colors = array(
+			'specificationTitleHoverColor'   => array(
+				'selector'    => ' .affx-specification-table th:hover .affx-specification-title',
+				'property'    => 'color',
+				'transitions' => array( ' .affx-specification-table th .affx-specification-title' ),
+			),
+			'specificationTitleBgHoverColor' => array(
+				'selector'    => ' .affx-specification-table th:hover',
+				'property'    => 'background',
+				'transitions' => array( ' .affx-specification-table th' ),
+			),
+			'specificationLabelHoverColor'   => array(
+				'selector'    => ' .affx-specification-table td.affx-spec-label:hover',
+				'property'    => 'color',
+				'transitions' => array( ' .affx-specification-table td.affx-spec-label' ),
+			),
+			'specificationValueHoverColor'   => array(
+				'selector'    => ' .affx-specification-table td.affx-spec-value:hover',
+				'property'    => 'color',
+				'transitions' => array( ' .affx-specification-table td.affx-spec-value' ),
+			),
+			'specificationRowHoverColor'     => array(
+				'selector'    => ' .affx-specification-table tbody tr:hover td',
+				'property'    => 'background',
+				'transitions' => array( ' .affx-specification-table td' ),
+			),
+		);
+
+		foreach ( $hover_colors as $key => $rule ) {
+			if ( ! empty( $attr[ $key ] ) && is_string( $attr[ $key ] ) ) {
+				self::set_hover( $buckets, $transition, $rule['selector'], array( $rule['property'] => $attr[ $key ] ), $rule['transitions'] );
+			}
+		}
+
+		$table_bg_hover = HoverStyles::get_background_styles(
+			$attr['specificationBgHoverType'] ?? '',
+			$attr['specificationBgType'] ?? 'solid',
+			$attr['specificationBgHoverColor'] ?? '',
+			$attr['specificationBgHoverGradient'] ?? ''
+		);
+
+		if ( ! empty( $table_bg_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-specification-block-container:hover .affx-specification-table', $table_bg_hover, array( ' .affx-specification-table' ) );
+		}
+
+		$container_hover = array_merge(
+			HoverStyles::get_border_styles( $attr['specificationHoverBorder'] ?? null ),
+			HoverStyles::get_shadow_styles( $attr['specificationHoverShadow'] ?? null )
+		);
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['specificationHoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$container_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $container_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-specification-block-container:hover', $container_hover, array( ' .affx-specification-block-container' ) );
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['specificationHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-specification-block-container:hover', array( 'border-radius' => $radius ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-specification-block-container', array( 'transition' => $transition ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			$margin_hover = HoverStyles::get_spacing_styles( $attr['specificationHoverMargin'] ?? null, $device, 'margin' );
+
+			if ( ! empty( $margin_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-specification-block-container:hover', $margin_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-specification-block-container', array( 'transition' => $transition ) );
+			}
+
+			$padding_hover = HoverStyles::get_spacing_styles( $attr['specificationHoverPadding'] ?? null, $device, 'padding' );
+
+			if ( ! empty( $padding_hover ) ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-specification-block-container:hover .affx-specification-table td', $padding_hover );
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-specification-block-container:hover .affx-specification-table th', $padding_hover );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-specification-table td', array( 'transition' => $transition ) );
+				HoverStyles::merge_selector( $buckets['desktop'], ' .affx-specification-table th', array( 'transition' => $transition ) );
+			}
+		}
+
+		$typography_rules = array(
+			array(
+				'typography' => $attr['specificationTitleHoverTypography'] ?? null,
+				'base'       => ' .affx-specification-table th .affx-specification-title',
+				'hover'      => ' .affx-specification-table th:hover .affx-specification-title',
+			),
+			array(
+				'typography' => $attr['specificationLabelHoverTypography'] ?? null,
+				'base'       => ' .affx-specification-table td.affx-spec-label',
+				'hover'      => ' .affx-specification-table td.affx-spec-label:hover',
+			),
+			array(
+				'typography' => $attr['specificationValueHoverTypography'] ?? null,
+				'base'       => ' .affx-specification-table td.affx-spec-value',
+				'hover'      => ' .affx-specification-table td.affx-spec-value:hover',
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( ! empty( $styles ) ) {
+					$has_styles = true;
+					HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+				}
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {
@@ -87,7 +260,7 @@ class AffiliateX_Specifications_Styles {
 			' .affx-specification-table th .affx-specification-title' => array(
 				'margin'          => '0',
 				'color'           => isset( $attr['specificationTitleColor'] ) ? $attr['specificationTitleColor'] : '#292929',
-				'text-align'      => isset( $attr['specificationTitleAlign'] ) ? $attr['specificationTitleAlign'] : 'left',
+				'text-align'      => isset( $attr['specificationTitleAlign'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['specificationTitleAlign'] ) : 'left',
 				'font-family'     => isset( $attr['specificationTitleTypography']['family'] ) ? $attr['specificationTitleTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['specificationTitleTypography']['size']['desktop'] ) ? $attr['specificationTitleTypography']['size']['desktop'] : '24px',
 				'line-height'     => isset( $attr['specificationTitleTypography']['line-height']['desktop'] ) ? $attr['specificationTitleTypography']['line-height']['desktop'] : '1.5',
@@ -100,7 +273,7 @@ class AffiliateX_Specifications_Styles {
 
 			' .affx-specification-table td.affx-spec-label' => array(
 				'color'           => isset( $attr['specificationLabelColor'] ) ? $attr['specificationLabelColor'] : '#000000',
-				'text-align'      => isset( $attr['specificationLabelAlign'] ) ? $attr['specificationLabelAlign'] : 'left',
+				'text-align'      => isset( $attr['specificationLabelAlign'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['specificationLabelAlign'] ) : 'left',
 				'font-family'     => isset( $attr['specificationLabelTypography']['family'] ) ? $attr['specificationLabelTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['specificationLabelTypography']['size']['desktop'] ) ? $attr['specificationLabelTypography']['size']['desktop'] : '18px',
 				'line-height'     => isset( $attr['specificationLabelTypography']['line-height']['desktop'] ) ? $attr['specificationLabelTypography']['line-height']['desktop'] : '1.65',
@@ -113,7 +286,7 @@ class AffiliateX_Specifications_Styles {
 			),
 			' .affx-specification-table td.affx-spec-value' => array(
 				'color'           => isset( $attr['specificationValueColor'] ) ? $attr['specificationValueColor'] : $global_font_color,
-				'text-align'      => isset( $attr['specificationValueAlign'] ) ? $attr['specificationValueAlign'] : 'left',
+				'text-align'      => isset( $attr['specificationValueAlign'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['specificationValueAlign'] ) : 'left',
 				'font-family'     => isset( $attr['specificationValueTypography']['family'] ) ? $attr['specificationValueTypography']['family'] : $global_font_family,
 				'font-size'       => isset( $attr['specificationValueTypography']['size']['desktop'] ) ? $attr['specificationValueTypography']['size']['desktop'] : '18px',
 				'line-height'     => isset( $attr['specificationValueTypography']['line-height']['desktop'] ) ? $attr['specificationValueTypography']['line-height']['desktop'] : '1.65',

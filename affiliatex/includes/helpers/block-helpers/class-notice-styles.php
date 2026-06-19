@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Notice Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Notice_Styles {
+class AffiliateX_Notice_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-notice-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -17,29 +26,283 @@ class AffiliateX_Notice_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Icon size for a device, normalized like pxValue.js, null when the attribute is missing.
+	 *
+	 * @param array  $attr Block attributes.
+	 * @param string $key Attribute key.
+	 * @param string $device One of 'desktop', 'tablet', 'mobile'.
+	 * @return string|null
+	 */
+	private static function get_icon_size( $attr, $key, $device = 'desktop' ) {
+		if ( ! isset( $attr[ $key ] ) ) {
+			return null;
+		}
 
-		$m_selectors = self::get_mobileselectors( $attr );
+		$value = AffiliateX_Helpers::get_responsive_value( HoverStyles::to_px_value( $attr[ $key ] ), $device );
 
-		$t_selectors = self::get_tabletselectors( $attr );
+		return is_string( $value ) && '' !== $value ? $value : null;
+	}
 
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-notice-style-' . $id );
+	/**
+	 * Per-device rules for the promoted attributes, mirrors styling.js. Scalars keep the legacy desktop-only output.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_promoted_selectors( array &$buckets, array $attr ): void {
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			if ( HoverStyles::is_responsive( $attr['titleAlignment'] ?? null ) ) {
+				$title_align = AffiliateX_Helpers::get_responsive_value( $attr['titleAlignment'], $device );
 
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-notice-style-' . $id );
+				if ( is_string( $title_align ) && '' !== $title_align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-title', array( 'text-align' => $title_align ) );
+				}
+			}
 
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-notice-style-' . $id );
+			if ( HoverStyles::is_responsive( $attr['alignment'] ?? null ) ) {
+				$align = AffiliateX_Helpers::get_responsive_value( $attr['alignment'], $device );
 
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+				if ( is_string( $align ) && '' !== $align ) {
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-content p', array( 'text-align' => $align ) );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-content li', array( 'justify-content' => $align ) );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affx-notice-inner-wrapper', array( 'text-align' => $align ) );
+				}
+			}
+
+			if ( HoverStyles::is_responsive( $attr['noticeIconSize'] ?? null ) ) {
+				$icon_size = self::get_icon_size( $attr, 'noticeIconSize', $device );
+
+				if ( null !== $icon_size ) {
+					$icon_styles = array( 'font-size' => $icon_size );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-title i', $icon_styles );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-icon', $icon_styles );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affx-notice-inner-wrapper.layout-type-1 .affiliatex-notice-title:before', $icon_styles );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:before', $icon_styles );
+				}
+			}
+
+			if ( HoverStyles::is_responsive( $attr['noticeListIconSize'] ?? null ) ) {
+				$list_icon_size = self::get_icon_size( $attr, 'noticeListIconSize', $device );
+
+				if ( null !== $list_icon_size ) {
+					$list_icon_styles = array( 'font-size' => $list_icon_size );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-content ul.affiliatex-list li:before', $list_icon_styles );
+					HoverStyles::merge_selector( $buckets[ $device ], ' .affiliatex-notice-content .affiliatex-list li i', $list_icon_styles );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Hover rules for the wave-2 hover attributes, mirrors notice/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$typos  = array( $attr['titleHoverTypography'] ?? null, $attr['listHoverTypography'] ?? null );
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['noticeHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['titleHoverPadding'] ?? null )
+			|| HoverStyles::has_spacing_value( $attr['contentHoverPadding'] ?? null )
+			|| HoverStyles::has_spacing_value( $attr['noticeHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		if ( ! empty( $attr['noticeTextHoverColor'] ) && is_string( $attr['noticeTextHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				' .affx-notice-inner-wrapper.layout-type-1 .affiliatex-notice-title:hover',
+				array( 'color' => $attr['noticeTextHoverColor'] ),
+				array( ' .affiliatex-notice-title' )
+			);
+		}
+
+		if ( ! empty( $attr['noticeTextTwoHoverColor'] ) && is_string( $attr['noticeTextTwoHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:hover',
+				array( 'color' => $attr['noticeTextTwoHoverColor'] ),
+				array( ' .affiliatex-notice-title' )
+			);
+		}
+
+		if ( ! empty( $attr['noticeIconTwoHoverColor'] ) && is_string( $attr['noticeIconTwoHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:hover i',
+				array( 'color' => $attr['noticeIconTwoHoverColor'] ),
+				array( ' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title i' )
+			);
+			self::set_hover( $buckets, $transition, ' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:hover:before', array( 'color' => $attr['noticeIconTwoHoverColor'] ), array() );
+		}
+
+		if ( ! empty( $attr['noticeListHoverColor'] ) && is_string( $attr['noticeListHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, ' .affiliatex-notice-content:hover p', array( 'color' => $attr['noticeListHoverColor'] ), array( ' .affiliatex-notice-content p' ) );
+			self::set_hover( $buckets, $transition, ' .affiliatex-notice-content:hover li', array( 'color' => $attr['noticeListHoverColor'] ), array( ' .affiliatex-notice-content li' ) );
+		}
+
+		if ( ! empty( $attr['noticeIconHoverColor'] ) && is_string( $attr['noticeIconHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				' .affiliatex-notice-content .affiliatex-list li:hover i',
+				array( 'color' => $attr['noticeIconHoverColor'] ),
+				array( ' .affiliatex-notice-content .affiliatex-list li i' )
+			);
+			self::set_hover( $buckets, $transition, ' .affiliatex-notice-content .affiliatex-list li:hover:before', array( 'color' => $attr['noticeIconHoverColor'] ), array() );
+			self::set_hover( $buckets, $transition, ' .affiliatex-notice-content .affiliatex-list li:hover::marker', array( 'color' => $attr['noticeIconHoverColor'] ), array() );
+		}
+
+		$title_bg_hover = HoverStyles::get_background_styles(
+			$attr['noticeBgHoverType'] ?? '',
+			$attr['noticeBgType'] ?? 'solid',
+			$attr['noticeBgHoverColor'] ?? '',
+			$attr['noticeBgHoverGradient'] ?? ''
 		);
 
-		return $generated_css;
+		if ( ! empty( $title_bg_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-notice-inner-wrapper.layout-type-1 .affiliatex-notice-title:hover', $title_bg_hover, array( ' .affiliatex-notice-title' ) );
+		}
+
+		$content_bg_hover = HoverStyles::get_background_styles(
+			$attr['listBgHoverType'] ?? '',
+			$attr['listBgType'] ?? 'solid',
+			$attr['listBgHoverColor'] ?? '',
+			$attr['listBgHoverGradient'] ?? ''
+		);
+
+		if ( ! empty( $content_bg_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-notice-inner-wrapper.layout-type-1 .affiliatex-notice-content:hover', $content_bg_hover, array( ' .affiliatex-notice-content' ) );
+		}
+
+		$wrapper_hover = HoverStyles::get_background_styles(
+			$attr['noticeBgTwoHoverType'] ?? '',
+			$attr['noticeBgTwoType'] ?? 'solid',
+			$attr['noticeBgTwoHoverColor'] ?? '',
+			$attr['noticeBgTwoHoverGradient'] ?? ''
+		);
+
+		$wrapper_hover = array_merge( $wrapper_hover, HoverStyles::get_border_styles( $attr['noticeHoverBorder'] ?? null ) );
+		$wrapper_hover = array_merge( $wrapper_hover, HoverStyles::get_shadow_styles( $attr['noticeHoverShadow'] ?? null ) );
+
+		$desktop_radius = HoverStyles::get_radius_value( $attr['noticeHoverBorderRadius'] ?? null, 'desktop' );
+
+		if ( '' !== $desktop_radius ) {
+			$wrapper_hover['border-radius'] = $desktop_radius;
+		}
+
+		if ( ! empty( $wrapper_hover ) ) {
+			self::set_hover( $buckets, $transition, ' .affx-notice-inner-wrapper:hover', $wrapper_hover, array( ' .affx-notice-inner-wrapper' ) );
+		}
+
+		foreach ( array( 'tablet', 'mobile' ) as $device ) {
+			$radius = HoverStyles::get_radius_value( $attr['noticeHoverBorderRadius'] ?? null, $device );
+
+			if ( '' !== $radius ) {
+				HoverStyles::merge_selector( $buckets[ $device ], ' .affx-notice-inner-wrapper:hover', array( 'border-radius' => $radius ) );
+			}
+		}
+
+		foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+			HoverStyles::merge_selector(
+				$buckets[ $device ],
+				' .affx-notice-inner-wrapper:hover',
+				HoverStyles::get_spacing_styles( $attr['noticeHoverMargin'] ?? null, $device, 'margin' )
+			);
+			HoverStyles::merge_selector(
+				$buckets[ $device ],
+				' .affx-notice-inner-wrapper.layout-type-2:hover',
+				HoverStyles::get_spacing_styles( $attr['noticeHoverPadding'] ?? null, $device, 'padding' )
+			);
+			HoverStyles::merge_selector(
+				$buckets[ $device ],
+				' .affx-notice-inner-wrapper.layout-type-1:hover .affiliatex-notice-title',
+				HoverStyles::get_spacing_styles( $attr['titleHoverPadding'] ?? null, $device, 'padding' )
+			);
+			HoverStyles::merge_selector(
+				$buckets[ $device ],
+				' .affx-notice-inner-wrapper.layout-type-1:hover .affiliatex-notice-content',
+				HoverStyles::get_spacing_styles( $attr['contentHoverPadding'] ?? null, $device, 'padding' )
+			);
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['noticeHoverMargin'] ?? null ) || HoverStyles::has_spacing_value( $attr['noticeHoverPadding'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affx-notice-inner-wrapper', array( 'transition' => $transition ) );
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['titleHoverPadding'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-notice-title', array( 'transition' => $transition ) );
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['contentHoverPadding'] ?? null ) ) {
+			HoverStyles::merge_selector( $buckets['desktop'], ' .affiliatex-notice-content', array( 'transition' => $transition ) );
+		}
+
+		$typography_rules = array(
+			array(
+				'typography'  => $attr['titleHoverTypography'] ?? null,
+				'transitions' => array( ' .affiliatex-notice-title' ),
+				'hovers'      => array( ' .affiliatex-notice-title:hover' ),
+			),
+			array(
+				'typography'  => $attr['listHoverTypography'] ?? null,
+				'transitions' => array( ' .affiliatex-notice-content p', ' .affiliatex-notice-content li' ),
+				'hovers'      => array( ' .affiliatex-notice-content:hover p', ' .affiliatex-notice-content:hover li' ),
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( empty( $styles ) ) {
+					continue;
+				}
+
+				$has_styles = true;
+
+				foreach ( $rule['hovers'] as $selector ) {
+					HoverStyles::merge_selector( $buckets[ $device ], $selector, $styles );
+				}
+			}
+
+			if ( $has_styles ) {
+				foreach ( $rule['transitions'] as $selector ) {
+					HoverStyles::merge_selector( $buckets['desktop'], $selector, array( 'transition' => $transition ) );
+				}
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {
+
+		$icon_size_desktop      = self::get_icon_size( $attr, 'noticeIconSize' );
+		$list_icon_size_desktop = self::get_icon_size( $attr, 'noticeListIconSize' );
+		$alignment_desktop      = isset( $attr['alignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['alignment'] ) : null;
+		$title_align_desktop    = isset( $attr['titleAlignment'] ) ? AffiliateX_Helpers::get_responsive_value( $attr['titleAlignment'] ) : null;
 
 		$customization_data  = affx_get_customization_settings();
 		$global_font_family  = isset( $customization_data['typography']['family'] ) ? $customization_data['typography']['family'] : 'Default';
@@ -78,7 +341,7 @@ class AffiliateX_Notice_Styles {
 				'margin-right'  => isset( $attr['noticeMargin']['desktop']['right'] ) ? $attr['noticeMargin']['desktop']['right'] : '0px',
 				'margin-bottom' => isset( $attr['noticeMargin']['desktop']['bottom'] ) ? $attr['noticeMargin']['desktop']['bottom'] : '30px',
 				'box-shadow'    => isset( $attr['boxShadow'] ) && $attr['boxShadow']['enable'] ? AffiliateX_Helpers::get_css_boxshadow( $attr['boxShadow'] ) : AffiliateX_Helpers::get_css_boxshadow( $box_shadow ),
-				'text-align'    => isset( $attr['alignment'] ) ? $attr['alignment'] : 'left',
+				'text-align'    => null !== $alignment_desktop ? $alignment_desktop : 'left',
 			),
 			' .affiliatex-notice-title'                    => array(
 				'font-family'     => isset( $attr['titleTypography']['family'] ) ? $attr['titleTypography']['family'] : $global_font_family,
@@ -89,7 +352,7 @@ class AffiliateX_Notice_Styles {
 				'text-transform'  => isset( $attr['titleTypography']['text-transform'] ) ? $attr['titleTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['titleTypography']['text-decoration'] ) ? $attr['titleTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['titleTypography']['letter-spacing']['desktop'] ) ? $attr['titleTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['titleAlignment'] ) ? $attr['titleAlignment'] : 'left',
+				'text-align'      => null !== $title_align_desktop ? $title_align_desktop : 'left',
 				'color'           => isset( $attr['noticeTextColor'] ) ? $attr['noticeTextColor'] : '#ffffff',
 				'padding-top'     => isset( $attr['titlePadding']['desktop']['top'] ) ? $attr['titlePadding']['desktop']['top'] : '10px',
 				'padding-left'    => isset( $attr['titlePadding']['desktop']['left'] ) ? $attr['titlePadding']['desktop']['left'] : '15px',
@@ -97,14 +360,14 @@ class AffiliateX_Notice_Styles {
 				'padding-bottom'  => isset( $attr['titlePadding']['desktop']['bottom'] ) ? $attr['titlePadding']['desktop']['bottom'] : '10px',
 			),
 			' .affiliatex-notice-title i'                  => array(
-				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '18px',
+				'font-size' => null !== $icon_size_desktop ? $icon_size_desktop : '18px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title i' => array(
 				'color' => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#00454A',
 			),
 			' .affiliatex-notice-icon'                     => array(
 				'color'     => isset( $attr['noticeIconTwoColor'] ) ? $attr['noticeIconTwoColor'] : '#00454A',
-				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '18px',
+				'font-size' => null !== $icon_size_desktop ? $icon_size_desktop : '18px',
 			),
 			' .affiliatex-notice-content'                  => array(
 				'padding-top'    => isset( $attr['contentPadding']['desktop']['top'] ) ? $attr['contentPadding']['desktop']['top'] : '10px',
@@ -121,7 +384,7 @@ class AffiliateX_Notice_Styles {
 				'text-transform'  => isset( $attr['listTypography']['text-transform'] ) ? $attr['listTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
-				'text-align'      => isset( $attr['alignment'] ) ? $attr['alignment'] : 'left',
+				'text-align'      => null !== $alignment_desktop ? $alignment_desktop : 'left',
 				'color'           => isset( $attr['noticeListColor'] ) ? $attr['noticeListColor'] : $global_font_color,
 			),
 			' .affiliatex-notice-content li'               => array(
@@ -133,7 +396,7 @@ class AffiliateX_Notice_Styles {
 				'text-transform'  => isset( $attr['listTypography']['text-transform'] ) ? $attr['listTypography']['text-transform'] : 'none',
 				'text-decoration' => isset( $attr['listTypography']['text-decoration'] ) ? $attr['listTypography']['text-decoration'] : 'none',
 				'letter-spacing'  => isset( $attr['listTypography']['letter-spacing']['desktop'] ) ? $attr['listTypography']['letter-spacing']['desktop'] : '0em',
-				'justify-content' => isset( $attr['alignment'] ) ? $attr['alignment'] : 'left',
+				'justify-content' => null !== $alignment_desktop ? $alignment_desktop : 'left',
 				'color'           => isset( $attr['noticeListColor'] ) ? $attr['noticeListColor'] : $global_font_color,
 			),
 			' .affiliatex-notice-content .affiliatex-list li::marker' => array(
@@ -143,11 +406,11 @@ class AffiliateX_Notice_Styles {
 				'color' => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
 			),
 			' .affiliatex-notice-content ul.affiliatex-list li:before' => array(
-				'font-size' => isset( $attr['noticeListIconSize'] ) ? $attr['noticeListIconSize'] . 'px' : '17px',
+				'font-size' => null !== $list_icon_size_desktop ? $list_icon_size_desktop : '17px',
 			),
 			' .affiliatex-notice-content .affiliatex-list li i' => array(
 				'color'     => isset( $attr['noticeIconColor'] ) ? $attr['noticeIconColor'] : '#24b644',
-				'font-size' => isset( $attr['noticeListIconSize'] ) ? $attr['noticeListIconSize'] . 'px' : '17px',
+				'font-size' => null !== $list_icon_size_desktop ? $list_icon_size_desktop : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2'    => array(
 				'margin-top'     => isset( $attr['noticeMargin']['desktop']['top'] ) ? $attr['noticeMargin']['desktop']['top'] : '0px',
@@ -168,11 +431,11 @@ class AffiliateX_Notice_Styles {
 				'padding-bottom' => '10px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-1 .affiliatex-notice-title:before' => array(
-				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '17px',
+				'font-size' => null !== $icon_size_desktop ? $icon_size_desktop : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-title:before' => array(
 				'color'     => isset( $attr['noticeTextTwoColor'] ) ? $attr['noticeTextTwoColor'] : '#00454A',
-				'font-size' => isset( $attr['noticeIconSize'] ) ? $attr['noticeIconSize'] . 'px' : '17px',
+				'font-size' => null !== $icon_size_desktop ? $icon_size_desktop : '17px',
 			),
 			' .affx-notice-inner-wrapper.layout-type-2 .affiliatex-notice-content' => array(
 				'padding-top'    => '0px',
@@ -215,6 +478,11 @@ class AffiliateX_Notice_Styles {
 				'padding-left'   => isset( $attr['contentPadding']['mobile']['left'] ) ? $attr['contentPadding']['mobile']['left'] : '15px',
 				'padding-right'  => isset( $attr['contentPadding']['mobile']['right'] ) ? $attr['contentPadding']['mobile']['right'] : '15px',
 				'padding-bottom' => isset( $attr['contentPadding']['mobile']['bottom'] ) ? $attr['contentPadding']['mobile']['bottom'] : '10px',
+			),
+			' .affiliatex-notice-content p'             => array(
+				'font-size'      => isset( $attr['listTypography']['size']['mobile'] ) ? $attr['listTypography']['size']['mobile'] : '18px',
+				'line-height'    => isset( $attr['listTypography']['line-height']['mobile'] ) ? $attr['listTypography']['line-height']['mobile'] : '1.333',
+				'letter-spacing' => isset( $attr['listTypography']['letter-spacing']['mobile'] ) ? $attr['listTypography']['letter-spacing']['mobile'] : '0em',
 			),
 			' .affiliatex-notice-content li'            => array(
 				'font-size'      => isset( $attr['listTypography']['size']['mobile'] ) ? $attr['listTypography']['size']['mobile'] : '18px',
@@ -260,6 +528,11 @@ class AffiliateX_Notice_Styles {
 				'padding-left'   => isset( $attr['contentPadding']['tablet']['left'] ) ? $attr['contentPadding']['tablet']['left'] : '15px',
 				'padding-right'  => isset( $attr['contentPadding']['tablet']['right'] ) ? $attr['contentPadding']['tablet']['right'] : '15px',
 				'padding-bottom' => isset( $attr['contentPadding']['tablet']['bottom'] ) ? $attr['contentPadding']['tablet']['bottom'] : '10px',
+			),
+			' .affiliatex-notice-content p'             => array(
+				'font-size'      => isset( $attr['listTypography']['size']['tablet'] ) ? $attr['listTypography']['size']['tablet'] : '18px',
+				'line-height'    => isset( $attr['listTypography']['line-height']['tablet'] ) ? $attr['listTypography']['line-height']['tablet'] : '1.333',
+				'letter-spacing' => isset( $attr['listTypography']['letter-spacing']['tablet'] ) ? $attr['listTypography']['letter-spacing']['tablet'] : '0em',
 			),
 			' .affiliatex-notice-content li'            => array(
 				'font-size'      => isset( $attr['listTypography']['size']['tablet'] ) ? $attr['listTypography']['size']['tablet'] : '18px',

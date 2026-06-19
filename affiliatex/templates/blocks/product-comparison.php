@@ -24,7 +24,7 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
 									<?php endif; ?>
 									<div class="affx-product-content">
 										<?php if ( $pcTitle ) : ?>
-											<div class="affx-product-title-wrap">
+											<div class="affx-product-title-wrap<?php echo '' !== ( $titleHideClass ?? '' ) ? ' ' . esc_attr( $titleHideClass ) : ''; ?>">
 												<<?php echo esc_attr( $pcTitleTag ); ?> class="affx-comparison-title" style="text-align: <?php echo esc_attr( $pcTitleAlign ); ?>;">
 													<?php echo wp_kses_post( $item['title'] ); ?>
 												</<?php echo esc_attr( $pcTitleTag ); ?>>
@@ -42,7 +42,7 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
 												</div>
 											<?php endif; ?>
 											<?php if ( $pcButton ) : ?>
-												<div class="affx-btn-wrap">
+												<div class="affx-btn-wrap<?php echo '' !== ( $buttonHideClass ?? '' ) ? ' ' . esc_attr( $buttonHideClass ) : ''; ?>">
 													<a href="<?php echo esc_url( apply_filters( 'affiliatex_button_url', do_shortcode( $item['buttonURL'] ) ) ); ?>" class="affiliatex-button affx-winner-button <?php echo $pcButtonIcon ? 'icon-btn icon-' . esc_attr( $buttonIconAlign ) : ''; ?>" <?php echo esc_html( $item['rel'] . ' ' . esc_html( $item['target'] ) . ' ' . esc_html( $item['download'] ) ); ?>>
 														<?php if ( $pcButtonIcon && $buttonIconAlign === 'left' ) : ?>
 															<i class="button-icon <?php echo esc_attr( $buttonIcon['value'] ); ?>"></i>

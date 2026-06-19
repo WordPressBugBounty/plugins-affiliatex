@@ -48,7 +48,9 @@ class VersusLineWidget extends ElementorBase {
 	}
 
 	protected function register_controls() {
-		$defaults = $this->get_fields();
+		$defaults         = $this->get_fields();
+		$hover_transition = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease;';
+		$font_transition  = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, font-size .15s ease, letter-spacing .15s ease;';
 
 		//
 		// Content Tab
@@ -81,6 +83,8 @@ class VersusLineWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_vl_title' );
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -103,6 +107,8 @@ class VersusLineWidget extends ElementorBase {
 				'default'     => $defaults['vsLabel'],
 			)
 		);
+
+		$this->add_visibility_controls( 'affx_vl_vs' );
 
 		$this->add_control(
 			'versusTable',
@@ -166,6 +172,13 @@ class VersusLineWidget extends ElementorBase {
 				'label' => __( 'Border Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_vl_border_tabs' );
+
+		$this->start_controls_tab(
+			'affx_vl_border_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -240,6 +253,64 @@ class VersusLineWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_vl_border_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'           => 'versusHoverBorder',
+				'label'          => __( 'Border', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'color' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'versusHoverBorderRadius',
+			array(
+				'label'      => __( 'Border Radius', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'           => 'versusHoverShadow',
+				'label'          => __( 'Box Shadow', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'box_shadow' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -251,6 +322,13 @@ class VersusLineWidget extends ElementorBase {
 				'label' => __( 'Color Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_vl_colors_tabs' );
+
+		$this->start_controls_tab(
+			'affx_vl_colors_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_control(
@@ -352,6 +430,98 @@ class VersusLineWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_vl_colors_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_control(
+			'vsTextHoverColor',
+			array(
+				'label'     => __( 'VS Text Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'vs-icon', ':hover' ) ) => 'color: {{VALUE}}',
+					$this->select_element( 'vs-icon' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'vsBgHoverColor',
+			array(
+				'label'     => __( 'VS Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'vs-icon', ':hover' ) ) => 'background: {{VALUE}}',
+					$this->select_element( 'vs-icon' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'contentHoverColor',
+			array(
+				'label'     => __( 'Content Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'color: {{VALUE}}',
+					$this->select_element( 'wrapper' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'versusRowHoverColor',
+			array(
+				'label'     => __( 'Row Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .affx-product-versus-table tbody tr:hover td' => 'background: {{VALUE}}',
+					'{{WRAPPER}} .affx-product-versus-table tbody td' => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'           => 'versusBgHover',
+				'label'          => __( 'Background', 'affiliatex' ),
+				'types'          => array( 'classic', 'gradient' ),
+				'exclude'        => array( 'image' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'background' => array(
+						'label'   => __( 'Background Hover Type', 'affiliatex' ),
+						'options' => array(
+							'classic'  => array(
+								'title' => __( 'Color', 'affiliatex' ),
+								'icon'  => 'eicon-global-colors',
+							),
+							'gradient' => array(
+								'title' => __( 'Gradient', 'affiliatex' ),
+								'icon'  => 'eicon-barcode',
+							),
+						),
+					),
+					'color'      => array(
+						'label'     => __( 'Background Hover Color', 'affiliatex' ),
+						'selectors' => array(
+							'{{SELECTOR}}' => 'background-color: {{VALUE}};',
+							$this->select_element( 'wrapper' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -363,6 +533,13 @@ class VersusLineWidget extends ElementorBase {
 				'label' => __( 'Typography Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_vl_typography_tabs' );
+
+		$this->start_controls_tab(
+			'affx_vl_typography_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -461,6 +638,86 @@ class VersusLineWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_vl_typography_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'vsHoverTypography',
+				'label'          => __( 'VS Label Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'vs-icon', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'vs-icon' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'vs-icon' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'versusTitleHoverTypography',
+				'label'          => __( 'Title Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'title', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'versusContentHoverTypography',
+				'label'          => __( 'Content Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'wrapper', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'wrapper' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'wrapper' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -472,6 +729,13 @@ class VersusLineWidget extends ElementorBase {
 				'label' => __( 'Spacing Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_vl_spacing_tabs' );
+
+		$this->start_controls_tab(
+			'affx_vl_spacing_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_responsive_control(
@@ -514,6 +778,43 @@ class VersusLineWidget extends ElementorBase {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_vl_spacing_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_responsive_control(
+			'versusHoverMargin',
+			array(
+				'label'      => __( 'Margin', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, margin .15s ease;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'versusHoverPadding',
+			array(
+				'label'      => __( 'Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'wrapper', ':hover' ) ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'wrapper' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		// Amazon Attributes Configuration
 		$this->add_control(

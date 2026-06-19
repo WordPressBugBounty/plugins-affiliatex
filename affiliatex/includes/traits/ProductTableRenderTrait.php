@@ -184,6 +184,10 @@ trait ProductTableRenderTrait {
 		$attributes = $this->parse_attributes( $attributes );
 		extract( $attributes );
 
+		$productNameHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['productNameHideOn'] ?? null );
+		$button1HideClass     = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['button1HideOn'] ?? null );
+		$button2HideClass     = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['button2HideOn'] ?? null );
+
 		if ( self::IS_ELEMENTOR ) {
 			// Elementor Context.
 			$wrapper_attributes = "id='affiliatex-pdt-table-style-$block_id'";

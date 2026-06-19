@@ -38,6 +38,9 @@ class SpecificationsWidget extends ElementorBase {
 	}
 
 	protected function register_controls() {
+		$hover_transition = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease;';
+		$font_transition  = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, font-size .15s ease, letter-spacing .15s ease;';
+
 		//
 		// Content
 		//
@@ -177,6 +180,8 @@ class SpecificationsWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_spec_title', array( 'edSpecificationTitle' => 'true' ) );
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -275,6 +280,8 @@ class SpecificationsWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_spec_rows' );
+
 		$this->end_controls_section();
 
 		//
@@ -289,6 +296,13 @@ class SpecificationsWidget extends ElementorBase {
 				'label' => __( 'Border Settings', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_spec_border_tabs' );
+
+		$this->start_controls_tab(
+			'affx_spec_border_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -349,6 +363,64 @@ class SpecificationsWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_spec_border_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'           => 'specificationHoverBorder',
+				'label'          => __( 'Border', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'container', ':hover' ) ),
+				'fields_options' => array(
+					'color' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+							$this->select_element( 'container' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'specificationHoverBorderRadius',
+			array(
+				'label'      => __( 'Border Radius', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					$this->select_element( array( 'container', ':hover' ) ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'container' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'           => 'specificationHoverShadow',
+				'label'          => __( 'Box Shadow', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'container', ':hover' ) ),
+				'fields_options' => array(
+					'box_shadow' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+							$this->select_element( 'container' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -360,6 +432,13 @@ class SpecificationsWidget extends ElementorBase {
 				'label' => __( 'Colors', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_spec_colors_tabs' );
+
+		$this->start_controls_tab(
+			'affx_spec_colors_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_control(
@@ -476,6 +555,110 @@ class SpecificationsWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_spec_colors_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_control(
+			'specificationTitleHoverColor',
+			array(
+				'label'     => __( 'Title Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( 'table-heading' ) . ':hover .affx-specification-title' => 'color: {{VALUE}};',
+					$this->select_element( 'title' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'specificationTitleBgHoverColor',
+			array(
+				'label'     => __( 'Title Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'table-heading', ':hover' ) ) => 'background-color: {{VALUE}};',
+					$this->select_element( 'table-heading' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'specificationLabelHoverColor',
+			array(
+				'label'     => __( 'Label Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'label', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'label' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'specificationValueHoverColor',
+			array(
+				'label'     => __( 'Value Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'value', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'value' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'specificationRowHoverColor',
+			array(
+				'label'     => __( 'Table Row Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( 'table' ) . ' tbody tr:hover td' => 'background: {{VALUE}};',
+					$this->select_element( 'table-cell' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'           => 'specificationBgHover',
+				'label'          => __( 'Background', 'affiliatex' ),
+				'types'          => array( 'classic', 'gradient' ),
+				'exclude'        => array( 'image' ),
+				'selector'       => $this->select_element( 'container' ) . ':hover .affx-specification-table',
+				'fields_options' => array(
+					'background' => array(
+						'label'   => __( 'Background Hover Type', 'affiliatex' ),
+						'options' => array(
+							'classic'  => array(
+								'title' => __( 'Color', 'affiliatex' ),
+								'icon'  => 'eicon-global-colors',
+							),
+							'gradient' => array(
+								'title' => __( 'Gradient', 'affiliatex' ),
+								'icon'  => 'eicon-barcode',
+							),
+						),
+					),
+					'color'      => array(
+						'label'     => __( 'Background Hover Color', 'affiliatex' ),
+						'selectors' => array(
+							'{{SELECTOR}}' => 'background-color: {{VALUE}};',
+							$this->select_element( 'table' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -487,6 +670,13 @@ class SpecificationsWidget extends ElementorBase {
 				'label' => __( 'Typography', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_spec_typography_tabs' );
+
+		$this->start_controls_tab(
+			'affx_spec_typography_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -621,6 +811,86 @@ class SpecificationsWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_spec_typography_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'specificationTitleHoverTypography',
+				'label'          => __( 'Title Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( 'table-heading' ) . ':hover .affx-specification-title',
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'title' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'specificationLabelHoverTypography',
+				'label'          => __( 'Label Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'label', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'label' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'label' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'specificationValueHoverTypography',
+				'label'          => __( 'Value Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'value', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'value' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'value' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -632,6 +902,13 @@ class SpecificationsWidget extends ElementorBase {
 				'label' => __( 'Spacing', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_spec_spacing_tabs' );
+
+		$this->start_controls_tab(
+			'affx_spec_spacing_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_responsive_control(
@@ -679,6 +956,53 @@ class SpecificationsWidget extends ElementorBase {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_spec_spacing_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_responsive_control(
+			'specificationHoverMargin',
+			array(
+				'label'      => __( 'Margin', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'container', ':hover' ) ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'container' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, margin .15s ease;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'specificationHoverPadding',
+			array(
+				'label'      => __( 'Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					WidgetHelper::select_multiple_elements(
+						array(
+							$this->select_element( 'container' ) . ':hover .affx-specification-table td',
+							$this->select_element( 'container' ) . ':hover .affx-specification-table th',
+						)
+					) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					WidgetHelper::select_multiple_elements(
+						array(
+							$this->select_element( 'table-cell' ),
+							$this->select_element( 'table-heading' ),
+						)
+					) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		// Amazon Attributes Configuration
 		$this->add_control(

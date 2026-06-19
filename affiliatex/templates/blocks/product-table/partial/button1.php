@@ -11,7 +11,7 @@ if ( $product['btn1RelSponsored'] ) {
 }
 	$button1RelAttr = ! empty( $button1Rel ) ? 'rel="' . implode( ' ', $button1Rel ) . '"' : '';
 ?>
-<div class="affx-btn-inner">
+<div class="affx-btn-inner<?php echo '' !== ( $button1HideClass ?? '' ) ? ' ' . esc_attr( $button1HideClass ) : ''; ?>">
 	<a href="<?php echo esc_url( apply_filters( 'affiliatex_button_url', do_shortcode( $product['button1URL'] ) ) ); ?>" class="affiliatex-button primary <?php echo $edButton1Icon ? 'icon-btn icon-' . esc_attr( $button1IconAlign ) : ''; ?>" <?php echo esc_html( $button1RelAttr ); ?> <?php echo $product['btn1OpenInNewTab'] ? 'target="_blank"' : ''; ?> <?php echo $product['btn1Download'] ? 'download' : ''; ?>>
 		<?php if ( $edButton1Icon && $button1IconAlign === 'left' ) : ?>
 			<i class="button-icon <?php echo esc_attr( $button1Icon['value'] ); ?>"></i>

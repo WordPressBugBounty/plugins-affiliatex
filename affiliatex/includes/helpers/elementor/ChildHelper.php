@@ -153,6 +153,11 @@ class ChildHelper {
 				$conditions         = array_merge( $conditions, $this->config['conditions'] ?? array() );
 				$field['condition'] = $conditions;
 
+				if ( WidgetHelper::is_tab_marker( $field ) ) {
+					WidgetHelper::handle_tab_marker( $this->controller, $this->field_name( $field_id ), $field );
+					continue;
+				}
+
 				// handle default values
 				$field['default'] = isset( $this->config['defaults'][ $field_id ] ) ? $this->config['defaults'][ $field_id ] : $field['default'] ?? null;
 

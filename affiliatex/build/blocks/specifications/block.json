@@ -255,17 +255,106 @@
       "type": "boolean",
       "default": true
     },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "rowsHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
     "specificationTitleAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "specificationLabelAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "specificationValueAlign": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
+    },
+    "specificationTitleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationTitleBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationLabelHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationValueHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationRowHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "specificationTitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationLabelHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationValueHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "specificationHoverShadow": {
+      "type": "object",
+      "default": {}
     },
     "specificationMargin": {
       "type": "object",

@@ -40,6 +40,9 @@ class ProductComparisonWidget extends ElementorBase {
 	}
 
 	protected function register_controls() {
+		$hover_transition = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease;';
+		$font_transition  = 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, font-size .15s ease, letter-spacing .15s ease;';
+
 		//
 		// CONENT TAB
 		//
@@ -202,6 +205,8 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->add_visibility_controls( 'affx_pc_title' );
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -281,6 +286,8 @@ class ProductComparisonWidget extends ElementorBase {
 				),
 			)
 		);
+
+		$this->add_visibility_controls( 'affx_pc_button' );
 
 		$this->end_controls_section();
 
@@ -602,6 +609,13 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->start_controls_tabs( 'affx_pc_border_tabs' );
+
+		$this->start_controls_tab(
+			'affx_pc_border_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
+		);
+
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
@@ -657,6 +671,64 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_pc_border_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'           => 'hoverBorder',
+				'label'          => __( 'Border', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'container', ':hover' ) ),
+				'fields_options' => array(
+					'color' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+							$this->select_element( 'container' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hoverBorderRadius',
+			array(
+				'label'      => __( 'Border Radius', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					$this->select_element( array( 'container', ':hover' ) ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'container' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'           => 'hoverShadow',
+				'label'          => __( 'Box Shadow', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'container', ':hover' ) ),
+				'fields_options' => array(
+					'box_shadow' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+							$this->select_element( 'container' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -668,6 +740,13 @@ class ProductComparisonWidget extends ElementorBase {
 				'label' => __( 'Colors', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_pc_colors_tabs' );
+
+		$this->start_controls_tab(
+			'affx_pc_colors_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_control(
@@ -805,21 +884,6 @@ class ProductComparisonWidget extends ElementorBase {
 		);
 
 		$this->add_control(
-			'buttonTextHoverColor',
-			array(
-				'label'     => __( 'Button Text Hover Color', 'affiliatex' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => '#FFFFFF',
-				'selectors' => array(
-					$this->select_element( 'button:hover' ) => 'color: {{VALUE}};',
-				),
-				'condition' => array(
-					'pcButton' => 'true',
-				),
-			)
-		);
-
-		$this->add_control(
 			'buttonBgColor',
 			array(
 				'label'     => __( 'Button Background Color', 'affiliatex' ),
@@ -827,21 +891,6 @@ class ProductComparisonWidget extends ElementorBase {
 				'default'   => AffiliateX_Customization_Helper::get_value( 'btnColor', '#00B0B0' ),
 				'selectors' => array(
 					$this->select_element( 'button' ) => 'background-color: {{VALUE}};',
-				),
-				'condition' => array(
-					'pcButton' => 'true',
-				),
-			)
-		);
-
-		$this->add_control(
-			'buttonBgHoverColor',
-			array(
-				'label'     => __( 'Button Background Hover Color', 'affiliatex' ),
-				'type'      => Controls_Manager::COLOR,
-				'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#00454A' ),
-				'selectors' => array(
-					$this->select_element( 'button:hover' ) => 'background-color: {{VALUE}};',
 				),
 				'condition' => array(
 					'pcButton' => 'true',
@@ -891,6 +940,184 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_pc_colors_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_control(
+			'ribbonHoverColor',
+			array(
+				'label'     => __( 'Ribbon Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'product-ribbon', ':hover' ) ) => 'background: {{VALUE}};',
+					$this->select_element( array( 'product-ribbon', ':hover::before' ) ) => 'background: {{VALUE}};',
+					$this->select_element( array( 'product-ribbon', ':hover::after' ) ) => 'background: {{VALUE}};',
+					$this->select_element( 'product-ribbon' ) => $hover_transition,
+				),
+				'condition' => array(
+					'pcRibbon' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'ribbonTextHoverColor',
+			array(
+				'label'     => __( 'Ribbon Text Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'product-ribbon', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'product-ribbon' ) => $hover_transition,
+				),
+				'condition' => array(
+					'pcRibbon' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'titleHoverColor',
+			array(
+				'label'     => __( 'Title Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'product-title', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'product-title' ) => $hover_transition,
+				),
+				'condition' => array(
+					'pcTitle' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'priceHoverColor',
+			array(
+				'label'     => __( 'Price Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'product-price', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'product-price' ) => $hover_transition,
+				),
+				'condition' => array(
+					'pcPrice' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'contentHoverColor',
+			array(
+				'label'     => __( 'Content Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( array( 'table-cells', ':hover' ) ) => 'color: {{VALUE}};',
+					$this->select_element( 'product-content' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'tableRowBgHoverColor',
+			array(
+				'label'     => __( 'Table Row Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					'{{WRAPPER}} .affx-versus-table-wrap .affx-product-versus-table tbody tr:hover td:not(.affx-specification-add-col):not(.affx-specification-remove-col)' => 'background: {{VALUE}};',
+					$this->select_element( 'table-cells' ) => $hover_transition,
+				),
+			)
+		);
+
+		$this->add_control(
+			'pcButtonHoverColorsLabel',
+			array(
+				'label'     => esc_html__( 'Button', 'affiliatex' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_control(
+			'buttonTextHoverColor',
+			array(
+				'label'     => __( 'Button Text Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => array(
+					$this->select_element( 'button:hover' ) => 'color: {{VALUE}};',
+				),
+				'condition' => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'buttonBgHoverColor',
+			array(
+				'label'     => __( 'Button Background Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => AffiliateX_Customization_Helper::get_value( 'btnHoverColor', '#00454A' ),
+				'selectors' => array(
+					$this->select_element( 'button:hover' ) => 'background-color: {{VALUE}};',
+				),
+				'condition' => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_control(
+			'pcBgHoverLabel',
+			array(
+				'label'     => esc_html__( 'Background', 'affiliatex' ),
+				'type'      => \Elementor\Controls_Manager::HEADING,
+				'separator' => 'before',
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			array(
+				'name'           => 'bgHoverType',
+				'label'          => __( 'Background Hover', 'affiliatex' ),
+				'types'          => array( 'classic', 'gradient' ),
+				'exclude'        => array( 'image' ),
+				'selector'       => $this->select_element( array( 'container', ':hover' ) ),
+				'fields_options' => array(
+					'background' => array(
+						'label'   => __( 'Background Hover Type', 'affiliatex' ),
+						'options' => array(
+							'classic'  => array(
+								'title' => esc_html__( 'Color', 'affiliatex' ),
+								'icon'  => 'eicon-paint-brush',
+							),
+							'gradient' => array(
+								'title' => esc_html__( 'Gradient', 'affiliatex' ),
+								'icon'  => 'eicon-barcode',
+							),
+						),
+					),
+					'color'      => array(
+						'label'     => __( 'Background Hover Color', 'affiliatex' ),
+						'selectors' => array(
+							'{{SELECTOR}}' => 'background-color: {{VALUE}};',
+							$this->select_element( 'container' ) => $hover_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -902,6 +1129,13 @@ class ProductComparisonWidget extends ElementorBase {
 				'label' => __( 'Typography', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_pc_typography_tabs' );
+
+		$this->start_controls_tab(
+			'affx_pc_typography_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_group_control(
@@ -1138,6 +1372,145 @@ class ProductComparisonWidget extends ElementorBase {
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_pc_typography_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'titleHoverTypography',
+				'label'          => __( 'Title Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'product-title', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-title' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-title' ) => $font_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcTitle' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'ribbonHoverTypography',
+				'label'          => __( 'Ribbon Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'product-ribbon', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-ribbon' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-ribbon' ) => $font_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcRibbon' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'priceHoverTypography',
+				'label'          => __( 'Price Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'product-price', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-price' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-price' ) => $font_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcPrice' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'buttonHoverTypography',
+				'label'          => __( 'Button Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'button', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'button' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'button' ) => $font_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			array(
+				'name'           => 'contentHoverTypography',
+				'label'          => __( 'Content Hover Typography', 'affiliatex' ),
+				'selector'       => $this->select_element( array( 'table-cells', ':hover' ) ),
+				'fields_options' => array(
+					'font_size'      => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'font-size: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-content' ) => $font_transition,
+						),
+					),
+					'letter_spacing' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'letter-spacing: {{SIZE}}{{UNIT}};',
+							$this->select_element( 'product-content' ) => $font_transition,
+						),
+					),
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -1149,6 +1522,13 @@ class ProductComparisonWidget extends ElementorBase {
 				'label' => __( 'Spacing', 'affiliatex' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			)
+		);
+
+		$this->start_controls_tabs( 'affx_pc_spacing_tabs' );
+
+		$this->start_controls_tab(
+			'affx_pc_spacing_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
 		);
 
 		$this->add_responsive_control(
@@ -1167,7 +1547,6 @@ class ProductComparisonWidget extends ElementorBase {
 					'left'     => '0',
 					'unit'     => 'px',
 					'isLinked' => false,
-
 				),
 				'condition'  => array(
 					'pcImage' => 'true',
@@ -1191,7 +1570,6 @@ class ProductComparisonWidget extends ElementorBase {
 					'left'     => '0',
 					'unit'     => 'px',
 					'isLinked' => false,
-
 				),
 			)
 		);
@@ -1221,6 +1599,61 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_pc_spacing_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_responsive_control(
+			'imageHoverPadding',
+			array(
+				'label'      => __( 'Image Hover Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'product-image', ':hover' ) ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'product-image' ) => $hover_transition,
+				),
+				'condition'  => array(
+					'pcImage' => 'true',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hoverMargin',
+			array(
+				'label'      => __( 'Margin', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'container', ':hover' ) ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'container' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, margin .15s ease;',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'hoverPadding',
+			array(
+				'label'      => __( 'Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'rem', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( array( 'container', ':hover' ) ) . ' ' . $this->select_element( 'table-headings' ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( array( 'container', ':hover' ) ) . ' ' . $this->select_element( 'table-cells' ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'table-headings' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+					$this->select_element( 'table-cells' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
 		$this->end_controls_section();
 
 		/**************************************************************
@@ -1237,6 +1670,13 @@ class ProductComparisonWidget extends ElementorBase {
 			)
 		);
 
+		$this->start_controls_tabs( 'affx_pc_button_style_tabs' );
+
+		$this->start_controls_tab(
+			'affx_pc_button_style_tab_normal',
+			array( 'label' => __( 'Normal', 'affiliatex' ) )
+		);
+
 		$this->add_group_control(
 			Group_Control_Border::get_type(),
 			array(
@@ -1245,20 +1685,6 @@ class ProductComparisonWidget extends ElementorBase {
 				'responsive' => true,
 				'selector'   => $this->select_element( 'button' ),
 				'condition'  => array(
-					'pcButton' => 'true',
-				),
-			)
-		);
-
-		$this->add_control(
-			'buttonBorderHoverColor',
-			array(
-				'label'     => __( 'Border Hover Color', 'affiliatex' ),
-				'type'      => Controls_Manager::COLOR,
-				'selectors' => array(
-					$this->select_element( 'button:hover' ) => 'border-color: {{VALUE}};',
-				),
-				'condition' => array(
 					'pcButton' => 'true',
 				),
 			)
@@ -1315,7 +1741,6 @@ class ProductComparisonWidget extends ElementorBase {
 					'left'     => '10',
 					'unit'     => 'px',
 					'isLinked' => false,
-
 				),
 				'condition'  => array(
 					'pcButton' => 'true',
@@ -1339,13 +1764,126 @@ class ProductComparisonWidget extends ElementorBase {
 					'left'     => '0',
 					'unit'     => 'px',
 					'isLinked' => false,
-
 				),
 				'condition'  => array(
 					'pcButton' => 'true',
 				),
 			)
 		);
+
+		$this->end_controls_tab();
+
+		$this->start_controls_tab(
+			'affx_pc_button_style_tab_hover',
+			array( 'label' => __( 'Hover', 'affiliatex' ) )
+		);
+
+		$this->add_control(
+			'buttonBorderHoverColor',
+			array(
+				'label'     => __( 'Border Hover Color', 'affiliatex' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => array(
+					$this->select_element( 'button:hover' ) => 'border-color: {{VALUE}};',
+					$this->select_element( 'button' ) => $hover_transition,
+				),
+				'condition' => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Border::get_type(),
+			array(
+				'name'           => 'buttonHoverBorder',
+				'label'          => __( 'Button Hover Border', 'affiliatex' ),
+				'selector'       => $this->select_element( 'button:hover' ),
+				'fields_options' => array(
+					'color' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'border-color: {{VALUE}};',
+							$this->select_element( 'button' ) => $hover_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'buttonHoverBorderRadius',
+			array(
+				'label'      => __( 'Border Radius', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( 'button:hover' ) => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'button' ) => $hover_transition,
+				),
+				'condition'  => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_group_control(
+			Group_Control_Box_Shadow::get_type(),
+			array(
+				'name'           => 'buttonHoverShadow',
+				'label'          => __( 'Box Shadow', 'affiliatex' ),
+				'selector'       => $this->select_element( 'button:hover' ),
+				'fields_options' => array(
+					'box_shadow' => array(
+						'selectors' => array(
+							'{{SELECTOR}}' => 'box-shadow: {{HORIZONTAL}}px {{VERTICAL}}px {{BLUR}}px {{SPREAD}}px {{COLOR}} {{box_shadow_position.VALUE}};',
+							$this->select_element( 'button' ) => $hover_transition,
+						),
+					),
+				),
+				'condition'      => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'buttonHoverPadding',
+			array(
+				'label'      => __( 'Padding', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em', 'pt' ),
+				'selectors'  => array(
+					$this->select_element( 'button:hover' ) => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'button' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, padding .15s ease;',
+				),
+				'condition'  => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->add_responsive_control(
+			'buttonHoverMargin',
+			array(
+				'label'      => __( 'Margin', 'affiliatex' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px', '%', 'em' ),
+				'selectors'  => array(
+					$this->select_element( 'button:hover' ) => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					$this->select_element( 'button' ) => 'transition: color .15s ease, background-color .15s ease, border-color .15s ease, box-shadow .15s ease, border-radius .15s ease, margin .15s ease;',
+				),
+				'condition'  => array(
+					'pcButton' => 'true',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		$this->end_controls_section();
 	}

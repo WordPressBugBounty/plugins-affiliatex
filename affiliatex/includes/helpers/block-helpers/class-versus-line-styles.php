@@ -1,6 +1,11 @@
 <?php
 
+defined( 'ABSPATH' ) || exit;
+
 use AffiliateX\Helpers\AffiliateX_Helpers;
+use AffiliateX\Helpers\HoverStyles;
+
+require_once __DIR__ . '/class-affiliatex-block-styles-base.php';
 
 /**
  * Versus Line Block Styles
@@ -8,7 +13,11 @@ use AffiliateX\Helpers\AffiliateX_Helpers;
  * @package AffiliateX
  */
 
-class AffiliateX_Versus_Line_Styles {
+class AffiliateX_Versus_Line_Styles extends AffiliateX_Block_Styles_Base {
+
+	protected static function css_id_prefix(): string {
+		return '#affiliatex-versus-line-style-';
+	}
 
 	public static function block_fonts( $attr ) {
 		return array(
@@ -18,26 +27,120 @@ class AffiliateX_Versus_Line_Styles {
 		);
 	}
 
-	public static function block_css( $attr, $id ) {
-		$selectors = self::get_selectors( $attr );
+	/**
+	 * Hover rules for the wave-2 hover attributes, mirrors versus-line/styling.js.
+	 *
+	 * @param array $buckets Buckets keyed by device, by reference.
+	 * @param array $attr Block attributes.
+	 * @return void
+	 */
+	protected static function apply_hover_selectors( array &$buckets, array $attr ): void {
+		$wrap = ' .affx-versus-table-wrap';
 
-		$m_selectors = self::get_mobileselectors( $attr );
-
-		$t_selectors = self::get_tabletselectors( $attr );
-
-		$desktop = AffiliateX_Helpers::generate_css( $selectors, '#affiliatex-versus-line-style-' . $id );
-
-		$tablet = AffiliateX_Helpers::generate_css( $t_selectors, '#affiliatex-versus-line-style-' . $id );
-
-		$mobile = AffiliateX_Helpers::generate_css( $m_selectors, '#affiliatex-versus-line-style-' . $id );
-
-		$generated_css = array(
-			'desktop' => $desktop,
-			'tablet'  => $tablet,
-			'mobile'  => $mobile,
+		HoverStyles::apply_container_hover(
+			$buckets,
+			$wrap,
+			$attr['bgType'] ?? 'solid',
+			array(
+				'bg_type'       => $attr['versusBgHoverType'] ?? '',
+				'bg_color'      => $attr['versusBgHoverColor'] ?? '',
+				'bg_gradient'   => $attr['versusBgHoverGradient'] ?? '',
+				'border'        => $attr['versusHoverBorder'] ?? null,
+				'shadow'        => $attr['versusHoverShadow'] ?? null,
+				'border_radius' => $attr['versusHoverBorderRadius'] ?? null,
+				'padding'       => $attr['versusHoverPadding'] ?? null,
+				'margin'        => $attr['versusHoverMargin'] ?? null,
+			)
 		);
 
-		return $generated_css;
+		$typos = array(
+			$attr['versusTitleHoverTypography'] ?? null,
+			$attr['vsHoverTypography'] ?? null,
+			$attr['versusContentHoverTypography'] ?? null,
+		);
+
+		$extras = array();
+
+		if ( HoverStyles::has_typography_value( $typos, 'size' ) ) {
+			$extras[] = 'font-size';
+		}
+
+		if ( HoverStyles::has_typography_value( $typos, 'letter-spacing' ) ) {
+			$extras[] = 'letter-spacing';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['versusHoverMargin'] ?? null ) ) {
+			$extras[] = 'margin';
+		}
+
+		if ( HoverStyles::has_spacing_value( $attr['versusHoverPadding'] ?? null ) ) {
+			$extras[] = 'padding';
+		}
+
+		$transition = HoverStyles::get_transition( $extras );
+
+		$vs_hover = array();
+
+		if ( ! empty( $attr['vsTextHoverColor'] ) && is_string( $attr['vsTextHoverColor'] ) ) {
+			$vs_hover['color'] = $attr['vsTextHoverColor'];
+		}
+
+		if ( ! empty( $attr['vsBgHoverColor'] ) && is_string( $attr['vsBgHoverColor'] ) ) {
+			$vs_hover['background'] = $attr['vsBgHoverColor'];
+		}
+
+		if ( ! empty( $vs_hover ) ) {
+			self::set_hover( $buckets, $transition, $wrap . ' .affx-vs-icon:hover', $vs_hover, array( $wrap . ' .affx-vs-icon' ) );
+		}
+
+		if ( ! empty( $attr['contentHoverColor'] ) && is_string( $attr['contentHoverColor'] ) ) {
+			self::set_hover( $buckets, $transition, $wrap . ':hover', array( 'color' => $attr['contentHoverColor'] ), array( $wrap ) );
+		}
+
+		if ( ! empty( $attr['versusRowHoverColor'] ) && is_string( $attr['versusRowHoverColor'] ) ) {
+			self::set_hover(
+				$buckets,
+				$transition,
+				' .affx-product-versus-table tbody tr:hover td',
+				array( 'background' => $attr['versusRowHoverColor'] ),
+				array( ' .affx-product-versus-table tbody td' )
+			);
+		}
+
+		$typography_rules = array(
+			array(
+				'typography' => $attr['versusTitleHoverTypography'] ?? null,
+				'base'       => $wrap . ' .affx-versus-title',
+				'hover'      => $wrap . ' .affx-versus-title:hover',
+			),
+			array(
+				'typography' => $attr['vsHoverTypography'] ?? null,
+				'base'       => $wrap . ' .affx-vs-icon',
+				'hover'      => $wrap . ' .affx-vs-icon:hover',
+			),
+			array(
+				'typography' => $attr['versusContentHoverTypography'] ?? null,
+				'base'       => $wrap,
+				'hover'      => $wrap . ':hover',
+			),
+		);
+
+		foreach ( $typography_rules as $rule ) {
+			$has_styles = false;
+
+			foreach ( array( 'desktop', 'tablet', 'mobile' ) as $device ) {
+				$styles = HoverStyles::get_typography_styles( $rule['typography'], $device );
+
+				if ( ! empty( $styles ) ) {
+					$has_styles = true;
+					HoverStyles::merge_selector( $buckets[ $device ], $rule['hover'], $styles );
+				}
+			}
+
+			if ( $has_styles ) {
+				HoverStyles::merge_selector( $buckets['desktop'], $rule['base'], array( 'transition' => $transition ) );
+			}
+		}
 	}
 
 	public static function get_selectors( $attr ) {

@@ -112,7 +112,10 @@
       ]
     },
     "contentAlignment": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "center"
     },
     "verdictBorder": {
@@ -309,7 +312,10 @@
       "customizationKey": "fontColor"
     },
     "ratingAlignment": {
-      "type": "string",
+      "type": [
+        "string",
+        "object"
+      ],
       "default": "left"
     },
     "verdictBgType": {
@@ -325,6 +331,94 @@
       "default": {
         "gradient": "linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%)"
       }
+    },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "contentHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "ratingHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "verdictTitleHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictContentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "scoreTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "scoreBgTopHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "scoreBgBotHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictArrowHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "verdictTitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictContentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "verdictHoverShadow": {
+      "type": "object",
+      "default": {}
     },
     "preview": {
       "type": "boolean",

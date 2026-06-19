@@ -13,6 +13,8 @@ defined( 'ABSPATH' ) || exit;
  */
 trait SpecificationsRenderTrait {
 
+	use ElementorVisibilityTrait;
+
 	protected function get_elements(): array {
 		return array(
 			'wrapper'       => 'wp-block-affiliatex-specifications',
@@ -45,6 +47,8 @@ trait SpecificationsRenderTrait {
 		$attributes             = $this->get_settings_for_display();
 		$attributes             = $this->parse_attributes( $attributes );
 		$attributes             = WidgetHelper::process_attributes( $attributes );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_spec_title', 'titleHideOn' );
+		$attributes             = $this->map_visibility_attribute( $attributes, 'affx_spec_rows', 'rowsHideOn' );
 		$attributes['block_id'] = $this->get_id();
 
 		echo wp_kses_post( $this->render_template( $attributes ) );
@@ -73,6 +77,9 @@ trait SpecificationsRenderTrait {
 
 		$specificationTitleTag = AffiliateX_Helpers::validate_tag( $specificationTitleTag, 'h2' );
 		$styleClasses          = esc_attr( $layoutStyle ) . ' affx-col-' . esc_attr( $specificationColumnWidth );
+
+		$titleHideClass = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['titleHideOn'] ?? null );
+		$rowsHideClass  = AffiliateX_Helpers::get_responsive_hide_classes( $attributes['rowsHideOn'] ?? null );
 
 		ob_start();
 		include $this->get_template_path();

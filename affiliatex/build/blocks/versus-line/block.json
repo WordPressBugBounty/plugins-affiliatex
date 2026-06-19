@@ -156,6 +156,82 @@
       "type": "string",
       "default": "#F5F7FA"
     },
+    "titleHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "vsHideOn": {
+      "type": "object",
+      "default": {
+        "desktop": false,
+        "tablet": false,
+        "mobile": false
+      }
+    },
+    "vsTextHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "vsBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "contentHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "versusRowHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "versusBgHoverType": {
+      "type": "string",
+      "default": ""
+    },
+    "versusBgHoverColor": {
+      "type": "string",
+      "default": ""
+    },
+    "versusBgHoverGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "versusTitleHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "vsHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "versusContentHoverTypography": {
+      "type": "object",
+      "default": {}
+    },
+    "versusHoverMargin": {
+      "type": "object",
+      "default": {}
+    },
+    "versusHoverPadding": {
+      "type": "object",
+      "default": {}
+    },
+    "versusHoverBorder": {
+      "type": "object",
+      "default": {}
+    },
+    "versusHoverBorderRadius": {
+      "type": "object",
+      "default": {}
+    },
+    "versusHoverShadow": {
+      "type": "object",
+      "default": {}
+    },
     "bgType": {
       "type": "string",
       "default": "solid"
