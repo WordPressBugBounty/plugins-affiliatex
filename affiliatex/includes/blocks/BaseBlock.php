@@ -48,12 +48,22 @@ abstract class BaseBlock {
 	 * @return void
 	 */
 	public function register_block(): void {
-		register_block_type_from_metadata(
+		$block_type = register_block_type_from_metadata(
 			AFFILIATEX_PLUGIN_DIR . $this->blocks_path,
 			array(
 				'render_callback' => array( $this, 'render' ),
 			)
 		);
+
+		if ( $block_type instanceof \WP_Block_Type ) {
+			$scripts = wp_scripts();
+
+			foreach ( $block_type->editor_script_handles as $handle ) {
+				if ( isset( $scripts->registered[ $handle ] ) && ! in_array( 'affiliatex-block-export', $scripts->registered[ $handle ]->deps, true ) ) {
+					$scripts->registered[ $handle ]->deps[] = 'affiliatex-block-export';
+				}
+			}
+		}
 	}
 
 	/**
