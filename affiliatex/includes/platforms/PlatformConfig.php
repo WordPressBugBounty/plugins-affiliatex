@@ -44,6 +44,13 @@ class PlatformConfig {
 	public $tracking_id_guest;
 
 	/**
+	 * Whether output links are rewritten to the current Tracking ID.
+	 *
+	 * @var bool
+	 */
+	public $override_link_tag;
+
+	/**
 	 * Amazon Country code
 	 *
 	 * @var string
@@ -386,6 +393,7 @@ class PlatformConfig {
 		// Common fields
 		$this->tracking_id       = isset( $configs['tracking_id'] ) ? $configs['tracking_id'] : '';
 		$this->tracking_id_guest = isset( $configs['tracking_id_guest'] ) ? $configs['tracking_id_guest'] : '';
+		$this->override_link_tag = isset( $configs['override_link_tag'] ) ? (bool) $configs['override_link_tag'] : false;
 		$this->country           = isset( $configs['country'] ) ? $configs['country'] : 'us';
 		$this->host              = $country_data['host'];
 		$this->region            = $country_data['region'];
@@ -423,6 +431,13 @@ class PlatformConfig {
 	 */
 	public function get_guest_tracking_id(): string {
 		return $this->tracking_id_guest;
+	}
+
+	/**
+	 * Whether output links should be rewritten to the current Tracking ID.
+	 */
+	public function is_link_tag_override_enabled(): bool {
+		return (bool) $this->override_link_tag;
 	}
 
 	/**

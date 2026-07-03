@@ -179,6 +179,7 @@ class PlatformSettings {
 		$attributes['country']               = isset( $params['country'] ) && ! empty( $params['country'] ) ? sanitize_text_field( $params['country'] ) : '';
 		$attributes['tracking_id']           = isset( $params['tracking_id'] ) && ! empty( $params['tracking_id'] ) ? sanitize_text_field( $params['tracking_id'] ) : '';
 		$attributes['tracking_id_guest']     = isset( $params['tracking_id_guest'] ) ? sanitize_text_field( $params['tracking_id_guest'] ) : '';
+		$attributes['override_link_tag']     = ! empty( $params['override_link_tag'] );
 		$attributes['language']              = isset( $params['language'] ) && ! empty( $params['language'] ) ? sanitize_text_field( $params['language'] ) : '';
 		$attributes['update_frequency']      = isset( $params['update_frequency'] ) ? sanitize_text_field( $params['update_frequency'] ) : '';
 		$attributes['geolocation']           = isset( $params['geolocation'] ) ? (bool) $params['geolocation'] : false;
@@ -348,6 +349,7 @@ class PlatformSettings {
 				'api_secret'            => '',
 				'tracking_id'           => '',
 				'tracking_id_guest'     => '',
+				'override_link_tag'     => false,
 				'country'               => 'us',
 				'language'              => 'en_US',
 				'update_frequency'      => 'daily',
