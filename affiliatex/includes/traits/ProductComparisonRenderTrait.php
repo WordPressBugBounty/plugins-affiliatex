@@ -92,7 +92,7 @@ trait ProductComparisonRenderTrait {
 		foreach ( $products as $index => $product ) {
 			if ( isset( $product['productImageType'] ) ) {
 				if ( $product['productImageType'] === 'external' ) {
-					$product['imageUrl'] = $product['productImageExternal'];
+					$product['imageUrl'] = is_array( $product['productImageExternal'] ) ? ( $product['productImageExternal']['url'] ?? '' ) : $product['productImageExternal'];
 				} else {
 					$product['imageUrl'] = $product['imageUrl']['url'];
 				}

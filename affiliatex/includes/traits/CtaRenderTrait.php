@@ -197,9 +197,11 @@ trait CtaRenderTrait {
 
 		$inlineImageWrapperStyles = '';
 		if ( isset( $attributes['imageType'] ) && $attributes['imageType'] === 'external' && ! empty( $attributes['imageExternal'] ) ) {
-			$inlineImageWrapperStyles = 'style="background-image: url(' . esc_url( $attributes['imageExternal'] ) . ')"';
+			$ctaExternalImage         = is_array( $attributes['imageExternal'] ) ? ( $attributes['imageExternal']['url'] ?? '' ) : $attributes['imageExternal'];
+			$inlineImageWrapperStyles = 'style="background-image: url(' . esc_url( $ctaExternalImage ) . ')"';
 		} elseif ( isset( $attributes['useExternalImage'] ) && $attributes['useExternalImage'] && ! empty( $attributes['ctaExternalBgImage'] ) ) {
-			$inlineImageWrapperStyles = 'style="background-image: url(' . esc_url( $attributes['ctaExternalBgImage'] ) . ')"';
+			$ctaExternalBg            = is_array( $attributes['ctaExternalBgImage'] ) ? ( $attributes['ctaExternalBgImage']['url'] ?? '' ) : $attributes['ctaExternalBgImage'];
+			$inlineImageWrapperStyles = 'style="background-image: url(' . esc_url( $ctaExternalBg ) . ')"';
 		}
 
 		$ctaButtonAlignment = AffiliateX_Helpers::get_responsive_value( $ctaButtonAlignment ?? 'center' );
