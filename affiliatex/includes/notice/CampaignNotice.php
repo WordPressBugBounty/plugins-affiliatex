@@ -74,7 +74,8 @@ class CampaignNotice extends NoticeBase {
 	/**
 	 * Check if notice is applicable
 	 *
-	 * Apply Logic: If start and end date is set and current time is between them, it'll be displayed
+	 * Apply Logic: If start and end date is set and current time is between them,
+	 * and the audience matches the current install, it'll be displayed
 	 *
 	 * @return boolean
 	 */
@@ -90,6 +91,23 @@ class CampaignNotice extends NoticeBase {
 			return false;
 		}
 
-		return true;
+		return $this->matches_audience();
+	}
+
+	/**
+	 * Check if the notice audience matches the current install
+	 *
+	 * @return boolean
+	 */
+	private function matches_audience(): bool {
+		$audience = isset( $this->props['audience'] ) ? $this->props['audience'] : 'all';
+
+		if ( 'all' === $audience ) {
+			return true;
+		}
+
+		$is_pro = (bool) apply_filters( 'affiliatex_is_pro_install', false );
+
+		return 'pro' === $audience ? $is_pro : ! $is_pro;
 	}
 }

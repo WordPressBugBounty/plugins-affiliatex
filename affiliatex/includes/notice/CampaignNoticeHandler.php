@@ -67,6 +67,9 @@ class CampaignNoticeHandler {
 				$notice['props']['end']     = isset( $notice['props']['end'] ) ? sanitize_text_field( $notice['props']['end'] ) : '';
 				$notice['props']['enabled'] = isset( $notice['props']['enabled'] ) ? (bool) sanitize_text_field( $notice['props']['enabled'] ) : false;
 
+				$audience                    = isset( $notice['props']['audience'] ) ? sanitize_text_field( $notice['props']['audience'] ) : 'all';
+				$notice['props']['audience'] = in_array( $audience, array( 'all', 'free', 'pro' ), true ) ? $audience : 'all';
+
 				$notice['option_buttons'] = array_map(
 					function ( $button ) {
 						$button['title'] = isset( $button['title'] ) ? sanitize_text_field( $button['title'] ) : '';
@@ -116,7 +119,7 @@ class CampaignNoticeHandler {
 
 		foreach ( $notices as $notice ) {
 			if ( empty( $notice['name'] ) || ! isset( $notice['props']['enabled'] ) || $notice['props']['enabled'] === false ) {
-				return;
+				continue;
 			}
 
 			new CampaignNotice(

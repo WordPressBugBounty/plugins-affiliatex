@@ -2018,9 +2018,9 @@ class ProductTableWidget extends ElementorBase {
 				$attributes['productTable'][ $key ]['imageUrl'] = isset( $value['imageUrl']['url'] ) ? esc_url( $value['imageUrl']['url'] ) : '';
 				$attributes['productTable'][ $key ]['imageAlt'] = isset( $value['imageUrl']['alt'] ) ? esc_attr( $value['imageUrl']['alt'] ) : '';
 			} else {
-				$external                                        = $value['imageExternal'] ?? '';
-				$external                                        = is_array( $external ) ? ( $external['url'] ?? '' ) : $external;
-				$attributes['productTable'][ $key ]['imageUrl']  = esc_url( $external );
+				$external                                       = $value['imageExternal'] ?? '';
+				$external                                       = is_array( $external ) ? ( $external['url'] ?? '' ) : $external;
+				$attributes['productTable'][ $key ]['imageUrl'] = esc_url( $external );
 			}
 
 			if ( $attributes['productTable'][ $key ]['featuresListType'] === 'list' ) {
