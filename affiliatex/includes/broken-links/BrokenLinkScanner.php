@@ -152,21 +152,49 @@ class BrokenLinkScanner {
 		);
 
 		$parsed = wp_parse_url( $url );
+		$scheme = isset( $parsed['scheme'] ) ? strtolower( $parsed['scheme'] ) : '';
+		$port   = isset( $parsed['port'] ) ? (int) $parsed['port'] : 0;
 
-		if ( empty( $parsed['host'] ) || ! preg_match( '/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]*[a-z0-9])?)*$/i', $parsed['host'] ) ) {
+		if ( empty( $parsed['host'] )
+			|| ! in_array( $scheme, array( 'http', 'https' ), true )
+			|| isset( $parsed['user'] ) || isset( $parsed['pass'] )
+			|| ( $port && ! in_array( $port, array( 80, 443 ), true ) )
+			|| ! preg_match( '/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9\-]*[a-z0-9])?)*$/i', $parsed['host'] )
+		) {
 			$result['status']        = 'broken';
 			$result['status_label']  = 'Invalid URL';
 			$result['error_message'] = 'URL has no valid hostname.';
 			return $result;
 		}
 
+		// Tracked URLs come from a public endpoint, so resolve before requesting.
+		$host = trim( $parsed['host'], '.' );
+		$ips  = filter_var( $host, FILTER_VALIDATE_IP ) ? array( $host ) : gethostbynamel( $host );
+
+		if ( empty( $ips ) ) {
+			$result['status']        = 'broken';
+			$result['status_label']  = 'Domain Not Found';
+			$result['error_message'] = 'Could not resolve the hostname.';
+			return $result;
+		}
+
+		foreach ( $ips as $ip ) {
+			if ( ! filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) ) {
+				$result['status']        = 'broken';
+				$result['status_label']  = 'Invalid URL';
+				$result['error_message'] = 'URL points to a private or reserved network address.';
+				return $result;
+			}
+		}
+
 		$browser_ua   = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 		$request_args = array(
-			'timeout'     => 15,
-			'redirection' => 0,
-			'sslverify'   => false,
-			'user-agent'  => $browser_ua,
-			'headers'     => array(
+			'timeout'            => 15,
+			'redirection'        => 0,
+			'sslverify'          => false,
+			'reject_unsafe_urls' => true,
+			'user-agent'         => $browser_ua,
+			'headers'            => array(
 				'Accept'          => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
 				'Accept-Language' => 'en-US,en;q=0.5',
 			),
