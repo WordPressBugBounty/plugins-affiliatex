@@ -254,6 +254,15 @@ class PlatformConfig {
 			'currency_symbol' => '₹',
 			'domain'          => 'amazon.in',
 		),
+		'ie' => array(
+			'label'           => 'Ireland',
+			'host'            => 'webservices.amazon.ie',
+			'region'          => 'eu-west-1',
+			'languages'       => array( 'en_IE' ),
+			'currency'        => 'EUR',
+			'currency_symbol' => '€',
+			'domain'          => 'amazon.ie',
+		),
 		'it' => array(
 			'label'           => 'Italy',
 			'host'            => 'webservices.amazon.it',
