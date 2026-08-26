@@ -204,30 +204,14 @@ trait SingleProductRenderTrait {
 	 * @return string
 	 */
 	private function render_pb_stars( $ratings, $productRatingColor, $ratingInactiveColor, $ratingStarSize ): string {
-		$stars = '';
-		$size  = is_numeric( $ratingStarSize ) ? (int) $ratingStarSize : 25;
-
 		// Elementor has no per-device generated CSS for star size, keep the inline size there only.
-		$inline_size = self::IS_ELEMENTOR ? sprintf( 'width:%dpx;height:%dpx;', $size, $size ) : '';
-
-		for ( $i = 1; $i <= 5; $i++ ) {
-			$is_active = $i <= $ratings;
-			$color     = $is_active ? $productRatingColor : $ratingInactiveColor;
-			$stars    .= sprintf(
-				'<span class="%s" style="color:%s;%s">
-                    <svg fill="currentColor" width="%d" height="%d" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path>
-                    </svg>
-                </span>',
-				esc_attr( $is_active ? 'affx-star' : 'affx-star affx-star-inactive' ),
-				esc_attr( $color ),
-				esc_attr( $inline_size ),
-				esc_attr( $size ),
-				esc_attr( $size )
-			);
-		}
-
-		return $stars;
+		return AffiliateX_Helpers::render_stars(
+			$ratings,
+			$productRatingColor,
+			$ratingInactiveColor,
+			$ratingStarSize,
+			array( 'inline_size' => self::IS_ELEMENTOR )
+		);
 	}
 
 	/**
@@ -869,15 +853,11 @@ trait SingleProductRenderTrait {
 						),
 						'ratings'                => array(
 							'label'     => __( 'Ratings', 'affiliatex' ),
-							'type'      => Controls_Manager::SELECT,
+							'type'      => Controls_Manager::NUMBER,
 							'default'   => 5,
-							'options'   => array(
-								1 => 1,
-								2 => 2,
-								3 => 3,
-								4 => 4,
-								5 => 5,
-							),
+							'min'       => 0,
+							'max'       => 5,
+							'step'      => 0.1,
 							'condition' => array(
 								'edRatings'   => 'true',
 								'PricingType' => 'picture',

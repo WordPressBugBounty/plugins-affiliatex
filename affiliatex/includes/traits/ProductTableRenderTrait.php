@@ -19,15 +19,7 @@ trait ProductTableRenderTrait {
 	}
 
 	private function render_pt_stars( $rating, $starColor, $starInactiveColor ) {
-		$output = '';
-		for ( $i = 0; $i < 5; $i++ ) {
-			$color   = $i < $rating ? $starColor : $starInactiveColor;
-			$output .= sprintf(
-				'<span class="affx-star" style="color:%s;width:25px;height:25px;"><svg fill="currentColor" width="25" height="25" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg></span>',
-				esc_attr( $color )
-			);
-		}
-		return $output;
+		return AffiliateX_Helpers::render_stars( $rating, $starColor, $starInactiveColor );
 	}
 
 	protected function get_fields(): array {

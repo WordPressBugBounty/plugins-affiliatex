@@ -133,6 +133,69 @@ class AffiliateX_Helpers {
 		return in_array( $tag, $allowed_tags, true ) ? $tag : $default;
 	}
 
+	const STAR_PATH = 'M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z';
+
+	/**
+	 * Render a 5 star rating, supporting fractional values such as 4.3.
+	 *
+	 * @param float|string $rating       Rating value between 0 and 5.
+	 * @param string       $fill_color   Color of the filled portion.
+	 * @param string       $empty_color  Color of the empty portion.
+	 * @param int|string   $size         Star size in pixels.
+	 * @param array        $args {
+	 *     @type bool   $inline_size   Whether to output inline width/height. Default true.
+	 *     @type string $wrapper_class Optional wrapper span class.
+	 * }
+	 * @return string
+	 */
+	public static function render_stars( $rating, $fill_color, $empty_color, $size = 25, $args = array() ) {
+		$rating        = max( 0, min( 5, (float) $rating ) );
+		$size          = is_numeric( $size ) ? (int) $size : 25;
+		$inline_size   = ! isset( $args['inline_size'] ) || $args['inline_size'];
+		$wrapper_class = $args['wrapper_class'] ?? '';
+		$dimensions    = $inline_size ? sprintf( 'width:%1$dpx;height:%1$dpx;', $size ) : '';
+
+		$icon = sprintf(
+			'<svg fill="currentColor" width="%1$d" height="%1$d" viewBox="0 0 24 24"><path d="%2$s"></path></svg>',
+			esc_attr( $size ),
+			esc_attr( self::STAR_PATH )
+		);
+
+		$stars = '';
+
+		for ( $i = 1; $i <= 5; $i++ ) {
+			$fill_percent = min( 1, max( 0, $rating - $i + 1 ) ) * 100;
+			$is_partial   = $fill_percent > 0 && $fill_percent < 100;
+			$is_inactive  = $fill_percent < 100;
+
+			$classes  = 'affx-star';
+			$classes .= $is_inactive ? ' affx-star-inactive' : '';
+			$classes .= $is_partial ? ' affx-star-partial' : '';
+
+			$partial = $is_partial ? sprintf(
+				'<span class="affx-star-fill" style="color:%s;width:%s%%;">%s</span>',
+				esc_attr( $fill_color ),
+				esc_attr( round( $fill_percent, 2 ) ),
+				$icon
+			) : '';
+
+			$stars .= sprintf(
+				'<span class="%s" style="color:%s;%s">%s%s</span>',
+				esc_attr( $classes ),
+				esc_attr( $is_inactive ? $empty_color : $fill_color ),
+				esc_attr( $dimensions ),
+				$icon,
+				$partial
+			);
+		}
+
+		if ( $wrapper_class ) {
+			return sprintf( '<span class="%s">%s</span>', esc_attr( $wrapper_class ), $stars );
+		}
+
+		return $stars;
+	}
+
 	/**
 	 * Render a list
 	 *

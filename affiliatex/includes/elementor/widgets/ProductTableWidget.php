@@ -384,8 +384,9 @@ class ProductTableWidget extends ElementorBase {
 								'label'   => __( 'Rating', 'affiliatex' ),
 								'type'    => Controls_Manager::NUMBER,
 								'default' => $defaults['productTable'][0]['rating'],
-								'min'     => 1,
-								'max'     => 10,
+								'min'     => 0,
+								'max'     => 5,
+								'step'    => 0.1,
 							),
 							'offerPrice'                   => array(
 								'name'          => 'offerPrice',

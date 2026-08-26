@@ -368,15 +368,11 @@ class ProductComparisonWidget extends ElementorBase {
 					array(
 						'name'    => 'rating',
 						'label'   => __( 'Rating', 'affiliatex' ),
-						'type'    => Controls_Manager::SELECT,
+						'type'    => Controls_Manager::NUMBER,
 						'default' => 4,
-						'options' => array(
-							1 => 1,
-							2 => 2,
-							3 => 3,
-							4 => 4,
-							5 => 5,
-						),
+						'min'     => 0,
+						'max'     => 5,
+						'step'    => 0.1,
 					),
 					array(
 						'name'    => 'button',
