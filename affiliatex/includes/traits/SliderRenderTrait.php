@@ -104,6 +104,35 @@ trait SliderRenderTrait {
 	}
 
 	/**
+	 * Get the image alt text, falling back to the block title (e.g. an Amazon product title).
+	 *
+	 * @param string $img_alt Alt text set on the block.
+	 * @param string $title   Block title, may contain a product shortcode.
+	 * @return string
+	 */
+	protected function get_image_alt( $img_alt, $title ): string {
+		return ! empty( $img_alt ) ? (string) $img_alt : wp_strip_all_tags( do_shortcode( (string) $title ) );
+	}
+
+	/**
+	 * Fill empty slider image alts, numbering every image after the first.
+	 *
+	 * @param array  $slider_images Slider images from build_slider_data().
+	 * @param string $image_alt     Base alt text.
+	 * @return array
+	 */
+	protected function fill_slider_image_alts( array $slider_images, string $image_alt ): array {
+		foreach ( $slider_images as $index => $slide ) {
+			if ( '' === $slide['alt'] ) {
+				/* translators: 1: image alt text, 2: image number */
+				$slider_images[ $index ]['alt'] = esc_attr( 0 === $index ? $image_alt : sprintf( __( '%1$s - Image %2$d', 'affiliatex' ), $image_alt, $index + 1 ) );
+			}
+		}
+
+		return $slider_images;
+	}
+
+	/**
 	 * Get Elementor controls for multi-image gallery/slider settings.
 	 *
 	 * Returns an associative array of control definitions that can be merged

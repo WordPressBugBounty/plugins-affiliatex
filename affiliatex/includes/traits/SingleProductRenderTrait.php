@@ -606,6 +606,16 @@ trait SingleProductRenderTrait {
 								'productImageType' => 'external',
 							),
 						),
+						'ImgAlt'                      => array(
+							'label'       => __( 'Alt Text', 'affiliatex' ),
+							'type'        => Controls_Manager::TEXT,
+							'label_block' => true,
+							'placeholder' => __( 'Defaults to the product title', 'affiliatex' ),
+							'condition'   => array(
+								'edProductImage'    => 'true',
+								'productImageType!' => 'sitestripe',
+							),
+						),
 						'productImageSiteStripe'      => array(
 							'label'       => __( 'SiteStripe Markup', 'affiliatex' ),
 							'type'        => Controls_Manager::TEXTAREA,
@@ -2690,7 +2700,8 @@ trait SingleProductRenderTrait {
 		$productRatingNumberClass = $PricingType === 'number' ? 'rating-align-' . $productRatingAlign : '';
 		$ImageURL                 = $productImageType === 'default' ? $ImgUrl : $productImageExternal;
 		$isSiteStripe             = 'sitestripe' === $productImageType && '' !== $productImageSiteStripe ? true : false;
-		$productImage             = AffiliateX_Helpers::affiliatex_get_media_image_html( $ImgID ?? 0, $ImageURL, $ImgAlt ?? '', $isSiteStripe, $productImageSiteStripe );
+		$imageAlt                 = $this->get_image_alt( $ImgAlt ?? '', $productTitle ?? '' );
+		$productImage             = AffiliateX_Helpers::affiliatex_get_media_image_html( $ImgID ?? 0, $ImageURL, $imageAlt, $isSiteStripe, $productImageSiteStripe );
 
 		$slider_data  = $this->build_slider_data(
 			$useMultipleImages,
@@ -2703,7 +2714,7 @@ trait SingleProductRenderTrait {
 			$sliderAutoplaySpeed
 		);
 		$useSlider    = $slider_data['use_slider'];
-		$sliderImages = $slider_data['slider_images'];
+		$sliderImages = $this->fill_slider_image_alts( $slider_data['slider_images'], $imageAlt );
 		$sliderConfig = $slider_data['slider_config'];
 
 		$buttonDirection = $buttonDirection ?? 'column';
